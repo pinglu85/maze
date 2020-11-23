@@ -1,14 +1,15 @@
-import Cell from "./Cell.js";
-import huntAndKill from "./mazeGenerationAlgos/huntAndKill.js";
+import Cell from './Cell.js';
+import huntAndKill from './mazeGenerationAlgos/huntAndKill.js';
 
 class Grid {
   constructor(width, height, cellSize) {
     this.content = Array(height)
       .fill(null)
       .map((_, rowIndex) =>
-        Array(width)
-          .fill(null)
-          .map((_, colIndex) => new Cell(rowIndex, colIndex))
+        Array.from(
+          new Array(width),
+          (_, colIndex) => new Cell(rowIndex, colIndex)
+        )
       );
     this.cellSize = cellSize;
   }
