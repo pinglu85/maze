@@ -1,4 +1,5 @@
-import getRandomIndex from "../utils/getRandomIndex.js";
+import getRandomIndex from '../utils/getRandomIndex.js';
+import shuffleArray from '../utils/shuffleArray.js';
 
 function walk(grid, cell) {
   const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
@@ -16,18 +17,19 @@ function walk(grid, cell) {
 function hunt(grid) {
   let randomVisitedNeighbor;
 
-  for (const row of grid) {
-    for (const col of row) {
-      if (col.isVisited) {
+  for (const i of shuffleArray(grid.length)) {
+    for (const j of shuffleArray(grid[i].length)) {
+      const cell = grid[i][j];
+      if (cell.isVisited) {
         continue;
       }
-      randomVisitedNeighbor = col.getRandomVisitedNeighbor(grid);
+      randomVisitedNeighbor = cell.getRandomVisitedNeighbor(grid);
       if (randomVisitedNeighbor) {
         const [dir, neighbor] = randomVisitedNeighbor;
-        col.isVisited = true;
-        col.dropEdge(dir);
+        cell.isVisited = true;
+        cell.dropEdge(dir);
         neighbor.dropOppositeEdge(dir);
-        return col;
+        return cell;
       }
     }
   }
