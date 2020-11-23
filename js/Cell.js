@@ -57,7 +57,7 @@ class Cell {
       ['north', north],
       ['west', west],
       ['south', south],
-      ['east', east],
+      ['east', east]
     ];
   }
 
@@ -80,6 +80,7 @@ class Cell {
   }
 
   draw(ctx, startX, startY, cellSize) {
+    ctx.clearRect(startX, startY, cellSize, cellSize);
     ctx.fillStyle = this.isVisited ? '#ffffff' : '#d3d3d3';
     ctx.fillRect(startX, startY, cellSize, cellSize);
 
