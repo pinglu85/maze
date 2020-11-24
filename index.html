@@ -3,16 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
     <title>
       Maze Generator and Solver with Visualization of Maze Generation Algorithm
     </title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/feather-icons"></script>
   </head>
   <body>
-    <div>
-      <button type="button" id="generate-maze-btn">Generate Maze</button>
+    <div class="controls">
+      <div class="dropdown" id="maze-algos-dropdown">
+        <button type="button" class="dropdown__btn">
+          Maze Generation Algos
+          <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+        </button>
+        <div class="dropdown__menu" id="maze-algos-list">
+          <a href="#">Hunt and Kill</a></li>
+        </div>
+      </div>
+      <button type="button" id="new-maze-btn">New Maze</button>
     </div>
     <canvas id="canvas"></canvas>
     <script type="module" src="js/main.js"></script>
+    <script>
+      feather.replace();
+    </script>
   </body>
 </html>
