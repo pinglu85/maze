@@ -14,8 +14,14 @@ class Grid {
     this.cellSize = cellSize;
   }
 
-  generateMaze() {
-    huntAndKill(this.content);
+  generateMaze(algo) {
+    switch (algo) {
+      case 'Hunt and Kill':
+        huntAndKill(this.content);
+        break;
+      default:
+      // do nothing
+    }
   }
 
   draw(ctx) {
