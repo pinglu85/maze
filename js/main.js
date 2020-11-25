@@ -22,13 +22,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
-  if (e.target && e.target.nodeName === 'BUTTON') {
-    mazeAlgosList.classList.add('is-active');
-  } else if (e.target && e.target.nodeName === 'A') {
+  if (e.target && e.target.nodeName === 'A') {
     mazeGenerationAlgo = e.target.textContent;
-    const newMazeBtnLabel = newMazeBtn.textContent;
-    newMazeBtn.textContent = `${newMazeBtnLabel} with ${mazeGenerationAlgo}`;
+    newMazeBtn.textContent = `New Maze with ${mazeGenerationAlgo}`;
     mazeAlgosList.classList.remove('is-active');
+  } else {
+    mazeAlgosList.classList.add('is-active');
   }
 });
 
