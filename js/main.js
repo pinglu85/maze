@@ -14,6 +14,7 @@ canvas.height = CANVAS_HEIGHT;
 const cellSize = CANVAS_WIDTH / GRID_SIZE;
 
 let mazeGenerationAlgo = '';
+let isTicking = false;
 let grid;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -39,7 +40,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-newMazeBtn.addEventListener('click', function () {
+newMazeBtn.addEventListener('click', () => {
   if (!mazeGenerationAlgo) {
     alert('Pick an algorithm!');
     return;
@@ -47,4 +48,20 @@ newMazeBtn.addEventListener('click', function () {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
   grid.generateMaze(mazeGenerationAlgo);
   grid.draw(ctx);
+  if (!isTicking) {
+    isTicking = true;
+    drawMaze();
+  }
 });
+
+function drawMaze() {
+  grid.draw(ctx);
+  const allCellsIsVisited = grid.content.every((row) =>
+    row.every((col) => col.isVisited)
+  );
+  if (allCellsIsVisited) {
+    isTicking = false;
+    return;
+  }
+  requestAnimationFrame(drawMaze);
+}

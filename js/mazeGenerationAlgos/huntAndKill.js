@@ -1,45 +1,72 @@
 import getRandomIndex from '../utils/getRandomIndex.js';
 import shuffleArray from '../utils/shuffleArray.js';
 
-function walk(grid, cell) {
-  const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
-  if (!randomAvailNeighbor) {
-    return;
-  }
-
-  const [dir, neighbor] = randomAvailNeighbor;
-  cell.dropEdge(dir);
-  neighbor.isVisited = true;
-  neighbor.dropOppositeEdge(dir);
-  walk(grid, neighbor);
+function delay(wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, wait);
+  });
 }
 
-function hunt(grid) {
-  let randomVisitedNeighbor;
-
-  for (const i of shuffleArray(grid.length)) {
-    for (const j of shuffleArray(grid[i].length)) {
-      const cell = grid[i][j];
-      if (cell.isVisited) {
-        continue;
-      }
-      randomVisitedNeighbor = cell.getRandomVisitedNeighbor(grid);
-      if (randomVisitedNeighbor) {
-        const [dir, neighbor] = randomVisitedNeighbor;
-        cell.isVisited = true;
+function asyncWalk(grid, cell, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
+      if (!randomAvailNeighbor) {
+        resolve();
+      } else {
+        const [dir, neighbor] = randomAvailNeighbor;
         cell.dropEdge(dir);
+        neighbor.isVisited = true;
         neighbor.dropOppositeEdge(dir);
-        return cell;
+        resolve(neighbor);
       }
-    }
-  }
-
-  if (!randomVisitedNeighbor) {
-    return null;
-  }
+    }, wait);
+  });
 }
 
-function huntAndKill(grid) {
+function asyncHunt(grid, wait) {
+  return new Promise((resolve) => {
+    const hunt = async () => {
+      let randomVisitedNeighbor;
+      for (const i of shuffleArray(grid.length)) {
+        for (const j of shuffleArray(grid[i].length)) {
+          const cell = grid[i][j];
+          cell.isScanning = true;
+          await delay(wait);
+          if (cell.isVisited) {
+            continue;
+          }
+
+          randomVisitedNeighbor = cell.getRandomVisitedNeighbor(grid);
+          if (randomVisitedNeighbor) {
+            const [dir, neighbor] = randomVisitedNeighbor;
+            cell.isVisited = true;
+            cell.dropEdge(dir);
+            neighbor.dropOppositeEdge(dir);
+            grid[i].forEach((cell) => {
+              cell.isScanning = false;
+            });
+            resolve(cell);
+            return;
+          }
+        }
+        grid[i].forEach((cell) => {
+          cell.isScanning = false;
+        });
+      }
+
+      if (!randomVisitedNeighbor) {
+        resolve();
+      }
+    };
+
+    setTimeout(hunt, wait);
+  });
+}
+
+async function huntAndKill(grid, wait = 50) {
   const randomRow = getRandomIndex(grid.length);
   const randomColumn = getRandomIndex(grid[0].length);
   let startCell = grid[randomRow][randomColumn];
@@ -50,8 +77,11 @@ function huntAndKill(grid) {
   );
 
   while (!allCellsIsVisited && startCell) {
-    walk(grid, startCell);
-    startCell = hunt(grid);
+    let neighbor = await asyncWalk(grid, startCell, wait);
+    while (neighbor) {
+      neighbor = await asyncWalk(grid, neighbor, wait);
+    }
+    startCell = await asyncHunt(grid, wait);
   }
 }
 
