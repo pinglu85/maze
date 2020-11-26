@@ -57,10 +57,10 @@ newMazeBtn.addEventListener('click', function () {
 
 function drawMaze() {
   grid.draw(ctx);
-  const allCellsIsVisited = grid.content.every((row) =>
-    row.every((col) => col.isVisited)
+  const mazeGenerationFinished = grid.content.every((row) =>
+    row.every((col) => col.isVisited && !col.isStartCell)
   );
-  if (allCellsIsVisited) {
+  if (mazeGenerationFinished) {
     isTicking = false;
     newMazeBtn.disabled = false;
     return;
