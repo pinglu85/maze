@@ -40,9 +40,9 @@ document.addEventListener('click', (e) => {
   }
 });
 
-newMazeBtn.addEventListener('click', () => {
+newMazeBtn.addEventListener('click', function () {
   if (!mazeGenerationAlgo) {
-    alert('Pick an algorithm!');
+    this.textContent = 'Pick an algorithm!';
     return;
   }
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
