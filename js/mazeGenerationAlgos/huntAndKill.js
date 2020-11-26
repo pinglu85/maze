@@ -45,6 +45,7 @@ function asyncHunt(grid, wait) {
           if (randomVisitedNeighbor) {
             const [dir, neighbor] = randomVisitedNeighbor;
             cell.isVisited = true;
+            cell.isStartCell = true;
             cell.dropEdge(dir);
             neighbor.dropOppositeEdge(dir);
             grid[i].forEach((cell) => {
@@ -84,8 +85,9 @@ async function huntAndKill(grid, wait = 50) {
       neighbor = await asyncWalk(grid, neighbor, wait);
     }
     startCell = await asyncHunt(grid, wait);
-    startCell.isStartCell = true;
   }
+
+  startCell.isStartCell = false;
 }
 
 export default huntAndKill;
