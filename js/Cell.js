@@ -4,11 +4,12 @@ class Cell {
   constructor(rowIndex, colIndex) {
     this.rowIndex = rowIndex;
     this.colIndex = colIndex;
-    this.isVisited = false;
     this.northEdge = true;
     this.westEdge = true;
     this.southEdge = true;
     this.eastEdge = true;
+    this.isVisited = false;
+    this.isScanning = false;
   }
 
   dropEdge(...args) {
@@ -81,7 +82,11 @@ class Cell {
 
   draw(ctx, startX, startY, cellSize) {
     ctx.clearRect(startX, startY, cellSize, cellSize);
-    ctx.fillStyle = this.isVisited ? '#ffffff' : '#d3d3d3';
+    ctx.fillStyle = this.isVisited
+      ? '#ffffff'
+      : this.isScanning
+      ? '#ffe032'
+      : '#d3d3d3';
     ctx.fillRect(startX, startY, cellSize, cellSize);
 
     ctx.lineWidth = 1;
