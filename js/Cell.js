@@ -10,6 +10,7 @@ class Cell {
     this.eastEdge = true;
     this.isVisited = false;
     this.isScanning = false;
+    this.isStartCell = false;
   }
 
   dropEdge(...args) {
@@ -82,8 +83,10 @@ class Cell {
 
   draw(ctx, startX, startY, cellSize) {
     ctx.clearRect(startX, startY, cellSize, cellSize);
-    ctx.fillStyle = this.isScanning
-      ? '#ffffcd'
+    ctx.fillStyle = this.isStartCell
+      ? '#57b3f9'
+      : this.isScanning
+      ? '#7cefb0'
       : this.isVisited
       ? '#ffffff'
       : '#d3d3d3';
