@@ -13,12 +13,14 @@ function asyncWalk(grid, cell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
       const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
+      cell.isStartCell = false;
+      cell.isVisited = true;
       if (!randomAvailNeighbor) {
         resolve();
       } else {
         const [dir, neighbor] = randomAvailNeighbor;
         cell.dropEdge(dir);
-        neighbor.isVisited = true;
+        neighbor.isStartCell = true;
         neighbor.dropOppositeEdge(dir);
         resolve(neighbor);
       }
@@ -70,7 +72,7 @@ async function huntAndKill(grid, wait = 50) {
   const randomRow = getRandomIndex(grid.length);
   const randomColumn = getRandomIndex(grid[0].length);
   let startCell = grid[randomRow][randomColumn];
-  startCell.isVisited = true;
+  startCell.isStartCell = true;
 
   const allCellsIsVisited = grid.every((row) =>
     row.every((col) => col.isVisited)
@@ -82,6 +84,7 @@ async function huntAndKill(grid, wait = 50) {
       neighbor = await asyncWalk(grid, neighbor, wait);
     }
     startCell = await asyncHunt(grid, wait);
+    startCell.isStartCell = true;
   }
 }
 
