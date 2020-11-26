@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
   if (e.target && e.target.nodeName === 'A') {
-    mazeGenerationAlgo = e.target.textContent;
+    if (!isTicking) mazeGenerationAlgo = e.target.textContent;
     newMazeBtn.textContent = `New Maze with ${mazeGenerationAlgo}`;
     mazeAlgosList.classList.remove('is-active');
   } else {
@@ -45,11 +45,12 @@ newMazeBtn.addEventListener('click', function () {
     this.textContent = 'Pick an algorithm!';
     return;
   }
-  grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
-  grid.generateMaze(mazeGenerationAlgo);
-  grid.draw(ctx);
   if (!isTicking) {
     isTicking = true;
+    this.disabled = true;
+    grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
+    grid.generateMaze(mazeGenerationAlgo);
+    grid.draw(ctx);
     drawMaze();
   }
 });
@@ -61,6 +62,7 @@ function drawMaze() {
   );
   if (allCellsIsVisited) {
     isTicking = false;
+    newMazeBtn.disabled = false;
     return;
   }
   requestAnimationFrame(drawMaze);
