@@ -1,6 +1,6 @@
 import Grid from './Grid.js';
 
-const GRID_SIZE = 30;
+const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
 
