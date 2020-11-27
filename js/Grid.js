@@ -54,9 +54,6 @@ class Grid {
       exit.rowIndex = getRandomIndex(numOfRows);
     }
 
-    console.log(entry);
-    console.log(exit);
-
     this.content[entry.rowIndex][entry.colIndex].dropRandomBoundary(
       this.content
     );
