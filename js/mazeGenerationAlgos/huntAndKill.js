@@ -12,9 +12,9 @@ function delay(wait) {
 function asyncWalk(grid, cell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
       cell.isStartCell = false;
       cell.isVisited = true;
+      const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
       if (!randomAvailNeighbor) {
         resolve();
       } else {
@@ -69,25 +69,27 @@ function asyncHunt(grid, wait) {
   });
 }
 
-async function huntAndKill(grid, wait = 50) {
-  const randomRow = getRandomIndex(grid.length);
-  const randomColumn = getRandomIndex(grid[0].length);
-  let startCell = grid[randomRow][randomColumn];
-  startCell.isStartCell = true;
+function asyncHuntAndKill(grid, wait = 50) {
+  return new Promise(async (resolve) => {
+    const randomRow = getRandomIndex(grid.length);
+    const randomColumn = getRandomIndex(grid[0].length);
+    let startCell = grid[randomRow][randomColumn];
+    startCell.isStartCell = true;
 
-  const allCellsIsVisited = grid.every((row) =>
-    row.every((col) => col.isVisited)
-  );
+    const allCellsIsVisited = grid.every((row) =>
+      row.every((col) => col.isVisited)
+    );
 
-  while (!allCellsIsVisited && startCell) {
-    let neighbor = await asyncWalk(grid, startCell, wait);
-    while (neighbor) {
-      neighbor = await asyncWalk(grid, neighbor, wait);
+    while (!allCellsIsVisited && startCell) {
+      let neighbor = await asyncWalk(grid, startCell, wait);
+      while (neighbor) {
+        neighbor = await asyncWalk(grid, neighbor, wait);
+      }
+      startCell = await asyncHunt(grid, wait);
     }
-    startCell = await asyncHunt(grid, wait);
-  }
 
-  startCell.isStartCell = false;
+    resolve(false);
+  });
 }
 
-export default huntAndKill;
+export default asyncHuntAndKill;
