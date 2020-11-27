@@ -50,6 +50,7 @@ newMazeBtn.addEventListener('click', async function () {
     this.disabled = true;
     grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
     drawMaze();
+    grid.generateMazeEntryAndExit();
     isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
   }
 });
