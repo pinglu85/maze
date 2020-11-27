@@ -1,5 +1,5 @@
 import Cell from './Cell.js';
-import huntAndKill from './mazeGenerationAlgos/huntAndKill.js';
+import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
 
 class Grid {
   constructor(width, height, cellSize) {
@@ -17,8 +17,10 @@ class Grid {
   generateMaze(algo) {
     switch (algo) {
       case 'Hunt and Kill':
-        huntAndKill(this.content);
-        break;
+        return new Promise(async (resolve) => {
+          const isGeneratingMaze = await asyncHuntAndKill(this.content);
+          resolve(isGeneratingMaze);
+        });
       default:
       // do nothing
     }

@@ -14,7 +14,7 @@ canvas.height = CANVAS_HEIGHT;
 const cellSize = CANVAS_WIDTH / GRID_SIZE;
 
 let mazeGenerationAlgo = '';
-let isTicking = false;
+let isGeneratingMaze = false;
 let grid;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
   if (e.target && e.target.nodeName === 'A') {
-    if (!isTicking) mazeGenerationAlgo = e.target.textContent;
+    if (!isGeneratingMaze) mazeGenerationAlgo = e.target.textContent;
     newMazeBtn.textContent = `New Maze with ${mazeGenerationAlgo}`;
     mazeAlgosList.classList.remove('is-active');
   } else {
@@ -40,28 +40,23 @@ document.addEventListener('click', (e) => {
   }
 });
 
-newMazeBtn.addEventListener('click', function () {
+newMazeBtn.addEventListener('click', async function () {
   if (!mazeGenerationAlgo) {
     this.textContent = 'Pick an algorithm!';
     return;
   }
-  if (!isTicking) {
-    isTicking = true;
+  if (!isGeneratingMaze) {
+    isGeneratingMaze = true;
     this.disabled = true;
     grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
-    grid.generateMaze(mazeGenerationAlgo);
-    grid.draw(ctx);
     drawMaze();
+    isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
   }
 });
 
 function drawMaze() {
   grid.draw(ctx);
-  const mazeGenerationFinished = grid.content.every((row) =>
-    row.every((col) => col.isVisited && !col.isStartCell)
-  );
-  if (mazeGenerationFinished) {
-    isTicking = false;
+  if (!isGeneratingMaze) {
     newMazeBtn.disabled = false;
     return;
   }
