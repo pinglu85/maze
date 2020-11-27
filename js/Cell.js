@@ -81,6 +81,17 @@ class Cell {
     return randomIndex === null ? null : visitedNeighbors[randomIndex];
   }
 
+  dropRandomBoundary(grid) {
+    const neighbors = this.getNeighbors(grid);
+    const emptyNeighbors = neighbors.filter((neighbor) => !neighbor[1]);
+    const boundaries = emptyNeighbors.map((emptyNeighbor) => emptyNeighbor[0]);
+    if (!boundaries) {
+      return;
+    }
+    const randomBoundaryIndex = getRandomIndex(boundaries.length);
+    this.dropEdge(boundaries[randomBoundaryIndex]);
+  }
+
   draw(ctx, startX, startY, cellSize) {
     ctx.clearRect(startX, startY, cellSize, cellSize);
     ctx.fillStyle = this.isStartCell
