@@ -96,11 +96,9 @@ class Cell {
     }
   }
 
-  dropRandomBoundary(grid) {
-    const neighbors = this.getNeighbors(grid);
-    const emptyNeighbors = neighbors.filter((neighbor) => !neighbor[1]);
-    const boundaries = emptyNeighbors.map((emptyNeighbor) => emptyNeighbor[0]);
-    if (!boundaries) {
+  dropRandomBoundary() {
+    const boundaries = Object.keys(this.boundaries);
+    if (!boundaries.length) {
       return;
     }
     const randomBoundaryIndex = getRandomIndex(boundaries.length);
