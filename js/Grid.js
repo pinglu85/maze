@@ -55,10 +55,8 @@ class Grid {
       exit.rowIndex = getRandomIndex(numOfRows);
     }
 
-    this.content[entry.rowIndex][entry.colIndex].dropRandomBoundary(
-      this.content
-    );
-    this.content[exit.rowIndex][exit.colIndex].dropRandomBoundary(this.content);
+    this.content[entry.rowIndex][entry.colIndex].dropRandomBoundary();
+    this.content[exit.rowIndex][exit.colIndex].dropRandomBoundary();
   }
 
   generateMaze(algo) {
