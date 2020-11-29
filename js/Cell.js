@@ -8,6 +8,7 @@ class Cell {
     this.westEdge = true;
     this.southEdge = true;
     this.eastEdge = true;
+    this.boundaries = {};
     this.isVisited = false;
     this.isScanning = false;
     this.isStartCell = false;
@@ -81,6 +82,20 @@ class Cell {
     return randomIndex === null ? null : visitedNeighbors[randomIndex];
   }
 
+  setBoundaries(height, width) {
+    if (this.rowIndex === 0) {
+      this.boundaries.north = true;
+    } else if (this.rowIndex === height - 1) {
+      this.boundaries.south = true;
+    }
+
+    if (this.colIndex === 0) {
+      this.boundaries.east = true;
+    } else if (this.colIndex === width - 1) {
+      this.boundaries.west = true;
+    }
+  }
+
   dropRandomBoundary(grid) {
     const neighbors = this.getNeighbors(grid);
     const emptyNeighbors = neighbors.filter((neighbor) => !neighbor[1]);
@@ -103,9 +118,8 @@ class Cell {
       : '#d3d3d3';
     ctx.fillRect(startX, startY, cellSize, cellSize);
 
-    ctx.lineWidth = 1;
-
     if (this.northEdge) {
+      ctx.lineWidth = this.boundaries.north ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(startX, startY);
       ctx.lineTo(startX + cellSize, startY);
@@ -113,6 +127,7 @@ class Cell {
     }
 
     if (this.eastEdge) {
+      ctx.lineWidth = this.boundaries.east ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(startX, startY);
       ctx.lineTo(startX, startY + cellSize);
@@ -120,6 +135,7 @@ class Cell {
     }
 
     if (this.southEdge) {
+      ctx.lineWidth = this.boundaries.south ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(startX, startY + cellSize);
       ctx.lineTo(startX + cellSize, startY + cellSize);
@@ -127,6 +143,7 @@ class Cell {
     }
 
     if (this.westEdge) {
+      ctx.lineWidth = this.boundaries.west ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(startX + cellSize, startY);
       ctx.lineTo(startX + cellSize, startY + cellSize);

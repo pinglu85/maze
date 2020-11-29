@@ -7,10 +7,11 @@ class Grid {
     this.content = Array(height)
       .fill(null)
       .map((_, rowIndex) =>
-        Array.from(
-          new Array(width),
-          (_, colIndex) => new Cell(rowIndex, colIndex)
-        )
+        Array.from(new Array(width), (_, colIndex) => {
+          const cell = new Cell(rowIndex, colIndex);
+          cell.setBoundaries(height, width);
+          return cell;
+        })
       );
     this.cellSize = cellSize;
   }
