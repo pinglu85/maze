@@ -77,9 +77,9 @@ class Grid {
   }
 
   draw(ctx) {
-    for (let i = 0; i < this.content.length; i++) {
-      for (let j = 0; j < this.content[i].length; j++) {
-        this.content[i][j].draw(ctx);
+    for (const row of this.content) {
+      for (const col of row) {
+        col.draw(ctx);
       }
     }
   }
