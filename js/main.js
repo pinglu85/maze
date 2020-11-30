@@ -1,4 +1,5 @@
 import Grid from './Grid.js';
+import StartNode from './StartNode.js';
 
 const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
@@ -15,7 +16,7 @@ const cellSize = CANVAS_WIDTH / GRID_SIZE;
 
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
-let grid;
+let grid, startNode;
 
 window.addEventListener('DOMContentLoaded', () => {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
@@ -58,6 +59,13 @@ newMazeBtn.addEventListener('click', async function () {
 function drawMaze() {
   grid.draw(ctx);
   if (!isGeneratingMaze) {
+    const entryCell = grid.entryCell;
+    startNode = new StartNode(
+      entryCell.rowIndex,
+      entryCell.colIndex,
+      grid.entryDir
+    );
+    startNode.draw(ctx, cellSize);
     newMazeBtn.disabled = false;
     return;
   }

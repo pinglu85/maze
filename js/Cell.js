@@ -102,7 +102,9 @@ class Cell {
       return;
     }
     const randomBoundaryIndex = getRandomIndex(boundaries.length);
-    this.dropEdge(boundaries[randomBoundaryIndex]);
+    const droppedBoundary = boundaries[randomBoundaryIndex];
+    this.dropEdge(droppedBoundary);
+    return droppedBoundary;
   }
 
   draw(ctx, startX, startY, cellSize) {
