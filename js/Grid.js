@@ -8,12 +8,11 @@ class Grid {
       .fill(null)
       .map((_, rowIndex) =>
         Array.from(new Array(width), (_, colIndex) => {
-          const cell = new Cell(rowIndex, colIndex);
+          const cell = new Cell(rowIndex, colIndex, cellSize);
           cell.setBoundaries(height, width);
           return cell;
         })
       );
-    this.cellSize = cellSize;
     this.entryCell = null;
     this.entryDir = '';
     this.exitCell = null;
@@ -78,10 +77,9 @@ class Grid {
   }
 
   draw(ctx) {
-    const cellSize = this.cellSize;
     for (let i = 0; i < this.content.length; i++) {
       for (let j = 0; j < this.content[i].length; j++) {
-        this.content[i][j].draw(ctx, j * cellSize, i * cellSize, cellSize);
+        this.content[i][j].draw(ctx);
       }
     }
   }
