@@ -21,23 +21,12 @@ class Cell {
   }
 
   dropOppositeEdge(edge) {
-    let oppositeEdge;
-    switch (edge) {
-      case 'north':
-        oppositeEdge = 'south';
-        break;
-      case 'west':
-        oppositeEdge = 'east';
-        break;
-      case 'south':
-        oppositeEdge = 'north';
-        break;
-      case 'east':
-        oppositeEdge = 'west';
-        break;
-      default:
-        throw new Error('should not reach here');
-    }
+    let oppositeEdge = {
+      north: 'south',
+      west: 'east',
+      south: 'north',
+      east: 'west'
+    }[edge];
     this.dropEdge(oppositeEdge);
   }
 
