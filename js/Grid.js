@@ -14,6 +14,10 @@ class Grid {
         })
       );
     this.cellSize = cellSize;
+    this.entryCell = null;
+    this.entryDir = '';
+    this.exitCell = null;
+    this.exitDir = '';
   }
 
   getOppositeSideIndex(index, numOfItems) {
@@ -55,8 +59,10 @@ class Grid {
       exit.rowIndex = getRandomIndex(numOfRows);
     }
 
-    this.content[entry.rowIndex][entry.colIndex].dropRandomBoundary();
-    this.content[exit.rowIndex][exit.colIndex].dropRandomBoundary();
+    this.entryCell = this.content[entry.rowIndex][entry.colIndex];
+    this.exitCell = this.content[exit.rowIndex][exit.colIndex];
+    this.entryDir = this.entryCell.dropRandomBoundary();
+    this.exitDir = this.exitCell.dropRandomBoundary();
   }
 
   generateMaze(algo) {
