@@ -51,7 +51,6 @@ newMazeBtn.addEventListener('click', async function () {
     this.disabled = true;
     grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
     drawMaze();
-    grid.generateMazeEntryAndExit();
     isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
   }
 });
@@ -59,7 +58,12 @@ newMazeBtn.addEventListener('click', async function () {
 function drawMaze() {
   grid.draw(ctx);
   if (!isGeneratingMaze) {
+    grid.generateMazeEntryAndExit();
     const entryCell = grid.entryCell;
+    const exitCell = grid.exitCell;
+    entryCell.draw(ctx);
+    exitCell.draw(ctx);
+
     startNode = new StartNode(
       entryCell.rowIndex,
       entryCell.colIndex,
