@@ -1,9 +1,10 @@
 import getRandomIndex from './utils/getRandomIndex.js';
 
 class Cell {
-  constructor(rowIndex, colIndex) {
+  constructor(rowIndex, colIndex, cellSize) {
     this.rowIndex = rowIndex;
     this.colIndex = colIndex;
+    this.cellSize = cellSize;
     this.northEdge = true;
     this.westEdge = true;
     this.southEdge = true;
@@ -96,7 +97,10 @@ class Cell {
     return droppedBoundary;
   }
 
-  draw(ctx, startX, startY, cellSize) {
+  draw(ctx) {
+    const cellSize = this.cellSize;
+    const startX = this.colIndex * cellSize;
+    const startY = this.rowIndex * cellSize;
     ctx.clearRect(startX, startY, cellSize, cellSize);
     ctx.fillStyle = this.isStartCell
       ? '#57b3f9'
