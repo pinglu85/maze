@@ -1,5 +1,6 @@
 import Grid from './Grid.js';
 import StartNode from './StartNode.js';
+import drawExitStmbol from './drawExitSymbol.js';
 
 const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
@@ -70,6 +71,9 @@ function drawMaze() {
       grid.entryDir
     );
     startNode.draw(ctx, cellSize);
+
+    drawExitStmbol(ctx, exitCell.rowIndex, exitCell.colIndex, cellSize);
+
     newMazeBtn.disabled = false;
     return;
   }
