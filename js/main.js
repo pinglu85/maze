@@ -61,26 +61,10 @@ function drawMaze() {
   grid.draw(ctx, CELL_COLORS);
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();
-    const entryCell = grid.entryCell;
-    const exitCell = grid.exitCell;
-    entryCell.draw(ctx, CELL_COLORS);
-    exitCell.draw(ctx, CELL_COLORS);
-
-    drawEntrySymbol(
-      ctx,
-      entryCell.rowIndex,
-      entryCell.colIndex,
-      grid.entryDir,
-      cellSize,
-      SYMBOL_COLOR
-    );
-    drawExitSymbol(
-      ctx,
-      exitCell.rowIndex,
-      exitCell.colIndex,
-      cellSize,
-      SYMBOL_COLOR
-    );
+    grid.entryCell.draw(ctx, CELL_COLORS);
+    grid.exitCell.draw(ctx, CELL_COLORS);
+    drawEntrySymbol(ctx, grid, SYMBOL_COLOR);
+    drawExitSymbol(ctx, grid, SYMBOL_COLOR);
     ctx.strokeStyle = CELL_COLORS.border;
     newMazeBtn.disabled = false;
     return;

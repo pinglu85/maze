@@ -1,17 +1,15 @@
-function drawEntrySymbol(
-  ctx,
-  rowIndex,
-  colIndex,
-  doorDir,
-  cellSize,
-  symbolColor
-) {
+function drawEntrySymbol(ctx, grid, symbolColor) {
+  const {
+    entryCell: { rowIndex, colIndex, cellSize },
+    entryDir
+  } = grid;
+
   const facingDir = {
     north: 'south',
     west: 'east',
     south: 'north',
     east: 'west'
-  }[doorDir];
+  }[entryDir];
 
   let margin = cellSize / 5;
   let facingDirMargin = cellSize / 3;

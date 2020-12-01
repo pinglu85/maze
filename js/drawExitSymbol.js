@@ -1,4 +1,8 @@
-function drawExitSymbol(ctx, rowIndex, colIndex, cellSize, symbolColor) {
+function drawExitSymbol(ctx, grid, symbolColor) {
+  const {
+    exitCell: { rowIndex, colIndex, cellSize }
+  } = grid;
+
   const halfCellSize = cellSize / 2;
   const startX = colIndex * cellSize + halfCellSize;
   const startY = rowIndex * cellSize + halfCellSize;
