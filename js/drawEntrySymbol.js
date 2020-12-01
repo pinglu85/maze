@@ -1,4 +1,11 @@
-function drawEntrySymbol(ctx, rowIndex, colIndex, doorDir, cellSize) {
+function drawEntrySymbol(
+  ctx,
+  rowIndex,
+  colIndex,
+  doorDir,
+  cellSize,
+  symbolColor
+) {
   const facingDir = {
     north: 'south',
     west: 'east',
@@ -56,7 +63,7 @@ function drawEntrySymbol(ctx, rowIndex, colIndex, doorDir, cellSize) {
   ctx.moveTo(chevronStartX, chevronStartY);
   ctx.lineTo(chevronMiddleX, chevronMiddleY);
   ctx.lineTo(chevronEndX, chevronEndY);
-  ctx.strokeStyle = '#c675ff';
+  ctx.strokeStyle = symbolColor;
   ctx.stroke();
 }
 

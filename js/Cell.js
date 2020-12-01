@@ -97,18 +97,18 @@ class Cell {
     return droppedBoundary;
   }
 
-  draw(ctx) {
+  draw(ctx, cellColors) {
     const cellSize = this.cellSize;
     const startX = this.colIndex * cellSize;
     const startY = this.rowIndex * cellSize;
     ctx.clearRect(startX, startY, cellSize, cellSize);
     ctx.fillStyle = this.isStartCell
-      ? '#57b3f9'
+      ? cellColors.start
       : this.isScanning
-      ? '#7cefb0'
+      ? cellColors.scanning
       : this.isVisited
-      ? '#ffffff'
-      : '#d3d3d3';
+      ? cellColors.visited
+      : cellColors.unvisited;
     ctx.fillRect(startX, startY, cellSize, cellSize);
 
     if (this.northEdge) {
