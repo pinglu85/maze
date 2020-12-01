@@ -58,7 +58,6 @@ function drawEntrySymbol(ctx, rowIndex, colIndex, doorDir, cellSize) {
   ctx.lineTo(chevronEndX, chevronEndY);
   ctx.strokeStyle = '#c675ff';
   ctx.stroke();
-  ctx.strokeStyle = '#000000';
 }
 
 export default drawEntrySymbol;

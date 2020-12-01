@@ -17,7 +17,6 @@ function drawExitSymbol(ctx, rowIndex, colIndex, cellSize) {
   ctx.arc(startX, startY, bigCircleRadius, 0, endAngle);
   ctx.strokeStyle = color;
   ctx.stroke();
-  ctx.strokeStyle = '#000000';
 }
 
 export default drawExitSymbol;

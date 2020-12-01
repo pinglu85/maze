@@ -73,7 +73,7 @@ function drawMaze() {
       cellSize
     );
     drawExitSymbol(ctx, exitCell.rowIndex, exitCell.colIndex, cellSize);
-
+    ctx.strokeStyle = '#000000';
     newMazeBtn.disabled = false;
     return;
   }
