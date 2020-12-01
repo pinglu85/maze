@@ -1,5 +1,5 @@
 import Grid from './Grid.js';
-import StartNode from './StartNode.js';
+import drawEntrySymbol from './drawEntrySymbol.js';
 import drawExitStmbol from './drawExitSymbol.js';
 
 const GRID_SIZE = 15;
@@ -17,7 +17,7 @@ const cellSize = CANVAS_WIDTH / GRID_SIZE;
 
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
-let grid, startNode;
+let grid;
 
 window.addEventListener('DOMContentLoaded', () => {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
@@ -65,13 +65,13 @@ function drawMaze() {
     entryCell.draw(ctx);
     exitCell.draw(ctx);
 
-    startNode = new StartNode(
+    drawEntrySymbol(
+      ctx,
       entryCell.rowIndex,
       entryCell.colIndex,
-      grid.entryDir
+      grid.entryDir,
+      cellSize
     );
-    startNode.draw(ctx, cellSize);
-
     drawExitStmbol(ctx, exitCell.rowIndex, exitCell.colIndex, cellSize);
 
     newMazeBtn.disabled = false;
