@@ -1,6 +1,7 @@
 import Grid from './Grid.js';
 import drawEntrySymbol from './drawEntrySymbol.js';
 import drawExitSymbol from './drawExitSymbol.js';
+import { CELL_COLORS, SYMBOL_COLOR } from './constants/colors.js';
 
 const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
@@ -21,7 +22,7 @@ let grid;
 
 window.addEventListener('DOMContentLoaded', () => {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
-  grid.draw(ctx);
+  grid.draw(ctx, CELL_COLORS);
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
@@ -57,23 +58,30 @@ newMazeBtn.addEventListener('click', async function () {
 });
 
 function drawMaze() {
-  grid.draw(ctx);
+  grid.draw(ctx, CELL_COLORS);
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();
     const entryCell = grid.entryCell;
     const exitCell = grid.exitCell;
-    entryCell.draw(ctx);
-    exitCell.draw(ctx);
+    entryCell.draw(ctx, CELL_COLORS);
+    exitCell.draw(ctx, CELL_COLORS);
 
     drawEntrySymbol(
       ctx,
       entryCell.rowIndex,
       entryCell.colIndex,
       grid.entryDir,
-      cellSize
+      cellSize,
+      SYMBOL_COLOR
     );
-    drawExitSymbol(ctx, exitCell.rowIndex, exitCell.colIndex, cellSize);
-    ctx.strokeStyle = '#000000';
+    drawExitSymbol(
+      ctx,
+      exitCell.rowIndex,
+      exitCell.colIndex,
+      cellSize,
+      SYMBOL_COLOR
+    );
+    ctx.strokeStyle = CELL_COLORS.border;
     newMazeBtn.disabled = false;
     return;
   }

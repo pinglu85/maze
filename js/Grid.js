@@ -76,10 +76,10 @@ class Grid {
     }
   }
 
-  draw(ctx) {
+  draw(ctx, cellColors) {
     for (const row of this.content) {
       for (const col of row) {
-        col.draw(ctx);
+        col.draw(ctx, cellColors);
       }
     }
   }
