@@ -10,6 +10,7 @@ const CANVAS_HEIGHT = 300;
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
 const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
+const solutionBtn = document.getElementById('solution-btn');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = CANVAS_WIDTH;
