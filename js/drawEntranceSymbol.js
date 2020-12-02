@@ -56,7 +56,7 @@ function drawEntranceSymbol(ctx, grid, symbolColor) {
     // do nothing
   }
 
-  ctx.lineWidth = 4.5;
+  ctx.lineWidth = cellSize / 5;
   ctx.beginPath();
   ctx.moveTo(chevronStartX, chevronStartY);
   ctx.lineTo(chevronMiddleX, chevronMiddleY);
