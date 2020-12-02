@@ -1,7 +1,7 @@
-function drawEntrySymbol(ctx, grid, symbolColor) {
+function drawEntranceSymbol(ctx, grid, symbolColor) {
   const {
-    entryCell: { rowIndex, colIndex, cellSize },
-    entryDir
+    entranceCell: { rowIndex, colIndex, cellSize },
+    entranceDir
   } = grid;
 
   const facingDir = {
@@ -9,7 +9,7 @@ function drawEntrySymbol(ctx, grid, symbolColor) {
     west: 'east',
     south: 'north',
     east: 'west'
-  }[entryDir];
+  }[entranceDir];
 
   let margin = cellSize / 5;
   let facingDirMargin = cellSize / 3;
@@ -65,4 +65,4 @@ function drawEntrySymbol(ctx, grid, symbolColor) {
   ctx.stroke();
 }
 
-export default drawEntrySymbol;
+export default drawEntranceSymbol;

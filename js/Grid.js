@@ -13,8 +13,8 @@ class Grid {
           return cell;
         })
       );
-    this.entryCell = null;
-    this.entryDir = '';
+    this.entranceCell = null;
+    this.entranceDir = '';
     this.exitCell = null;
     this.exitDir = '';
   }
@@ -33,7 +33,7 @@ class Grid {
   generateMazeEntryAndExit() {
     const numOfRows = this.content.length;
     const numOfCols = this.content[0].length;
-    const entry = {
+    const entrance = {
       rowIndex: getRandomIndex(numOfRows),
       colIndex: null
     };
@@ -41,26 +41,26 @@ class Grid {
       rowIndex: null,
       colIndex: null
     };
-    if (entry.rowIndex === 0 || entry.rowIndex === numOfRows - 1) {
-      entry.colIndex = getRandomIndex(numOfCols);
+    if (entrance.rowIndex === 0 || entrance.rowIndex === numOfRows - 1) {
+      entrance.colIndex = getRandomIndex(numOfCols);
     } else {
       const availColIndices = [0, numOfCols - 1];
       const randomIndex = getRandomIndex(availColIndices.length);
-      entry.colIndex = availColIndices[randomIndex];
+      entrance.colIndex = availColIndices[randomIndex];
     }
 
-    exit.rowIndex = this.getOppositeSideIndex(entry.rowIndex, numOfRows);
+    exit.rowIndex = this.getOppositeSideIndex(entrance.rowIndex, numOfRows);
 
     if (exit.rowIndex !== null) {
       exit.colIndex = getRandomIndex(numOfCols);
     } else {
-      exit.colIndex = this.getOppositeSideIndex(entry.colIndex, numOfCols);
+      exit.colIndex = this.getOppositeSideIndex(entrance.colIndex, numOfCols);
       exit.rowIndex = getRandomIndex(numOfRows);
     }
 
-    this.entryCell = this.content[entry.rowIndex][entry.colIndex];
+    this.entranceCell = this.content[entrance.rowIndex][entrance.colIndex];
     this.exitCell = this.content[exit.rowIndex][exit.colIndex];
-    this.entryDir = this.entryCell.dropRandomBoundary();
+    this.entranceDir = this.entranceCell.dropRandomBoundary();
     this.exitDir = this.exitCell.dropRandomBoundary();
   }
 

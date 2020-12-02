@@ -1,5 +1,5 @@
 import Grid from './Grid.js';
-import drawEntrySymbol from './drawEntrySymbol.js';
+import drawEntranceSymbol from './drawEntranceSymbol.js';
 import drawExitSymbol from './drawExitSymbol.js';
 import { CELL_COLORS, SYMBOL_COLOR } from './constants/colors.js';
 
@@ -61,9 +61,9 @@ function drawMaze() {
   grid.draw(ctx, CELL_COLORS);
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();
-    grid.entryCell.draw(ctx, CELL_COLORS);
+    grid.entranceCell.draw(ctx, CELL_COLORS);
     grid.exitCell.draw(ctx, CELL_COLORS);
-    drawEntrySymbol(ctx, grid, SYMBOL_COLOR);
+    drawEntranceSymbol(ctx, grid, SYMBOL_COLOR);
     drawExitSymbol(ctx, grid, SYMBOL_COLOR);
     ctx.strokeStyle = CELL_COLORS.border;
     newMazeBtn.disabled = false;
