@@ -2,6 +2,7 @@ import Grid from './Grid.js';
 import drawEntranceSymbol from './drawEntranceSymbol.js';
 import drawExitSymbol from './drawExitSymbol.js';
 import { CELL_COLORS, SYMBOL_COLOR } from './constants/colors.js';
+import dijkstra from './dijkstra.js';
 
 const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
@@ -56,6 +57,16 @@ newMazeBtn.addEventListener('click', async function () {
     drawMaze();
     isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
   }
+});
+
+solutionBtn.addEventListener('click', () => {
+  const path = dijkstra(grid);
+  path.forEach(({ cell, previousDir, nextDir }) => {
+    cell.drawSolution(ctx, previousDir, nextDir, CELL_COLORS.solution);
+  });
+  drawEntranceSymbol(ctx, grid, SYMBOL_COLOR);
+  drawExitSymbol(ctx, grid, SYMBOL_COLOR);
+  ctx.strokeStyle = CELL_COLORS.border;
 });
 
 function drawMaze() {

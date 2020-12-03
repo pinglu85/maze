@@ -13,6 +13,7 @@ class Cell {
     this.isVisited = false;
     this.isScanning = false;
     this.isStartCell = false;
+    this.distanceToEntrance = Infinity;
   }
 
   dropEdge(...args) {
@@ -70,6 +71,15 @@ class Cell {
     );
     const randomIndex = getRandomIndex(visitedNeighbors.length);
     return randomIndex === null ? null : visitedNeighbors[randomIndex];
+  }
+
+  getConnectedNeighbors(grid) {
+    const neighbors = this.getNeighbors(grid);
+    const connectedNeighbors = neighbors.filter((neighbor) => {
+      const isConnected = !this[`${neighbor[0]}Edge`];
+      return neighbor[1] && isConnected;
+    });
+    return connectedNeighbors;
   }
 
   setBoundaries(height, width) {
@@ -142,6 +152,57 @@ class Cell {
       ctx.lineTo(startX + cellSize, startY + cellSize);
       ctx.stroke();
     }
+  }
+
+  drawSolution(ctx, previousDir, nextDir, solutionColor) {
+    const cellSize = this.cellSize;
+    const halfCellSize = cellSize / 2;
+    const startX = this.colIndex * cellSize;
+    const startY = this.rowIndex * cellSize;
+    const centerX = startX + halfCellSize;
+    const centerY = startY + halfCellSize;
+
+    ctx.lineWidth = halfCellSize / 2;
+
+    ctx.beginPath();
+
+    switch (previousDir) {
+      case 'north':
+        ctx.moveTo(centerX, startY);
+        break;
+      case 'west':
+        ctx.moveTo(startX + cellSize, centerY);
+        break;
+      case 'south':
+        ctx.moveTo(centerX, startY + cellSize);
+        break;
+      case 'east':
+        ctx.moveTo(startX, centerY);
+        break;
+      default:
+      // do nothing
+    }
+
+    ctx.lineTo(centerX, centerY);
+
+    switch (nextDir) {
+      case 'north':
+        ctx.lineTo(centerX, startY);
+        break;
+      case 'west':
+        ctx.lineTo(startX + cellSize, centerY);
+        break;
+      case 'south':
+        ctx.lineTo(centerX, startY + cellSize);
+        break;
+      case 'east':
+        ctx.lineTo(startX, centerY);
+        break;
+      default:
+      // do nothing
+    }
+    ctx.strokeStyle = solutionColor;
+    ctx.stroke();
   }
 }
 
