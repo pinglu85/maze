@@ -35,7 +35,7 @@ function pathTo(grid, exitCell, entranceDir, exitDir) {
 
     const breadcumb = {
       cell: current,
-      previousDir: '',
+      prevDir: '',
       nextDir: ''
     };
 
@@ -44,24 +44,24 @@ function pathTo(grid, exitCell, entranceDir, exitDir) {
       nextDir = exitDir;
     } else {
       const nextCell = path[path.length - 1];
-      nextDir = getOppositeDir(nextCell.previousDir);
+      nextDir = getOppositeDir(nextCell.prevDir);
     }
 
     breadcumb.nextDir = nextDir;
 
     if (distance < 0) {
-      breadcumb.previousDir = entranceDir;
+      breadcumb.prevDir = entranceDir;
     } else {
-      const [previousDir, previousBreadcumb] = current
+      const [prevDir, prevBreadcumb] = current
         .getConnectedNeighbors(grid)
         .find((neighbor) => neighbor[1].distanceToEntrance === distance);
 
-      breadcumb.previousDir = previousDir;
-      current = previousBreadcumb;
+      breadcumb.prevDir = prevDir;
+      current = prevBreadcumb;
     }
     path.push(breadcumb);
   }
-  return path.reverse();
+  return path;
 }
 
 export default function dijkstra(grid) {

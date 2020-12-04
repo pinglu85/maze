@@ -3,6 +3,7 @@ import drawEntranceSymbol from './drawEntranceSymbol.js';
 import drawExitSymbol from './drawExitSymbol.js';
 import { CELL_COLORS, SYMBOL_COLOR } from './constants/colors.js';
 import dijkstra from './dijkstra.js';
+import generatePathCoordinates from './generatePathCoordinates.js';
 
 const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
@@ -61,9 +62,18 @@ newMazeBtn.addEventListener('click', async function () {
 
 solutionBtn.addEventListener('click', () => {
   const path = dijkstra(grid);
-  path.forEach(({ cell, previousDir, nextDir }) => {
-    cell.drawSolution(ctx, previousDir, nextDir, CELL_COLORS.solution);
+  const pathCoordinates = generatePathCoordinates(path);
+  ctx.lineWidth = cellSize / 4;
+
+  pathCoordinates.forEach(({ prevDir, nextDir, coordinates }) => {
+    ctx.beginPath();
+    ctx.moveTo(coordinates.start.x, coordinates.start.y);
+    ctx.lineTo(coordinates.middle.x, coordinates.middle.y);
+    ctx.lineTo(coordinates.end.x, coordinates.end.y);
+    ctx.strokeStyle = CELL_COLORS.solution;
+    ctx.stroke();
   });
+
   drawEntranceSymbol(ctx, grid, SYMBOL_COLOR);
   drawExitSymbol(ctx, grid, SYMBOL_COLOR);
   ctx.strokeStyle = CELL_COLORS.border;
