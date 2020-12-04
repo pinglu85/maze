@@ -25,7 +25,7 @@ function distance(grid, entranceCell) {
   }
 }
 
-function pathTo(grid, exitCell, entranceDir, exitDir) {
+function findPath(grid, exitCell, entranceDir, exitDir) {
   let current = exitCell;
   let distance = exitCell.distanceToEntrance;
   const path = [];
@@ -67,5 +67,5 @@ function pathTo(grid, exitCell, entranceDir, exitDir) {
 export default function dijkstra(grid) {
   const { content, entranceCell, entranceDir, exitCell, exitDir } = grid;
   distance(content, entranceCell);
-  return pathTo(content, exitCell, entranceDir, exitDir);
+  return findPath(content, exitCell, entranceDir, exitDir);
 }
