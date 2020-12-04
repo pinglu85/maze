@@ -1,3 +1,5 @@
+import getOppositeDir from './utils/getOppositeDir.js';
+
 function distance(grid, entranceCell) {
   let frontiers = [entranceCell];
   entranceCell.distanceToEntrance = 0;
@@ -42,12 +44,7 @@ function pathTo(grid, exitCell, entranceDir, exitDir) {
       nextDir = exitDir;
     } else {
       const nextCell = path[path.length - 1];
-      nextDir = {
-        north: 'south',
-        west: 'east',
-        south: 'north',
-        east: 'west'
-      }[nextCell.previousDir];
+      nextDir = getOppositeDir(nextCell.previousDir);
     }
 
     breadcumb.nextDir = nextDir;

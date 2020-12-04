@@ -22,16 +22,6 @@ class Cell {
     }
   }
 
-  dropOppositeEdge(edge) {
-    let oppositeEdge = {
-      north: 'south',
-      west: 'east',
-      south: 'north',
-      east: 'west'
-    }[edge];
-    this.dropEdge(oppositeEdge);
-  }
-
   getNeighbors(grid) {
     const currRowIndex = this.rowIndex;
     const currColIndex = this.colIndex;

@@ -1,5 +1,6 @@
 import getRandomIndex from '../utils/getRandomIndex.js';
 import shuffleArray from '../utils/shuffleArray.js';
+import getOppositeDir from '../utils/getOppositeDir.js';
 
 function delay(wait) {
   return new Promise((resolve) => {
@@ -19,9 +20,10 @@ function asyncWalk(grid, cell, wait) {
         resolve();
       } else {
         const [dir, neighbor] = randomAvailNeighbor;
+        const oppositeDir = getOppositeDir(dir);
         cell.dropEdge(dir);
         neighbor.isStartCell = true;
-        neighbor.dropOppositeEdge(dir);
+        neighbor.dropEdge(oppositeDir);
         resolve(neighbor);
       }
     }, wait);
@@ -43,10 +45,11 @@ function asyncHunt(grid, wait) {
         randomVisitedNeighbor = cell.getRandomVisitedNeighbor(grid);
         if (randomVisitedNeighbor) {
           const [dir, neighbor] = randomVisitedNeighbor;
+          const oppositeDir = getOppositeDir(dir);
           cell.isVisited = true;
           cell.isStartCell = true;
           cell.dropEdge(dir);
-          neighbor.dropOppositeEdge(dir);
+          neighbor.dropEdge(oppositeDir);
           grid[i].forEach((cell) => {
             cell.isScanning = false;
           });
