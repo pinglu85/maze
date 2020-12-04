@@ -143,57 +143,6 @@ class Cell {
       ctx.stroke();
     }
   }
-
-  drawSolution(ctx, previousDir, nextDir, solutionColor) {
-    const cellSize = this.cellSize;
-    const halfCellSize = cellSize / 2;
-    const startX = this.colIndex * cellSize;
-    const startY = this.rowIndex * cellSize;
-    const centerX = startX + halfCellSize;
-    const centerY = startY + halfCellSize;
-
-    ctx.lineWidth = halfCellSize / 2;
-
-    ctx.beginPath();
-
-    switch (previousDir) {
-      case 'north':
-        ctx.moveTo(centerX, startY);
-        break;
-      case 'west':
-        ctx.moveTo(startX + cellSize, centerY);
-        break;
-      case 'south':
-        ctx.moveTo(centerX, startY + cellSize);
-        break;
-      case 'east':
-        ctx.moveTo(startX, centerY);
-        break;
-      default:
-      // do nothing
-    }
-
-    ctx.lineTo(centerX, centerY);
-
-    switch (nextDir) {
-      case 'north':
-        ctx.lineTo(centerX, startY);
-        break;
-      case 'west':
-        ctx.lineTo(startX + cellSize, centerY);
-        break;
-      case 'south':
-        ctx.lineTo(centerX, startY + cellSize);
-        break;
-      case 'east':
-        ctx.lineTo(startX, centerY);
-        break;
-      default:
-      // do nothing
-    }
-    ctx.strokeStyle = solutionColor;
-    ctx.stroke();
-  }
 }
 
 export default Cell;
