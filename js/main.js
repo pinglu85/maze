@@ -1,9 +1,10 @@
 import Grid from './Grid.js';
-import drawEntranceSymbol from './drawEntranceSymbol.js';
-import drawExitSymbol from './drawExitSymbol.js';
-import { CELL_COLORS, SYMBOL_COLOR } from './constants/colors.js';
+import EntranceIcon from './EntranceIcon.js';
+import ExitIcon from './ExitIcon.js';
+import { CELL_COLORS } from './constants/colors.js';
 import dijkstra from './dijkstra.js';
 import generatePathCoordinates from './generatePathCoordinates.js';
+import getOppositeDir from './utils/getOppositeDir.js';
 
 const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
@@ -19,9 +20,18 @@ canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 const cellSize = CANVAS_WIDTH / GRID_SIZE;
 
+const loadImage = (src) => {
+  const img = new Image();
+  img.src = src;
+  return img;
+};
+
+const entranceImg = loadImage('/assets/entrance.png');
+const exitImg = loadImage('/assets/exit.png');
+
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
-let grid;
+let grid, entranceIcon, exitIcon;
 
 window.addEventListener('DOMContentLoaded', () => {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
@@ -74,20 +84,36 @@ solutionBtn.addEventListener('click', () => {
     ctx.stroke();
   });
 
-  drawEntranceSymbol(ctx, grid, SYMBOL_COLOR);
-  drawExitSymbol(ctx, grid, SYMBOL_COLOR);
-  ctx.strokeStyle = CELL_COLORS.border;
+  entranceIcon.draw(ctx);
+  exitIcon.draw(ctx);
 });
 
 function drawMaze() {
   grid.draw(ctx, CELL_COLORS);
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();
-    grid.entranceCell.draw(ctx, CELL_COLORS);
-    grid.exitCell.draw(ctx, CELL_COLORS);
-    drawEntranceSymbol(ctx, grid, SYMBOL_COLOR);
-    drawExitSymbol(ctx, grid, SYMBOL_COLOR);
-    ctx.strokeStyle = CELL_COLORS.border;
+    const entranceCell = grid.entranceCell;
+    const exitCell = grid.exitCell;
+    entranceCell.draw(ctx, CELL_COLORS);
+    exitCell.draw(ctx, CELL_COLORS);
+
+    const entranceIconCenterX = entranceCell.colIndex * cellSize + cellSize / 2;
+    const entranceIconCenterY = entranceCell.rowIndex * cellSize + cellSize / 2;
+    const facingDir = getOppositeDir(grid.entranceDir);
+    entranceIcon = new EntranceIcon(
+      entranceIconCenterX,
+      entranceIconCenterY,
+      facingDir,
+      entranceImg,
+      cellSize
+    );
+    entranceIcon.draw(ctx);
+
+    const exitIconX = exitCell.colIndex * cellSize;
+    const exitIconY = exitCell.rowIndex * cellSize;
+    exitIcon = new ExitIcon(exitIconX, exitIconY, exitImg, cellSize);
+    exitIcon.draw(ctx);
+
     newMazeBtn.disabled = false;
     return;
   }
