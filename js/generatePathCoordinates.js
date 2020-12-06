@@ -1,4 +1,5 @@
-function generateCoordinates(dir, cellSize, startX, startY, centerX, centerY) {
+function generateCoordinates(dir, cell) {
+  const { startX, startY, centerX, centerY, endX, endY } = cell;
   let x = 0;
   let y = 0;
 
@@ -8,12 +9,12 @@ function generateCoordinates(dir, cellSize, startX, startY, centerX, centerY) {
       y = startY;
       break;
     case 'west':
-      x = startX + cellSize;
+      x = endX;
       y = centerY;
       break;
     case 'south':
       x = centerX;
-      y = startY + cellSize;
+      y = endY;
       break;
     case 'east':
       x = startX;
@@ -28,28 +29,14 @@ function generateCoordinates(dir, cellSize, startX, startY, centerX, centerY) {
 
 export default function generatePathCoordinates(path) {
   return path.map(({ cell, prevDir, nextDir }) => {
-    const cellSize = cell.cellSize;
-    const halfCellSize = cellSize / 2;
-    const startX = cell.colIndex * cellSize;
-    const startY = cell.rowIndex * cellSize;
-    const centerX = startX + halfCellSize;
-    const centerY = startY + halfCellSize;
-
     const coordinates = {
       start: { x: 0, y: 0 },
-      middle: { x: centerX, y: centerY },
+      middle: { x: cell.centerX, y: cell.centerY },
       end: { x: 0, y: 0 }
     };
 
     const [startCoordinates, endCoordinates] = [prevDir, nextDir].map((dir) => {
-      return generateCoordinates(
-        dir,
-        cellSize,
-        startX,
-        startY,
-        centerX,
-        centerY
-      );
+      return generateCoordinates(dir, cell);
     });
 
     coordinates.start.x = startCoordinates.x;
