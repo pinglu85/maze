@@ -1,13 +1,21 @@
 class ExitIcon {
-  constructor(x, y, img, iconSize) {
-    this.x = x;
-    this.y = y;
+  constructor(centerX, centerY, img, iconSize) {
+    this.centerX = centerX;
+    this.centerY = centerY;
     this.img = img;
     this.iconSize = iconSize;
   }
 
   draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.iconSize, this.iconSize);
+    ctx.translate(this.centerX, this.centerY);
+    ctx.drawImage(
+      this.img,
+      -Math.floor(this.iconSize / 2),
+      -Math.floor(this.iconSize / 2),
+      this.iconSize,
+      this.iconSize
+    );
+    ctx.translate(-this.centerX, -this.centerY);
   }
 }
 

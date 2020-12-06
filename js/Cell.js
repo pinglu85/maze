@@ -5,6 +5,12 @@ class Cell {
     this.rowIndex = rowIndex;
     this.colIndex = colIndex;
     this.cellSize = cellSize;
+    this.startX = Math.floor(this.colIndex * cellSize);
+    this.startY = Math.floor(this.rowIndex * cellSize);
+    this.centerX = this.startX + Math.floor(cellSize / 2);
+    this.centerY = this.startY + Math.floor(cellSize / 2);
+    this.endX = this.startX + cellSize;
+    this.endY = this.startY + cellSize;
     this.northEdge = true;
     this.westEdge = true;
     this.southEdge = true;
@@ -98,10 +104,7 @@ class Cell {
   }
 
   draw(ctx, cellColors) {
-    const cellSize = this.cellSize;
-    const startX = this.colIndex * cellSize;
-    const startY = this.rowIndex * cellSize;
-    ctx.clearRect(startX, startY, cellSize, cellSize);
+    ctx.clearRect(this.startX, this.startY, this.cellSize, this.cellSize);
     ctx.fillStyle = this.isStartCell
       ? cellColors.start
       : this.isScanning
@@ -109,37 +112,37 @@ class Cell {
       : this.isVisited
       ? cellColors.visited
       : cellColors.unvisited;
-    ctx.fillRect(startX, startY, cellSize, cellSize);
+    ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
 
     if (this.northEdge) {
       ctx.lineWidth = this.boundaries.north ? 2.5 : 1;
       ctx.beginPath();
-      ctx.moveTo(startX, startY);
-      ctx.lineTo(startX + cellSize, startY);
+      ctx.moveTo(this.startX, this.startY);
+      ctx.lineTo(this.endX, this.startY);
       ctx.stroke();
     }
 
     if (this.eastEdge) {
       ctx.lineWidth = this.boundaries.east ? 2.5 : 1;
       ctx.beginPath();
-      ctx.moveTo(startX, startY);
-      ctx.lineTo(startX, startY + cellSize);
+      ctx.moveTo(this.startX, this.startY);
+      ctx.lineTo(this.startX, this.endY);
       ctx.stroke();
     }
 
     if (this.southEdge) {
       ctx.lineWidth = this.boundaries.south ? 2.5 : 1;
       ctx.beginPath();
-      ctx.moveTo(startX, startY + cellSize);
-      ctx.lineTo(startX + cellSize, startY + cellSize);
+      ctx.moveTo(this.startX, this.endY);
+      ctx.lineTo(this.endX, this.endY);
       ctx.stroke();
     }
 
     if (this.westEdge) {
       ctx.lineWidth = this.boundaries.west ? 2.5 : 1;
       ctx.beginPath();
-      ctx.moveTo(startX + cellSize, startY);
-      ctx.lineTo(startX + cellSize, startY + cellSize);
+      ctx.moveTo(this.endX, this.startY);
+      ctx.lineTo(this.endX, this.endY);
       ctx.stroke();
     }
   }
