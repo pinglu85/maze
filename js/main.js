@@ -113,10 +113,11 @@ function drawSolution() {
   if (entranceIcon.atExit) {
     entranceIcon.facingDir = grid.exitDir;
     entranceIcon.draw(ctx);
+    entranceIcon.drawFootprints(ctx);
     return;
   }
   entranceIcon.move();
   entranceIcon.draw(ctx);
-  entranceIcon.drawDot(ctx, CELL_COLORS.solution);
+  entranceIcon.drawFootprints(ctx);
   requestAnimationFrame(drawSolution);
 }
