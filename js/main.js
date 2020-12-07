@@ -3,7 +3,6 @@ import EntranceIcon from './EntranceIcon.js';
 import ExitIcon from './ExitIcon.js';
 import { CELL_COLORS } from './constants/colors.js';
 import dijkstra from './dijkstra.js';
-import generatePathCoordinates from './generatePathCoordinates.js';
 import getOppositeDir from './utils/getOppositeDir.js';
 
 const GRID_SIZE = 15;
@@ -72,21 +71,7 @@ newMazeBtn.addEventListener('click', async function () {
 });
 
 solutionBtn.addEventListener('click', () => {
-  const path = dijkstra(grid);
-  const pathCoordinates = generatePathCoordinates(path);
-  // ctx.lineWidth = cellSize / 4;
-
-  // pathCoordinates.forEach(({ prevDir, nextDir, coordinates }) => {
-  //   ctx.beginPath();
-  //   ctx.moveTo(coordinates.start.x, coordinates.start.y);
-  //   ctx.lineTo(coordinates.middle.x, coordinates.middle.y);
-  //   ctx.lineTo(coordinates.end.x, coordinates.end.y);
-  //   ctx.strokeStyle = CELL_COLORS.solution;
-  //   ctx.stroke();
-  // });
-  const oldEntranceIcon = Object.create(entranceIcon);
-  oldEntranceIcon.draw(ctx);
-  exitIcon.draw(ctx);
+  const pathCoordinates = dijkstra(grid);
   entranceIcon.pathCoordinates = [...pathCoordinates];
   drawSolution();
 });

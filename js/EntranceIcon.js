@@ -20,12 +20,10 @@ class EntranceIcon {
     if (!this.currentPathSegement) {
       this.currentPathSegement = this.pathCoordinates.pop();
     }
-    const {
-      coordinates: { middle }
-    } = this.currentPathSegement;
+    const [centerX, centerY] = this.currentPathSegement;
 
-    this.nextCenterX = middle.x;
-    this.nextCenterY = middle.y;
+    this.nextCenterX = centerX;
+    this.nextCenterY = centerY;
 
     if (
       this.centerX === this.nextCenterX &&
