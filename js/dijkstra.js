@@ -34,7 +34,6 @@ function findPath(grid, exitCell) {
       .getConnectedNeighbors(grid)
       .find((neighbor) => neighbor.distanceToEntrance === distance);
 
-    console.log(breadcumb);
     pathCoordinates.push([breadcumb.centerX, breadcumb.centerY]);
   }
   return pathCoordinates;
