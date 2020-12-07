@@ -10,8 +10,7 @@ class EntranceIcon {
     this.pathCoordinates = null;
     this.currentPathSegement = null;
     this.atExit = false;
-    this.prevCenterX = 0;
-    this.prevCenterY = 0;
+    this.prevCenters = [];
     this.nextCenterX = 0;
     this.nextCenterY = 0;
   }
@@ -29,8 +28,7 @@ class EntranceIcon {
       this.centerX === this.nextCenterX &&
       this.centerY === this.nextCenterY
     ) {
-      this.prevCenterX = this.centerX;
-      this.prevCenterY = this.centerY;
+      this.prevCenters.push([this.centerX, this.centerY]);
       this.currentPathSegement = this.pathCoordinates.pop();
       if (!this.currentPathSegement) {
         this.atExit = true;
@@ -110,25 +108,25 @@ class EntranceIcon {
     ctx.translate(-this.centerX, -this.centerY);
   }
 
-  drawDot(ctx, color) {
-    const differenceX = this.centerX - this.prevCenterX;
-    const differenceY = this.centerY - this.prevCenterY;
-    const distancePrevAndCurrCenter = Math.sqrt(
-      differenceX * differenceX + differenceY * differenceY
-    );
-    if (distancePrevAndCurrCenter === this.iconSize) {
+  drawFootprints(ctx) {
+    const numOfprevCenters = this.prevCenters.length;
+    const lastSecondFootprint = this.prevCenters[numOfprevCenters - 2];
+
+    if (lastSecondFootprint) {
+      const [centerX, centerY] = lastSecondFootprint;
+
       ctx.beginPath();
-      ctx.arc(
-        this.prevCenterX,
-        this.prevCenterY,
-        this.iconSize / 5,
-        0,
-        2 * Math.PI
-      );
-      ctx.globalAlpha = 0.9;
-      ctx.fillStyle = color;
+      ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
+      ctx.fillStyle = '#c675ff';
       ctx.fill();
-      ctx.globalAlpha = 1;
+    }
+
+    for (let i = 0; i < numOfprevCenters - 3; i++) {
+      const [centerX, centerY] = this.prevCenters[i];
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(254, 162, 70, 0.06)';
+      ctx.fill();
     }
   }
 }
