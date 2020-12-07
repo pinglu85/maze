@@ -27,13 +27,14 @@ function findPath(grid, exitCell) {
   let distance = exitCell.distanceToEntrance;
   const pathCoordinates = [[breadcumb.centerX, breadcumb.centerY]];
 
-  while (distance >= 0) {
+  while (distance > 0) {
     distance--;
 
     breadcumb = breadcumb
       .getConnectedNeighbors(grid)
-      .find((neighbor) => neighbor[1].distanceToEntrance === distance);
+      .find((neighbor) => neighbor.distanceToEntrance === distance);
 
+    console.log(breadcumb);
     pathCoordinates.push([breadcumb.centerX, breadcumb.centerY]);
   }
   return pathCoordinates;
