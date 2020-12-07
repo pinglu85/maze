@@ -1,5 +1,3 @@
-import getOppositeDir from './utils/getOppositeDir.js';
-
 function distance(grid, entranceCell) {
   let frontiers = [entranceCell];
   entranceCell.distanceToEntrance = 0;
@@ -10,7 +8,6 @@ function distance(grid, entranceCell) {
     frontiers.forEach((cell) => {
       const unvisitedConnectedNeighbors = cell
         .getConnectedNeighbors(grid)
-        .map((neighbor) => neighbor[1])
         .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
 
       unvisitedConnectedNeighbors.forEach((neighbor) => {
@@ -25,47 +22,24 @@ function distance(grid, entranceCell) {
   }
 }
 
-function findPath(grid, exitCell, entranceDir, exitDir) {
-  let current = exitCell;
+function findPath(grid, exitCell) {
+  let breadcumb = exitCell;
   let distance = exitCell.distanceToEntrance;
-  const path = [];
+  const pathCoordinates = [[breadcumb.centerX, breadcumb.centerY]];
 
   while (distance >= 0) {
     distance--;
 
-    const breadcumb = {
-      cell: current,
-      prevDir: '',
-      nextDir: ''
-    };
+    breadcumb = breadcumb
+      .getConnectedNeighbors(grid)
+      .find((neighbor) => neighbor[1].distanceToEntrance === distance);
 
-    let nextDir;
-    if (!path.length) {
-      nextDir = exitDir;
-    } else {
-      const nextCell = path[path.length - 1];
-      nextDir = getOppositeDir(nextCell.prevDir);
-    }
-
-    breadcumb.nextDir = nextDir;
-
-    if (distance < 0) {
-      breadcumb.prevDir = entranceDir;
-    } else {
-      const [prevDir, prevBreadcumb] = current
-        .getConnectedNeighbors(grid)
-        .find((neighbor) => neighbor[1].distanceToEntrance === distance);
-
-      breadcumb.prevDir = prevDir;
-      current = prevBreadcumb;
-    }
-    path.push(breadcumb);
+    pathCoordinates.push([breadcumb.centerX, breadcumb.centerY]);
   }
-  return path;
+  return pathCoordinates;
 }
 
-export default function dijkstra(grid) {
-  const { content, entranceCell, entranceDir, exitCell, exitDir } = grid;
+export default function dijkstra({ content, entranceCell, exitCell }) {
   distance(content, entranceCell);
-  return findPath(content, exitCell, entranceDir, exitDir);
+  return findPath(content, exitCell);
 }

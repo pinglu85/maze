@@ -71,10 +71,12 @@ class Cell {
 
   getConnectedNeighbors(grid) {
     const neighbors = this.getNeighbors(grid);
-    const connectedNeighbors = neighbors.filter((neighbor) => {
-      const isConnected = !this[`${neighbor[0]}Edge`];
-      return neighbor[1] && isConnected;
-    });
+    const connectedNeighbors = neighbors
+      .filter((neighbor) => {
+        const isConnected = !this[`${neighbor[0]}Edge`];
+        return neighbor[1] && isConnected;
+      })
+      .map((neighbor) => neighbor[1]);
     return connectedNeighbors;
   }
 
