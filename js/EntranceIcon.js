@@ -103,9 +103,9 @@ class EntranceIcon {
   }
 
   drawFootprints(ctx, { newFootprint, oldFootprint }) {
-    const numOfprevCenters = this.prevCellCenters.length;
+    const numOfPrevCellCenters = this.prevCellCenters.length;
     let opacityCoefficient = 0;
-    for (let i = numOfprevCenters - 2; i >= 0; i--) {
+    for (let i = numOfPrevCellCenters - 1; i >= 0; i--) {
       const [centerX, centerY] = this.prevCellCenters[i];
       ctx.beginPath();
       ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
