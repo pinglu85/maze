@@ -79,6 +79,7 @@ solutionBtn.addEventListener('click', () => {
 });
 
 function drawMaze() {
+  mazeCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   grid.draw(mazeCtx, CELL_COLORS);
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();

@@ -106,7 +106,6 @@ class Cell {
   }
 
   draw(ctx, cellColors) {
-    ctx.clearRect(this.startX, this.startY, this.cellSize, this.cellSize);
     ctx.fillStyle = this.isStartCell
       ? cellColors.start
       : this.isScanning
