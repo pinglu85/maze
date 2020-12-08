@@ -64,13 +64,13 @@ body {
   text-decoration: none;
 }
 
-.canvasWrapper {
+.canvas-wrapper {
   width: 300px;
   position: relative;
   margin: 30px auto;
 }
 
-#canvas,
-#solutionCanvas {
+#maze-canvas,
+#solution-canvas {
   position: absolute;
 }
