@@ -1,7 +1,7 @@
 import Grid from './Grid.js';
 import EntranceIcon from './EntranceIcon.js';
 import ExitIcon from './ExitIcon.js';
-import { CELL_COLORS } from './constants/colors.js';
+import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 import dijkstra from './dijkstra.js';
 import getOppositeDir from './utils/getOppositeDir.js';
 
@@ -115,12 +115,12 @@ function drawSolution() {
   if (entranceIcon.atExit) {
     entranceIcon.facingDir = grid.exitDir;
     entranceIcon.draw(solutionCtx);
-    entranceIcon.drawFootprints(solutionCtx);
+    entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
     return;
   }
   exitIcon.draw(solutionCtx);
   entranceIcon.move();
   entranceIcon.draw(solutionCtx);
-  entranceIcon.drawFootprints(solutionCtx);
+  entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
   requestAnimationFrame(drawSolution);
 }
