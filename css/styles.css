@@ -64,7 +64,13 @@ body {
   text-decoration: none;
 }
 
-#canvas {
-  display: block;
+.canvasWrapper {
+  width: 300px;
+  position: relative;
   margin: 30px auto;
+}
+
+#canvas,
+#solutionCanvas {
+  position: absolute;
 }

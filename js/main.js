@@ -14,9 +14,11 @@ const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
 const solutionBtn = document.getElementById('solution-btn');
 const canvas = document.getElementById('canvas');
+const solutionCanvas = document.getElementById('solutionCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = CANVAS_WIDTH;
-canvas.height = CANVAS_HEIGHT;
+const solutionCtx = solutionCanvas.getContext('2d');
+canvas.width = solutionCanvas.width = CANVAS_WIDTH;
+canvas.height = solutionCanvas.height = CANVAS_HEIGHT;
 const cellSize = Math.floor(CANVAS_WIDTH / GRID_SIZE);
 
 const loadImage = (src) => {
@@ -93,7 +95,7 @@ function drawMaze() {
       entranceImg,
       iconSize
     );
-    entranceIcon.draw(ctx);
+    entranceIcon.draw(solutionCtx);
 
     exitIcon = new ExitIcon(
       exitCell.centerX,
@@ -101,8 +103,7 @@ function drawMaze() {
       exitImg,
       iconSize
     );
-    exitIcon.draw(ctx);
-
+    exitIcon.draw(solutionCtx);
     newMazeBtn.disabled = false;
     return;
   }
@@ -110,14 +111,16 @@ function drawMaze() {
 }
 
 function drawSolution() {
+  solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   if (entranceIcon.atExit) {
     entranceIcon.facingDir = grid.exitDir;
-    entranceIcon.draw(ctx);
-    entranceIcon.drawFootprints(ctx);
+    entranceIcon.draw(solutionCtx);
+    entranceIcon.drawFootprints(solutionCtx);
     return;
   }
+  exitIcon.draw(solutionCtx);
   entranceIcon.move();
-  entranceIcon.draw(ctx);
-  entranceIcon.drawFootprints(ctx);
+  entranceIcon.draw(solutionCtx);
+  entranceIcon.drawFootprints(solutionCtx);
   requestAnimationFrame(drawSolution);
 }
