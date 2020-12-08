@@ -10,9 +10,9 @@ class EntranceIcon {
     this.pathCoordinates = null;
     this.currentPathSegement = null;
     this.atExit = false;
-    this.prevCenters = [];
-    this.nextCenterX = 0;
-    this.nextCenterY = 0;
+    this.prevCellCenters = [];
+    this.nextCellCenterX = 0;
+    this.nextCellCenterY = 0;
   }
 
   move() {
@@ -21,14 +21,14 @@ class EntranceIcon {
     }
     const [centerX, centerY] = this.currentPathSegement;
 
-    this.nextCenterX = centerX;
-    this.nextCenterY = centerY;
+    this.nextCellCenterX = centerX;
+    this.nextCellCenterY = centerY;
 
     if (
-      this.centerX === this.nextCenterX &&
-      this.centerY === this.nextCenterY
+      this.centerX === this.nextCellCenterX &&
+      this.centerY === this.nextCellCenterY
     ) {
-      this.prevCenters.push([this.centerX, this.centerY]);
+      this.prevCellCenters.push([this.centerX, this.centerY]);
       this.currentPathSegement = this.pathCoordinates.pop();
       if (!this.currentPathSegement) {
         this.atExit = true;
@@ -36,16 +36,16 @@ class EntranceIcon {
       return;
     }
 
-    if (this.centerX === this.nextCenterX) {
-      if (this.centerY < this.nextCenterY) {
+    if (this.centerX === this.nextCellCenterX) {
+      if (this.centerY < this.nextCellCenterY) {
         this.facingDir = 'south';
       } else {
         this.facingDir = 'north';
       }
     }
 
-    if (this.centerY === this.nextCenterY) {
-      if (this.centerX < this.nextCenterX) {
+    if (this.centerY === this.nextCellCenterY) {
+      if (this.centerX < this.nextCellCenterX) {
         this.facingDir = 'west';
       } else {
         this.facingDir = 'east';
@@ -103,10 +103,10 @@ class EntranceIcon {
   }
 
   drawFootprints(ctx) {
-    const numOfprevCenters = this.prevCenters.length;
+    const numOfprevCenters = this.prevCellCenters.length;
     let opacityCoefficient = 0;
     for (let i = numOfprevCenters - 2; i >= 0; i--) {
-      const [centerX, centerY] = this.prevCenters[i];
+      const [centerX, centerY] = this.prevCellCenters[i];
       ctx.beginPath();
       ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
       ctx.fillStyle = '#c675ff';
