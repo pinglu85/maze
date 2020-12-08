@@ -7,3 +7,7 @@ export const CELL_COLORS = {
   solution: '#ff9f32'
 };
 export const SYMBOL_COLOR = '#c675ff';
+export const FOOTPRINT_COLORS = {
+  newFootprint: '#ffcc01',
+  oldFootprint: '#c675ff'
+};

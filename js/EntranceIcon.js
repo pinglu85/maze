@@ -102,17 +102,19 @@ class EntranceIcon {
     ctx.translate(-this.centerX, -this.centerY);
   }
 
-  drawFootprints(ctx) {
+  drawFootprints(ctx, { newFootprint, oldFootprint }) {
     const numOfprevCenters = this.prevCellCenters.length;
     let opacityCoefficient = 0;
     for (let i = numOfprevCenters - 2; i >= 0; i--) {
       const [centerX, centerY] = this.prevCellCenters[i];
       ctx.beginPath();
       ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
-      ctx.fillStyle = '#c675ff';
+      ctx.fillStyle = newFootprint;
       ctx.fill();
-      ctx.fillStyle = `rgba(254, 162, 70, ${opacityCoefficient * 0.2})`;
+      ctx.globalAlpha = 0.2 * opacityCoefficient;
+      ctx.fillStyle = oldFootprint;
       ctx.fill();
+      ctx.globalAlpha = 1;
       opacityCoefficient++;
     }
   }
