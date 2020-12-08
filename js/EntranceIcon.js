@@ -9,10 +9,10 @@ class EntranceIcon {
     this.iconSize = iconSize;
     this.pathCoordinates = null;
     this.currentPathSegement = null;
-    this.atExit = false;
     this.prevCellCenters = [];
     this.nextCellCenterX = 0;
     this.nextCellCenterY = 0;
+    this.atExit = false;
   }
 
   move() {
