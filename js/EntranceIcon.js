@@ -90,12 +90,6 @@ class EntranceIcon {
     }
 
     ctx.translate(this.centerX, this.centerY);
-    ctx.clearRect(
-      -Math.floor(this.iconSize / 2),
-      -Math.floor(this.iconSize / 2),
-      this.iconSize,
-      this.iconSize
-    );
     ctx.rotate(angleInRad);
     ctx.drawImage(
       this.img,
@@ -110,23 +104,16 @@ class EntranceIcon {
 
   drawFootprints(ctx) {
     const numOfprevCenters = this.prevCenters.length;
-    const lastSecondFootprint = this.prevCenters[numOfprevCenters - 2];
-
-    if (lastSecondFootprint) {
-      const [centerX, centerY] = lastSecondFootprint;
-
+    let opacityCoefficient = 0;
+    for (let i = numOfprevCenters - 2; i >= 0; i--) {
+      const [centerX, centerY] = this.prevCenters[i];
       ctx.beginPath();
       ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
       ctx.fillStyle = '#c675ff';
       ctx.fill();
-    }
-
-    for (let i = 0; i < numOfprevCenters - 3; i++) {
-      const [centerX, centerY] = this.prevCenters[i];
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
-      ctx.fillStyle = 'rgba(254, 162, 70, 0.06)';
+      ctx.fillStyle = `rgba(254, 162, 70, ${opacityCoefficient * 0.2})`;
       ctx.fill();
+      opacityCoefficient++;
     }
   }
 }
