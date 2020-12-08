@@ -13,12 +13,12 @@ const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
 const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
 const solutionBtn = document.getElementById('solution-btn');
-const canvas = document.getElementById('canvas');
+const mazeCanvas = document.getElementById('canvas');
 const solutionCanvas = document.getElementById('solutionCanvas');
-const ctx = canvas.getContext('2d');
+const mazeCtx = mazeCanvas.getContext('2d');
 const solutionCtx = solutionCanvas.getContext('2d');
-canvas.width = solutionCanvas.width = CANVAS_WIDTH;
-canvas.height = solutionCanvas.height = CANVAS_HEIGHT;
+mazeCanvas.width = solutionCanvas.width = CANVAS_WIDTH;
+mazeCanvas.height = solutionCanvas.height = CANVAS_HEIGHT;
 const cellSize = Math.floor(CANVAS_WIDTH / GRID_SIZE);
 
 const loadImage = (src) => {
@@ -37,7 +37,7 @@ let grid, entranceIcon, exitIcon;
 
 window.addEventListener('DOMContentLoaded', () => {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
-  grid.draw(ctx, CELL_COLORS);
+  grid.draw(mazeCtx, CELL_COLORS);
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
@@ -79,13 +79,13 @@ solutionBtn.addEventListener('click', () => {
 });
 
 function drawMaze() {
-  grid.draw(ctx, CELL_COLORS);
+  grid.draw(mazeCtx, CELL_COLORS);
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();
     const entranceCell = grid.entranceCell;
     const exitCell = grid.exitCell;
-    entranceCell.draw(ctx, CELL_COLORS);
-    exitCell.draw(ctx, CELL_COLORS);
+    entranceCell.draw(mazeCtx, CELL_COLORS);
+    exitCell.draw(mazeCtx, CELL_COLORS);
 
     const facingDir = getOppositeDir(grid.entranceDir);
     entranceIcon = new EntranceIcon(
