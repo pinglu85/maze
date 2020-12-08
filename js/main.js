@@ -25,7 +25,7 @@ const loadImage = (src) => {
   return img;
 };
 
-const entranceImg = loadImage('/assets/entrance.png');
+const entranceImg = loadImage('/assets/player.png');
 const exitImg = loadImage('/assets/exit.png');
 const iconSize = Math.floor(cellSize - cellSize / 10);
 
