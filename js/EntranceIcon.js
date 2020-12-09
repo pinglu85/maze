@@ -114,7 +114,18 @@ class EntranceIcon {
   }
 
   drawFootprints(ctx, { newFootprint, oldFootprint }) {
-    const numOfPrevCellCenters = this.prevCellCenters.length;
+    let numOfPrevCellCenters = this.prevCellCenters.length;
+    const [lastPrevCellCenterX, lastPrevCellCenterY] = this.prevCellCenters[
+      numOfPrevCellCenters - 1
+    ];
+
+    if (
+      lastPrevCellCenterX === this.centerX &&
+      lastPrevCellCenterY === this.centerY
+    ) {
+      numOfPrevCellCenters--;
+    }
+
     let opacityCoefficient = 0;
     for (let i = numOfPrevCellCenters - 1; i >= 0; i--) {
       const [centerX, centerY] = this.prevCellCenters[i];
