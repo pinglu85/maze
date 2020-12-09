@@ -4,15 +4,13 @@ import getRandomIndex from './utils/getRandomIndex.js';
 
 class Grid {
   constructor(width, height, cellSize) {
-    this.content = Array(height)
-      .fill(null)
-      .map((_, rowIndex) =>
-        Array.from(new Array(width), (_, colIndex) => {
-          const cell = new Cell(rowIndex, colIndex, cellSize);
-          cell.setBoundaries(height, width);
-          return cell;
-        })
-      );
+    this.content = Array.from(new Array(height), (_, rowIndex) =>
+      Array.from(new Array(width), (_, colIndex) => {
+        const cell = new Cell(rowIndex, colIndex, cellSize);
+        cell.setBoundaries(height, width);
+        return cell;
+      })
+    );
     this.entranceCell = null;
     this.entranceDir = '';
     this.exitCell = null;
