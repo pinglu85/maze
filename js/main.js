@@ -27,7 +27,7 @@ const loadImage = (src) => {
   return img;
 };
 
-const entranceImgs = Array(4)
+const entranceImgs = Array(7)
   .fill(null)
   .map((_, i) => loadImage(`/assets/player${i}.png`));
 const exitImg = loadImage('/assets/exit.png');
