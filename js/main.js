@@ -27,7 +27,9 @@ const loadImage = (src) => {
   return img;
 };
 
-const entranceImg = loadImage('/assets/player.png');
+const entranceImgs = Array(4)
+  .fill(null)
+  .map((_, i) => loadImage(`/assets/player${i}.png`));
 const exitImg = loadImage('/assets/exit.png');
 const iconSize = Math.floor(cellSize - cellSize / 10);
 
@@ -67,6 +69,7 @@ newMazeBtn.addEventListener('click', async function () {
     isGeneratingMaze = true;
     this.disabled = true;
     grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
+    solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_WIDTH);
     drawMaze();
     isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
   }
@@ -93,7 +96,7 @@ function drawMaze() {
       entranceCell.centerX,
       entranceCell.centerY,
       facingDir,
-      entranceImg,
+      entranceImgs,
       iconSize
     );
     entranceIcon.draw(solutionCtx);
