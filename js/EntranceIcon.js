@@ -5,9 +5,9 @@ class EntranceIcon {
     this.centerX = centerX;
     this.centerY = centerY;
     this.facingDir = facingDir;
+    this.iconSize = iconSize;
     this.imgs = imgs;
     this.imgIndex = 0;
-    this.iconSize = iconSize;
     this.pathCoordinates = null;
     this.currentPathSegement = null;
     this.prevCellCenters = [];
