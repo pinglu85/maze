@@ -1,9 +1,10 @@
 import Grid from './Grid.js';
 import EntranceIcon from './EntranceIcon.js';
 import ExitIcon from './ExitIcon.js';
-import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 import dijkstra from './dijkstra.js';
 import getOppositeDir from './utils/getOppositeDir.js';
+import loadImg from './utils/loadImg.js';
+import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 
 const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
@@ -14,23 +15,17 @@ const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
 const solutionBtn = document.getElementById('solution-btn');
 const mazeCanvas = document.getElementById('maze-canvas');
-const solutionCanvas = document.getElementById('solution-canvas');
 const mazeCtx = mazeCanvas.getContext('2d');
+const solutionCanvas = document.getElementById('solution-canvas');
 const solutionCtx = solutionCanvas.getContext('2d');
 mazeCanvas.width = solutionCanvas.width = CANVAS_WIDTH;
 mazeCanvas.height = solutionCanvas.height = CANVAS_HEIGHT;
 const cellSize = Math.floor(CANVAS_WIDTH / GRID_SIZE);
 
-const loadImage = (src) => {
-  const img = new Image();
-  img.src = src;
-  return img;
-};
-
 const entranceImgs = Array.from(new Array(7), (_, i) =>
-  loadImage(`/assets/player${i}.png`)
+  loadImg(`/assets/player${i}.png`)
 );
-const exitImg = loadImage('/assets/exit.png');
+const exitImg = loadImg('/assets/exit.png');
 const iconSize = Math.floor(cellSize - cellSize / 10);
 
 let mazeGenerationAlgo = '';
