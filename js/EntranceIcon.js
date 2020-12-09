@@ -1,11 +1,12 @@
 const TO_RADIANS = Math.PI / 180;
 
 class EntranceIcon {
-  constructor(centerX, centerY, facingDir, img, iconSize) {
+  constructor(centerX, centerY, facingDir, imgs, iconSize) {
     this.centerX = centerX;
     this.centerY = centerY;
     this.facingDir = facingDir;
-    this.img = img;
+    this.imgs = imgs;
+    this.imgIndex = 0;
     this.iconSize = iconSize;
     this.pathCoordinates = null;
     this.currentPathSegement = null;
@@ -13,6 +14,7 @@ class EntranceIcon {
     this.nextCellCenterX = 0;
     this.nextCellCenterY = 0;
     this.atExit = false;
+    this.previousTime = 0;
   }
 
   move() {
@@ -92,7 +94,7 @@ class EntranceIcon {
     ctx.translate(this.centerX, this.centerY);
     ctx.rotate(angleInRad);
     ctx.drawImage(
-      this.img,
+      this.imgs[this.imgIndex],
       -Math.floor(this.iconSize / 2),
       -Math.floor(this.iconSize / 2),
       this.iconSize,
@@ -100,6 +102,13 @@ class EntranceIcon {
     );
     ctx.rotate(-angleInRad);
     ctx.translate(-this.centerX, -this.centerY);
+
+    const now = Date.now();
+    if (now - this.previousTime > 50) {
+      this.imgIndex =
+        this.imgIndex === this.imgs.length - 1 ? 0 : this.imgIndex + 1;
+      this.previousTime = now;
+    }
   }
 
   drawFootprints(ctx, { newFootprint, oldFootprint }) {
