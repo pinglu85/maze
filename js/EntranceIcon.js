@@ -1,10 +1,11 @@
 const TO_RADIANS = Math.PI / 180;
 
 class EntranceIcon {
-  constructor(centerX, centerY, facingDir, imgs, iconSize) {
+  constructor(centerX, centerY, facingDir, exitDir, imgs, iconSize) {
     this.centerX = centerX;
     this.centerY = centerY;
     this.facingDir = facingDir;
+    this.exitDir = exitDir;
     this.iconSize = iconSize;
     this.imgs = imgs;
     this.imgIndex = 0;
@@ -33,6 +34,7 @@ class EntranceIcon {
       this.prevCellCenters.push([this.centerX, this.centerY]);
       this.currentPathSegement = this.pathCoordinates.pop();
       if (!this.currentPathSegement) {
+        this.facingDir = this.exitDir;
         this.atExit = true;
       }
       return;

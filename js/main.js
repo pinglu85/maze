@@ -91,6 +91,7 @@ function drawMaze() {
       entranceCell.centerX,
       entranceCell.centerY,
       facingDir,
+      grid.exitDir,
       entranceImgs,
       iconSize
     );
@@ -111,15 +112,12 @@ function drawMaze() {
 
 function drawSolution() {
   solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  if (entranceIcon.atExit) {
-    entranceIcon.facingDir = grid.exitDir;
-    entranceIcon.draw(solutionCtx);
-    entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
-    return;
-  }
-  exitIcon.draw(solutionCtx);
   entranceIcon.move();
   entranceIcon.draw(solutionCtx);
   entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
+  if (entranceIcon.atExit) {
+    return;
+  }
+  exitIcon.draw(solutionCtx);
   requestAnimationFrame(drawSolution);
 }
