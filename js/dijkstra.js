@@ -1,25 +1,54 @@
-function distance(grid, entranceCell) {
-  let frontiers = [entranceCell];
-  entranceCell.distanceToEntrance = 0;
-  let distance = 1;
+function delay(wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, wait);
+  });
+}
 
-  while (frontiers.length) {
-    const new_frontiers = [];
-    frontiers.forEach((cell) => {
-      const unvisitedConnectedNeighbors = cell
-        .getConnectedNeighbors(grid)
-        .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
+function asyncGetNewFroniters(grid, frontiers, distance, wait) {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const newFrontiers = [];
 
-      unvisitedConnectedNeighbors.forEach((neighbor) => {
-        neighbor.distanceToEntrance = distance;
-      });
+      for (const cell of frontiers) {
+        cell.isVisiting = false;
+        cell.opacity = 0.01;
 
-      new_frontiers.push(...unvisitedConnectedNeighbors);
-    });
+        await delay(wait);
+        const unvisitedConnectedNeighbors = cell
+          .getConnectedNeighbors(grid)
+          .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
 
-    frontiers = new_frontiers;
-    distance++;
-  }
+        for (const neighbor of unvisitedConnectedNeighbors) {
+          await delay(wait);
+          neighbor.distanceToEntrance = distance;
+          neighbor.isVisiting = true;
+        }
+
+        newFrontiers.push(...unvisitedConnectedNeighbors);
+      }
+
+      resolve(newFrontiers);
+    }, wait);
+  });
+}
+
+function distance(grid, entranceCell, wait) {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      let frontiers = [entranceCell];
+      entranceCell.distanceToEntrance = 0;
+      let distance = 1;
+
+      while (frontiers.length) {
+        frontiers = await asyncGetNewFroniters(grid, frontiers, distance, wait);
+        distance++;
+      }
+
+      resolve();
+    }, wait);
+  });
 }
 
 function findPath(grid, exitCell) {
@@ -39,7 +68,12 @@ function findPath(grid, exitCell) {
   return pathCoordinates;
 }
 
-export default function dijkstra({ content, entranceCell, exitCell }) {
-  distance(content, entranceCell);
-  return findPath(content, exitCell);
+export default function dijkstra(
+  { content, entranceCell, exitCell },
+  wait = 100
+) {
+  return new Promise(async (resolve) => {
+    await distance(content, entranceCell, wait);
+    resolve(findPath(content, exitCell));
+  });
 }

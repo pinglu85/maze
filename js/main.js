@@ -30,7 +30,7 @@ const iconSize = Math.floor(cellSize - cellSize / 10);
 
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
-let grid, entranceIcon, exitIcon;
+let grid, entranceIcon, exitIcon, pathCoordinates;
 
 window.addEventListener('DOMContentLoaded', () => {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
@@ -70,8 +70,9 @@ newMazeBtn.addEventListener('click', async function () {
   }
 });
 
-solutionBtn.addEventListener('click', () => {
-  const pathCoordinates = dijkstra(grid);
+solutionBtn.addEventListener('click', async () => {
+  visualizeFindSolution();
+  pathCoordinates = await dijkstra(grid);
   entranceIcon.pathCoordinates = [...pathCoordinates];
   drawSolution();
 });
@@ -108,6 +109,14 @@ function drawMaze() {
     return;
   }
   requestAnimationFrame(drawMaze);
+}
+
+function visualizeFindSolution() {
+  grid.draw(mazeCtx, CELL_COLORS);
+  if (pathCoordinates) {
+    return;
+  }
+  requestAnimationFrame(visualizeFindSolution);
 }
 
 function drawSolution() {
