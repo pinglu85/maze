@@ -20,6 +20,8 @@ class Cell {
     this.isScanning = false;
     this.isStartCell = false;
     this.distanceToEntrance = Infinity;
+    this.isVisiting = false;
+    this.opacity = 0;
   }
 
   dropEdge(...args) {
@@ -110,10 +112,20 @@ class Cell {
       ? cellColors.start
       : this.isScanning
       ? cellColors.scanning
+      : this.isVisiting
+      ? cellColors.solution.visiting
+      : this.distanceToEntrance !== Infinity
+      ? cellColors.solution.visited
       : this.isVisited
       ? cellColors.visited
       : cellColors.unvisited;
     ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
+
+    if (this.opacity) {
+      ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+      ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
+      this.opacity = this.opacity <= 0.8 ? this.opacity + 0.001 : this.opacity;
+    }
 
     if (this.northEdge) {
       ctx.lineWidth = this.boundaries.north ? 2.5 : 1;
