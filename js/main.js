@@ -26,6 +26,7 @@ const entranceImgs = Array.from(new Array(7), (_, i) =>
   loadImg(`/assets/player${i}.png`)
 );
 const exitImg = loadImg('/assets/exit.png');
+const exitImgWhite = loadImg('/assets/exit-white.png');
 const iconSize = Math.floor(cellSize - cellSize / 10);
 
 let mazeGenerationAlgo = '';
@@ -102,6 +103,7 @@ function drawMaze() {
       exitCell.centerX,
       exitCell.centerY,
       exitImg,
+      exitImgWhite,
       iconSize
     );
     exitIcon.draw(solutionCtx);
@@ -114,6 +116,8 @@ function drawMaze() {
 function visualizeFindSolution() {
   grid.draw(mazeCtx, CELL_COLORS);
   if (pathCoordinates) {
+    // grid.exitCell.draw(mazeCtx, CELL_COLORS);
+    exitIcon.draw(solutionCtx, true);
     return;
   }
   requestAnimationFrame(visualizeFindSolution);
@@ -127,6 +131,6 @@ function drawSolution() {
   if (entranceIcon.atExit) {
     return;
   }
-  exitIcon.draw(solutionCtx);
+  exitIcon.draw(solutionCtx, true);
   requestAnimationFrame(drawSolution);
 }

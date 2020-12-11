@@ -23,6 +23,7 @@ class Cell {
     this.isStartCell = false;
     this.distanceToEntrance = Infinity;
     this.isVisiting = false;
+    this.isExitColor = false;
     this.opacity = 0;
   }
 
@@ -116,6 +117,8 @@ class Cell {
       ? cellColors.scanning
       : this.isVisiting
       ? cellColors.solution.visiting
+      : this.isExitColor
+      ? cellColors.solution.exitColor
       : this.distanceToEntrance !== Infinity
       ? cellColors.solution.visited
       : this.isVisited
