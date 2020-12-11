@@ -6,7 +6,8 @@ export const CELL_COLORS = {
   unvisited: '#d3d3d3',
   solution: {
     visited: '#9fe1f9',
-    visiting: '#2dc7ff'
+    visiting: '#1ab8f2',
+    exitColor: '#1479e5'
   }
 };
 export const FOOTPRINT_COLORS = {
