@@ -116,7 +116,6 @@ function drawMaze() {
 function visualizeFindSolution() {
   grid.draw(mazeCtx, CELL_COLORS);
   if (pathCoordinates) {
-    // grid.exitCell.draw(mazeCtx, CELL_COLORS);
     exitIcon.draw(solutionCtx, true);
     return;
   }
