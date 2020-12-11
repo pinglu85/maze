@@ -69,7 +69,7 @@ function findPath(grid, exitCell) {
 
 export default function dijkstra(
   { content, entranceCell, exitCell },
-  wait = 100
+  wait = 50
 ) {
   return new Promise(async (resolve) => {
     await distance(content, entranceCell, wait);
