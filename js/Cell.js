@@ -15,6 +15,8 @@ class Cell {
     this.westEdge = true;
     this.southEdge = true;
     this.eastEdge = true;
+    this.isEntrance = false;
+    this.isExit = false;
     this.boundaries = {};
     this.isVisited = false;
     this.isScanning = false;

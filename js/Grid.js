@@ -57,7 +57,9 @@ class Grid {
     }
 
     this.entranceCell = this.content[entrance.rowIndex][entrance.colIndex];
+    this.entranceCell.isEntrance = true;
     this.exitCell = this.content[exit.rowIndex][exit.colIndex];
+    this.exitCell.isExit = true;
     this.entranceDir = this.entranceCell.dropRandomBoundary();
     this.exitDir = this.exitCell.dropRandomBoundary();
   }
