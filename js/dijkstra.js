@@ -1,10 +1,4 @@
-function delay(wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, wait);
-  });
-}
+import delay from './utils/delay.js';
 
 function asyncGetNewFroniters(grid, frontiers, distance, wait) {
   return new Promise((resolve) => {

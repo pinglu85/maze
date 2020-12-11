@@ -1,14 +1,7 @@
 import getRandomIndex from '../utils/getRandomIndex.js';
 import shuffleArray from '../utils/shuffleArray.js';
 import getOppositeDir from '../utils/getOppositeDir.js';
-
-function delay(wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, wait);
-  });
-}
+import delay from '../utils/delay.js';
 
 function asyncWalk(grid, cell, wait) {
   return new Promise((resolve) => {
