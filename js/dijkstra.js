@@ -24,6 +24,10 @@ function asyncGetNewFroniters(grid, frontiers, distance, wait) {
           await delay(wait);
           neighbor.distanceToEntrance = distance;
           neighbor.isVisiting = true;
+          if (neighbor.isExit) {
+            resolve([]);
+            return;
+          }
         }
 
         newFrontiers.push(...unvisitedConnectedNeighbors);
