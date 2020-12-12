@@ -106,7 +106,7 @@ class EntranceIcon {
     ctx.translate(-this.centerX, -this.centerY);
 
     const now = Date.now();
-    if (now - this.previousTime > 50) {
+    if (now - this.previousTime > 30) {
       this.imgIndex =
         this.imgIndex === this.imgs.length - 1 ? 0 : this.imgIndex + 1;
       this.previousTime = now;
