@@ -1,4 +1,4 @@
-export default function resetCellsIsVisitingState(...cells) {
+export default function resetCellsIsVistingState(...cells) {
   cells.forEach((cell) => {
     cell.isVisiting = false;
   });
