@@ -10,7 +10,7 @@ class EntranceIcon {
     this.imgs = imgs;
     this.imgIndex = 0;
     this.pathCoordinates = null;
-    this.currentPathSegement = null;
+    this.currentPathSegment = null;
     this.prevCellCenters = [];
     this.nextCellCenterX = 0;
     this.nextCellCenterY = 0;
@@ -19,10 +19,10 @@ class EntranceIcon {
   }
 
   move() {
-    if (!this.currentPathSegement) {
-      this.currentPathSegement = this.pathCoordinates.pop();
+    if (!this.currentPathSegment) {
+      this.currentPathSegment = this.pathCoordinates.pop();
     }
-    const [centerX, centerY] = this.currentPathSegement;
+    const [centerX, centerY] = this.currentPathSegment;
 
     this.nextCellCenterX = centerX;
     this.nextCellCenterY = centerY;
@@ -32,8 +32,8 @@ class EntranceIcon {
       this.centerY === this.nextCellCenterY
     ) {
       this.prevCellCenters.push([this.centerX, this.centerY]);
-      this.currentPathSegement = this.pathCoordinates.pop();
-      if (!this.currentPathSegement) {
+      this.currentPathSegment = this.pathCoordinates.pop();
+      if (!this.currentPathSegment) {
         this.facingDir = this.exitDir;
         this.atExit = true;
       }

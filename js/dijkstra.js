@@ -1,7 +1,7 @@
 import delay from './utils/delay.js';
-import resetCellsIsVisitingState from './utils/resetCellsIsVistingState.js';
+import resetCellsIsVisitingState from './utils/resetCellsIsVisitingState.js';
 
-function asyncGetNewFroniters(grid, frontiers, distance, wait) {
+function asyncGetNewFrontiers(grid, frontiers, distance, wait) {
   return new Promise((resolve) => {
     setTimeout(async () => {
       const newFrontiers = [];
@@ -56,7 +56,7 @@ function distance(grid, entranceCell, wait) {
       let distance = 1;
 
       while (frontiers.length) {
-        frontiers = await asyncGetNewFroniters(grid, frontiers, distance, wait);
+        frontiers = await asyncGetNewFrontiers(grid, frontiers, distance, wait);
         distance++;
         await delay(wait);
       }
@@ -67,18 +67,18 @@ function distance(grid, entranceCell, wait) {
 }
 
 function findPath(grid, exitCell) {
-  let breadcumb = exitCell;
+  let breadcrumb = exitCell;
   let distance = exitCell.distanceToEntrance;
-  const pathCoordinates = [[breadcumb.centerX, breadcumb.centerY]];
+  const pathCoordinates = [[breadcrumb.centerX, breadcrumb.centerY]];
 
   while (distance > 0) {
     distance--;
 
-    breadcumb = breadcumb
+    breadcrumb = breadcrumb
       .getConnectedNeighbors(grid)
       .find((neighbor) => neighbor.distanceToEntrance === distance);
 
-    pathCoordinates.push([breadcumb.centerX, breadcumb.centerY]);
+    pathCoordinates.push([breadcrumb.centerX, breadcrumb.centerY]);
   }
   return pathCoordinates;
 }
