@@ -66,6 +66,7 @@ newMazeBtn.addEventListener('click', async function () {
     this.disabled = true;
     grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
     solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_WIDTH);
+    pathCoordinates = null;
     drawMaze();
     isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
   }
