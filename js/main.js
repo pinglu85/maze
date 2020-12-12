@@ -73,7 +73,7 @@ newMazeBtn.addEventListener('click', async function () {
 });
 
 solutionBtn.addEventListener('click', async () => {
-  visualizeFindSolution();
+  visualizePathFindingAlgo();
   pathCoordinates = await dijkstra(grid);
   entranceIcon.pathCoordinates = [...pathCoordinates];
   drawSolution();
@@ -114,13 +114,13 @@ function drawMaze() {
   requestAnimationFrame(drawMaze);
 }
 
-function visualizeFindSolution() {
+function visualizePathFindingAlgo() {
   grid.draw(mazeCtx, CELL_COLORS);
   if (pathCoordinates) {
     exitIcon.draw(solutionCtx, true);
     return;
   }
-  requestAnimationFrame(visualizeFindSolution);
+  requestAnimationFrame(visualizePathFindingAlgo);
 }
 
 function drawSolution() {
