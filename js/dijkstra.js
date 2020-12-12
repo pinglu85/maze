@@ -9,13 +9,11 @@ function asyncGetNewFroniters(grid, frontiers, distance, wait) {
         cell.isVisiting = false;
         cell.opacity = 0.01;
 
-        await delay(wait);
         const unvisitedConnectedNeighbors = cell
           .getConnectedNeighbors(grid)
           .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
 
         for (const neighbor of unvisitedConnectedNeighbors) {
-          await delay(wait);
           neighbor.distanceToEntrance = distance;
           if (neighbor.isExit) {
             neighbor.isExitColor = true;
@@ -43,6 +41,7 @@ function distance(grid, entranceCell, wait) {
       while (frontiers.length) {
         frontiers = await asyncGetNewFroniters(grid, frontiers, distance, wait);
         distance++;
+        await delay(wait);
       }
 
       resolve();
