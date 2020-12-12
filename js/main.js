@@ -22,7 +22,7 @@ mazeCanvas.width = solutionCanvas.width = CANVAS_WIDTH;
 mazeCanvas.height = solutionCanvas.height = CANVAS_HEIGHT;
 const cellSize = Math.floor(CANVAS_WIDTH / GRID_SIZE);
 
-const entranceImgs = Array.from(new Array(7), (_, i) =>
+const entranceImgs = Array.from(new Array(10), (_, i) =>
   loadImg(`/assets/player${i}.png`)
 );
 const exitImg = loadImg('/assets/exit.png');
