@@ -28,9 +28,9 @@ function asyncGetNewFrontiers(grid, frontiers, distance, wait) {
 
         if (isExitCellReached) {
           break;
-        } else {
-          newFrontiers.push(...unvisitedConnectedNeighbors);
         }
+
+        newFrontiers.push(...unvisitedConnectedNeighbors);
       }
 
       if (!isExitCellReached) {
