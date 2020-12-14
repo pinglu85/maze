@@ -90,6 +90,7 @@ solutionBtn.addEventListener('click', async function () {
     this.textContent = 'Solution is found!';
     return;
   }
+
   isSearchingSolution = true;
   this.disabled = true;
   newMazeBtn.disabled = true;
@@ -103,6 +104,7 @@ solutionBtn.addEventListener('click', async function () {
 function drawMaze() {
   mazeCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   grid.draw(mazeCtx);
+
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();
     const entranceCell = grid.entranceCell;
@@ -129,20 +131,24 @@ function drawMaze() {
       iconSize
     );
     exitIcon.draw(solutionCtx);
+
     newMazeBtn.disabled = false;
     solutionBtn.disabled = false;
     isMazeGenerated = true;
     return;
   }
+
   requestAnimationFrame(drawMaze);
 }
 
 function visualizePathFindingAlgo() {
   grid.draw(mazeCtx);
+
   if (pathCoordinates) {
     exitIcon.draw(solutionCtx, true);
     return;
   }
+
   requestAnimationFrame(visualizePathFindingAlgo);
 }
 
@@ -151,6 +157,7 @@ function drawSolution() {
   entranceIcon.move();
   entranceIcon.draw(solutionCtx);
   entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
+
   if (entranceIcon.atExit) {
     isSearchingSolution = false;
     isSolutionFound = true;
@@ -158,6 +165,8 @@ function drawSolution() {
     solutionBtn.disabled = false;
     return;
   }
+
   exitIcon.draw(solutionCtx, true);
+
   requestAnimationFrame(drawSolution);
 }
