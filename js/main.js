@@ -66,20 +66,19 @@ newMazeBtn.addEventListener('click', async function () {
     this.textContent = 'Pick an algorithm!';
     return;
   }
-  if (!isGeneratingMaze) {
-    isGeneratingMaze = true;
-    isMazeGenerated = false;
-    isSolutionFound = false;
-    this.disabled = true;
-    solutionBtn.textContent = 'Solution';
-    solutionBtn.disabled = true;
 
-    grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
-    solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_WIDTH);
-    pathCoordinates = null;
-    drawMaze();
-    isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
-  }
+  isGeneratingMaze = true;
+  isMazeGenerated = false;
+  isSolutionFound = false;
+  this.disabled = true;
+  solutionBtn.textContent = 'Solution';
+  solutionBtn.disabled = true;
+
+  grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
+  solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_WIDTH);
+  pathCoordinates = null;
+  drawMaze();
+  isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
 });
 
 solutionBtn.addEventListener('click', async function () {
