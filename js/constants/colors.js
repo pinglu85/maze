@@ -4,7 +4,7 @@ export const CELL_COLORS = {
   scanning: '#7cefb0',
   visited: '#ffffff',
   unvisited: '#d3d3d3',
-  solution: {
+  pathfinding: {
     visited: '#9fe1f9',
     visiting: '#1ab8f2',
     exitColor: '#1479e5'
