@@ -31,6 +31,9 @@ const iconSize = Math.floor(cellSize - cellSize / 10);
 
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
+let isMazeGenerated = false;
+let isSearchingSolution = false;
+let isSolutionFound = false;
 let grid, entranceIcon, exitIcon, pathCoordinates;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -40,7 +43,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
   if (e.target && e.target.nodeName === 'A') {
-    if (!isGeneratingMaze) mazeGenerationAlgo = e.target.textContent;
+    if (!isGeneratingMaze && !isSearchingSolution) {
+      mazeGenerationAlgo = e.target.textContent;
+    }
     newMazeBtn.textContent = `New Maze with ${mazeGenerationAlgo}`;
     mazeAlgosList.classList.remove('is-active');
   } else {
@@ -63,7 +68,12 @@ newMazeBtn.addEventListener('click', async function () {
   }
   if (!isGeneratingMaze) {
     isGeneratingMaze = true;
+    isMazeGenerated = false;
+    isSolutionFound = false;
     this.disabled = true;
+    solutionBtn.textContent = 'Solution';
+    solutionBtn.disabled = true;
+
     grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
     solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_WIDTH);
     pathCoordinates = null;
@@ -72,7 +82,19 @@ newMazeBtn.addEventListener('click', async function () {
   }
 });
 
-solutionBtn.addEventListener('click', async () => {
+solutionBtn.addEventListener('click', async function () {
+  if (!isMazeGenerated) {
+    this.textContent = 'Generate a maze!';
+    return;
+  }
+  if (isSolutionFound) {
+    this.textContent = 'Solution is found!';
+    return;
+  }
+  isSearchingSolution = true;
+  this.disabled = true;
+  newMazeBtn.disabled = true;
+
   visualizePathFindingAlgo();
   pathCoordinates = await dijkstra(grid);
   entranceIcon.pathCoordinates = [...pathCoordinates];
@@ -109,6 +131,8 @@ function drawMaze() {
     );
     exitIcon.draw(solutionCtx);
     newMazeBtn.disabled = false;
+    solutionBtn.disabled = false;
+    isMazeGenerated = true;
     return;
   }
   requestAnimationFrame(drawMaze);
@@ -129,6 +153,10 @@ function drawSolution() {
   entranceIcon.draw(solutionCtx);
   entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
   if (entranceIcon.atExit) {
+    isSearchingSolution = false;
+    isSolutionFound = true;
+    newMazeBtn.disabled = false;
+    solutionBtn.disabled = false;
     return;
   }
   exitIcon.draw(solutionCtx, true);
