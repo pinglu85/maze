@@ -123,19 +123,21 @@ class Cell {
   }
 
   draw(ctx) {
-    ctx.fillStyle = this.isStartCell
-      ? this.colors.start
-      : this.isScanning
-      ? this.colors.scanning
-      : this.isVisiting
-      ? this.colors.pathfinding.visiting
-      : this.isExitColor
-      ? this.colors.pathfinding.exitColor
-      : this.distanceToEntrance !== Infinity
-      ? this.colors.pathfinding.visited
-      : this.isVisited
-      ? this.colors.visited
-      : this.colors.unvisited;
+    if (this.isStartCell) {
+      ctx.fillStyle = this.colors.start;
+    } else if (this.isScanning) {
+      ctx.fillStyle = this.colors.scanning;
+    } else if (this.isVisiting) {
+      ctx.fillStyle = this.colors.pathfinding.visiting;
+    } else if (this.isExitColor) {
+      ctx.fillStyle = this.colors.pathfinding.exitColor;
+    } else if (this.distanceToEntrance !== Infinity) {
+      ctx.fillStyle = this.colors.pathfinding.visited;
+    } else if (this.isVisited) {
+      ctx.fillStyle = this.colors.visited;
+    } else {
+      ctx.fillStyle = this.colors.unvisited;
+    }
 
     ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
 
