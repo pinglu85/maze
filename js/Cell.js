@@ -5,23 +5,34 @@ class Cell {
     this.rowIndex = rowIndex;
     this.colIndex = colIndex;
     this.cellSize = cellSize;
+
+    // Coordinates on canvas.
     this.startX = Math.floor(this.colIndex * cellSize);
     this.startY = Math.floor(this.rowIndex * cellSize);
     this.centerX = this.startX + Math.floor(cellSize / 2);
     this.centerY = this.startY + Math.floor(cellSize / 2);
     this.endX = this.startX + cellSize;
     this.endY = this.startY + cellSize;
+
+    // Walls.
     this.northEdge = true;
     this.westEdge = true;
     this.southEdge = true;
     this.eastEdge = true;
+    this.boundaries = {};
+
     this.isEntrance = false;
     this.isExit = false;
-    this.boundaries = {};
+
+    // State for maze generation and
+    // visualisation of maze generation algorithm.
     this.isVisited = false;
     this.isScanning = false;
     this.isStartCell = false;
+
     this.distanceToEntrance = Infinity;
+
+    // State for visualisation of pathfinding algorithm.
     this.isVisiting = false;
     this.isExitColor = false;
     this.opacity = 0;
