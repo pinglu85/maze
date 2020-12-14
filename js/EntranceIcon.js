@@ -18,6 +18,18 @@ class EntranceIcon {
     this.previousTime = 0;
   }
 
+  reset(centerX, centerY, facingDir) {
+    this.centerX = centerX;
+    this.centerY = centerY;
+    this.facingDir = facingDir;
+    this.pathCoordinates = null;
+    this.prevCellCenters = [];
+    this.nextCellCenterX = 0;
+    this.nextCellCenterY = 0;
+    this.atExit = false;
+    this.previousTime = 0;
+  }
+
   move() {
     if (!this.currentPathSegment) {
       this.currentPathSegment = this.pathCoordinates.pop();
