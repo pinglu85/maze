@@ -11,6 +11,10 @@ class Grid {
         return cell;
       })
     );
+    this.entranceCell = null;
+    this.entranceDir = '';
+    this.exitCell = null;
+    this.exitDir = '';
   }
 
   getOppositeSideIndex(index, numOfItems) {
