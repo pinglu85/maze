@@ -33,7 +33,7 @@ class Cell {
 
     this.distanceToEntrance = Infinity;
 
-    // State for visualisation of solution algorithm.
+    // State for visualisation of pathfinding algorithm.
     this.isVisiting = false;
     this.isExitColor = false;
     this.opacity = 0;
@@ -128,11 +128,11 @@ class Cell {
       : this.isScanning
       ? this.colors.scanning
       : this.isVisiting
-      ? this.colors.solution.visiting
+      ? this.colors.pathfinding.visiting
       : this.isExitColor
-      ? this.colors.solution.exitColor
+      ? this.colors.pathfinding.exitColor
       : this.distanceToEntrance !== Infinity
-      ? this.colors.solution.visited
+      ? this.colors.pathfinding.visited
       : this.isVisited
       ? this.colors.visited
       : this.colors.unvisited;
