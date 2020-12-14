@@ -26,14 +26,14 @@ class Cell {
     this.isExit = false;
 
     // State for maze generation and
-    // visualisation of maze generation algorithm.
+    // visualization of maze generation algorithm.
     this.isVisited = false;
     this.isScanning = false;
     this.isStartCell = false;
 
     this.distanceToEntrance = Infinity;
 
-    // State for visualisation of pathfinding algorithm.
+    // State for visualization of path finding algorithm.
     this.isVisiting = false;
     this.isExitColor = false;
     this.opacity = 0;
@@ -64,7 +64,7 @@ class Cell {
       ['north', north],
       ['west', west],
       ['south', south],
-      ['east', east]
+      ['east', east],
     ];
   }
 
@@ -128,11 +128,11 @@ class Cell {
     } else if (this.isScanning) {
       ctx.fillStyle = this.colors.scanning;
     } else if (this.isVisiting) {
-      ctx.fillStyle = this.colors.pathfinding.visiting;
+      ctx.fillStyle = this.colors.pathFinding.visiting;
     } else if (this.isExitColor) {
-      ctx.fillStyle = this.colors.pathfinding.exitColor;
+      ctx.fillStyle = this.colors.pathFinding.exitColor;
     } else if (this.distanceToEntrance !== Infinity) {
-      ctx.fillStyle = this.colors.pathfinding.visited;
+      ctx.fillStyle = this.colors.pathFinding.visited;
     } else if (this.isVisited) {
       ctx.fillStyle = this.colors.visited;
     } else {
