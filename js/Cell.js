@@ -33,7 +33,7 @@ class Cell {
 
     this.distanceToEntrance = Infinity;
 
-    // State for visualization of path finding algorithm.
+    // State for visualization of pathfinding algorithm.
     this.isVisiting = false;
     this.isExitColor = false;
     this.opacity = 0;
@@ -128,11 +128,11 @@ class Cell {
     } else if (this.isScanning) {
       ctx.fillStyle = this.colors.scanning;
     } else if (this.isVisiting) {
-      ctx.fillStyle = this.colors.pathFinding.visiting;
+      ctx.fillStyle = this.colors.pathfinding.visiting;
     } else if (this.isExitColor) {
-      ctx.fillStyle = this.colors.pathFinding.exitColor;
+      ctx.fillStyle = this.colors.pathfinding.exitColor;
     } else if (this.distanceToEntrance !== Infinity) {
-      ctx.fillStyle = this.colors.pathFinding.visited;
+      ctx.fillStyle = this.colors.pathfinding.visited;
     } else if (this.isVisited) {
       ctx.fillStyle = this.colors.visited;
     } else {
