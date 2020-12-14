@@ -76,6 +76,16 @@ class Grid {
     }
   }
 
+  clearSolution() {
+    for (const row of this.content) {
+      for (const col of row) {
+        col.distanceToEntrance = Infinity;
+        col.isExitColor = false;
+        col.opacity = 0;
+      }
+    }
+  }
+
   draw(ctx) {
     for (const row of this.content) {
       for (const col of row) {

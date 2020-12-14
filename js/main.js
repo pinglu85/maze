@@ -34,7 +34,7 @@ let isGeneratingMaze = false;
 let isMazeGenerated = false;
 let isSearchingSolution = false;
 let isSolutionFound = false;
-let grid, entranceIcon, exitIcon, pathCoordinates;
+let grid, entranceIcon, exitIcon, pathCoordinates, entranceIconFacingDir;
 
 window.addEventListener('DOMContentLoaded', () => {
   grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
@@ -86,9 +86,19 @@ solutionBtn.addEventListener('click', async function () {
     this.textContent = 'Generate a maze!';
     return;
   }
+
   if (isSolutionFound) {
-    this.textContent = 'Solution is found!';
-    return;
+    grid.clearSolution();
+    solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    entranceIcon.reset(
+      grid.entranceCell.centerX,
+      grid.entranceCell.centerY,
+      entranceIconFacingDir
+    );
+    entranceIcon.draw(solutionCtx);
+    exitIcon.draw(solutionCtx);
+    pathCoordinates = null;
+    isSolutionFound = false;
   }
 
   isSearchingSolution = true;
@@ -112,11 +122,11 @@ function drawMaze() {
     entranceCell.draw(mazeCtx);
     exitCell.draw(mazeCtx);
 
-    const facingDir = getOppositeDir(grid.entranceDir);
+    entranceIconFacingDir = getOppositeDir(grid.entranceDir);
     entranceIcon = new EntranceIcon(
       entranceCell.centerX,
       entranceCell.centerY,
-      facingDir,
+      entranceIconFacingDir,
       grid.exitDir,
       entranceImgs,
       iconSize
