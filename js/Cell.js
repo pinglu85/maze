@@ -144,7 +144,7 @@ class Cell {
     if (this.opacity) {
       ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
       ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
-      this.opacity = this.opacity <= 0.88 ? this.opacity + 0.02 : this.opacity;
+      this.opacity = this.opacity <= 0.85 ? this.opacity + 0.02 : this.opacity;
     }
 
     if (this.northEdge) {
