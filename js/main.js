@@ -34,8 +34,8 @@ let isGeneratingMaze = false;
 let grid, entranceIcon, exitIcon, pathCoordinates;
 
 window.addEventListener('DOMContentLoaded', () => {
-  grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
-  grid.draw(mazeCtx, CELL_COLORS);
+  grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
+  grid.draw(mazeCtx);
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
@@ -64,7 +64,7 @@ newMazeBtn.addEventListener('click', async function () {
   if (!isGeneratingMaze) {
     isGeneratingMaze = true;
     this.disabled = true;
-    grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize);
+    grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
     solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_WIDTH);
     pathCoordinates = null;
     drawMaze();
@@ -81,13 +81,13 @@ solutionBtn.addEventListener('click', async () => {
 
 function drawMaze() {
   mazeCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  grid.draw(mazeCtx, CELL_COLORS);
+  grid.draw(mazeCtx);
   if (!isGeneratingMaze) {
     grid.generateMazeEntryAndExit();
     const entranceCell = grid.entranceCell;
     const exitCell = grid.exitCell;
-    entranceCell.draw(mazeCtx, CELL_COLORS);
-    exitCell.draw(mazeCtx, CELL_COLORS);
+    entranceCell.draw(mazeCtx);
+    exitCell.draw(mazeCtx);
 
     const facingDir = getOppositeDir(grid.entranceDir);
     entranceIcon = new EntranceIcon(
@@ -115,7 +115,7 @@ function drawMaze() {
 }
 
 function visualizePathFindingAlgo() {
-  grid.draw(mazeCtx, CELL_COLORS);
+  grid.draw(mazeCtx);
   if (pathCoordinates) {
     exitIcon.draw(solutionCtx, true);
     return;
