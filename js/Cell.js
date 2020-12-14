@@ -22,21 +22,11 @@ class Cell {
     this.eastEdge = true;
     this.boundaries = {};
 
-    this.isEntrance = false;
-    this.isExit = false;
-
-    // State for maze generation and
-    // visualisation of maze generation algorithm.
+    // State for maze generation.
     this.isVisited = false;
-    this.isScanning = false;
-    this.isStartCell = false;
 
+    // State for pathfinding.
     this.distanceToEntrance = Infinity;
-
-    // State for visualisation of pathfinding algorithm.
-    this.isVisiting = false;
-    this.isExitColor = false;
-    this.opacity = 0;
   }
 
   dropEdge(...args) {
