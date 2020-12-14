@@ -1,10 +1,11 @@
 import getRandomIndex from './utils/getRandomIndex.js';
 
 class Cell {
-  constructor(rowIndex, colIndex, cellSize) {
+  constructor(rowIndex, colIndex, cellSize, colors) {
     this.rowIndex = rowIndex;
     this.colIndex = colIndex;
     this.cellSize = cellSize;
+    this.colors = colors;
 
     // Coordinates on canvas.
     this.startX = Math.floor(this.colIndex * cellSize);
@@ -32,7 +33,7 @@ class Cell {
 
     this.distanceToEntrance = Infinity;
 
-    // State for visualisation of pathfinding algorithm.
+    // State for visualisation of solution algorithm.
     this.isVisiting = false;
     this.isExitColor = false;
     this.opacity = 0;
@@ -121,20 +122,21 @@ class Cell {
     return droppedBoundary;
   }
 
-  draw(ctx, cellColors) {
+  draw(ctx) {
     ctx.fillStyle = this.isStartCell
-      ? cellColors.start
+      ? this.colors.start
       : this.isScanning
-      ? cellColors.scanning
+      ? this.colors.scanning
       : this.isVisiting
-      ? cellColors.solution.visiting
+      ? this.colors.solution.visiting
       : this.isExitColor
-      ? cellColors.solution.exitColor
+      ? this.colors.solution.exitColor
       : this.distanceToEntrance !== Infinity
-      ? cellColors.solution.visited
+      ? this.colors.solution.visited
       : this.isVisited
-      ? cellColors.visited
-      : cellColors.unvisited;
+      ? this.colors.visited
+      : this.colors.unvisited;
+
     ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
 
     if (this.opacity) {

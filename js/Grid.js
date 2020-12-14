@@ -3,10 +3,10 @@ import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
 import getRandomIndex from './utils/getRandomIndex.js';
 
 class Grid {
-  constructor(width, height, cellSize) {
+  constructor(width, height, cellSize, cellColors) {
     this.content = Array.from(new Array(height), (_, rowIndex) =>
       Array.from(new Array(width), (_, colIndex) => {
-        const cell = new Cell(rowIndex, colIndex, cellSize);
+        const cell = new Cell(rowIndex, colIndex, cellSize, cellColors);
         cell.setBoundaries(height, width);
         return cell;
       })
@@ -76,10 +76,10 @@ class Grid {
     }
   }
 
-  draw(ctx, cellColors) {
+  draw(ctx) {
     for (const row of this.content) {
       for (const col of row) {
-        col.draw(ctx, cellColors);
+        col.draw(ctx);
       }
     }
   }
