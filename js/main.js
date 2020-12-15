@@ -4,23 +4,30 @@ import ExitIcon from './ExitIcon.js';
 import dijkstra from './dijkstra.js';
 import getOppositeDir from './utils/getOppositeDir.js';
 import loadImg from './utils/loadImg.js';
+import setCanvasesSize from './utils/setCanvasesSize.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
-
-const GRID_SIZE = 15;
-const CANVAS_WIDTH = 300;
-const CANVAS_HEIGHT = 300;
+import {
+  CELL_SIZE,
+  ICON_SIZE,
+  MIN_GRID_SIZE,
+  MAX_GRID_SIZE,
+} from './constants/size.js';
 
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
 const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
 const solutionBtn = document.getElementById('solution-btn');
+const changeGridSizeBtn = document.getElementById('change-grid-size-btn');
 const mazeCanvas = document.getElementById('maze-canvas');
 const mazeCtx = mazeCanvas.getContext('2d');
 const solutionCanvas = document.getElementById('solution-canvas');
 const solutionCtx = solutionCanvas.getContext('2d');
-mazeCanvas.width = solutionCanvas.width = CANVAS_WIDTH;
-mazeCanvas.height = solutionCanvas.height = CANVAS_HEIGHT;
-const cellSize = Math.floor(CANVAS_WIDTH / GRID_SIZE);
+const canvases = [mazeCanvas, solutionCanvas];
+
+const canvasWrapper = document.getElementById('canvas-wrapper');
+const inputCols = document.getElementById('cols');
+const inputRows = document.getElementById('rows');
+let numOfCols, numOfRows, canvasWidth, canvasHeight;
 
 const entranceImgs = Array.from(new Array(10), (_, i) =>
   loadImg(`/assets/player${i}.png`)
@@ -28,7 +35,6 @@ const entranceImgs = Array.from(new Array(10), (_, i) =>
 const exitImgs = ['normal', 'white'].map((option) =>
   loadImg(`/assets/exit-${option}.png`)
 );
-const iconSize = Math.floor(cellSize - cellSize / 10);
 
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
@@ -38,8 +44,69 @@ let isSolutionFound = false;
 let grid, entranceIcon, exitIcon, pathCoordinates, entranceIconFacingDir;
 
 window.addEventListener('DOMContentLoaded', () => {
-  grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
+  if (window.matchMedia('(max-width: 577px)').matches) {
+    numOfCols = 10;
+    numOfRows = 8;
+  } else if (window.matchMedia('(max-width: 769px').matches) {
+    numOfCols = 25;
+    numOfRows = 15;
+  } else {
+    numOfCols = 40;
+    numOfRows = 16;
+  }
+
+  inputCols.value = numOfCols;
+  inputRows.value = numOfRows;
+  const canvasSize = setCanvasesSize(
+    canvases,
+    numOfCols,
+    numOfRows,
+    CELL_SIZE,
+    canvasWrapper
+  );
+  canvasWidth = canvasSize.canvasWidth;
+  canvasHeight = canvasSize.canvasHeight;
+
+  grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
   grid.draw(mazeCtx);
+});
+
+changeGridSizeBtn.addEventListener('click', function () {
+  const _numOfCols = parseInt(inputCols.value);
+  const _numOfRows = parseInt(inputRows.value);
+  const isNumOfColsWithinRange =
+    _numOfCols >= MIN_GRID_SIZE && _numOfCols <= MAX_GRID_SIZE;
+  const isNumOfRowsWithinRange =
+    _numOfRows >= MIN_GRID_SIZE && _numOfRows <= MAX_GRID_SIZE;
+
+  if (!isNumOfColsWithinRange || !isNumOfRowsWithinRange) {
+    this.textContent = 'Enter a valid number!';
+    setTimeout(() => {
+      changeGridSizeBtn.textContent = 'Change Grid Size';
+    }, 2500);
+    return;
+  }
+
+  if (_numOfCols === numOfCols && _numOfRows === numOfRows) {
+    return;
+  }
+
+  numOfCols = _numOfCols;
+  numOfRows = _numOfRows;
+  const canvasSize = setCanvasesSize(
+    canvases,
+    numOfCols,
+    numOfRows,
+    CELL_SIZE,
+    canvasWrapper
+  );
+  canvasWidth = canvasSize.canvasWidth;
+  canvasHeight = canvasSize.canvasHeight;
+
+  grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
+  grid.draw(mazeCtx);
+  isMazeGenerated = false;
+  isSolutionFound = false;
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
@@ -74,9 +141,10 @@ newMazeBtn.addEventListener('click', async function () {
   this.disabled = true;
   solutionBtn.textContent = 'Solution';
   solutionBtn.disabled = true;
+  changeGridSizeBtn.disabled = true;
 
-  grid = new Grid(GRID_SIZE, GRID_SIZE, cellSize, CELL_COLORS);
-  solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_WIDTH);
+  grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
+  solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
   pathCoordinates = null;
   drawMaze();
   isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
@@ -90,7 +158,7 @@ solutionBtn.addEventListener('click', async function () {
 
   if (isSolutionFound) {
     grid.clearSolution();
-    solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     entranceIcon.reset(
       grid.entranceCell.centerX,
       grid.entranceCell.centerY,
@@ -105,6 +173,7 @@ solutionBtn.addEventListener('click', async function () {
   isSearchingSolution = true;
   this.disabled = true;
   newMazeBtn.disabled = true;
+  changeGridSizeBtn.disabled = true;
 
   visualizePathFindingAlgo();
   pathCoordinates = await dijkstra(grid);
@@ -113,7 +182,7 @@ solutionBtn.addEventListener('click', async function () {
 });
 
 function drawMaze() {
-  mazeCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
   grid.draw(mazeCtx);
 
   if (!isGeneratingMaze) {
@@ -130,7 +199,7 @@ function drawMaze() {
       entranceIconFacingDir,
       grid.exitDir,
       entranceImgs,
-      iconSize
+      ICON_SIZE
     );
     entranceIcon.draw(solutionCtx);
 
@@ -138,12 +207,13 @@ function drawMaze() {
       exitCell.centerX,
       exitCell.centerY,
       exitImgs,
-      iconSize
+      ICON_SIZE
     );
     exitIcon.draw(solutionCtx);
 
     newMazeBtn.disabled = false;
     solutionBtn.disabled = false;
+    changeGridSizeBtn.disabled = false;
     isMazeGenerated = true;
     return;
   }
@@ -168,7 +238,7 @@ function drawSolution() {
     entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
   };
 
-  solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   if (entranceIcon.atExit) {
     drawEntranceIconAndFootprints();
@@ -176,6 +246,7 @@ function drawSolution() {
     isSolutionFound = true;
     newMazeBtn.disabled = false;
     solutionBtn.disabled = false;
+    changeGridSizeBtn.disabled = false;
     return;
   }
 

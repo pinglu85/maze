@@ -11,6 +11,17 @@
   </head>
   <body>
     <div class="controls">
+      <label>
+        Rows
+        <input id="rows" type="number" min="3" max="40" />
+        <span>(Range: 3 - 40)</span>
+      </label>
+      <label>
+        Columns
+        <input id="cols" type="number" min="3" max="40" />
+        <span>(Range: 3 - 40)</span>
+      </label>
+      <button type="button" id="change-grid-size-btn">Change Grid Size</button>
       <div class="dropdown" id="maze-algos-dropdown">
         <button type="button" class="dropdown__btn">
           Maze Generation Algos
@@ -23,10 +34,12 @@
       <button type="button" id="new-maze-btn">New Maze</button>
       <button type="button" id="solution-btn">Solution</button>
     </div>
-    <div class="canvas-wrapper">
-      <canvas id="maze-canvas"></canvas>
-      <canvas id="solution-canvas"></canvas>
-    </div>
+    <main class="main">
+      <div class="canvas-wrapper" id="canvas-wrapper">
+        <canvas id="maze-canvas"></canvas>
+        <canvas id="solution-canvas"></canvas>
+      </div>
+    </main>
     <script type="module" src="js/main.js"></script>
     <script>
       feather.replace();
