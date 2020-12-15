@@ -135,17 +135,23 @@ newMazeBtn.addEventListener('click', async function () {
     return;
   }
 
+  if (isMazeGenerated) {
+    grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
+    solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+    isMazeGenerated = false;
+  }
+
+  if (isSolutionFound) {
+    pathCoordinates = null;
+    isSolutionFound = false;
+  }
+
   isGeneratingMaze = true;
-  isMazeGenerated = false;
-  isSolutionFound = false;
   this.disabled = true;
   solutionBtn.textContent = 'Solution';
   solutionBtn.disabled = true;
   changeGridSizeBtn.disabled = true;
 
-  grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
-  solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-  pathCoordinates = null;
   drawMaze();
   isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
 });
