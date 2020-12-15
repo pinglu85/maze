@@ -6,7 +6,7 @@ import getOppositeDir from './utils/getOppositeDir.js';
 import loadImg from './utils/loadImg.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 
-const GRID_SIZE = 3;
+const GRID_SIZE = 15;
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
 
