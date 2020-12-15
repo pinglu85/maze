@@ -163,12 +163,15 @@ function visualizePathFindingAlgo() {
 }
 
 function drawSolution() {
+  const drawEntranceIconAndFootprints = () => {
+    entranceIcon.draw(solutionCtx);
+    entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
+  };
+
   solutionCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  entranceIcon.move();
-  entranceIcon.draw(solutionCtx);
-  entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
 
   if (entranceIcon.atExit) {
+    drawEntranceIconAndFootprints();
     isSearchingSolution = false;
     isSolutionFound = true;
     newMazeBtn.disabled = false;
@@ -177,6 +180,8 @@ function drawSolution() {
   }
 
   exitIcon.draw(solutionCtx, true);
+  entranceIcon.move();
+  drawEntranceIconAndFootprints();
 
   requestAnimationFrame(drawSolution);
 }
