@@ -6,7 +6,7 @@ import getOppositeDir from './utils/getOppositeDir.js';
 import loadImg from './utils/loadImg.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 
-const GRID_SIZE = 15;
+const GRID_SIZE = 3;
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
 
@@ -25,8 +25,9 @@ const cellSize = Math.floor(CANVAS_WIDTH / GRID_SIZE);
 const entranceImgs = Array.from(new Array(10), (_, i) =>
   loadImg(`/assets/player${i}.png`)
 );
-const exitImg = loadImg('/assets/exit.png');
-const exitImgWhite = loadImg('/assets/exit-white.png');
+const exitImgs = ['normal', 'white'].map((option) =>
+  loadImg(`/assets/exit-${option}.png`)
+);
 const iconSize = Math.floor(cellSize - cellSize / 10);
 
 let mazeGenerationAlgo = '';
@@ -136,8 +137,7 @@ function drawMaze() {
     exitIcon = new ExitIcon(
       exitCell.centerX,
       exitCell.centerY,
-      exitImg,
-      exitImgWhite,
+      exitImgs,
       iconSize
     );
     exitIcon.draw(solutionCtx);
@@ -155,7 +155,7 @@ function visualizePathFindingAlgo() {
   grid.draw(mazeCtx);
 
   if (pathCoordinates) {
-    exitIcon.draw(solutionCtx, true);
+    exitIcon.draw(solutionCtx, 'imgWhite');
     return;
   }
 
@@ -179,7 +179,7 @@ function drawSolution() {
     return;
   }
 
-  exitIcon.draw(solutionCtx, true);
+  exitIcon.draw(solutionCtx, 'imgWhite');
   entranceIcon.move();
   drawEntranceIconAndFootprints();
 

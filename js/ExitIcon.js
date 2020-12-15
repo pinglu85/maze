@@ -1,17 +1,16 @@
 class ExitIcon {
-  constructor(centerX, centerY, img, imgWhite, iconSize) {
+  constructor(centerX, centerY, imgs, iconSize) {
     this.centerX = centerX;
     this.centerY = centerY;
-    this.img = img;
-    this.imgWhite = imgWhite;
+    this.imgNormal = imgs[0];
+    this.imgWhite = imgs[1];
     this.iconSize = iconSize;
   }
 
-  draw(ctx, isImgWhite = false) {
-    const img = isImgWhite ? this.imgWhite : this.img;
+  draw(ctx, imgOption = 'imgNormal') {
     ctx.translate(this.centerX, this.centerY);
     ctx.drawImage(
-      img,
+      this[imgOption],
       -Math.floor(this.iconSize / 2),
       -Math.floor(this.iconSize / 2),
       this.iconSize,
