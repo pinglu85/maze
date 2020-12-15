@@ -64,10 +64,15 @@ body {
   text-decoration: none;
 }
 
+.main {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+  width: 100%;
+}
+
 .canvas-wrapper {
-  width: 300px;
   position: relative;
-  margin: 30px auto;
 }
 
 #maze-canvas,
