@@ -142,10 +142,8 @@ newMazeBtn.addEventListener('click', async function () {
     isMazeGenerated = false;
   }
 
-  if (isSolutionFound) {
-    pathCoordinates = null;
-    isSolutionFound = false;
-  }
+  pathCoordinates = null;
+  isSolutionFound = false;
 
   isGeneratingMaze = true;
   this.disabled = true;
