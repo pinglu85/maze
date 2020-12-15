@@ -107,6 +107,7 @@ changeGridSizeBtn.addEventListener('click', function () {
   grid.draw(mazeCtx);
   isMazeGenerated = false;
   isSolutionFound = false;
+  pathCoordinates = null;
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
