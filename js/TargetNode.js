@@ -1,20 +1,20 @@
 class TargetNode {
-  constructor(centerX, centerY, imgs, iconSize) {
+  constructor(centerX, centerY, sprites, spriteSize) {
     this.centerX = centerX;
     this.centerY = centerY;
-    this.imgNormal = imgs[0];
-    this.imgWhite = imgs[1];
-    this.iconSize = iconSize;
+    this.spriteNormal = sprites[0];
+    this.spriteWhite = sprites[1];
+    this.spriteSize = spriteSize;
   }
 
-  draw(ctx, imgOption = 'imgNormal') {
+  draw(ctx, spriteOption = 'spriteNormal') {
     ctx.translate(this.centerX, this.centerY);
     ctx.drawImage(
-      this[imgOption],
-      -Math.floor(this.iconSize / 2),
-      -Math.floor(this.iconSize / 2),
-      this.iconSize,
-      this.iconSize
+      this[spriteOption],
+      -Math.floor(this.spriteSize / 2),
+      -Math.floor(this.spriteSize / 2),
+      this.spriteSize,
+      this.spriteSize
     );
     ctx.translate(-this.centerX, -this.centerY);
   }

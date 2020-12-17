@@ -1,4 +1,4 @@
-export default function loadImg(src) {
+export default function loadSprite(src) {
   const img = new Image();
   img.src = src;
   return img;
