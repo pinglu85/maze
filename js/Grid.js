@@ -1,6 +1,6 @@
 import Cell from './Cell.js';
 import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
-import recursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracker.js';
+import asyncRecursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracker.js';
 import getRandomIndex from './utils/getRandomIndex.js';
 
 class Grid {
@@ -74,7 +74,9 @@ class Grid {
         });
       case 'Recursive Backtracker':
         return new Promise(async (resolve) => {
-          const isGeneratingMaze = await recursiveBacktracker(this.content);
+          const isGeneratingMaze = await asyncRecursiveBacktracker(
+            this.content
+          );
           resolve(isGeneratingMaze);
         });
       default:
