@@ -68,6 +68,12 @@ class Cell {
     ];
   }
 
+  getRandomNeighbor(grid) {
+    const neighbors = this.getNeighbors(grid).filter((neighbor) => neighbor[1]);
+    const randomIndex = getRandomIndex(neighbors.length);
+    return neighbors[randomIndex];
+  }
+
   getRandomAvailNeighbor(grid) {
     const neighbors = this.getNeighbors(grid);
     const availNeighbors = neighbors.filter(
