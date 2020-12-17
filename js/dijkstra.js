@@ -83,12 +83,11 @@ function findPath(grid, exitCell) {
   return pathCoordinates;
 }
 
-export default function dijkstra(
-  { content, entranceCell, exitCell },
-  wait = 50
-) {
+function dijkstra({ content, entranceCell, exitCell }, wait = 50) {
   return new Promise(async (resolve) => {
     await distance(content, entranceCell, wait);
     resolve(findPath(content, exitCell));
   });
 }
+
+export default dijkstra;
