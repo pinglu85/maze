@@ -54,6 +54,7 @@ function asyncBacktracking(grid, stack, wait) {
 
       const randomAvailNeighbor = lastCell.getRandomAvailNeighbor(grid);
       lastCell.isScanning = false;
+
       if (!randomAvailNeighbor) {
         newStack.pop();
         continue;
