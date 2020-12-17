@@ -1,41 +1,52 @@
 import getRandomIndex from '../utils/getRandomIndex.js';
 import getOppositeDir from '../utils/getOppositeDir.js';
 
-function walk(grid, cell) {
-  cell.isStartCell = false;
-  cell.isVisited = true;
+function asyncWalk(grid, cell, wait) {
+  const walk = (resolve) => {
+    cell.isStartCell = false;
+    cell.isVisited = true;
 
-  const [dir, neighbor] = cell.getRandomNeighbor(grid);
-  neighbor.isStartCell = true;
+    const [dir, neighbor] = cell.getRandomNeighbor(grid);
+    neighbor.isStartCell = true;
 
-  if (neighbor.isVisited) {
-    return neighbor;
-  }
+    if (neighbor.isVisited) {
+      resolve(neighbor);
+      return;
+    }
 
-  cell.dropEdge(dir);
+    cell.dropEdge(dir);
 
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropEdge(oppositeDir);
+    const oppositeDir = getOppositeDir(dir);
+    neighbor.dropEdge(oppositeDir);
 
-  return neighbor;
-}
-
-function aldousBroderAlgo(grid) {
-  const randomRow = getRandomIndex(grid.length);
-  const randomCol = getRandomIndex(grid[0].length);
-  let startCell = grid[randomRow][randomCol];
-  startCell.isStartCell = true;
-
-  const hasUnvisitedCell = () => {
-    return grid.some((row) => row.some((col) => !col.isVisited));
+    resolve(neighbor);
   };
 
-  while (hasUnvisitedCell()) {
-    startCell = walk(grid, startCell);
-  }
-
-  startCell.isStartCell = false;
-  return false;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      walk(resolve);
+    }, wait);
+  });
 }
 
-export default aldousBroderAlgo;
+function asyncAldousBroderAlgo(grid, wait = 50) {
+  return new Promise(async (resolve) => {
+    const randomRow = getRandomIndex(grid.length);
+    const randomCol = getRandomIndex(grid[0].length);
+    let startCell = grid[randomRow][randomCol];
+    startCell.isStartCell = true;
+
+    const hasUnvisitedCell = () => {
+      return grid.some((row) => row.some((col) => !col.isVisited));
+    };
+
+    while (hasUnvisitedCell()) {
+      startCell = await asyncWalk(grid, startCell, wait);
+    }
+
+    startCell.isStartCell = false;
+    resolve(false);
+  });
+}
+
+export default asyncAldousBroderAlgo;
