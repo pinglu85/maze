@@ -3,7 +3,7 @@ import getOppositeDir from '../utils/getOppositeDir.js';
 import delay from '../utils/delay.js';
 
 function asyncGetNeighbor(grid, lastCell, wait) {
-  const later = (resolve) => {
+  const getNeighbor = (resolve) => {
     lastCell.isStartCell = false;
     lastCell.isVisited = true;
 
@@ -24,7 +24,7 @@ function asyncGetNeighbor(grid, lastCell, wait) {
 
   return new Promise((resolve) => {
     setTimeout(() => {
-      later(resolve);
+      getNeighbor(resolve);
     }, wait);
   });
 }
@@ -44,7 +44,7 @@ function walk(grid, stack, wait) {
 }
 
 function asyncBacktracking(grid, stack, wait) {
-  const later = async (resolve) => {
+  const backtracking = async (resolve) => {
     const newStack = [...stack];
     while (newStack.length) {
       const lastCell = newStack[newStack.length - 1];
@@ -75,7 +75,7 @@ function asyncBacktracking(grid, stack, wait) {
 
   return new Promise((resolve) => {
     setTimeout(() => {
-      later(resolve);
+      backtracking(resolve);
     }, wait);
   });
 }
