@@ -145,7 +145,7 @@ class StartNode {
       ctx.arc(centerX, centerY, this.spriteSize / 7, 0, 2 * Math.PI);
       ctx.fillStyle = newFootprint;
       ctx.fill();
-      ctx.globalAlpha = 0.2 * opacityCoefficient;
+      ctx.globalAlpha = 0.05 * opacityCoefficient;
       ctx.fillStyle = oldFootprint;
       ctx.fill();
       ctx.globalAlpha = 1;
