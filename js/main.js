@@ -3,12 +3,12 @@ import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
 import dijkstra from './dijkstra.js';
 import getOppositeDir from './utils/getOppositeDir.js';
-import loadImg from './utils/loadImg.js';
+import loadSprite from './utils/loadImg.js';
 import setCanvasesSize from './utils/setCanvasesSize.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 import {
   CELL_SIZE,
-  ICON_SIZE,
+  SPRITE_SIZE,
   MIN_GRID_SIZE,
   MAX_GRID_SIZE,
 } from './constants/size.js';
@@ -29,11 +29,11 @@ const inputCols = document.getElementById('cols');
 const inputRows = document.getElementById('rows');
 let numOfCols, numOfRows, canvasWidth, canvasHeight;
 
-const startNodeImgs = Array.from(new Array(10), (_, i) =>
-  loadImg(`/assets/start-node-${i}.png`)
+const startNodeSprites = Array.from(new Array(10), (_, i) =>
+  loadSprite(`/assets/start-node-${i}.png`)
 );
-const targetNodeImgs = ['normal', 'white'].map((option) =>
-  loadImg(`/assets/target-node-${option}.png`)
+const targetNodeSprites = ['normal', 'white'].map((option) =>
+  loadSprite(`/assets/target-node-${option}.png`)
 );
 
 let mazeGenerationAlgo = '';
@@ -203,16 +203,16 @@ function drawMaze() {
       entranceCell.centerY,
       startNodeFacingDir,
       grid.exitDir,
-      startNodeImgs,
-      ICON_SIZE
+      startNodeSprites,
+      SPRITE_SIZE
     );
     startNode.draw(solutionCtx);
 
     targetNode = new TargetNode(
       exitCell.centerX,
       exitCell.centerY,
-      targetNodeImgs,
-      ICON_SIZE
+      targetNodeSprites,
+      SPRITE_SIZE
     );
     targetNode.draw(solutionCtx);
 
@@ -230,7 +230,7 @@ function visualizePathFindingAlgo() {
   grid.draw(mazeCtx);
 
   if (pathCoordinates) {
-    targetNode.draw(solutionCtx, 'imgWhite');
+    targetNode.draw(solutionCtx, 'spriteWhite');
     return;
   }
 
@@ -255,7 +255,7 @@ function drawSolution() {
     return;
   }
 
-  targetNode.draw(solutionCtx, 'imgWhite');
+  targetNode.draw(solutionCtx, 'spriteWhite');
   startNode.move();
   drawStartNodeAndFootprints();
 

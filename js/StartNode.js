@@ -1,14 +1,14 @@
 const TO_RADIANS = Math.PI / 180;
 
 class StartNode {
-  constructor(centerX, centerY, facingDir, exitDir, imgs, iconSize) {
+  constructor(centerX, centerY, facingDir, exitDir, sprites, spriteSize) {
     this.centerX = centerX;
     this.centerY = centerY;
     this.facingDir = facingDir;
     this.exitDir = exitDir;
-    this.iconSize = iconSize;
-    this.imgs = imgs;
-    this.imgIndex = 0;
+    this.spriteSize = spriteSize;
+    this.sprites = sprites;
+    this.spriteIndex = 0;
     this.pathCoordinates = null;
     this.currentPathSegment = null;
     this.prevCellCenters = [];
@@ -108,19 +108,19 @@ class StartNode {
     ctx.translate(this.centerX, this.centerY);
     ctx.rotate(angleInRad);
     ctx.drawImage(
-      this.imgs[this.imgIndex],
-      -Math.floor(this.iconSize / 2),
-      -Math.floor(this.iconSize / 2),
-      this.iconSize,
-      this.iconSize
+      this.sprites[this.spriteIndex],
+      -Math.floor(this.spriteSize / 2),
+      -Math.floor(this.spriteSize / 2),
+      this.spriteSize,
+      this.spriteSize
     );
     ctx.rotate(-angleInRad);
     ctx.translate(-this.centerX, -this.centerY);
 
     const now = Date.now();
     if (now - this.previousTime > 30) {
-      this.imgIndex =
-        this.imgIndex === this.imgs.length - 1 ? 0 : this.imgIndex + 1;
+      this.spriteIndex =
+        this.spriteIndex === this.sprites.length - 1 ? 0 : this.spriteIndex + 1;
       this.previousTime = now;
     }
   }
@@ -142,7 +142,7 @@ class StartNode {
     for (let i = numOfPrevCellCenters - 1; i >= 0; i--) {
       const [centerX, centerY] = this.prevCellCenters[i];
       ctx.beginPath();
-      ctx.arc(centerX, centerY, this.iconSize / 7, 0, 2 * Math.PI);
+      ctx.arc(centerX, centerY, this.spriteSize / 7, 0, 2 * Math.PI);
       ctx.fillStyle = newFootprint;
       ctx.fill();
       ctx.globalAlpha = 0.2 * opacityCoefficient;
