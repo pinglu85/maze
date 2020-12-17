@@ -1,6 +1,6 @@
 import Grid from './Grid.js';
-import EntranceIcon from './EntranceIcon.js';
-import ExitIcon from './ExitIcon.js';
+import StartNode from './StartNode.js';
+import TargetNode from './TargetNode.js';
 import dijkstra from './dijkstra.js';
 import getOppositeDir from './utils/getOppositeDir.js';
 import loadImg from './utils/loadImg.js';
@@ -29,11 +29,11 @@ const inputCols = document.getElementById('cols');
 const inputRows = document.getElementById('rows');
 let numOfCols, numOfRows, canvasWidth, canvasHeight;
 
-const entranceImgs = Array.from(new Array(10), (_, i) =>
-  loadImg(`/assets/player${i}.png`)
+const startNodeImgs = Array.from(new Array(10), (_, i) =>
+  loadImg(`/assets/start-node-${i}.png`)
 );
-const exitImgs = ['normal', 'white'].map((option) =>
-  loadImg(`/assets/exit-${option}.png`)
+const targetNodeImgs = ['normal', 'white'].map((option) =>
+  loadImg(`/assets/target-node-${option}.png`)
 );
 
 let mazeGenerationAlgo = '';
@@ -41,7 +41,7 @@ let isGeneratingMaze = false;
 let isMazeGenerated = false;
 let isSearchingSolution = false;
 let isSolutionFound = false;
-let grid, entranceIcon, exitIcon, pathCoordinates, entranceIconFacingDir;
+let grid, startNode, targetNode, pathCoordinates, startNodeFacingDir;
 
 window.addEventListener('DOMContentLoaded', () => {
   if (window.matchMedia('(max-width: 577px)').matches) {
@@ -164,13 +164,13 @@ solutionBtn.addEventListener('click', async function () {
   if (isSolutionFound) {
     grid.clearSolution();
     solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-    entranceIcon.reset(
+    startNode.reset(
       grid.entranceCell.centerX,
       grid.entranceCell.centerY,
-      entranceIconFacingDir
+      startNodeFacingDir
     );
-    entranceIcon.draw(solutionCtx);
-    exitIcon.draw(solutionCtx);
+    startNode.draw(solutionCtx);
+    targetNode.draw(solutionCtx);
     pathCoordinates = null;
     isSolutionFound = false;
   }
@@ -182,7 +182,7 @@ solutionBtn.addEventListener('click', async function () {
 
   visualizePathFindingAlgo();
   pathCoordinates = await dijkstra(grid);
-  entranceIcon.pathCoordinates = [...pathCoordinates];
+  startNode.pathCoordinates = [...pathCoordinates];
   drawSolution();
 });
 
@@ -197,24 +197,24 @@ function drawMaze() {
     entranceCell.draw(mazeCtx);
     exitCell.draw(mazeCtx);
 
-    entranceIconFacingDir = getOppositeDir(grid.entranceDir);
-    entranceIcon = new EntranceIcon(
+    startNodeFacingDir = getOppositeDir(grid.entranceDir);
+    startNode = new StartNode(
       entranceCell.centerX,
       entranceCell.centerY,
-      entranceIconFacingDir,
+      startNodeFacingDir,
       grid.exitDir,
-      entranceImgs,
+      startNodeImgs,
       ICON_SIZE
     );
-    entranceIcon.draw(solutionCtx);
+    startNode.draw(solutionCtx);
 
-    exitIcon = new ExitIcon(
+    targetNode = new TargetNode(
       exitCell.centerX,
       exitCell.centerY,
-      exitImgs,
+      targetNodeImgs,
       ICON_SIZE
     );
-    exitIcon.draw(solutionCtx);
+    targetNode.draw(solutionCtx);
 
     newMazeBtn.disabled = false;
     solutionBtn.disabled = false;
@@ -230,7 +230,7 @@ function visualizePathFindingAlgo() {
   grid.draw(mazeCtx);
 
   if (pathCoordinates) {
-    exitIcon.draw(solutionCtx, 'imgWhite');
+    targetNode.draw(solutionCtx, 'imgWhite');
     return;
   }
 
@@ -238,15 +238,15 @@ function visualizePathFindingAlgo() {
 }
 
 function drawSolution() {
-  const drawEntranceIconAndFootprints = () => {
-    entranceIcon.draw(solutionCtx);
-    entranceIcon.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
+  const drawStartNodeAndFootprints = () => {
+    startNode.draw(solutionCtx);
+    startNode.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
   };
 
   solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  if (entranceIcon.atExit) {
-    drawEntranceIconAndFootprints();
+  if (startNode.atExit) {
+    drawStartNodeAndFootprints();
     isSearchingSolution = false;
     isSolutionFound = true;
     newMazeBtn.disabled = false;
@@ -255,9 +255,9 @@ function drawSolution() {
     return;
   }
 
-  exitIcon.draw(solutionCtx, 'imgWhite');
-  entranceIcon.move();
-  drawEntranceIconAndFootprints();
+  targetNode.draw(solutionCtx, 'imgWhite');
+  startNode.move();
+  drawStartNodeAndFootprints();
 
   requestAnimationFrame(drawSolution);
 }
