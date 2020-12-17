@@ -4,21 +4,27 @@ import getOppositeDir from '../utils/getOppositeDir.js';
 import delay from '../utils/delay.js';
 
 function asyncWalk(grid, cell, wait) {
+  const walk = (resolve) => {
+    cell.isStartCell = false;
+    cell.isVisited = true;
+
+    const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
+    if (!randomAvailNeighbor) {
+      resolve();
+      return;
+    }
+
+    const [dir, neighbor] = randomAvailNeighbor;
+    const oppositeDir = getOppositeDir(dir);
+    cell.dropEdge(dir);
+    neighbor.isStartCell = true;
+    neighbor.dropEdge(oppositeDir);
+    resolve(neighbor);
+  };
+
   return new Promise((resolve) => {
     setTimeout(() => {
-      cell.isStartCell = false;
-      cell.isVisited = true;
-      const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
-      if (!randomAvailNeighbor) {
-        resolve();
-      } else {
-        const [dir, neighbor] = randomAvailNeighbor;
-        const oppositeDir = getOppositeDir(dir);
-        cell.dropEdge(dir);
-        neighbor.isStartCell = true;
-        neighbor.dropEdge(oppositeDir);
-        resolve(neighbor);
-      }
+      walk(resolve);
     }, wait);
   });
 }
@@ -61,7 +67,9 @@ function asyncHunt(grid, wait) {
   };
 
   return new Promise((resolve) => {
-    setTimeout(hunt.bind(this, resolve), wait);
+    setTimeout(() => {
+      hunt(resolve);
+    }, wait);
   });
 }
 
