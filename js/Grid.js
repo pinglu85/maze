@@ -1,5 +1,6 @@
 import Cell from './Cell.js';
 import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
+import recursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracker.js';
 import getRandomIndex from './utils/getRandomIndex.js';
 
 class Grid {
@@ -33,11 +34,11 @@ class Grid {
     const numOfCols = this.content[0].length;
     const entrance = {
       rowIndex: getRandomIndex(numOfRows),
-      colIndex: null
+      colIndex: null,
     };
     const exit = {
       rowIndex: null,
-      colIndex: null
+      colIndex: null,
     };
     if (entrance.rowIndex === 0 || entrance.rowIndex === numOfRows - 1) {
       entrance.colIndex = getRandomIndex(numOfCols);
@@ -69,6 +70,11 @@ class Grid {
       case 'Hunt and Kill':
         return new Promise(async (resolve) => {
           const isGeneratingMaze = await asyncHuntAndKill(this.content);
+          resolve(isGeneratingMaze);
+        });
+      case 'Recursive Backtracker':
+        return new Promise(async (resolve) => {
+          const isGeneratingMaze = await recursiveBacktracker(this.content);
           resolve(isGeneratingMaze);
         });
       default:
