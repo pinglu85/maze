@@ -3,6 +3,7 @@ import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
 import asyncRecursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracker.js';
 import asyncAldousBroderAlgo from './mazeGenerationAlgos/aldousBroderAlgo.js';
 import getRandomIndex from './utils/getRandomIndex.js';
+import returnPromise from './utils/returnPromise.js';
 
 class Grid {
   constructor(width, height, cellSize, cellColors) {
@@ -69,22 +70,11 @@ class Grid {
   generateMaze(algo) {
     switch (algo) {
       case 'Hunt and Kill':
-        return new Promise(async (resolve) => {
-          const isGeneratingMaze = await asyncHuntAndKill(this.content);
-          resolve(isGeneratingMaze);
-        });
+        return returnPromise(asyncHuntAndKill, this.content);
       case 'Recursive Backtracker':
-        return new Promise(async (resolve) => {
-          const isGeneratingMaze = await asyncRecursiveBacktracker(
-            this.content
-          );
-          resolve(isGeneratingMaze);
-        });
+        return returnPromise(asyncRecursiveBacktracker, this.content);
       case 'Aldous-Broder Algorithm':
-        return new Promise(async (resolve) => {
-          const isGeneratingMaze = await asyncAldousBroderAlgo(this.content);
-          resolve(isGeneratingMaze);
-        });
+        return returnPromise(asyncAldousBroderAlgo, this.content);
       default:
       // do nothing
     }
