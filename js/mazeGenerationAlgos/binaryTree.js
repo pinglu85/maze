@@ -15,7 +15,7 @@ function asyncWalk(prevCell, cell, grid, wait) {
       .getNeighbors(grid)
       .filter(
         (neighbor) =>
-          neighbor[1] && (neighbor[0] === 'north' || neighbor[0] === 'east')
+          neighbor[1] && (neighbor[0] === 'north' || neighbor[0] === 'west')
       );
 
     if (!northernAndEasternNeighbors.length) {
