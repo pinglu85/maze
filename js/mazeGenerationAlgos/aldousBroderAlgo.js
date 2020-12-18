@@ -29,24 +29,22 @@ function asyncWalk(grid, cell, wait) {
   });
 }
 
-function asyncAldousBroderAlgo(grid, wait = 50) {
-  return new Promise(async (resolve) => {
-    const randomRow = getRandomIndex(grid.length);
-    const randomCol = getRandomIndex(grid[0].length);
-    let startCell = grid[randomRow][randomCol];
-    startCell.isStartCell = true;
+async function asyncAldousBroderAlgo(grid, wait = 50) {
+  const randomRow = getRandomIndex(grid.length);
+  const randomCol = getRandomIndex(grid[0].length);
+  let startCell = grid[randomRow][randomCol];
+  startCell.isStartCell = true;
 
-    const hasUnvisitedCell = () => {
-      return grid.some((row) => row.some((col) => !col.isVisited));
-    };
+  const hasUnvisitedCell = () => {
+    return grid.some((row) => row.some((col) => !col.isVisited));
+  };
 
-    while (hasUnvisitedCell()) {
-      startCell = await asyncWalk(grid, startCell, wait);
-    }
+  while (hasUnvisitedCell()) {
+    startCell = await asyncWalk(grid, startCell, wait);
+  }
 
-    startCell.isStartCell = false;
-    resolve(false);
-  });
+  startCell.isStartCell = false;
+  return false;
 }
 
 export default asyncAldousBroderAlgo;
