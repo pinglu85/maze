@@ -29,7 +29,7 @@ function asyncGetNeighbor(grid, lastCell, wait) {
   });
 }
 
-function walk(grid, stack, wait) {
+function asyncWalk(grid, stack, wait) {
   return new Promise(async (resolve) => {
     const newStack = [...stack];
     let startCell = newStack[newStack.length - 1];
@@ -89,7 +89,7 @@ async function asyncRecursiveBacktracker(grid, wait = 50) {
   let stack = [startCell];
 
   while (stack.length) {
-    stack = await walk(grid, stack, wait);
+    stack = await asyncWalk(grid, stack, wait);
     stack = await asyncBacktracking(grid, stack, wait);
   }
 
