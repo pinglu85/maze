@@ -80,22 +80,20 @@ function asyncBacktracking(grid, stack, wait) {
   });
 }
 
-function asyncRecursiveBacktracker(grid, wait = 50) {
-  return new Promise(async (resolve) => {
-    const randomRow = getRandomIndex(grid.length);
-    const randomCol = getRandomIndex(grid[0].length);
-    const startCell = grid[randomRow][randomCol];
-    startCell.isStartCell = true;
+async function asyncRecursiveBacktracker(grid, wait = 50) {
+  const randomRow = getRandomIndex(grid.length);
+  const randomCol = getRandomIndex(grid[0].length);
+  const startCell = grid[randomRow][randomCol];
+  startCell.isStartCell = true;
 
-    let stack = [startCell];
+  let stack = [startCell];
 
-    while (stack.length) {
-      stack = await walk(grid, stack, wait);
-      stack = await asyncBacktracking(grid, stack, wait);
-    }
+  while (stack.length) {
+    stack = await walk(grid, stack, wait);
+    stack = await asyncBacktracking(grid, stack, wait);
+  }
 
-    resolve(false);
-  });
+  return false;
 }
 
 export default asyncRecursiveBacktracker;

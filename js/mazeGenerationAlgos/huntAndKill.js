@@ -73,23 +73,21 @@ function asyncHunt(grid, wait) {
   });
 }
 
-function asyncHuntAndKill(grid, wait = 50) {
-  return new Promise(async (resolve) => {
-    const randomRow = getRandomIndex(grid.length);
-    const randomColumn = getRandomIndex(grid[0].length);
-    let startCell = grid[randomRow][randomColumn];
-    startCell.isStartCell = true;
+async function asyncHuntAndKill(grid, wait = 50) {
+  const randomRow = getRandomIndex(grid.length);
+  const randomColumn = getRandomIndex(grid[0].length);
+  let startCell = grid[randomRow][randomColumn];
+  startCell.isStartCell = true;
 
-    while (startCell) {
-      let neighbor = await asyncWalk(grid, startCell, wait);
-      while (neighbor) {
-        neighbor = await asyncWalk(grid, neighbor, wait);
-      }
-      startCell = await asyncHunt(grid, wait);
+  while (startCell) {
+    let neighbor = await asyncWalk(grid, startCell, wait);
+    while (neighbor) {
+      neighbor = await asyncWalk(grid, neighbor, wait);
     }
+    startCell = await asyncHunt(grid, wait);
+  }
 
-    resolve(false);
-  });
+  return false;
 }
 
 export default asyncHuntAndKill;
