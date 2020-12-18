@@ -1,34 +1,45 @@
 import getRandomIndex from '../utils/getRandomIndex.js';
 import getOppositeDir from '../utils/getOppositeDir.js';
 import swapItemsInArray from '../utils/swapItemsInArray.js';
+import delay from '../utils/delay.js';
 
-function walk(prevCell, cell, grid) {
-  if (prevCell) {
-    prevCell.isStartCell = false;
-    prevCell.isVisited = true;
-  }
-  cell.isStartCell = true;
+function asyncWalk(prevCell, cell, grid, wait) {
+  const walk = () => {
+    if (prevCell) {
+      prevCell.isStartCell = false;
+      prevCell.isVisited = true;
+    }
+    cell.isStartCell = true;
 
-  const northernAndEasternNeighbors = cell
-    .getNeighbors(grid)
-    .filter(
-      (neighbor) =>
-        neighbor[1] && (neighbor[0] === 'north' || neighbor[0] === 'east')
-    );
+    const northernAndEasternNeighbors = cell
+      .getNeighbors(grid)
+      .filter(
+        (neighbor) =>
+          neighbor[1] && (neighbor[0] === 'north' || neighbor[0] === 'east')
+      );
 
-  if (!northernAndEasternNeighbors.length) {
-    return;
-  }
+    if (!northernAndEasternNeighbors.length) {
+      return;
+    }
 
-  const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
-  const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
-  cell.dropEdge(dir);
+    const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
+    const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
+    cell.dropEdge(dir);
 
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropEdge(oppositeDir);
+    const oppositeDir = getOppositeDir(dir);
+    neighbor.dropEdge(oppositeDir);
+    neighbor.isConnected = true;
+  };
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      walk();
+      resolve();
+    }, wait);
+  });
 }
 
-function binaryTree(grid) {
+async function asyncBinaryTree(grid, wait = 50) {
   const flattenedGrid = [];
 
   for (const row of grid) {
@@ -44,9 +55,11 @@ function binaryTree(grid) {
     swapItemsInArray(flattenedGrid, randomIndex, flattenedGrid.length - 1);
     startCell = flattenedGrid.pop();
 
-    walk(prevStartCell, startCell, grid);
+    await asyncWalk(prevStartCell, startCell, grid, wait);
 
     prevStartCell = startCell;
+
+    await delay(wait * 3);
   }
 
   startCell.isStartCell = false;
@@ -54,4 +67,4 @@ function binaryTree(grid) {
   return false;
 }
 
-export default binaryTree;
+export default asyncBinaryTree;
