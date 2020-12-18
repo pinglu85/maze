@@ -46,6 +46,12 @@ class Cell {
     }
   }
 
+  addEdges(...args) {
+    for (const arg of args) {
+      this[`${arg}Edge`] = true;
+    }
+  }
+
   getNeighbors(grid) {
     const currRowIndex = this.rowIndex;
     const currColIndex = this.colIndex;
