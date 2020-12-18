@@ -1,6 +1,7 @@
 import Cell from './Cell.js';
 import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
 import asyncRecursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracker.js';
+import recursiveDivision from './mazeGenerationAlgos/recursiveDivision.js';
 import asyncBinaryTree from './mazeGenerationAlgos/binaryTree.js';
 import asyncAldousBroderAlgo from './mazeGenerationAlgos/aldousBroderAlgo.js';
 import getRandomIndex from './utils/getRandomIndex.js';
@@ -74,12 +75,37 @@ class Grid {
         return returnPromise(asyncHuntAndKill, this.content);
       case 'Recursive Backtracker':
         return returnPromise(asyncRecursiveBacktracker, this.content);
+      case 'Recursive Division':
+        this.dropInteriorWalls();
+        return returnPromise(recursiveDivision, this.content);
       case 'Binary Tree':
         return returnPromise(asyncBinaryTree, this.content);
       case 'Aldous-Broder Algorithm':
         return returnPromise(asyncAldousBroderAlgo, this.content);
       default:
       // do nothing
+    }
+  }
+
+  dropInteriorWalls() {
+    for (const row of this.content) {
+      for (const col of row) {
+        col.isVisited = true;
+        const interiorWalls = {
+          north: true,
+          west: true,
+          south: true,
+          east: true,
+        };
+        for (const dir in col.boundaries) {
+          interiorWalls[dir] = false;
+        }
+        for (const dir in interiorWalls) {
+          if (interiorWalls[dir]) {
+            col.dropEdge(dir);
+          }
+        }
+      }
     }
   }
 
