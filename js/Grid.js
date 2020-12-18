@@ -1,6 +1,7 @@
 import Cell from './Cell.js';
 import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
 import asyncRecursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracker.js';
+import binaryTree from './mazeGenerationAlgos/binaryTree.js';
 import asyncAldousBroderAlgo from './mazeGenerationAlgos/aldousBroderAlgo.js';
 import getRandomIndex from './utils/getRandomIndex.js';
 import returnPromise from './utils/returnPromise.js';
@@ -73,6 +74,8 @@ class Grid {
         return returnPromise(asyncHuntAndKill, this.content);
       case 'Recursive Backtracker':
         return returnPromise(asyncRecursiveBacktracker, this.content);
+      case 'Binary Tree':
+        return returnPromise(binaryTree, this.content);
       case 'Aldous-Broder Algorithm':
         return returnPromise(asyncAldousBroderAlgo, this.content);
       default:
