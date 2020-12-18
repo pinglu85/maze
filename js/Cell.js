@@ -30,6 +30,7 @@ class Cell {
     this.isVisited = false;
     this.isScanning = false;
     this.isStartCell = false;
+    this.isConnected = false;
 
     this.distanceToEntrance = Infinity;
 
@@ -141,6 +142,8 @@ class Cell {
       ctx.fillStyle = this.colors.pathfinding.visited;
     } else if (this.isVisited) {
       ctx.fillStyle = this.colors.visited;
+    } else if (this.isConnected) {
+      ctx.fillStyle = this.colors.connected;
     } else {
       ctx.fillStyle = this.colors.unvisited;
     }
