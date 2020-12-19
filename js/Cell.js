@@ -20,7 +20,7 @@ class Cell {
     this.westWall = true;
     this.southWall = true;
     this.eastWall = true;
-    this.boundaries = {};
+    this.gridBoundaries = {};
 
     this.isEntrance = false;
     this.isExit = false;
@@ -106,29 +106,29 @@ class Cell {
     return connectedNeighbors;
   }
 
-  setBoundaries(height, width) {
+  setGridBoundaries(height, width) {
     if (this.rowIndex === 0) {
-      this.boundaries.north = true;
+      this.gridBoundaries.north = true;
     } else if (this.rowIndex === height - 1) {
-      this.boundaries.south = true;
+      this.gridBoundaries.south = true;
     }
 
     if (this.colIndex === 0) {
-      this.boundaries.east = true;
+      this.gridBoundaries.east = true;
     } else if (this.colIndex === width - 1) {
-      this.boundaries.west = true;
+      this.gridBoundaries.west = true;
     }
   }
 
-  dropRandomBoundary() {
-    const boundaries = Object.keys(this.boundaries);
-    if (!boundaries.length) {
+  dropRandomGridBoundary() {
+    const gridBoundaries = Object.keys(this.gridBoundaries);
+    if (!gridBoundaries.length) {
       return;
     }
-    const randomBoundaryIndex = getRandomIndex(boundaries.length);
-    const droppedBoundary = boundaries[randomBoundaryIndex];
-    this.dropWall(droppedBoundary);
-    return droppedBoundary;
+    const randomGridBoundaryIndex = getRandomIndex(gridBoundaries.length);
+    const droppedGridBoundary = gridBoundaries[randomGridBoundaryIndex];
+    this.dropWall(droppedGridBoundary);
+    return droppedGridBoundary;
   }
 
   draw(ctx) {
@@ -159,7 +159,7 @@ class Cell {
     }
 
     if (this.northWall) {
-      ctx.lineWidth = this.boundaries.north ? 2.5 : 1;
+      ctx.lineWidth = this.gridBoundaries.north ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.startY);
       ctx.lineTo(this.endX, this.startY);
@@ -167,7 +167,7 @@ class Cell {
     }
 
     if (this.eastWall) {
-      ctx.lineWidth = this.boundaries.east ? 2.5 : 1;
+      ctx.lineWidth = this.gridBoundaries.east ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.startY);
       ctx.lineTo(this.startX, this.endY);
@@ -175,7 +175,7 @@ class Cell {
     }
 
     if (this.southWall) {
-      ctx.lineWidth = this.boundaries.south ? 2.5 : 1;
+      ctx.lineWidth = this.gridBoundaries.south ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.endY);
       ctx.lineTo(this.endX, this.endY);
@@ -183,7 +183,7 @@ class Cell {
     }
 
     if (this.westWall) {
-      ctx.lineWidth = this.boundaries.west ? 2.5 : 1;
+      ctx.lineWidth = this.gridBoundaries.west ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.endX, this.startY);
       ctx.lineTo(this.endX, this.endY);
