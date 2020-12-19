@@ -12,7 +12,7 @@ class Grid {
     this.content = Array.from(new Array(height), (_, rowIndex) =>
       Array.from(new Array(width), (_, colIndex) => {
         const cell = new Cell(rowIndex, colIndex, cellSize, cellColors);
-        cell.setBoundaries(height, width);
+        cell.setGridBoundaries(height, width);
         return cell;
       })
     );
@@ -65,8 +65,8 @@ class Grid {
     this.entranceCell.isEntrance = true;
     this.exitCell = this.content[exit.rowIndex][exit.colIndex];
     this.exitCell.isExit = true;
-    this.entranceDir = this.entranceCell.dropRandomBoundary();
-    this.exitDir = this.exitCell.dropRandomBoundary();
+    this.entranceDir = this.entranceCell.dropRandomGridBoundary();
+    this.exitDir = this.exitCell.dropRandomGridBoundary();
   }
 
   generateMaze(algo) {
@@ -97,7 +97,7 @@ class Grid {
           south: true,
           east: true,
         };
-        for (const dir in col.boundaries) {
+        for (const dir in col.gridBoundaries) {
           interiorWalls[dir] = false;
         }
         for (const dir in interiorWalls) {
