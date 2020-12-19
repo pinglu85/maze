@@ -1,8 +1,8 @@
-export default function getOppositeIndex(index, numOfItems) {
+export default function getStartOrEndIndexOfArray(index, arrLen) {
   switch (index) {
     case 0:
-      return numOfItems - 1;
-    case numOfItems - 1:
+      return arrLen - 1;
+    case arrLen - 1:
       return 0;
     default:
       return null;

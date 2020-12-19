@@ -5,8 +5,8 @@ import recursiveDivision from './mazeGenerationAlgos/recursiveDivision.js';
 import asyncBinaryTree from './mazeGenerationAlgos/binaryTree.js';
 import asyncAldousBroderAlgo from './mazeGenerationAlgos/aldousBroderAlgo.js';
 import {
-  getOppositeIndex,
   getRandomIndex,
+  getStartOrEndIndexOfArray,
   returnPromise,
 } from './utils/index.js';
 
@@ -44,12 +44,12 @@ class Grid {
       entrance.colIndex = availColIndices[randomIndex];
     }
 
-    exit.rowIndex = getOppositeIndex(entrance.rowIndex, numOfRows);
+    exit.rowIndex = getStartOrEndIndexOfArray(entrance.rowIndex, numOfRows);
 
     if (exit.rowIndex !== null) {
       exit.colIndex = getRandomIndex(numOfCols);
     } else {
-      exit.colIndex = getOppositeIndex(entrance.colIndex, numOfCols);
+      exit.colIndex = getStartOrEndIndexOfArray(entrance.colIndex, numOfCols);
       exit.rowIndex = getRandomIndex(numOfRows);
     }
 
