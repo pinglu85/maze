@@ -15,9 +15,9 @@ function asyncGetNeighbor(grid, lastCell, wait) {
 
     const [dir, neighbor] = randomAvailNeighbor;
     const oppositeDir = getOppositeDir(dir);
-    lastCell.dropEdge(dir);
+    lastCell.dropWall(dir);
     neighbor.isStartCell = true;
-    neighbor.dropEdge(oppositeDir);
+    neighbor.dropWall(oppositeDir);
 
     resolve(neighbor);
   };
@@ -62,9 +62,9 @@ function asyncBacktracking(grid, stack, wait) {
 
       const [dir, neighbor] = randomAvailNeighbor;
       const oppositeDir = getOppositeDir(dir);
-      lastCell.dropEdge(dir);
+      lastCell.dropWall(dir);
       neighbor.isStartCell = true;
-      neighbor.dropEdge(oppositeDir);
+      neighbor.dropWall(oppositeDir);
       newStack.push(neighbor);
       resolve(newStack);
       return;

@@ -16,10 +16,10 @@ class Cell {
     this.endY = this.startY + cellSize;
 
     // Walls.
-    this.northEdge = true;
-    this.westEdge = true;
-    this.southEdge = true;
-    this.eastEdge = true;
+    this.northWall = true;
+    this.westWall = true;
+    this.southWall = true;
+    this.eastWall = true;
     this.boundaries = {};
 
     this.isEntrance = false;
@@ -40,12 +40,12 @@ class Cell {
     this.opacity = 0;
   }
 
-  dropEdge(dir) {
-    this[`${dir}Edge`] = false;
+  dropWall(dir) {
+    this[`${dir}Wall`] = false;
   }
 
-  addEdge(dir) {
-    this[`${dir}Edge`] = true;
+  addWall(dir) {
+    this[`${dir}Wall`] = true;
   }
 
   getNeighbors(grid) {
@@ -99,7 +99,7 @@ class Cell {
     const neighbors = this.getNeighbors(grid);
     const connectedNeighbors = neighbors
       .filter((neighbor) => {
-        const isConnected = !this[`${neighbor[0]}Edge`];
+        const isConnected = !this[`${neighbor[0]}Wall`];
         return neighbor[1] && isConnected;
       })
       .map((neighbor) => neighbor[1]);
@@ -127,7 +127,7 @@ class Cell {
     }
     const randomBoundaryIndex = getRandomIndex(boundaries.length);
     const droppedBoundary = boundaries[randomBoundaryIndex];
-    this.dropEdge(droppedBoundary);
+    this.dropWall(droppedBoundary);
     return droppedBoundary;
   }
 
@@ -158,7 +158,7 @@ class Cell {
       this.opacity = this.opacity <= 0.85 ? this.opacity + 0.02 : this.opacity;
     }
 
-    if (this.northEdge) {
+    if (this.northWall) {
       ctx.lineWidth = this.boundaries.north ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.startY);
@@ -166,7 +166,7 @@ class Cell {
       ctx.stroke();
     }
 
-    if (this.eastEdge) {
+    if (this.eastWall) {
       ctx.lineWidth = this.boundaries.east ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.startY);
@@ -174,7 +174,7 @@ class Cell {
       ctx.stroke();
     }
 
-    if (this.southEdge) {
+    if (this.southWall) {
       ctx.lineWidth = this.boundaries.south ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.endY);
@@ -182,7 +182,7 @@ class Cell {
       ctx.stroke();
     }
 
-    if (this.westEdge) {
+    if (this.westWall) {
       ctx.lineWidth = this.boundaries.west ? 2.5 : 1;
       ctx.beginPath();
       ctx.moveTo(this.endX, this.startY);

@@ -24,10 +24,10 @@ function asyncWalk(prevCell, cell, grid, wait) {
 
     const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
     const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
-    cell.dropEdge(dir);
+    cell.dropWall(dir);
 
     const oppositeDir = getOppositeDir(dir);
-    neighbor.dropEdge(oppositeDir);
+    neighbor.dropWall(oppositeDir);
     neighbor.isConnected = true;
   };
 

@@ -14,10 +14,10 @@ function asyncWalk(grid, cell, wait) {
       return;
     }
 
-    cell.dropEdge(dir);
+    cell.dropWall(dir);
 
     const oppositeDir = getOppositeDir(dir);
-    neighbor.dropEdge(oppositeDir);
+    neighbor.dropWall(oppositeDir);
 
     resolve(neighbor);
   };
