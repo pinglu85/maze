@@ -6,6 +6,7 @@ import asyncBinaryTree from './mazeGenerationAlgos/binaryTree.js';
 import asyncAldousBroderAlgo from './mazeGenerationAlgos/aldousBroderAlgo.js';
 import getRandomIndex from './utils/getRandomIndex.js';
 import returnPromise from './utils/returnPromise.js';
+import getOppositeIndex from './utils/getOppositeIndex.js';
 
 class Grid {
   constructor(width, height, cellSize, cellColors) {
@@ -20,17 +21,6 @@ class Grid {
     this.entranceDir = '';
     this.exitCell = null;
     this.exitDir = '';
-  }
-
-  getOppositeSideIndex(index, numOfItems) {
-    switch (index) {
-      case 0:
-        return numOfItems - 1;
-      case numOfItems - 1:
-        return 0;
-      default:
-        return null;
-    }
   }
 
   generateMazeEntryAndExit() {
@@ -52,12 +42,12 @@ class Grid {
       entrance.colIndex = availColIndices[randomIndex];
     }
 
-    exit.rowIndex = this.getOppositeSideIndex(entrance.rowIndex, numOfRows);
+    exit.rowIndex = getOppositeIndex(entrance.rowIndex, numOfRows);
 
     if (exit.rowIndex !== null) {
       exit.colIndex = getRandomIndex(numOfCols);
     } else {
-      exit.colIndex = this.getOppositeSideIndex(entrance.colIndex, numOfCols);
+      exit.colIndex = getOppositeIndex(entrance.colIndex, numOfCols);
       exit.rowIndex = getRandomIndex(numOfRows);
     }
 
