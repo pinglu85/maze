@@ -3,7 +3,11 @@ import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
 import dijkstra from './dijkstra.js';
 import { loadSprite, getOppositeDir, setCanvasesSize } from './utils/index.js';
-import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
+import {
+  CELL_COLORS,
+  FOOTPRINT_COLORS,
+  GRID_GUIDELINE_COLOR,
+} from './constants/colors.js';
 import {
   CELL_SIZE,
   SPRITE_SIZE,
@@ -186,6 +190,9 @@ solutionBtn.addEventListener('click', async function () {
 
 function drawMaze() {
   mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+  if (mazeGenerationAlgo === 'Recursive Division' && isGeneratingMaze) {
+    grid.drawGuidelines(mazeCtx, GRID_GUIDELINE_COLOR);
+  }
   grid.draw(mazeCtx);
 
   if (!isGeneratingMaze) {
