@@ -1,7 +1,7 @@
 export { default as delay } from './delay.js';
 export { default as getOppositeDir } from './getOppositeDir.js';
-export { default as getOppositeIndex } from './getOppositeIndex.js';
 export { default as getRandomIndex } from './getRandomIndex.js';
+export { default as getOppositeIndex } from './getStartOrEndIndexOfAnArray.js';
 export { default as loadSprite } from './loadSprite.js';
 export { default as returnPromise } from './returnPromise.js';
 export { default as setCanvasesSize } from './setCanvasesSize.js';
