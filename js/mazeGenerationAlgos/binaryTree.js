@@ -24,6 +24,7 @@ function asyncWalk(prevCell, cell, grid, wait) {
 
     const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
     const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
+
     cell.dropWall(dir);
 
     const oppositeDir = getOppositeDir(dir);
