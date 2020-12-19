@@ -15,3 +15,4 @@ export const FOOTPRINT_COLORS = {
   newFootprint: '#ffcc01',
   oldFootprint: '#c675ff',
 };
+export const GRID_GUIDELINE_COLOR = '#c1daf2';

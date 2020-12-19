@@ -2,7 +2,7 @@ import Cell from './Cell.js';
 import {
   asyncHuntAndKill,
   asyncRecursiveBacktracker,
-  recursiveDivision,
+  asyncRecursiveDivision,
   asyncBinaryTree,
   asyncAldousBroderAlgo,
 } from './mazeGenerationAlgos/index.js';
@@ -71,7 +71,7 @@ class Grid {
         return returnPromise(asyncRecursiveBacktracker, this.content);
       case 'Recursive Division':
         this.dropInteriorWalls();
-        return returnPromise(recursiveDivision, this.content);
+        return returnPromise(asyncRecursiveDivision, this.content);
       case 'Binary Tree':
         return returnPromise(asyncBinaryTree, this.content);
       case 'Aldous-Broder Algorithm':
@@ -84,7 +84,7 @@ class Grid {
   dropInteriorWalls() {
     for (const row of this.content) {
       for (const col of row) {
-        col.isVisited = true;
+        col.isTransparent = true;
         const interiorWalls = {
           north: true,
           west: true,
@@ -118,6 +118,31 @@ class Grid {
       for (const col of row) {
         col.draw(ctx);
       }
+    }
+  }
+
+  drawGuidelines(ctx, guidelineColor) {
+    const width = this.content[0].length;
+    const height = this.content.length;
+    const cellSize = this.content[0][0].cellSize;
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = guidelineColor;
+
+    // Draw vertical lines
+    for (let i = 1; i < width; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * cellSize, 0);
+      ctx.lineTo(i * cellSize, height * cellSize);
+      ctx.stroke();
+    }
+
+    // Draw horizontal lines
+    for (let j = 1; j < height; j++) {
+      ctx.beginPath();
+      ctx.moveTo(0, j * cellSize);
+      ctx.lineTo(width * cellSize, j * cellSize);
+      ctx.stroke();
     }
   }
 }

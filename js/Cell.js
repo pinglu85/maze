@@ -31,6 +31,7 @@ class Cell {
     this.isScanning = false;
     this.isStartCell = false;
     this.isConnected = false;
+    this.isTransparent = false;
 
     this.distanceToEntrance = Infinity;
 
@@ -146,6 +147,8 @@ class Cell {
       ctx.fillStyle = this.colors.visited;
     } else if (this.isConnected) {
       ctx.fillStyle = this.colors.connected;
+    } else if (this.isTransparent) {
+      ctx.fillStyle = 'transparent';
     } else {
       ctx.fillStyle = this.colors.unvisited;
     }
@@ -157,6 +160,8 @@ class Cell {
       ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
       this.opacity = this.opacity <= 0.85 ? this.opacity + 0.02 : this.opacity;
     }
+
+    ctx.strokeStyle = this.colors.border;
 
     if (this.northWall) {
       ctx.lineWidth = this.gridBoundaries.north ? 2.5 : 1;
