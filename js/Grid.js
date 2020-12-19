@@ -4,9 +4,11 @@ import asyncRecursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracke
 import recursiveDivision from './mazeGenerationAlgos/recursiveDivision.js';
 import asyncBinaryTree from './mazeGenerationAlgos/binaryTree.js';
 import asyncAldousBroderAlgo from './mazeGenerationAlgos/aldousBroderAlgo.js';
-import getRandomIndex from './utils/getRandomIndex.js';
-import returnPromise from './utils/returnPromise.js';
-import getOppositeIndex from './utils/getOppositeIndex.js';
+import {
+  getOppositeIndex,
+  getRandomIndex,
+  returnPromise,
+} from './utils/index.js';
 
 class Grid {
   constructor(width, height, cellSize, cellColors) {

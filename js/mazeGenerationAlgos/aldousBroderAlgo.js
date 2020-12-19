@@ -1,5 +1,4 @@
-import getRandomIndex from '../utils/getRandomIndex.js';
-import getOppositeDir from '../utils/getOppositeDir.js';
+import { getOppositeDir, getRandomIndex } from '../utils/index.js';
 
 function asyncWalk(grid, cell, wait) {
   const walk = (resolve) => {

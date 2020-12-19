@@ -1,4 +1,4 @@
-import getRandomIndex from '../utils/getRandomIndex.js';
+import { getRandomIndex } from '../utils/index.js';
 
 function _recursiveDivision(grid, startRow, endRow, startCol, endCol) {
   if (startRow === endRow || startCol === endCol) {

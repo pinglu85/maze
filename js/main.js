@@ -2,9 +2,7 @@ import Grid from './Grid.js';
 import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
 import dijkstra from './dijkstra.js';
-import getOppositeDir from './utils/getOppositeDir.js';
-import loadSprite from './utils/loadSprite.js';
-import setCanvasesSize from './utils/setCanvasesSize.js';
+import { loadSprite, getOppositeDir, setCanvasesSize } from './utils/index.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 import {
   CELL_SIZE,

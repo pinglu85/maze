@@ -1,6 +1,4 @@
-import getRandomIndex from '../utils/getRandomIndex.js';
-import getOppositeDir from '../utils/getOppositeDir.js';
-import delay from '../utils/delay.js';
+import { delay, getOppositeDir, getRandomIndex } from '../utils/index.js';
 
 function asyncGetNeighbor(grid, lastCell, wait) {
   const getNeighbor = (resolve) => {
