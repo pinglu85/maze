@@ -1,4 +1,4 @@
-import delay from './utils/delay.js';
+import { delay } from './utils/index.js';
 import resetCellsIsVisitingState from './utils/resetCellsIsVisitingState.js';
 
 function asyncGetNewFrontiers(grid, frontiers, distance, wait) {

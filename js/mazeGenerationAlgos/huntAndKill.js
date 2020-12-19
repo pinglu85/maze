@@ -1,7 +1,9 @@
-import getRandomIndex from '../utils/getRandomIndex.js';
-import shuffleArray from '../utils/shuffleArray.js';
-import getOppositeDir from '../utils/getOppositeDir.js';
-import delay from '../utils/delay.js';
+import {
+  delay,
+  getOppositeDir,
+  getRandomIndex,
+  shuffleArray,
+} from '../utils/index.js';
 
 function asyncWalk(grid, cell, wait) {
   const walk = (resolve) => {

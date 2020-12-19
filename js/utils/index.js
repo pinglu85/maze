@@ -1,0 +1,9 @@
+export { default as delay } from './delay.js';
+export { default as getOppositeDir } from './getOppositeDir.js';
+export { default as getOppositeIndex } from './getOppositeIndex.js';
+export { default as getRandomIndex } from './getRandomIndex.js';
+export { default as loadSprite } from './loadSprite.js';
+export { default as returnPromise } from './returnPromise.js';
+export { default as setCanvasesSize } from './setCanvasesSize.js';
+export { default as shuffleArray } from './shuffleArray.js';
+export { default as swapItemsInArray } from './swapItemsInArray.js';
