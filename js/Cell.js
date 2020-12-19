@@ -40,10 +40,8 @@ class Cell {
     this.opacity = 0;
   }
 
-  dropEdge(...args) {
-    for (const arg of args) {
-      this[`${arg}Edge`] = false;
-    }
+  dropEdge(dir) {
+    this[`${dir}Edge`] = false;
   }
 
   addEdges(...args) {
