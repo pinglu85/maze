@@ -15,10 +15,13 @@ function asyncWalk(grid, cell, wait) {
     }
 
     const [dir, neighbor] = randomAvailNeighbor;
-    const oppositeDir = getOppositeDir(dir);
+
     cell.dropWall(dir);
-    neighbor.isStartCell = true;
+
+    const oppositeDir = getOppositeDir(dir);
     neighbor.dropWall(oppositeDir);
+    neighbor.isStartCell = true;
+
     resolve(neighbor);
   };
 
@@ -44,11 +47,14 @@ function asyncHunt(grid, wait) {
         randomVisitedNeighbor = cell.getRandomVisitedNeighbor(grid);
         if (randomVisitedNeighbor) {
           const [dir, neighbor] = randomVisitedNeighbor;
-          const oppositeDir = getOppositeDir(dir);
+
+          cell.dropWall(dir);
           cell.isVisited = true;
           cell.isStartCell = true;
-          cell.dropWall(dir);
+
+          const oppositeDir = getOppositeDir(dir);
           neighbor.dropWall(oppositeDir);
+
           grid[i].forEach((cell) => {
             cell.isScanning = false;
           });
