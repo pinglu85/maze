@@ -44,10 +44,8 @@ class Cell {
     this[`${dir}Edge`] = false;
   }
 
-  addEdges(...args) {
-    for (const arg of args) {
-      this[`${arg}Edge`] = true;
-    }
+  addEdge(dir) {
+    this[`${dir}Edge`] = true;
   }
 
   getNeighbors(grid) {
