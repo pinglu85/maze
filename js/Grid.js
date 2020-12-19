@@ -1,9 +1,11 @@
 import Cell from './Cell.js';
-import asyncHuntAndKill from './mazeGenerationAlgos/huntAndKill.js';
-import asyncRecursiveBacktracker from './mazeGenerationAlgos/recursiveBacktracker.js';
-import recursiveDivision from './mazeGenerationAlgos/recursiveDivision.js';
-import asyncBinaryTree from './mazeGenerationAlgos/binaryTree.js';
-import asyncAldousBroderAlgo from './mazeGenerationAlgos/aldousBroderAlgo.js';
+import {
+  asyncHuntAndKill,
+  asyncRecursiveBacktracker,
+  recursiveDivision,
+  asyncBinaryTree,
+  asyncAldousBroderAlgo,
+} from './mazeGenerationAlgos/index.js';
 import {
   getRandomIndex,
   getStartOrEndIndexOfArray,
