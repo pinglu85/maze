@@ -21,8 +21,8 @@ function _recursiveDivision(grid, startRow, endRow, startCol, endCol) {
         continue;
       }
 
-      grid[mid][i].addEdge('south');
-      grid[mid + 1][i].addEdge('north');
+      grid[mid][i].addWall('south');
+      grid[mid + 1][i].addWall('north');
     }
 
     _recursiveDivision(grid, startRow, mid, startCol, endCol);
@@ -36,8 +36,8 @@ function _recursiveDivision(grid, startRow, endRow, startCol, endCol) {
         continue;
       }
 
-      grid[i][mid].addEdge('west');
-      grid[i][mid + 1].addEdge('east');
+      grid[i][mid].addWall('west');
+      grid[i][mid + 1].addWall('east');
     }
 
     _recursiveDivision(grid, startRow, endRow, startCol, mid);

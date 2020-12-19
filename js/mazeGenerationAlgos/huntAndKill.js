@@ -16,9 +16,9 @@ function asyncWalk(grid, cell, wait) {
 
     const [dir, neighbor] = randomAvailNeighbor;
     const oppositeDir = getOppositeDir(dir);
-    cell.dropEdge(dir);
+    cell.dropWall(dir);
     neighbor.isStartCell = true;
-    neighbor.dropEdge(oppositeDir);
+    neighbor.dropWall(oppositeDir);
     resolve(neighbor);
   };
 
@@ -47,8 +47,8 @@ function asyncHunt(grid, wait) {
           const oppositeDir = getOppositeDir(dir);
           cell.isVisited = true;
           cell.isStartCell = true;
-          cell.dropEdge(dir);
-          neighbor.dropEdge(oppositeDir);
+          cell.dropWall(dir);
+          neighbor.dropWall(oppositeDir);
           grid[i].forEach((cell) => {
             cell.isScanning = false;
           });

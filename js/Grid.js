@@ -102,7 +102,7 @@ class Grid {
         }
         for (const dir in interiorWalls) {
           if (interiorWalls[dir]) {
-            col.dropEdge(dir);
+            col.dropWall(dir);
           }
         }
       }
