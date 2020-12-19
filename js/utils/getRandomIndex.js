@@ -1,9 +1,9 @@
-export default function getRandomIndex(arrLength) {
-  if (arrLength === 0) {
+export default function getRandomIndex(range) {
+  if (range === 0) {
     return null;
   }
-  if (arrLength === 1) {
+  if (range === 1) {
     return 0;
   }
-  return Math.floor(Math.random() * arrLength);
+  return Math.floor(Math.random() * range);
 }
