@@ -3,6 +3,7 @@ export { default as getOppositeDir } from './getOppositeDir.js';
 export { default as getRandomIndex } from './getRandomIndex.js';
 export { default as getStartOrEndIndexOfArray } from './getStartOrEndIndexOfArray.js';
 export { default as loadSprite } from './loadSprite.js';
+export { default as resetCellsIsVisitingState } from './resetCellsIsVisitingState.js';
 export { default as returnPromise } from './returnPromise.js';
 export { default as setCanvasesSize } from './setCanvasesSize.js';
 export { default as shuffleArray } from './shuffleArray.js';
