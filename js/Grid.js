@@ -9,18 +9,25 @@ import {
 import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
 
 class Grid {
-  constructor(width, height, cellSize, cellColors) {
-    this.content = Array.from(new Array(height), (_, rowIndex) =>
-      Array.from(new Array(width), (_, colIndex) => {
-        const cell = new Cell(rowIndex, colIndex, cellSize, cellColors);
-        cell.setOuterWalls(height, width);
-        return cell;
-      })
-    );
+  constructor(cellSize, cellColors, guidelineColor) {
+    this.content = [];
+    this.cellSize = cellSize;
+    this.cellColors = cellColors;
+    this.guidelineColor = guidelineColor;
     this.entranceCell = null;
     this.entranceDir = '';
     this.exitCell = null;
     this.exitDir = '';
+  }
+
+  setContent(width, height) {
+    this.content = Array.from(new Array(height), (_, rowIndex) =>
+      Array.from(new Array(width), (_, colIndex) => {
+        const cell = new Cell(rowIndex, colIndex, this.cellSize);
+        cell.setOuterWalls(height, width);
+        return cell;
+      })
+    );
   }
 
   generateMaze(algo) {
@@ -118,32 +125,31 @@ class Grid {
   draw(ctx) {
     for (const row of this.content) {
       for (const col of row) {
-        col.draw(ctx);
+        col.draw(ctx, this.cellSize, this.cellColors);
       }
     }
   }
 
-  drawGuidelines(ctx, guidelineColor) {
+  drawGuidelines(ctx) {
     const width = this.content[0].length;
     const height = this.content.length;
-    const cellSize = this.content[0][0].cellSize;
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = guidelineColor;
+    ctx.strokeStyle = this.guidelineColor;
 
     // Draw vertical lines
     for (let i = 1; i < width; i++) {
       ctx.beginPath();
-      ctx.moveTo(i * cellSize, 0);
-      ctx.lineTo(i * cellSize, height * cellSize);
+      ctx.moveTo(i * this.cellSize, 0);
+      ctx.lineTo(i * this.cellSize, height * this.cellSize);
       ctx.stroke();
     }
 
     // Draw horizontal lines
     for (let j = 1; j < height; j++) {
       ctx.beginPath();
-      ctx.moveTo(0, j * cellSize);
-      ctx.lineTo(width * cellSize, j * cellSize);
+      ctx.moveTo(0, j * this.cellSize);
+      ctx.lineTo(width * this.cellSize, j * this.cellSize);
       ctx.stroke();
     }
   }

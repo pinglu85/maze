@@ -1,11 +1,9 @@
 import { getRandomIndex } from './utils/index.js';
 
 class Cell {
-  constructor(rowIndex, colIndex, cellSize, colors) {
+  constructor(rowIndex, colIndex, cellSize) {
     this.rowIndex = rowIndex;
     this.colIndex = colIndex;
-    this.cellSize = cellSize;
-    this.colors = colors;
 
     // Coordinates on canvas.
     this.startX = Math.floor(this.colIndex * cellSize);
@@ -132,36 +130,36 @@ class Cell {
     return droppedOuterWall;
   }
 
-  draw(ctx) {
+  draw(ctx, cellSize, colors) {
     if (this.isStartCell) {
-      ctx.fillStyle = this.colors.start;
+      ctx.fillStyle = colors.start;
     } else if (this.isScanning) {
-      ctx.fillStyle = this.colors.scanning;
+      ctx.fillStyle = colors.scanning;
     } else if (this.isVisiting) {
-      ctx.fillStyle = this.colors.pathfinding.visiting;
+      ctx.fillStyle = colors.pathfinding.visiting;
     } else if (this.isExitColor) {
-      ctx.fillStyle = this.colors.pathfinding.exitColor;
+      ctx.fillStyle = colors.pathfinding.exitColor;
     } else if (this.distanceToEntrance !== Infinity) {
-      ctx.fillStyle = this.colors.pathfinding.visited;
+      ctx.fillStyle = colors.pathfinding.visited;
     } else if (this.isVisited) {
-      ctx.fillStyle = this.colors.visited;
+      ctx.fillStyle = colors.visited;
     } else if (this.isConnected) {
-      ctx.fillStyle = this.colors.connected;
+      ctx.fillStyle = colors.connected;
     } else if (this.isTransparent) {
       ctx.fillStyle = 'transparent';
     } else {
-      ctx.fillStyle = this.colors.unvisited;
+      ctx.fillStyle = colors.unvisited;
     }
 
-    ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
+    ctx.fillRect(this.startX, this.startY, cellSize, cellSize);
 
     if (this.opacity) {
       ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-      ctx.fillRect(this.startX, this.startY, this.cellSize, this.cellSize);
+      ctx.fillRect(this.startX, this.startY, cellSize, cellSize);
       this.opacity = this.opacity <= 0.85 ? this.opacity + 0.02 : this.opacity;
     }
 
-    ctx.strokeStyle = this.colors.border;
+    ctx.strokeStyle = colors.border;
 
     if (this.northWall) {
       ctx.lineWidth = this.outerWalls.north ? 2.5 : 1;

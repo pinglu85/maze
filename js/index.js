@@ -28,6 +28,7 @@ const mazeCanvas = document.getElementById('maze-canvas');
 const mazeCtx = mazeCanvas.getContext('2d');
 const solutionCanvas = document.getElementById('solution-canvas');
 const solutionCtx = solutionCanvas.getContext('2d');
+const grid = new Grid(CELL_SIZE, CELL_COLORS, GRID_GUIDELINE_COLOR);
 
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
   loadSprite(`/assets/start-node-${i}.png`)
@@ -50,7 +51,7 @@ let isGeneratingMaze = false;
 let isMazeGenerated = false;
 let isSearchingSolution = false;
 let isSolutionFound = false;
-let grid, pathCoordinates;
+let pathCoordinates;
 
 window.addEventListener('DOMContentLoaded', () => {
   const defaultGridSize = setDefaultGridSize();
@@ -69,7 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
   canvasWidth = canvasSize.canvasWidth;
   canvasHeight = canvasSize.canvasHeight;
 
-  grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
+  grid.setContent(numOfCols, numOfRows);
   grid.draw(mazeCtx);
 });
 
@@ -105,7 +106,7 @@ changeGridSizeBtn.addEventListener('click', function () {
   canvasWidth = canvasSize.canvasWidth;
   canvasHeight = canvasSize.canvasHeight;
 
-  grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
+  grid.setContent(numOfCols, numOfRows);
   grid.draw(mazeCtx);
   isMazeGenerated = false;
   isSolutionFound = false;
@@ -139,7 +140,7 @@ newMazeBtn.addEventListener('click', async function () {
   }
 
   if (isMazeGenerated) {
-    grid = new Grid(numOfCols, numOfRows, CELL_SIZE, CELL_COLORS);
+    grid.setContent(numOfCols, numOfRows);
     solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     isMazeGenerated = false;
   }
@@ -183,7 +184,7 @@ solutionBtn.addEventListener('click', async function () {
 function drawMaze() {
   mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
   if (mazeGenerationAlgo === 'Recursive Division' && isGeneratingMaze) {
-    grid.drawGuidelines(mazeCtx, GRID_GUIDELINE_COLOR);
+    grid.drawGuidelines(mazeCtx);
   }
   grid.draw(mazeCtx);
 
