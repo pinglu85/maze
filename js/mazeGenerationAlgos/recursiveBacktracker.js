@@ -29,18 +29,16 @@ function asyncGetNeighbor(grid, lastCell, wait) {
   });
 }
 
-function asyncWalk(grid, stack, wait) {
-  return new Promise(async (resolve) => {
-    const newStack = [...stack];
-    let startCell = newStack[newStack.length - 1];
-    while (startCell) {
-      startCell = await asyncGetNeighbor(grid, startCell, wait);
-      if (startCell) {
-        newStack.push(startCell);
-      }
+async function asyncWalk(grid, stack, wait) {
+  const newStack = [...stack];
+  let startCell = newStack[newStack.length - 1];
+  while (startCell) {
+    startCell = await asyncGetNeighbor(grid, startCell, wait);
+    if (startCell) {
+      newStack.push(startCell);
     }
-    resolve(newStack);
-  });
+  }
+  return Promise.resolve(newStack);
 }
 
 function asyncBacktracking(grid, stack, wait) {
