@@ -3,14 +3,12 @@ import { delay, resetCellsIsVisitingState } from './utils/index.js';
 function asyncGetNewFrontiers(grid, frontiers, distance, wait) {
   const getNewFrontiers = (resolve) => {
     const newFrontiers = [];
-    let unvisitedConnectedNeighbors;
-    let isExitCellReached = false;
 
     for (const cell of frontiers) {
       cell.isVisiting = false;
       cell.opacity = 0.01;
 
-      unvisitedConnectedNeighbors = cell
+      const unvisitedConnectedNeighbors = cell
         .getConnectedNeighbors(grid)
         .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
 
@@ -18,30 +16,21 @@ function asyncGetNewFrontiers(grid, frontiers, distance, wait) {
         neighbor.distanceToEntrance = distance;
         if (neighbor.isExit) {
           neighbor.isExitColor = true;
-          isExitCellReached = true;
-          break;
+          resetCellsIsVisitingState(
+            ...unvisitedConnectedNeighbors,
+            ...newFrontiers,
+            ...frontiers
+          );
+          resolve([]);
+          return;
         }
         neighbor.isVisiting = true;
-      }
-
-      if (isExitCellReached) {
-        break;
       }
 
       newFrontiers.push(...unvisitedConnectedNeighbors);
     }
 
-    if (!isExitCellReached) {
-      resolve(newFrontiers);
-      return;
-    }
-
-    resetCellsIsVisitingState(
-      ...unvisitedConnectedNeighbors,
-      ...newFrontiers,
-      ...frontiers
-    );
-    resolve([]);
+    resolve(newFrontiers);
   };
 
   return new Promise((resolve) => {
