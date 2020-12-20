@@ -29,12 +29,6 @@ const mazeCanvas = document.getElementById('maze-canvas');
 const mazeCtx = mazeCanvas.getContext('2d');
 const solutionCanvas = document.getElementById('solution-canvas');
 const solutionCtx = solutionCanvas.getContext('2d');
-const canvases = [mazeCanvas, solutionCanvas];
-
-const canvasWrapper = document.getElementById('canvas-wrapper');
-const inputCols = document.getElementById('cols');
-const inputRows = document.getElementById('rows');
-let numOfCols, numOfRows, canvasWidth, canvasHeight;
 
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
   loadSprite(`/assets/start-node-${i}.png`)
@@ -42,6 +36,12 @@ const startNodeSprites = Array.from(new Array(10), (_, i) =>
 const targetNodeSprites = ['normal', 'white'].map((option) =>
   loadSprite(`/assets/target-node-${option}.png`)
 );
+
+const canvases = [mazeCanvas, solutionCanvas];
+const canvasWrapper = document.getElementById('canvas-wrapper');
+const inputCols = document.getElementById('cols');
+const inputRows = document.getElementById('rows');
+let numOfCols, numOfRows, canvasWidth, canvasHeight;
 
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
