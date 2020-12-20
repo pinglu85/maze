@@ -9,11 +9,11 @@ import {
 import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
 
 class Grid {
-  constructor(cellSize, cellColors, guidelineColor) {
+  constructor(cellSize, cellColors, guidesColor) {
     this.content = [];
     this.cellSize = cellSize;
     this.cellColors = cellColors;
-    this.guidelineColor = guidelineColor;
+    this.guidesColor = guidesColor;
     this.entranceCell = null;
     this.entranceDir = '';
     this.exitCell = null;
@@ -130,12 +130,12 @@ class Grid {
     }
   }
 
-  drawGuidelines(ctx) {
+  drawGuides(ctx) {
     const width = this.content[0].length;
     const height = this.content.length;
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = this.guidelineColor;
+    ctx.strokeStyle = this.guidesColor;
 
     // Draw vertical lines
     for (let i = 1; i < width; i++) {

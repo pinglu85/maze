@@ -10,7 +10,7 @@ import {
 import {
   CELL_COLORS,
   FOOTPRINT_COLORS,
-  GRID_GUIDELINE_COLOR,
+  GRID_GUIDES_COLOR,
 } from './constants/colors.js';
 import {
   CELL_SIZE,
@@ -28,7 +28,7 @@ const mazeCanvas = document.getElementById('maze-canvas');
 const mazeCtx = mazeCanvas.getContext('2d');
 const solutionCanvas = document.getElementById('solution-canvas');
 const solutionCtx = solutionCanvas.getContext('2d');
-const grid = new Grid(CELL_SIZE, CELL_COLORS, GRID_GUIDELINE_COLOR);
+const grid = new Grid(CELL_SIZE, CELL_COLORS, GRID_GUIDES_COLOR);
 
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
   loadSprite(`/assets/start-node-${i}.png`)
@@ -179,7 +179,7 @@ solutionBtn.addEventListener('click', async function () {
 function drawMaze() {
   mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
   if (mazeGenerationAlgo === 'Recursive Division' && isGeneratingMaze) {
-    grid.drawGuidelines(mazeCtx);
+    grid.drawGuides(mazeCtx);
   }
   grid.draw(mazeCtx);
 
