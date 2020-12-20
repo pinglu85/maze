@@ -51,7 +51,6 @@ let isGeneratingMaze = false;
 let isMazeGenerated = false;
 let isSearchingSolution = false;
 let isSolutionFound = false;
-let pathCoordinates;
 
 window.addEventListener('DOMContentLoaded', () => {
   const defaultGridSize = setDefaultGridSize();
@@ -110,7 +109,6 @@ changeGridSizeBtn.addEventListener('click', function () {
   grid.draw(mazeCtx);
   isMazeGenerated = false;
   isSolutionFound = false;
-  pathCoordinates = null;
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
@@ -145,7 +143,6 @@ newMazeBtn.addEventListener('click', async function () {
     isMazeGenerated = false;
   }
 
-  pathCoordinates = null;
   isSolutionFound = false;
 
   isGeneratingMaze = true;
@@ -168,7 +165,6 @@ solutionBtn.addEventListener('click', async function () {
     startNode.reset(grid);
     startNode.draw(solutionCtx);
     targetNode.draw(solutionCtx);
-    pathCoordinates = null;
     isSolutionFound = false;
   }
 
@@ -176,8 +172,7 @@ solutionBtn.addEventListener('click', async function () {
   toggleBtnsIsDisabled();
 
   visualizePathFindingAlgo();
-  pathCoordinates = await dijkstra(grid);
-  startNode.pathCoordinates = [...pathCoordinates];
+  startNode.pathCoordinates = await dijkstra(grid);
   drawSolution();
 });
 
@@ -206,7 +201,8 @@ function drawMaze() {
 function visualizePathFindingAlgo() {
   grid.draw(mazeCtx);
 
-  if (pathCoordinates) {
+  const isPathFound = startNode.pathCoordinates.length > 0;
+  if (isPathFound) {
     targetNode.draw(solutionCtx, 'spriteWhite');
     return;
   }
