@@ -43,7 +43,7 @@ async function asyncAldousBroderAlgo(grid, wait = 50) {
   }
 
   startCell.isStartCell = false;
-  return false;
+  return Promise.resolve();
 }
 
 export default asyncAldousBroderAlgo;

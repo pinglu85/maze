@@ -96,7 +96,7 @@ async function asyncRecursiveBacktracker(grid, wait = 50) {
     stack = await asyncBacktracking(grid, stack, wait);
   }
 
-  return false;
+  return Promise.resolve();
 }
 
 export default asyncRecursiveBacktracker;

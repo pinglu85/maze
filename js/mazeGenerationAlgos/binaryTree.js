@@ -67,7 +67,7 @@ async function asyncBinaryTree(grid, wait = 50) {
 
   startCell.isStartCell = false;
   startCell.isVisited = true;
-  return false;
+  return Promise.resolve();
 }
 
 export default asyncBinaryTree;

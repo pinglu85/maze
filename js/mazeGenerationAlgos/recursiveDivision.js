@@ -73,7 +73,7 @@ async function asyncDivide(grid, startRow, endRow, startCol, endCol, wait) {
 
 async function asyncRecursiveDivision(grid, wait = 50) {
   await asyncDivide(grid, 0, grid.length - 1, 0, grid[0].length - 1, wait);
-  return false;
+  return Promise.resolve();
 }
 
 export default asyncRecursiveDivision;
