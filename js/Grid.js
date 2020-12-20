@@ -23,6 +23,30 @@ class Grid {
     this.exitDir = '';
   }
 
+  generateMaze(algo) {
+    const asyncGenerateMaze = async (mazeGenerationAlgo) => {
+      await mazeGenerationAlgo(this.content);
+      this.generateMazeEntryAndExit();
+      return Promise.resolve(false);
+    };
+
+    switch (algo) {
+      case 'Hunt and Kill':
+        return asyncGenerateMaze(asyncHuntAndKill);
+      case 'Recursive Backtracker':
+        return asyncGenerateMaze(asyncRecursiveBacktracker);
+      case 'Recursive Division':
+        this.dropInteriorWalls();
+        return asyncGenerateMaze(asyncRecursiveDivision);
+      case 'Binary Tree':
+        return asyncGenerateMaze(asyncBinaryTree);
+      case 'Aldous-Broder Algorithm':
+        return asyncGenerateMaze(asyncAldousBroderAlgo);
+      default:
+      // do nothing
+    }
+  }
+
   generateMazeEntryAndExit() {
     const numOfRows = this.content.length;
     const numOfCols = this.content[0].length;
@@ -57,30 +81,6 @@ class Grid {
     this.exitCell.isExit = true;
     this.entranceDir = this.entranceCell.dropRandomOuterWall();
     this.exitDir = this.exitCell.dropRandomOuterWall();
-  }
-
-  generateMaze(algo) {
-    const asyncGenerateMaze = async (mazeGenerationAlgo) => {
-      await mazeGenerationAlgo(this.content);
-      this.generateMazeEntryAndExit();
-      return Promise.resolve(false);
-    };
-
-    switch (algo) {
-      case 'Hunt and Kill':
-        return asyncGenerateMaze(asyncHuntAndKill);
-      case 'Recursive Backtracker':
-        return asyncGenerateMaze(asyncRecursiveBacktracker);
-      case 'Recursive Division':
-        this.dropInteriorWalls();
-        return asyncGenerateMaze(asyncRecursiveDivision);
-      case 'Binary Tree':
-        return asyncGenerateMaze(asyncBinaryTree);
-      case 'Aldous-Broder Algorithm':
-        return asyncGenerateMaze(asyncAldousBroderAlgo);
-      default:
-      // do nothing
-    }
   }
 
   dropInteriorWalls() {
