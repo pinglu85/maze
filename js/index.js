@@ -171,7 +171,7 @@ solutionBtn.addEventListener('click', async function () {
   isSearchingSolution = true;
   toggleBtnsIsDisabled();
 
-  visualizePathFindingAlgo();
+  visualizePathfindingAlgo();
   startNode.pathCoordinates = await dijkstra(grid);
   drawSolution();
 });
@@ -198,7 +198,7 @@ function drawMaze() {
   requestAnimationFrame(drawMaze);
 }
 
-function visualizePathFindingAlgo() {
+function visualizePathfindingAlgo() {
   grid.draw(mazeCtx);
 
   const isPathFound = startNode.pathCoordinates.length > 0;
@@ -207,7 +207,7 @@ function visualizePathFindingAlgo() {
     return;
   }
 
-  requestAnimationFrame(visualizePathFindingAlgo);
+  requestAnimationFrame(visualizePathfindingAlgo);
 }
 
 function drawSolution() {
