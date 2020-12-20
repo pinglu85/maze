@@ -95,7 +95,7 @@ async function asyncHuntAndKill(grid, wait = 50) {
     startCell = await asyncHunt(grid, wait);
   }
 
-  return false;
+  return Promise.resolve();
 }
 
 export default asyncHuntAndKill;

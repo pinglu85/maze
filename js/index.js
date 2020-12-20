@@ -194,12 +194,7 @@ function drawMaze() {
   grid.draw(mazeCtx);
 
   if (!isGeneratingMaze) {
-    grid.generateMazeEntryAndExit();
     const entranceCell = grid.entranceCell;
-    const exitCell = grid.exitCell;
-    entranceCell.draw(mazeCtx);
-    exitCell.draw(mazeCtx);
-
     startNodeFacingDir = getOppositeDir(grid.entranceDir);
     startNode = new StartNode(
       entranceCell.centerX,
@@ -211,6 +206,7 @@ function drawMaze() {
     );
     startNode.draw(solutionCtx);
 
+    const exitCell = grid.exitCell;
     targetNode = new TargetNode(
       exitCell.centerX,
       exitCell.centerY,

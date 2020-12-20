@@ -6,11 +6,7 @@ import {
   asyncBinaryTree,
   asyncAldousBroderAlgo,
 } from './mazeGenerationAlgos/index.js';
-import {
-  getRandomIndex,
-  getStartOrEndIndexOfArray,
-  returnPromise,
-} from './utils/index.js';
+import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
 
 class Grid {
   constructor(width, height, cellSize, cellColors) {
@@ -64,18 +60,24 @@ class Grid {
   }
 
   generateMaze(algo) {
+    const asyncGenerateMaze = async (mazeGenerationAlgo) => {
+      await mazeGenerationAlgo(this.content);
+      this.generateMazeEntryAndExit();
+      return Promise.resolve(false);
+    };
+
     switch (algo) {
       case 'Hunt and Kill':
-        return returnPromise(asyncHuntAndKill, this.content);
+        return asyncGenerateMaze(asyncHuntAndKill);
       case 'Recursive Backtracker':
-        return returnPromise(asyncRecursiveBacktracker, this.content);
+        return asyncGenerateMaze(asyncRecursiveBacktracker);
       case 'Recursive Division':
         this.dropInteriorWalls();
-        return returnPromise(asyncRecursiveDivision, this.content);
+        return asyncGenerateMaze(asyncRecursiveDivision);
       case 'Binary Tree':
-        return returnPromise(asyncBinaryTree, this.content);
+        return asyncGenerateMaze(asyncBinaryTree);
       case 'Aldous-Broder Algorithm':
-        return returnPromise(asyncAldousBroderAlgo, this.content);
+        return asyncGenerateMaze(asyncAldousBroderAlgo);
       default:
       // do nothing
     }
