@@ -1,65 +1,69 @@
 import { delay, resetCellsIsVisitingState } from './utils/index.js';
 
 function asyncGetNewFrontiers(grid, frontiers, distance, wait) {
-  return new Promise((resolve) => {
-    setTimeout(async () => {
-      const newFrontiers = [];
-      let unvisitedConnectedNeighbors;
-      let isExitCellReached = false;
+  const getNewFrontiers = (resolve) => {
+    const newFrontiers = [];
+    let unvisitedConnectedNeighbors;
+    let isExitCellReached = false;
 
-      for (const cell of frontiers) {
-        cell.isVisiting = false;
-        cell.opacity = 0.01;
+    for (const cell of frontiers) {
+      cell.isVisiting = false;
+      cell.opacity = 0.01;
 
-        unvisitedConnectedNeighbors = cell
-          .getConnectedNeighbors(grid)
-          .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
+      unvisitedConnectedNeighbors = cell
+        .getConnectedNeighbors(grid)
+        .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
 
-        for (const neighbor of unvisitedConnectedNeighbors) {
-          neighbor.distanceToEntrance = distance;
-          if (neighbor.isExit) {
-            neighbor.isExitColor = true;
-            isExitCellReached = true;
-            break;
-          }
-          neighbor.isVisiting = true;
-        }
-
-        if (isExitCellReached) {
+      for (const neighbor of unvisitedConnectedNeighbors) {
+        neighbor.distanceToEntrance = distance;
+        if (neighbor.isExit) {
+          neighbor.isExitColor = true;
+          isExitCellReached = true;
           break;
         }
-
-        newFrontiers.push(...unvisitedConnectedNeighbors);
+        neighbor.isVisiting = true;
       }
 
-      if (!isExitCellReached) {
-        resolve(newFrontiers);
-        return;
+      if (isExitCellReached) {
+        break;
       }
 
-      resetCellsIsVisitingState(
-        ...unvisitedConnectedNeighbors,
-        ...newFrontiers,
-        ...frontiers
-      );
-      resolve([]);
+      newFrontiers.push(...unvisitedConnectedNeighbors);
+    }
+
+    if (!isExitCellReached) {
+      resolve(newFrontiers);
+      return;
+    }
+
+    resetCellsIsVisitingState(
+      ...unvisitedConnectedNeighbors,
+      ...newFrontiers,
+      ...frontiers
+    );
+    resolve([]);
+  };
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      getNewFrontiers(resolve);
     }, wait);
   });
 }
 
-function distance(grid, entranceCell, wait) {
+async function asyncDistance(grid, entranceCell, wait) {
+  let frontiers = [entranceCell];
+  entranceCell.distanceToEntrance = 0;
+  let distance = 1;
+
+  while (frontiers.length) {
+    frontiers = await asyncGetNewFrontiers(grid, frontiers, distance, wait);
+    distance++;
+    await delay(wait);
+  }
+
   return new Promise((resolve) => {
-    setTimeout(async () => {
-      let frontiers = [entranceCell];
-      entranceCell.distanceToEntrance = 0;
-      let distance = 1;
-
-      while (frontiers.length) {
-        frontiers = await asyncGetNewFrontiers(grid, frontiers, distance, wait);
-        distance++;
-        await delay(wait);
-      }
-
+    setTimeout(() => {
       resolve();
     }, wait);
   });
@@ -83,7 +87,7 @@ function findPath(grid, exitCell) {
 }
 
 async function dijkstra({ content, entranceCell, exitCell }, wait = 50) {
-  await distance(content, entranceCell, wait);
+  await asyncDistance(content, entranceCell, wait);
   const pathCoordinates = findPath(content, exitCell);
 
   return Promise.resolve(pathCoordinates);
