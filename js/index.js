@@ -4,7 +4,6 @@ import TargetNode from './TargetNode.js';
 import dijkstra from './dijkstra.js';
 import {
   loadSprite,
-  getOppositeDir,
   setCanvasesSize,
   setDefaultGridSize,
 } from './utils/index.js';
@@ -33,9 +32,12 @@ const solutionCtx = solutionCanvas.getContext('2d');
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
   loadSprite(`/assets/start-node-${i}.png`)
 );
+const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
+
 const targetNodeSprites = ['normal', 'white'].map((option) =>
   loadSprite(`/assets/target-node-${option}.png`)
 );
+const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
 const canvases = [mazeCanvas, solutionCanvas];
 const canvasWrapper = document.getElementById('canvas-wrapper');
@@ -48,7 +50,7 @@ let isGeneratingMaze = false;
 let isMazeGenerated = false;
 let isSearchingSolution = false;
 let isSolutionFound = false;
-let grid, startNode, targetNode, pathCoordinates, startNodeFacingDir;
+let grid, pathCoordinates;
 
 window.addEventListener('DOMContentLoaded', () => {
   const defaultGridSize = setDefaultGridSize();
@@ -164,11 +166,7 @@ solutionBtn.addEventListener('click', async function () {
   if (isSolutionFound) {
     grid.clearSolution();
     solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-    startNode.reset(
-      grid.entranceCell.centerX,
-      grid.entranceCell.centerY,
-      startNodeFacingDir
-    );
+    startNode.reset(grid);
     startNode.draw(solutionCtx);
     targetNode.draw(solutionCtx);
     pathCoordinates = null;
@@ -194,25 +192,10 @@ function drawMaze() {
   grid.draw(mazeCtx);
 
   if (!isGeneratingMaze) {
-    const entranceCell = grid.entranceCell;
-    startNodeFacingDir = getOppositeDir(grid.entranceDir);
-    startNode = new StartNode(
-      entranceCell.centerX,
-      entranceCell.centerY,
-      startNodeFacingDir,
-      grid.exitDir,
-      startNodeSprites,
-      SPRITE_SIZE
-    );
+    startNode.reset(grid);
     startNode.draw(solutionCtx);
 
-    const exitCell = grid.exitCell;
-    targetNode = new TargetNode(
-      exitCell.centerX,
-      exitCell.centerY,
-      targetNodeSprites,
-      SPRITE_SIZE
-    );
+    targetNode.setPosition(grid);
     targetNode.draw(solutionCtx);
 
     newMazeBtn.disabled = false;

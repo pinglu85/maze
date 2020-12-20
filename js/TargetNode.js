@@ -1,10 +1,15 @@
 class TargetNode {
-  constructor(centerX, centerY, sprites, spriteSize) {
-    this.centerX = centerX;
-    this.centerY = centerY;
+  constructor(sprites, spriteSize) {
+    this.centerX = 0;
+    this.centerY = 0;
     this.spriteNormal = sprites[0];
     this.spriteWhite = sprites[1];
     this.spriteSize = spriteSize;
+  }
+
+  setPosition({ exitCell }) {
+    this.centerX = exitCell.centerX;
+    this.centerY = exitCell.centerY;
   }
 
   draw(ctx, spriteOption = 'spriteNormal') {
