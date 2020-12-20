@@ -4,7 +4,7 @@ export const CELL_COLORS = {
   scanning: '#7cefb0',
   visited: '#ffffff',
   unvisited: '#d3d3d3',
-  connected: '#fcb5c2',
+  connected: '#e8e8e8',
   pathfinding: {
     visited: '#9bd4ff',
     visiting: '#57b3f9',
@@ -15,4 +15,4 @@ export const FOOTPRINT_COLORS = {
   newFootprint: '#ffcc01',
   oldFootprint: '#c675ff',
 };
-export const GRID_GUIDES_COLOR = '#c1daf2';
+export const GRID_GUIDES_COLOR = '#a2b7d4';
