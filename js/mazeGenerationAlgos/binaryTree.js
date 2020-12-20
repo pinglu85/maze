@@ -6,37 +6,34 @@ import {
 } from '../utils/index.js';
 
 function asyncWalk(prevCell, cell, grid, wait) {
-  const walk = () => {
-    if (prevCell) {
-      prevCell.isStartCell = false;
-      prevCell.isVisited = true;
-    }
-    cell.isStartCell = true;
+  if (prevCell) {
+    prevCell.isStartCell = false;
+    prevCell.isVisited = true;
+  }
+  cell.isStartCell = true;
 
-    const northernAndEasternNeighbors = cell
-      .getNeighbors(grid)
-      .filter(
-        (neighbor) =>
-          neighbor[1] && (neighbor[0] === 'north' || neighbor[0] === 'west')
-      );
+  const northernAndEasternNeighbors = cell
+    .getNeighbors(grid)
+    .filter(
+      (neighbor) =>
+        neighbor[1] && (neighbor[0] === 'north' || neighbor[0] === 'west')
+    );
 
-    if (!northernAndEasternNeighbors.length) {
-      return;
-    }
+  if (!northernAndEasternNeighbors.length) {
+    return;
+  }
 
-    const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
-    const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
+  const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
+  const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
 
-    cell.dropWall(dir);
+  cell.dropWall(dir);
 
-    const oppositeDir = getOppositeDir(dir);
-    neighbor.dropWall(oppositeDir);
-    neighbor.isConnected = true;
-  };
+  const oppositeDir = getOppositeDir(dir);
+  neighbor.dropWall(oppositeDir);
+  neighbor.isConnected = true;
 
   return new Promise((resolve) => {
     setTimeout(() => {
-      walk();
       resolve();
     }, wait);
   });
