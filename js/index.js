@@ -148,10 +148,8 @@ newMazeBtn.addEventListener('click', async function () {
   isSolutionFound = false;
 
   isGeneratingMaze = true;
-  this.disabled = true;
+  toggleBtnsIsDisabled();
   solutionBtn.textContent = 'Solution';
-  solutionBtn.disabled = true;
-  changeGridSizeBtn.disabled = true;
 
   drawMaze();
   isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
@@ -174,9 +172,7 @@ solutionBtn.addEventListener('click', async function () {
   }
 
   isSearchingSolution = true;
-  this.disabled = true;
-  newMazeBtn.disabled = true;
-  changeGridSizeBtn.disabled = true;
+  toggleBtnsIsDisabled();
 
   visualizePathFindingAlgo();
   pathCoordinates = await dijkstra(grid);
@@ -198,9 +194,7 @@ function drawMaze() {
     targetNode.setPosition(grid);
     targetNode.draw(solutionCtx);
 
-    newMazeBtn.disabled = false;
-    solutionBtn.disabled = false;
-    changeGridSizeBtn.disabled = false;
+    toggleBtnsIsDisabled();
     isMazeGenerated = true;
     return;
   }
@@ -231,9 +225,7 @@ function drawSolution() {
     drawStartNodeAndFootprints();
     isSearchingSolution = false;
     isSolutionFound = true;
-    newMazeBtn.disabled = false;
-    solutionBtn.disabled = false;
-    changeGridSizeBtn.disabled = false;
+    toggleBtnsIsDisabled();
     return;
   }
 
@@ -242,4 +234,10 @@ function drawSolution() {
   drawStartNodeAndFootprints();
 
   requestAnimationFrame(drawSolution);
+}
+
+function toggleBtnsIsDisabled() {
+  newMazeBtn.disabled = !newMazeBtn.disabled;
+  solutionBtn.disabled = !solutionBtn.disabled;
+  changeGridSizeBtn.disabled = !changeGridSizeBtn.disabled;
 }
