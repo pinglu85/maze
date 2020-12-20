@@ -1,11 +1,13 @@
+import { getOppositeDir } from './utils/index.js';
+
 const TO_RADIANS = Math.PI / 180;
 
 class StartNode {
-  constructor(centerX, centerY, facingDir, exitDir, sprites, spriteSize) {
-    this.centerX = centerX;
-    this.centerY = centerY;
-    this.facingDir = facingDir;
-    this.exitDir = exitDir;
+  constructor(sprites, spriteSize) {
+    this.centerX = 0;
+    this.centerY = 0;
+    this.facingDir = '';
+    this.exitDir = '';
     this.spriteSize = spriteSize;
     this.sprites = sprites;
     this.spriteIndex = 0;
@@ -18,10 +20,12 @@ class StartNode {
     this.previousTime = 0;
   }
 
-  reset(centerX, centerY, facingDir) {
-    this.centerX = centerX;
-    this.centerY = centerY;
-    this.facingDir = facingDir;
+  reset(grid) {
+    this.centerX = grid.entranceCell.centerX;
+    this.centerY = grid.entranceCell.centerY;
+    this.facingDir = getOppositeDir(grid.entranceDir);
+    this.exitDir = grid.exitDir;
+    this.spriteIndex = 0;
     this.pathCoordinates = null;
     this.prevCellCenters = [];
     this.nextCellCenterX = 0;
