@@ -2,7 +2,12 @@ import Grid from './Grid.js';
 import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
 import dijkstra from './dijkstra.js';
-import { loadSprite, getOppositeDir, setCanvasesSize } from './utils/index.js';
+import {
+  loadSprite,
+  getOppositeDir,
+  setCanvasesSize,
+  setDefaultGridSize,
+} from './utils/index.js';
 import {
   CELL_COLORS,
   FOOTPRINT_COLORS,
@@ -46,16 +51,9 @@ let isSolutionFound = false;
 let grid, startNode, targetNode, pathCoordinates, startNodeFacingDir;
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (window.matchMedia('(max-width: 577px)').matches) {
-    numOfCols = 10;
-    numOfRows = 8;
-  } else if (window.matchMedia('(max-width: 769px').matches) {
-    numOfCols = 25;
-    numOfRows = 15;
-  } else {
-    numOfCols = 40;
-    numOfRows = 16;
-  }
+  const defaultGridSize = setDefaultGridSize();
+  numOfCols = defaultGridSize.numOfCols;
+  numOfRows = defaultGridSize.numOfRows;
 
   inputCols.value = numOfCols;
   inputRows.value = numOfRows;
