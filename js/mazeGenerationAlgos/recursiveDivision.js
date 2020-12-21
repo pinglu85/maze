@@ -8,7 +8,12 @@ async function asyncDivideHorizontally(
   endCol,
   wait
 ) {
-  const mid = Math.floor((startRow + endRow) / 2);
+  let mid = 0;
+  if (endRow - startRow > 2) {
+    mid = getRandomIndex(endRow - startRow) + startRow;
+  } else {
+    mid = Math.floor((startRow + endRow) / 2);
+  }
   const escapedCellColIndex = getRandomIndex(endCol - startCol + 1) + startCol;
   for (let i = startCol; i <= endCol; i++) {
     await delay(wait);
@@ -34,7 +39,13 @@ async function asyncDivideVertically(
   endCol,
   wait
 ) {
-  const mid = Math.floor((startCol + endCol) / 2);
+  let mid = 0;
+  if (endCol - startCol > 2) {
+    mid = getRandomIndex(endCol - startCol) + startCol;
+  } else {
+    mid = Math.floor((startCol + endCol) / 2);
+  }
+
   const escapedCellRowIndex = getRandomIndex(endRow - startRow + 1) + startRow;
   for (let i = startRow; i <= endRow; i++) {
     await delay(wait);
