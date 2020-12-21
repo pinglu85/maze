@@ -138,6 +138,8 @@ class Cell {
       ctx.fillStyle = colors.start;
     } else if (this.isScanning) {
       ctx.fillStyle = colors.scanning;
+    } else if (this.isNeighbor) {
+      ctx.fillStyle = colors.neighbor;
     } else if (this.isVisiting) {
       ctx.fillStyle = colors.pathfinding.visiting;
     } else if (this.isExitColor) {
