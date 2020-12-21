@@ -2,7 +2,7 @@ import {
   delay,
   getOppositeDir,
   getRandomIndex,
-  shuffleArray,
+  shuffleArrIndices,
 } from '../utils/index.js';
 
 function asyncWalk(grid, cell, wait) {
@@ -37,8 +37,8 @@ function asyncWalk(grid, cell, wait) {
 function asyncHunt(grid, wait) {
   const hunt = async (resolve) => {
     let randomVisitedNeighbor;
-    for (const i of shuffleArray(grid.length)) {
-      for (const j of shuffleArray(grid[i].length)) {
+    for (const i of shuffleArrIndices(grid.length)) {
+      for (const j of shuffleArrIndices(grid[i].length)) {
         const cell = grid[i][j];
         cell.isScanning = true;
         await delay(wait);

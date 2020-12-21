@@ -6,5 +6,5 @@ export { default as loadSprite } from './loadSprite.js';
 export { default as resetCellsIsVisitingState } from './resetCellsIsVisitingState.js';
 export { default as setCanvasesSize } from './setCanvasesSize.js';
 export { default as setDefaultGridSize } from './setDefaultGridSize.js';
-export { default as shuffleArray } from './shuffleArray.js';
+export { shuffleArr, shuffleArrIndices } from './shuffleArray.js';
 export { default as swapItemsInArray } from './swapItemsInArray.js';
