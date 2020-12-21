@@ -1,9 +1,4 @@
-import {
-  delay,
-  getOppositeDir,
-  getRandomIndex,
-  swapItemsInArray,
-} from '../utils/index.js';
+import { delay, getOppositeDir, shuffleArr } from '../utils/index.js';
 
 async function asyncMerge(cellPairs, cellSets, wait) {
   const [cell, [dir, neighbor]] = cellPairs.pop();
@@ -51,7 +46,7 @@ async function asyncMerge(cellPairs, cellSets, wait) {
 
 async function randomizedKruskalsAlgo(grid, wait = 50) {
   const cellSets = new Map();
-  const cellPairs = [];
+  let cellPairs = [];
 
   for (const row of grid) {
     for (const col of row) {
@@ -67,10 +62,7 @@ async function randomizedKruskalsAlgo(grid, wait = 50) {
     }
   }
 
-  for (let i = cellPairs.length - 1; i > 0; i--) {
-    const j = getRandomIndex(i + 1);
-    swapItemsInArray(cellPairs, i, j);
-  }
+  cellPairs = shuffleArr(cellPairs);
 
   while (cellSets.size > 1) {
     await asyncMerge(cellPairs, cellSets, wait);

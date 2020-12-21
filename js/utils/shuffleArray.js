@@ -1,28 +1,31 @@
-export default function shuffleArray(arrLen) {
+import { getRandomIndex, swapItemsInArray } from './index.js';
+
+// Fisher-Yates shuffle
+export const shuffleArr = (arr) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = getRandomIndex(i + 1);
+    swapItemsInArray(arr, i, j);
+  }
+  return arr;
+};
+
+export const shuffleArrIndices = (arrLen) => {
   const createArr = (len) => Array.from(new Array(len), (_, i) => i);
-  // Fisher-Yates shuffle
-  const shuffle = (arr) => {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  };
 
   const iterable = {
     index: 0,
-    indices: shuffle(createArr(arrLen)),
+    indices: shuffleArr(createArr(arrLen)),
     next() {
       return {
         value: this.indices[this.index++],
-        done: this.index > this.indices.length
+        done: this.index > this.indices.length,
       };
-    }
+    },
   };
 
   return {
     [Symbol.iterator]() {
       return iterable;
-    }
+    },
   };
-}
+};
