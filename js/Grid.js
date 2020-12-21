@@ -4,7 +4,7 @@ import {
   asyncRecursiveBacktracker,
   asyncRecursiveDivision,
   asyncBinaryTree,
-  randomizedKruskalsAlgo,
+  asyncRandomizedKruskalsAlgo,
   asyncAldousBroderAlgo,
 } from './mazeGenerationAlgos/index.js';
 import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
@@ -49,7 +49,7 @@ class Grid {
       case 'Binary Tree':
         return asyncGenerateMaze(asyncBinaryTree);
       case "Randomized Kruskal's Algorithm":
-        return asyncGenerateMaze(randomizedKruskalsAlgo);
+        return asyncGenerateMaze(asyncRandomizedKruskalsAlgo);
       case 'Aldous-Broder Algorithm':
         return asyncGenerateMaze(asyncAldousBroderAlgo);
       default:
