@@ -59,6 +59,10 @@ async function asyncDistance(grid, entranceCell, wait) {
 }
 
 function findPath(grid, exitCell) {
+  if (exitCell.distanceToEntrance === Infinity) {
+    return [];
+  }
+
   let breadcrumb = exitCell;
   let distance = exitCell.distanceToEntrance;
   const pathCoordinates = [[breadcrumb.centerX, breadcrumb.centerY]];
