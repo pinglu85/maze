@@ -1,5 +1,12 @@
 import { delay, getRandomIndex } from '../utils/index.js';
 
+function computeMid(start, end) {
+  if (end - start > 2) {
+    return getRandomIndex(end - start) + start;
+  }
+  return Math.floor((start + end) / 2);
+}
+
 async function asyncDivideHorizontally(
   grid,
   startRow,
@@ -8,12 +15,8 @@ async function asyncDivideHorizontally(
   endCol,
   wait
 ) {
-  let mid = 0;
-  if (endRow - startRow > 2) {
-    mid = getRandomIndex(endRow - startRow) + startRow;
-  } else {
-    mid = Math.floor((startRow + endRow) / 2);
-  }
+  const mid = computeMid(startRow, endRow);
+
   const escapedCellColIndex = getRandomIndex(endCol - startCol + 1) + startCol;
   for (let i = startCol; i <= endCol; i++) {
     await delay(wait);
@@ -39,12 +42,7 @@ async function asyncDivideVertically(
   endCol,
   wait
 ) {
-  let mid = 0;
-  if (endCol - startCol > 2) {
-    mid = getRandomIndex(endCol - startCol) + startCol;
-  } else {
-    mid = Math.floor((startCol + endCol) / 2);
-  }
+  const mid = computeMid(startCol, endCol);
 
   const escapedCellRowIndex = getRandomIndex(endRow - startRow + 1) + startRow;
   for (let i = startRow; i <= endRow; i++) {
