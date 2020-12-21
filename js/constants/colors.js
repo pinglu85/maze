@@ -6,6 +6,8 @@ export const CELL_COLORS = {
   unvisited: '#d3d3d3',
   connected: '#e8e8e8',
   neighbor: '#bfecff',
+  sameSet: '#fcccd9',
+  differentSet: '#c8ffc4',
   pathfinding: {
     visited: '#9bd4ff',
     visiting: '#57b3f9',

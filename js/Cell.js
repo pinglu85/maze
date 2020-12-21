@@ -33,6 +33,8 @@ class Cell {
     // State for Randomized Kruskal's Algorithm
     this.cellSetId = '';
     this.isNeighbor = false;
+    this.isInSameSet = false;
+    this.isInDifferentSet = false;
 
     this.distanceToEntrance = Infinity;
 
@@ -138,6 +140,10 @@ class Cell {
       ctx.fillStyle = colors.start;
     } else if (this.isScanning) {
       ctx.fillStyle = colors.scanning;
+    } else if (this.isInSameSet) {
+      ctx.fillStyle = colors.sameSet;
+    } else if (this.isInDifferentSet) {
+      ctx.fillStyle = colors.differentSet;
     } else if (this.isNeighbor) {
       ctx.fillStyle = colors.neighbor;
     } else if (this.isVisiting) {
