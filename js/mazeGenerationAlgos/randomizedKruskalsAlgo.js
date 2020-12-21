@@ -56,7 +56,7 @@ function merge(cellPairs, cellSets, wait) {
   });
 }
 
-async function randomizedKruskalsAlgo(grid, wait = 50) {
+async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
   const cellSets = new Map();
   let cellPairs = [];
 
@@ -83,4 +83,4 @@ async function randomizedKruskalsAlgo(grid, wait = 50) {
   return Promise.resolve();
 }
 
-export default randomizedKruskalsAlgo;
+export default asyncRandomizedKruskalsAlgo;
