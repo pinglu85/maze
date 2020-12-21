@@ -136,32 +136,7 @@ class Cell {
   }
 
   draw(ctx, cellSize, colors) {
-    if (this.isStartCell) {
-      ctx.fillStyle = colors.start;
-    } else if (this.isScanning) {
-      ctx.fillStyle = colors.scanning;
-    } else if (this.isInSameSet) {
-      ctx.fillStyle = colors.sameSet;
-    } else if (this.isInDifferentSet) {
-      ctx.fillStyle = colors.differentSet;
-    } else if (this.isNeighbor) {
-      ctx.fillStyle = colors.neighbor;
-    } else if (this.isVisiting) {
-      ctx.fillStyle = colors.pathfinding.visiting;
-    } else if (this.isExitColor) {
-      ctx.fillStyle = colors.pathfinding.exitColor;
-    } else if (this.distanceToEntrance !== Infinity) {
-      ctx.fillStyle = colors.pathfinding.visited;
-    } else if (this.isVisited) {
-      ctx.fillStyle = colors.visited;
-    } else if (this.isConnected) {
-      ctx.fillStyle = colors.connected;
-    } else if (this.isTransparent) {
-      ctx.fillStyle = 'transparent';
-    } else {
-      ctx.fillStyle = colors.unvisited;
-    }
-
+    ctx.fillStyle = this._getCtxFillStyle(colors);
     ctx.fillRect(this.startX, this.startY, cellSize, cellSize);
 
     if (this.opacity) {
@@ -203,6 +178,54 @@ class Cell {
       ctx.lineTo(this.endX, this.endY);
       ctx.stroke();
     }
+  }
+
+  _getCtxFillStyle(colors) {
+    if (this.isStartCell) {
+      return colors.start;
+    }
+
+    if (this.isScanning) {
+      return colors.scanning;
+    }
+
+    if (this.isInSameSet) {
+      return colors.sameSet;
+    }
+
+    if (this.isInDifferentSet) {
+      return colors.differentSet;
+    }
+
+    if (this.isNeighbor) {
+      return colors.neighbor;
+    }
+
+    if (this.isVisiting) {
+      return colors.pathfinding.visiting;
+    }
+
+    if (this.isExitColor) {
+      return colors.pathfinding.exitColor;
+    }
+
+    if (this.distanceToEntrance !== Infinity) {
+      return colors.pathfinding.visited;
+    }
+
+    if (this.isVisited) {
+      return colors.visited;
+    }
+
+    if (this.isConnected) {
+      return colors.connected;
+    }
+
+    if (this.isTransparent) {
+      return 'transparent';
+    }
+
+    return colors.unvisited;
   }
 }
 
