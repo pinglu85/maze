@@ -1,15 +1,22 @@
-import { getOppositeDir, getRandomIndex } from '../utils/index.js';
+import { delay, getOppositeDir, getRandomIndex } from '../utils/index.js';
 
-function merge(grid, cellSets) {
+async function asyncMerge(grid, cellSets, wait) {
   const randomRow = getRandomIndex(grid.length);
   const randomCol = getRandomIndex(grid[0].length);
   const cell = grid[randomRow][randomCol];
+  cell.isStartCell = true;
   if (!cell.isVisited) {
     cell.isVisited = true;
   }
   const [dir, neighbor] = cell.getRandomNeighbor(grid);
 
+  neighbor.isNeighbor = true;
+
+  await delay(wait * 3);
+
   if (cell.cellSetId === neighbor.cellSetId) {
+    cell.isStartCell = false;
+    neighbor.isNeighbor = false;
     return;
   }
 
@@ -30,9 +37,17 @@ function merge(grid, cellSets) {
   const oppositeDir = getOppositeDir(dir);
   neighbor.dropWall(oppositeDir);
   neighbor.isVisited = true;
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      cell.isStartCell = false;
+      neighbor.isNeighbor = false;
+      resolve();
+    }, wait);
+  });
 }
 
-function randomizedKruskalsAlgo(grid) {
+async function randomizedKruskalsAlgo(grid, wait = 50) {
   const cellSets = new Map();
 
   for (const row of grid) {
@@ -43,8 +58,10 @@ function randomizedKruskalsAlgo(grid) {
   }
 
   while (cellSets.size > 1) {
-    merge(grid, cellSets);
+    await asyncMerge(grid, cellSets, wait);
   }
+
+  return Promise.resolve();
 }
 
 export default randomizedKruskalsAlgo;
