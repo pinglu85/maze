@@ -1,6 +1,6 @@
 import { delay, getOppositeDir, shuffleArr } from '../utils/index.js';
 
-async function asyncMerge(cellPairs, cellSets, wait, resolve) {
+async function merge(cellPairs, cellSets, wait, resolve) {
   const [cell, [dir, neighbor]] = cellPairs.pop();
   cell.isStartCell = true;
   if (!cell.isVisited) {
@@ -48,10 +48,10 @@ async function asyncMerge(cellPairs, cellSets, wait, resolve) {
   resolve();
 }
 
-function merge(cellPairs, cellSets, wait) {
+function asyncMerge(cellPairs, cellSets, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      asyncMerge(cellPairs, cellSets, wait, resolve);
+      merge(cellPairs, cellSets, wait, resolve);
     }, wait);
   });
 }
@@ -77,7 +77,7 @@ async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
   cellPairs = shuffleArr(cellPairs);
 
   while (cellSets.size > 1) {
-    await merge(cellPairs, cellSets, wait * 2);
+    await asyncMerge(cellPairs, cellSets, wait * 2);
   }
 
   return Promise.resolve();
