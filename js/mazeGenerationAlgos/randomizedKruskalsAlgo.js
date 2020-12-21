@@ -18,13 +18,17 @@ async function asyncMerge(cellPairs, cellSets, wait) {
     return;
   }
 
-  const cellSet = cellSets.get(cell.cellSetId);
+  const currCellSetId = cell.cellSetId;
+  const cellSet = cellSets.get(currCellSetId);
+  const neighborSetId = neighbor.cellSetId;
   const neighborSet = cellSets.get(neighbor.cellSetId);
 
   neighborSet.forEach((c) => {
-    c.cellSetId = cell.cellSetId;
+    c.cellSetId = currCellSetId;
     cellSet.push(c);
   });
+
+  cellSets.delete(neighborSetId);
 
   cell.dropWall(dir);
 
@@ -59,7 +63,7 @@ async function randomizedKruskalsAlgo(grid, wait = 50) {
     }
   }
 
-  while (cellPairs.length > 0) {
+  while (cellSets.size > 1) {
     await asyncMerge(cellPairs, cellSets, wait);
   }
 
