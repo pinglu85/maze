@@ -1,14 +1,16 @@
-import { delay, getOppositeDir, getRandomIndex } from '../utils/index.js';
+import {
+  delay,
+  getOppositeDir,
+  getRandomIndex,
+  swapItemsInArray,
+} from '../utils/index.js';
 
-async function asyncMerge(grid, cellSets, wait) {
-  const randomRow = getRandomIndex(grid.length);
-  const randomCol = getRandomIndex(grid[0].length);
-  const cell = grid[randomRow][randomCol];
+async function asyncMerge(cellPairs, cellSets, wait) {
+  const [cell, [dir, neighbor]] = cellPairs.pop();
   cell.isStartCell = true;
   if (!cell.isVisited) {
     cell.isVisited = true;
   }
-  const [dir, neighbor] = cell.getRandomNeighbor(grid);
 
   neighbor.isNeighbor = true;
 
@@ -20,13 +22,13 @@ async function asyncMerge(grid, cellSets, wait) {
     return;
   }
 
-  const cellSetId = cell.cellSetId;
-  const cellSet = cellSets.get(cellSetId);
+  const currCellSetId = cell.cellSetId;
+  const cellSet = cellSets.get(currCellSetId);
   const neighborSetId = neighbor.cellSetId;
-  const neighborSet = cellSets.get(neighborSetId);
+  const neighborSet = cellSets.get(neighbor.cellSetId);
 
   neighborSet.forEach((c) => {
-    c.cellSetId = cellSetId;
+    c.cellSetId = currCellSetId;
     cellSet.push(c);
   });
 
@@ -49,16 +51,29 @@ async function asyncMerge(grid, cellSets, wait) {
 
 async function randomizedKruskalsAlgo(grid, wait = 50) {
   const cellSets = new Map();
+  const cellPairs = [];
 
   for (const row of grid) {
     for (const col of row) {
       col.cellSetId = `row${col.rowIndex}col${col.colIndex}`;
       cellSets.set(col.cellSetId, [col]);
+
+      col
+        .getNeighbors(grid)
+        .filter((neighbor) => neighbor[1])
+        .forEach((neighbor) => {
+          cellPairs.push([col, neighbor]);
+        });
     }
   }
 
+  for (let i = cellPairs.length - 1; i > 0; i--) {
+    const j = getRandomIndex(i + 1);
+    swapItemsInArray(cellPairs, i, j);
+  }
+
   while (cellSets.size > 1) {
-    await asyncMerge(grid, cellSets, wait);
+    await asyncMerge(cellPairs, cellSets, wait);
   }
 
   return Promise.resolve();
