@@ -1,14 +1,12 @@
 import { delay, getOppositeDir, getRandomIndex } from '../utils/index.js';
 
-async function asyncMerge(grid, cellSets, wait) {
-  const randomRow = getRandomIndex(grid.length);
-  const randomCol = getRandomIndex(grid[0].length);
-  const cell = grid[randomRow][randomCol];
+async function asyncMerge(cellPairs, cellSets, wait) {
+  const randomIndex = getRandomIndex(cellPairs.length);
+  const [cell, [dir, neighbor]] = cellPairs.splice(randomIndex, 1)[0];
   cell.isStartCell = true;
   if (!cell.isVisited) {
     cell.isVisited = true;
   }
-  const [dir, neighbor] = cell.getRandomNeighbor(grid);
 
   neighbor.isNeighbor = true;
 
@@ -20,17 +18,13 @@ async function asyncMerge(grid, cellSets, wait) {
     return;
   }
 
-  const cellSetId = cell.cellSetId;
-  const cellSet = cellSets.get(cellSetId);
-  const neighborSetId = neighbor.cellSetId;
-  const neighborSet = cellSets.get(neighborSetId);
+  const cellSet = cellSets.get(cell.cellSetId);
+  const neighborSet = cellSets.get(neighbor.cellSetId);
 
   neighborSet.forEach((c) => {
-    c.cellSetId = cellSetId;
+    c.cellSetId = cell.cellSetId;
     cellSet.push(c);
   });
-
-  cellSets.delete(neighborSetId);
 
   cell.dropWall(dir);
 
@@ -49,16 +43,24 @@ async function asyncMerge(grid, cellSets, wait) {
 
 async function randomizedKruskalsAlgo(grid, wait = 50) {
   const cellSets = new Map();
+  const cellPairs = [];
 
   for (const row of grid) {
     for (const col of row) {
       col.cellSetId = `row${col.rowIndex}col${col.colIndex}`;
       cellSets.set(col.cellSetId, [col]);
+
+      col
+        .getNeighbors(grid)
+        .filter((neighbor) => neighbor[1])
+        .forEach((neighbor) => {
+          cellPairs.push([col, neighbor]);
+        });
     }
   }
 
-  while (cellSets.size > 1) {
-    await asyncMerge(grid, cellSets, wait);
+  while (cellPairs.length > 0) {
+    await asyncMerge(cellPairs, cellSets, wait);
   }
 
   return Promise.resolve();
