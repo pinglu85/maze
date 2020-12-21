@@ -1,41 +1,41 @@
 import { delay, resetCellsIsVisitingState } from './utils/index.js';
 
-function asyncGetNewFrontiers(grid, frontiers, distance, wait) {
-  const getNewFrontiers = (resolve) => {
-    const newFrontiers = [];
+function getNewFrontiers(grid, frontiers, distance, resolve) {
+  const newFrontiers = [];
 
-    for (const cell of frontiers) {
-      cell.isVisiting = false;
-      cell.opacity = 0.01;
+  for (const cell of frontiers) {
+    cell.isVisiting = false;
+    cell.opacity = 0.01;
 
-      const unvisitedConnectedNeighbors = cell
-        .getConnectedNeighbors(grid)
-        .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
+    const unvisitedConnectedNeighbors = cell
+      .getConnectedNeighbors(grid)
+      .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
 
-      for (const neighbor of unvisitedConnectedNeighbors) {
-        neighbor.distanceToEntrance = distance;
-        if (neighbor.isExit) {
-          neighbor.isExitColor = true;
-          resetCellsIsVisitingState(
-            ...unvisitedConnectedNeighbors,
-            ...newFrontiers,
-            ...frontiers
-          );
-          resolve([]);
-          return;
-        }
-        neighbor.isVisiting = true;
+    for (const neighbor of unvisitedConnectedNeighbors) {
+      neighbor.distanceToEntrance = distance;
+      if (neighbor.isExit) {
+        neighbor.isExitColor = true;
+        resetCellsIsVisitingState(
+          ...unvisitedConnectedNeighbors,
+          ...newFrontiers,
+          ...frontiers
+        );
+        resolve([]);
+        return;
       }
-
-      newFrontiers.push(...unvisitedConnectedNeighbors);
+      neighbor.isVisiting = true;
     }
 
-    resolve(newFrontiers);
-  };
+    newFrontiers.push(...unvisitedConnectedNeighbors);
+  }
 
+  resolve(newFrontiers);
+}
+
+function asyncGetNewFrontiers(grid, frontiers, distance, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      getNewFrontiers(resolve);
+      getNewFrontiers(grid, frontiers, distance, resolve);
     }, wait);
   });
 }

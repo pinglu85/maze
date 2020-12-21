@@ -1,29 +1,29 @@
 import { getOppositeDir, getRandomIndex } from '../utils/index.js';
 
-function asyncWalk(grid, cell, wait) {
-  const walk = (resolve) => {
-    cell.isStartCell = false;
-    cell.isVisited = true;
+function walk(grid, cell, resolve) {
+  cell.isStartCell = false;
+  cell.isVisited = true;
 
-    const [dir, neighbor] = cell.getRandomNeighbor(grid);
-    neighbor.isStartCell = true;
+  const [dir, neighbor] = cell.getRandomNeighbor(grid);
+  neighbor.isStartCell = true;
 
-    if (neighbor.isVisited) {
-      resolve(neighbor);
-      return;
-    }
-
-    cell.dropWall(dir);
-
-    const oppositeDir = getOppositeDir(dir);
-    neighbor.dropWall(oppositeDir);
-
+  if (neighbor.isVisited) {
     resolve(neighbor);
-  };
+    return;
+  }
 
+  cell.dropWall(dir);
+
+  const oppositeDir = getOppositeDir(dir);
+  neighbor.dropWall(oppositeDir);
+
+  resolve(neighbor);
+}
+
+function asyncWalk(grid, cell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      walk(resolve);
+      walk(grid, cell, resolve);
     }, wait);
   });
 }
