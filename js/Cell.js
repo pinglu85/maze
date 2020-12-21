@@ -30,6 +30,9 @@ class Cell {
     this.isStartCell = false;
     this.isConnected = false;
     this.isTransparent = false;
+    // State for Randomized Kruskal's Algorithm
+    this.cellSetId = '';
+    this.isNeighbor = false;
 
     this.distanceToEntrance = Infinity;
 
