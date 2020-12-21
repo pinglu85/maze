@@ -5,7 +5,7 @@ import {
   swapItemsInArray,
 } from '../utils/index.js';
 
-function asyncWalk(prevCell, cell, grid, wait) {
+function walk(prevCell, cell, grid, resolve) {
   if (prevCell) {
     prevCell.isStartCell = false;
     prevCell.isVisited = true;
@@ -20,6 +20,7 @@ function asyncWalk(prevCell, cell, grid, wait) {
     );
 
   if (!northernAndEasternNeighbors.length) {
+    resolve();
     return;
   }
 
@@ -31,10 +32,13 @@ function asyncWalk(prevCell, cell, grid, wait) {
   const oppositeDir = getOppositeDir(dir);
   neighbor.dropWall(oppositeDir);
   neighbor.isConnected = true;
+  resolve();
+}
 
+function asyncWalk(prevCell, cell, grid, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve();
+      walk(prevCell, cell, grid, resolve);
     }, wait);
   });
 }
