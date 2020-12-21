@@ -26,7 +26,6 @@ class StartNode {
     this.facingDir = getOppositeDir(grid.entranceDir);
     this.exitDir = grid.exitDir;
     this.spriteIndex = 0;
-    this.pathCoordinates = [];
     this.prevCellCenters = [];
     this.nextCellCenterX = 0;
     this.nextCellCenterY = 0;
