@@ -1,8 +1,8 @@
 export default function getOppositeDir(dir) {
   return {
     north: 'south',
-    west: 'east',
+    east: 'west',
     south: 'north',
-    east: 'west'
+    west: 'east',
   }[dir];
 }

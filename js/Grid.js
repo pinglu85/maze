@@ -100,9 +100,9 @@ class Grid {
         col.isTransparent = true;
         const interiorWalls = {
           north: true,
-          west: true,
-          south: true,
           east: true,
+          south: true,
+          west: true,
         };
         for (const dir in col.outerWalls) {
           interiorWalls[dir] = false;

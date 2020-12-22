@@ -15,9 +15,9 @@ class Cell {
 
     // Walls.
     this.northWall = true;
-    this.westWall = true;
-    this.southWall = true;
     this.eastWall = true;
+    this.southWall = true;
+    this.westWall = true;
     this.outerWalls = {};
 
     this.isEntrance = false;
@@ -57,7 +57,7 @@ class Cell {
     const currColIndex = this.colIndex;
     const north =
       currRowIndex === 0 ? null : grid[currRowIndex - 1][currColIndex];
-    const west =
+    const east =
       currColIndex === grid[0].length - 1
         ? null
         : grid[currRowIndex][currColIndex + 1];
@@ -65,13 +65,13 @@ class Cell {
       currRowIndex === grid.length - 1
         ? null
         : grid[currRowIndex + 1][currColIndex];
-    const east =
+    const west =
       currColIndex === 0 ? null : grid[currRowIndex][currColIndex - 1];
     return [
       ['north', north],
-      ['west', west],
-      ['south', south],
       ['east', east],
+      ['south', south],
+      ['west', west],
     ];
   }
 
@@ -118,9 +118,9 @@ class Cell {
     }
 
     if (this.colIndex === 0) {
-      this.outerWalls.east = true;
-    } else if (this.colIndex === width - 1) {
       this.outerWalls.west = true;
+    } else if (this.colIndex === width - 1) {
+      this.outerWalls.east = true;
     }
   }
 
@@ -164,8 +164,8 @@ class Cell {
         ? lineWidth.outerWall
         : lineWidth.interiorWall;
       ctx.beginPath();
-      ctx.moveTo(this.startX, this.startY);
-      ctx.lineTo(this.startX, this.endY);
+      ctx.moveTo(this.endX, this.startY);
+      ctx.lineTo(this.endX, this.endY);
       ctx.stroke();
     }
 
@@ -184,8 +184,8 @@ class Cell {
         ? lineWidth.outerWall
         : lineWidth.interiorWall;
       ctx.beginPath();
-      ctx.moveTo(this.endX, this.startY);
-      ctx.lineTo(this.endX, this.endY);
+      ctx.moveTo(this.startX, this.startY);
+      ctx.lineTo(this.startX, this.endY);
       ctx.stroke();
     }
   }
