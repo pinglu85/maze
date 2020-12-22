@@ -146,16 +146,16 @@ class Cell {
     }
 
     ctx.strokeStyle = colors.border;
-    ctx.lineCap = 'miter';
-    ctx.lineJoin = 'round';
+
+    const halfLineWidth = Math.floor(lineWidth.interiorWall / 2);
 
     if (this.northWall) {
       ctx.lineWidth = this.outerWalls.north
         ? lineWidth.outerWall
         : lineWidth.interiorWall;
       ctx.beginPath();
-      ctx.moveTo(this.startX, this.startY);
-      ctx.lineTo(this.endX, this.startY);
+      ctx.moveTo(this.startX - halfLineWidth, this.startY);
+      ctx.lineTo(this.endX + halfLineWidth, this.startY);
       ctx.stroke();
     }
 
@@ -164,8 +164,8 @@ class Cell {
         ? lineWidth.outerWall
         : lineWidth.interiorWall;
       ctx.beginPath();
-      ctx.moveTo(this.endX, this.startY);
-      ctx.lineTo(this.endX, this.endY);
+      ctx.moveTo(this.endX, this.startY - halfLineWidth);
+      ctx.lineTo(this.endX, this.endY + halfLineWidth);
       ctx.stroke();
     }
 
@@ -174,8 +174,8 @@ class Cell {
         ? lineWidth.outerWall
         : lineWidth.interiorWall;
       ctx.beginPath();
-      ctx.moveTo(this.startX, this.endY);
-      ctx.lineTo(this.endX, this.endY);
+      ctx.moveTo(this.startX - halfLineWidth, this.endY);
+      ctx.lineTo(this.endX + halfLineWidth, this.endY);
       ctx.stroke();
     }
 
@@ -184,8 +184,8 @@ class Cell {
         ? lineWidth.outerWall
         : lineWidth.interiorWall;
       ctx.beginPath();
-      ctx.moveTo(this.startX, this.startY);
-      ctx.lineTo(this.startX, this.endY);
+      ctx.moveTo(this.startX, this.startY - halfLineWidth);
+      ctx.lineTo(this.startX, this.endY + halfLineWidth);
       ctx.stroke();
     }
   }

@@ -4,6 +4,6 @@ export const MIN_GRID_SIZE = 3;
 export const MAX_GRID_SIZE = 40;
 export const LINE_WIDTH = {
   outerWall: 6,
-  interiorWall: 3,
+  interiorWall: 2,
   guides: 1,
 };
