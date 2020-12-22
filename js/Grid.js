@@ -10,10 +10,11 @@ import {
 import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
 
 class Grid {
-  constructor(cellSize, cellColors, guidesColor) {
+  constructor(cellSize, cellColors, lineWidth, guidesColor) {
     this.content = [];
     this.cellSize = cellSize;
     this.cellColors = cellColors;
+    this.lineWidth = lineWidth;
     this.guidesColor = guidesColor;
     this.entranceCell = null;
     this.entranceDir = '';
@@ -128,7 +129,7 @@ class Grid {
   draw(ctx) {
     for (const row of this.content) {
       for (const col of row) {
-        col.draw(ctx, this.cellSize, this.cellColors);
+        col.draw(ctx, this.cellSize, this.cellColors, this.lineWidth);
       }
     }
   }
@@ -137,7 +138,7 @@ class Grid {
     const width = this.content[0].length;
     const height = this.content.length;
 
-    ctx.lineWidth = 1;
+    ctx.lineWidth = this.lineWidth.guides;
     ctx.strokeStyle = this.guidesColor;
 
     // Draw vertical lines
