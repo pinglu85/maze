@@ -162,8 +162,9 @@ solutionBtn.addEventListener('click', async function () {
 
   if (isSolutionFound) {
     grid.clearSolution();
-    solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     startNode.reset(grid);
+    mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+    solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     startNode.draw(solutionCtx);
     targetNode.draw(solutionCtx);
     isSolutionFound = false;
