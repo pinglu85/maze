@@ -1,7 +1,7 @@
 import { delay, getRandomIndex } from '../utils/index.js';
 
 function computeMid(start, end) {
-  if (end - start > 2) {
+  if (end - start >= 2) {
     return getRandomIndex(end - start) + start;
   }
   return Math.floor((start + end) / 2);
@@ -51,8 +51,8 @@ async function asyncDivideVertically(
       continue;
     }
 
-    grid[i][mid].addWall('west');
-    grid[i][mid + 1].addWall('east');
+    grid[i][mid].addWall('east');
+    grid[i][mid + 1].addWall('west');
   }
 
   await delay(wait);
