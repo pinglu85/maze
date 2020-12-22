@@ -29,7 +29,6 @@ class Cell {
     this.isScanning = false;
     this.isStartCell = false;
     this.isConnected = false;
-    this.isTransparent = false;
     // State for Randomized Kruskal's Algorithm
     this.cellSetId = '';
     this.isNeighbor = false;
@@ -229,10 +228,6 @@ class Cell {
 
     if (this.isConnected) {
       return colors.connected;
-    }
-
-    if (this.isTransparent) {
-      return 'transparent';
     }
 
     return colors.unvisited;
