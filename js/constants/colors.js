@@ -1,5 +1,5 @@
 export const CELL_COLORS = {
-  border: '#282c34',
+  border: '#09395b',
   start: '#57b3f9',
   scanning: '#7cefb0',
   visited: '#ffffff',

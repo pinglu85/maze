@@ -17,6 +17,7 @@ import {
   SPRITE_SIZE,
   MIN_GRID_SIZE,
   MAX_GRID_SIZE,
+  LINE_WIDTH,
 } from './constants/size.js';
 
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
@@ -28,7 +29,7 @@ const mazeCanvas = document.getElementById('maze-canvas');
 const mazeCtx = mazeCanvas.getContext('2d');
 const solutionCanvas = document.getElementById('solution-canvas');
 const solutionCtx = solutionCanvas.getContext('2d');
-const grid = new Grid(CELL_SIZE, CELL_COLORS, GRID_GUIDES_COLOR);
+const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTH, GRID_GUIDES_COLOR);
 
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
   loadSprite(`/assets/start-node-${i}.png`)

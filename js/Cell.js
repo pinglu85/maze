@@ -135,7 +135,7 @@ class Cell {
     return droppedOuterWall;
   }
 
-  draw(ctx, cellSize, colors) {
+  draw(ctx, cellSize, colors, lineWidth) {
     ctx.fillStyle = this._getCtxFillStyle(colors);
     ctx.fillRect(this.startX, this.startY, cellSize, cellSize);
 
@@ -146,9 +146,13 @@ class Cell {
     }
 
     ctx.strokeStyle = colors.border;
+    ctx.lineCap = 'miter';
+    ctx.lineJoin = 'round';
 
     if (this.northWall) {
-      ctx.lineWidth = this.outerWalls.north ? 2.5 : 1;
+      ctx.lineWidth = this.outerWalls.north
+        ? lineWidth.outerWall
+        : lineWidth.interiorWall;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.startY);
       ctx.lineTo(this.endX, this.startY);
@@ -156,7 +160,9 @@ class Cell {
     }
 
     if (this.eastWall) {
-      ctx.lineWidth = this.outerWalls.east ? 2.5 : 1;
+      ctx.lineWidth = this.outerWalls.east
+        ? lineWidth.outerWall
+        : lineWidth.interiorWall;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.startY);
       ctx.lineTo(this.startX, this.endY);
@@ -164,7 +170,9 @@ class Cell {
     }
 
     if (this.southWall) {
-      ctx.lineWidth = this.outerWalls.south ? 2.5 : 1;
+      ctx.lineWidth = this.outerWalls.south
+        ? lineWidth.outerWall
+        : lineWidth.interiorWall;
       ctx.beginPath();
       ctx.moveTo(this.startX, this.endY);
       ctx.lineTo(this.endX, this.endY);
@@ -172,7 +180,9 @@ class Cell {
     }
 
     if (this.westWall) {
-      ctx.lineWidth = this.outerWalls.west ? 2.5 : 1;
+      ctx.lineWidth = this.outerWalls.west
+        ? lineWidth.outerWall
+        : lineWidth.interiorWall;
       ctx.beginPath();
       ctx.moveTo(this.endX, this.startY);
       ctx.lineTo(this.endX, this.endY);
