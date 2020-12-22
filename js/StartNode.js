@@ -65,9 +65,9 @@ class StartNode {
 
     if (this.centerY === this.nextCellCenterY) {
       if (this.centerX < this.nextCellCenterX) {
-        this.facingDir = 'west';
-      } else {
         this.facingDir = 'east';
+      } else {
+        this.facingDir = 'west';
       }
     }
 
@@ -75,13 +75,13 @@ class StartNode {
       case 'north':
         this.centerY--;
         break;
-      case 'west':
+      case 'east':
         this.centerX++;
         break;
       case 'south':
         this.centerY++;
         break;
-      case 'east':
+      case 'west':
         this.centerX--;
         break;
       default:
@@ -95,13 +95,13 @@ class StartNode {
       case 'north':
         angleInRad = 0;
         break;
-      case 'west':
+      case 'east':
         angleInRad = 90 * TO_RADIANS;
         break;
       case 'south':
         angleInRad = 180 * TO_RADIANS;
         break;
-      case 'east':
+      case 'west':
         angleInRad = 270 * TO_RADIANS;
         break;
       default:
