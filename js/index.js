@@ -174,6 +174,13 @@ solutionBtn.addEventListener('click', async function () {
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await dijkstra(grid);
+  if (!startNode.pathCoordinates.length) {
+    isSearchingSolution = false;
+    isSolutionFound = true;
+    toggleBtnsIsDisabled();
+    return;
+  }
+
   drawSolution();
 });
 

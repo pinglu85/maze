@@ -74,7 +74,9 @@ function findPath(grid, exitCell) {
       .getConnectedNeighbors(grid)
       .find((neighbor) => neighbor.distanceToEntrance === distance);
 
-    pathCoordinates.push([breadcrumb.centerX, breadcrumb.centerY]);
+    if (breadcrumb) {
+      pathCoordinates.push([breadcrumb.centerX, breadcrumb.centerY]);
+    }
   }
   return pathCoordinates;
 }
