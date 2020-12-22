@@ -97,7 +97,7 @@ class Grid {
   dropInteriorWalls() {
     for (const row of this.content) {
       for (const col of row) {
-        col.isTransparent = true;
+        col.isVisited = true;
         const interiorWalls = {
           north: true,
           east: true,
