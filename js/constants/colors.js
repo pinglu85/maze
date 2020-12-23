@@ -9,9 +9,9 @@ export const CELL_COLORS = {
   sameSet: '#fcccd9',
   differentSet: '#c8ffc4',
   pathfinding: {
-    visited: '#9bd4ff',
-    visiting: '#57b3f9',
-    exitColor: '#2ca0f7',
+    visited: '#8dd0fc',
+    visiting: '#4fb8ff',
+    exitColor: '#067ece',
   },
 };
 export const FOOTPRINT_COLORS = {
