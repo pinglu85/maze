@@ -3,10 +3,12 @@ export default function setCanvasesSize(
   numOfCols,
   numOfRows,
   cellSize,
+  lineWidth,
   canvasWrapperNode
 ) {
-  const canvasWidth = Math.floor(numOfCols * cellSize);
-  const canvasHeight = Math.floor(numOfRows * cellSize);
+  const offset = lineWidth.outerWall + lineWidth.halfOuterInteriorWallDiff * 2;
+  const canvasWidth = Math.floor(numOfCols * cellSize) + offset;
+  const canvasHeight = Math.floor(numOfRows * cellSize) + offset;
 
   canvases.forEach((canvas) => {
     canvas.width = canvasWidth;

@@ -65,6 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
     numOfCols,
     numOfRows,
     CELL_SIZE,
+    LINE_WIDTH,
     canvasWrapper
   );
   canvasWidth = canvasSize.canvasWidth;
@@ -101,6 +102,7 @@ changeGridSizeBtn.addEventListener('click', function () {
     numOfCols,
     numOfRows,
     CELL_SIZE,
+    LINE_WIDTH,
     canvasWrapper
   );
   canvasWidth = canvasSize.canvasWidth;
