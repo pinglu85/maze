@@ -4,7 +4,7 @@ import TargetNode from './TargetNode.js';
 import dijkstra from './dijkstra.js';
 import {
   loadSprite,
-  setCanvasesSize,
+  setupCanvases,
   setDefaultGridSize,
 } from './utils/index.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
@@ -21,24 +21,26 @@ const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
 const solutionBtn = document.getElementById('solution-btn');
 const changeGridSizeBtn = document.getElementById('change-grid-size-btn');
-const mazeCanvas = document.getElementById('maze-canvas');
-const mazeCtx = mazeCanvas.getContext('2d');
-const solutionCanvas = document.getElementById('solution-canvas');
-const solutionCtx = solutionCanvas.getContext('2d');
-const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTH);
 
+const canvasWrapper = document.getElementById('canvas-wrapper');
+const mazeCanvas = document.getElementById('maze-canvas');
+const solutionCanvas = document.getElementById('solution-canvas');
+const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases(
+  canvasWrapper,
+  mazeCanvas,
+  solutionCanvas
+);
+
+const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTH);
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
   loadSprite(`./assets/start-node-${i}.png`)
 );
 const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
-
 const targetNodeSprites = ['normal', 'white'].map((option) =>
   loadSprite(`./assets/target-node-${option}.png`)
 );
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
-const canvases = [mazeCanvas, solutionCanvas];
-const canvasWrapper = document.getElementById('canvas-wrapper');
 const inputCols = document.getElementById('cols');
 const inputRows = document.getElementById('rows');
 let numOfCols, numOfRows, canvasWidth, canvasHeight;
@@ -57,12 +59,10 @@ window.addEventListener('DOMContentLoaded', () => {
   inputCols.value = numOfCols;
   inputRows.value = numOfRows;
   const canvasSize = setCanvasesSize(
-    canvases,
     numOfCols,
     numOfRows,
     CELL_SIZE,
-    LINE_WIDTH,
-    canvasWrapper
+    LINE_WIDTH
   );
   canvasWidth = canvasSize.canvasWidth;
   canvasHeight = canvasSize.canvasHeight;
@@ -94,12 +94,10 @@ changeGridSizeBtn.addEventListener('click', function () {
   numOfCols = _numOfCols;
   numOfRows = _numOfRows;
   const canvasSize = setCanvasesSize(
-    canvases,
     numOfCols,
     numOfRows,
     CELL_SIZE,
-    LINE_WIDTH,
-    canvasWrapper
+    LINE_WIDTH
   );
   canvasWidth = canvasSize.canvasWidth;
   canvasHeight = canvasSize.canvasHeight;
