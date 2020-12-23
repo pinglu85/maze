@@ -145,7 +145,7 @@ class StartNode {
     for (let i = numOfPrevCellCenters - 1; i >= 0; i--) {
       const [centerX, centerY] = this.prevCellCenters[i];
       ctx.beginPath();
-      ctx.arc(centerX, centerY, this.spriteSize / 7, 0, 2 * Math.PI);
+      ctx.arc(centerX, centerY, this.spriteSize / 6, 0, 2 * Math.PI);
       ctx.fillStyle = newFootprint;
       ctx.fill();
       ctx.globalAlpha = 0.05 * opacityCoefficient;
