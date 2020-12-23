@@ -8,5 +8,4 @@ export const LINE_WIDTH = {
   get halfOuterInteriorWallDiff() {
     return Math.floor((this.outerWall - this.interiorWall) / 2);
   },
-  guides: 1,
 };
