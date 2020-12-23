@@ -32,12 +32,12 @@ const solutionCtx = solutionCanvas.getContext('2d');
 const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTH, GRID_GUIDES_COLOR);
 
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
-  loadSprite(`/assets/start-node-${i}.png`)
+  loadSprite(`./assets/start-node-${i}.png`)
 );
 const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
 
 const targetNodeSprites = ['normal', 'white'].map((option) =>
-  loadSprite(`/assets/target-node-${option}.png`)
+  loadSprite(`./assets/target-node-${option}.png`)
 );
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
