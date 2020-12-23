@@ -147,7 +147,7 @@ class Cell {
     if (this.opacity) {
       ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
       ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
-      this.opacity = this.opacity <= 0.85 ? this.opacity + 0.02 : this.opacity;
+      this.opacity = this.opacity <= 0.85 ? this.opacity + 0.035 : this.opacity;
     }
 
     ctx.strokeStyle = colors.border;
