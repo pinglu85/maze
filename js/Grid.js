@@ -23,9 +23,13 @@ class Grid {
   }
 
   setContent(width, height) {
+    const offset =
+      Math.floor(this.lineWidth.outerWall / 2) +
+      this.lineWidth.halfOuterInteriorWallDiff;
+
     this.content = Array.from(new Array(height), (_, rowIndex) =>
       Array.from(new Array(width), (_, colIndex) => {
-        const cell = new Cell(rowIndex, colIndex, this.cellSize);
+        const cell = new Cell(rowIndex, colIndex, this.cellSize, offset);
         cell.setOuterWalls(height, width);
         return cell;
       })
