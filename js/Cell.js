@@ -135,18 +135,23 @@ class Cell {
   }
 
   draw(ctx, cellSize, colors, lineWidth) {
+    const halfInteriorWallLineWidth = Math.floor(lineWidth.interiorWall / 2);
+
+    const fillRectStartX = this.startX + halfInteriorWallLineWidth;
+    const fillRectStartY = this.startY + halfInteriorWallLineWidth;
+    const fillRectSize = cellSize - lineWidth.interiorWall;
+
     ctx.fillStyle = this._getCtxFillStyle(colors);
-    ctx.fillRect(this.startX, this.startY, cellSize, cellSize);
+    ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
 
     if (this.opacity) {
       ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-      ctx.fillRect(this.startX, this.startY, cellSize, cellSize);
+      ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
       this.opacity = this.opacity <= 0.85 ? this.opacity + 0.02 : this.opacity;
     }
 
     ctx.strokeStyle = colors.border;
 
-    const halfInteriorWallLineWidth = Math.floor(lineWidth.interiorWall / 2);
     const startXWithLineWidthOffset = this.outerWalls.west
       ? this.startX - lineWidth.outerWall
       : this.startX - halfInteriorWallLineWidth;
