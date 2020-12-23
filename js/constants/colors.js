@@ -18,4 +18,3 @@ export const FOOTPRINT_COLORS = {
   newFootprint: '#ffcc01',
   oldFootprint: '#c675ff',
 };
-export const GRID_GUIDES_COLOR = '#aec6e5';
