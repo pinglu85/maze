@@ -162,7 +162,7 @@ solutionBtn.addEventListener('click', async function () {
     mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     startNode.draw(solutionCtx);
-    targetNode.draw(solutionCtx);
+    targetNode.draw(solutionCtx, 'spriteNormal');
     isSolutionFound = false;
   }
 
@@ -190,7 +190,7 @@ function drawMaze() {
     startNode.draw(solutionCtx);
 
     targetNode.setPosition(grid);
-    targetNode.draw(solutionCtx);
+    targetNode.draw(solutionCtx, 'spriteNormal');
 
     toggleBtnsIsDisabled();
     isMazeGenerated = true;
@@ -205,7 +205,6 @@ function visualizePathfindingAlgo() {
 
   const isPathFound = startNode.pathCoordinates.length > 0;
   if (isPathFound) {
-    targetNode.draw(solutionCtx, 'spriteWhite');
     return;
   }
 
@@ -222,13 +221,15 @@ function drawSolution() {
 
   if (startNode.atExit) {
     drawStartNodeAndFootprints();
+    targetNode.resetScale();
     isSearchingSolution = false;
     isSolutionFound = true;
     toggleBtnsIsDisabled();
     return;
   }
 
-  targetNode.draw(solutionCtx, 'spriteWhite');
+  targetNode.draw(solutionCtx, 'spriteWhite', true);
+  targetNode.setScale();
   startNode.move();
   drawStartNodeAndFootprints();
 
