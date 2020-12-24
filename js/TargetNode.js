@@ -40,6 +40,7 @@ class TargetNode {
       this.spriteSize
     );
     ctx.translate(-this.centerX, -this.centerY);
+    // Reset current transformation matrix to the identity matrix
     ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 }
