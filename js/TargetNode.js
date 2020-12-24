@@ -5,6 +5,7 @@ class TargetNode {
     this.spriteNormal = sprites[0];
     this.spriteWhite = sprites[1];
     this.spriteSize = spriteSize;
+    this.scale = 0.1;
   }
 
   setPosition({ exitCell }) {
@@ -12,8 +13,25 @@ class TargetNode {
     this.centerY = exitCell.centerY;
   }
 
-  draw(ctx, spriteOption = 'spriteNormal') {
+  setScale() {
+    if (this.scale < 0.5) {
+      this.scale += 0.1;
+    } else if (this.scale < 1 && this.scale >= 0.5) {
+      this.scale += 0.06;
+    } else {
+      this.scale = 1;
+    }
+  }
+
+  resetScale() {
+    this.scale = 0.1;
+  }
+
+  draw(ctx, spriteOption, animated = false) {
     ctx.translate(this.centerX, this.centerY);
+    if (animated) {
+      ctx.scale(this.scale, this.scale);
+    }
     ctx.drawImage(
       this[spriteOption],
       -Math.floor(this.spriteSize / 2),
@@ -22,6 +40,7 @@ class TargetNode {
       this.spriteSize
     );
     ctx.translate(-this.centerX, -this.centerY);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 }
 
