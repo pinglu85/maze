@@ -3,6 +3,7 @@ import {
   asyncHuntAndKill,
   asyncRecursiveBacktracker,
   asyncRecursiveDivision,
+  growingTree,
   asyncBinaryTree,
   asyncRandomizedKruskalsAlgo,
   asyncAldousBroderAlgo,
@@ -36,8 +37,8 @@ class Grid {
   }
 
   generateMaze(algo) {
-    const asyncGenerateMaze = async (mazeGenerationAlgo) => {
-      await mazeGenerationAlgo(this.content);
+    const asyncGenerateMaze = async (mazeGenerationAlgo, arg) => {
+      await mazeGenerationAlgo(this.content, arg);
       this.generateMazeEntryAndExit();
       return Promise.resolve(false);
     };
@@ -50,6 +51,12 @@ class Grid {
       case 'Recursive Division':
         this.dropInteriorWalls();
         return asyncGenerateMaze(asyncRecursiveDivision);
+      case 'Growing Tree (random)':
+        return asyncGenerateMaze(growingTree, 'random');
+      case 'Growing Tree (last)':
+        return asyncGenerateMaze(growingTree, 'last');
+      case 'Growing Tree (mix)':
+        return asyncGenerateMaze(growingTree, 'mix');
       case 'Binary Tree':
         return asyncGenerateMaze(asyncBinaryTree);
       case "Randomized Kruskal's Algorithm":
