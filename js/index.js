@@ -71,13 +71,24 @@ window.addEventListener('DOMContentLoaded', () => {
   grid.draw(mazeCtx);
 });
 
+[inputRows, inputCols].forEach((input) => {
+  input.addEventListener('input', (e) => {
+    const value = parseInt(e.target.value);
+    if (e.target.id === 'rows') {
+      numOfRows = value;
+      inputRows.value = value;
+    } else {
+      numOfCols = value;
+      inputCols.value = value;
+    }
+  });
+});
+
 changeGridSizeBtn.addEventListener('click', function () {
-  const _numOfCols = parseInt(inputCols.value);
-  const _numOfRows = parseInt(inputRows.value);
   const isNumOfColsWithinRange =
-    _numOfCols >= MIN_GRID_SIZE && _numOfCols <= MAX_GRID_SIZE;
+    numOfCols >= MIN_GRID_SIZE && numOfCols <= MAX_GRID_SIZE;
   const isNumOfRowsWithinRange =
-    _numOfRows >= MIN_GRID_SIZE && _numOfRows <= MAX_GRID_SIZE;
+    numOfRows >= MIN_GRID_SIZE && numOfRows <= MAX_GRID_SIZE;
 
   if (!isNumOfColsWithinRange || !isNumOfRowsWithinRange) {
     this.textContent = 'Enter a valid number!';
@@ -87,12 +98,13 @@ changeGridSizeBtn.addEventListener('click', function () {
     return;
   }
 
-  if (_numOfCols === numOfCols && _numOfRows === numOfRows) {
+  if (
+    numOfCols === grid.content[0].length &&
+    numOfRows === grid.content.length
+  ) {
     return;
   }
 
-  numOfCols = _numOfCols;
-  numOfRows = _numOfRows;
   const canvasSize = setCanvasesSize(
     numOfCols,
     numOfRows,
