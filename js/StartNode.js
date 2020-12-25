@@ -1,4 +1,4 @@
-import { drawDropShadow, getOppositeDir } from './utils/index.js';
+import { applyDropShadow, getOppositeDir } from './utils/index.js';
 
 const TO_RADIANS = Math.PI / 180;
 
@@ -110,7 +110,7 @@ class StartNode {
 
     ctx.translate(this.centerX, this.centerY);
     ctx.rotate(angleInRad);
-    drawDropShadow(ctx);
+    applyDropShadow(ctx);
     ctx.drawImage(
       this.sprites[this.spriteIndex],
       -Math.floor(this.spriteSize / 2),
@@ -118,7 +118,7 @@ class StartNode {
       this.spriteSize,
       this.spriteSize
     );
-    drawDropShadow(ctx, 'reset');
+    applyDropShadow(ctx, 'reset');
     ctx.rotate(-angleInRad);
     ctx.translate(-this.centerX, -this.centerY);
 
