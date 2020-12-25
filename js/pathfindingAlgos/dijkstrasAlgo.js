@@ -14,12 +14,13 @@ function getNewFrontiers(grid, frontiers, distance, resolve) {
     for (const neighbor of unvisitedConnectedNeighbors) {
       neighbor.distanceToEntrance = distance;
       if (neighbor.isExit) {
-        neighbor.isExitColor = true;
         resetCellsIsVisitingState(
           ...unvisitedConnectedNeighbors,
           ...newFrontiers,
           ...frontiers
         );
+        neighbor.isExitColor = true;
+        neighbor.opacity = 0;
         resolve([]);
         return;
       }
