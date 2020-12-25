@@ -8,6 +8,7 @@ import {
   asyncRandomizedKruskalsAlgo,
   asyncAldousBroderAlgo,
 } from './mazeGenerationAlgos/index.js';
+import { asyncDijkstrasAlgo } from './pathfindingAlgos/index.js';
 import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
 
 class Grid {
@@ -63,6 +64,24 @@ class Grid {
         return asyncGenerateMaze(asyncRandomizedKruskalsAlgo);
       case 'Aldous-Broder Algorithm':
         return asyncGenerateMaze(asyncAldousBroderAlgo);
+      default:
+      // do nothing
+    }
+  }
+
+  findSolution(algo) {
+    const asyncFindSolution = async (pathfindingAlgo) => {
+      const pathCoordinates = await pathfindingAlgo(
+        this.content,
+        this.entranceCell,
+        this.exitCell
+      );
+      return Promise.resolve(pathCoordinates);
+    };
+
+    switch (algo) {
+      case "Dijkstra's Algorithm":
+        return asyncFindSolution(asyncDijkstrasAlgo);
       default:
       // do nothing
     }

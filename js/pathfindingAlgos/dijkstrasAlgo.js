@@ -1,4 +1,4 @@
-import { delay, resetCellsIsVisitingState } from './utils/index.js';
+import { delay, resetCellsIsVisitingState } from '../utils/index.js';
 
 function getNewFrontiers(grid, frontiers, distance, resolve) {
   const newFrontiers = [];
@@ -81,11 +81,11 @@ function findPath(grid, exitCell) {
   return pathCoordinates;
 }
 
-async function dijkstra({ content, entranceCell, exitCell }, wait = 50) {
-  await asyncDistance(content, entranceCell, wait);
-  const pathCoordinates = findPath(content, exitCell);
+async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
+  await asyncDistance(grid, entranceCell, wait);
+  const pathCoordinates = findPath(grid, exitCell);
 
   return Promise.resolve(pathCoordinates);
 }
 
-export default dijkstra;
+export default asyncDijkstrasAlgo;
