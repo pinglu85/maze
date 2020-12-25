@@ -78,7 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 [inputRows, inputCols].forEach((input) => {
   input.addEventListener('input', (e) => {
-    const value = parseInt(e.target.value);
+    const value = e.target.value ? parseInt(e.target.value) : null;
     if (e.target.id === 'rows') {
       numOfRows = value;
       inputRows.value = value;
