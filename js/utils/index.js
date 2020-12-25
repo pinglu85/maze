@@ -4,6 +4,7 @@ export { default as getOppositeDir } from './getOppositeDir.js';
 export { default as getRandomIndex } from './getRandomIndex.js';
 export { default as getStartOrEndIndexOfArray } from './getStartOrEndIndexOfArray.js';
 export { default as loadSprite } from './loadSprite.js';
+export { default as resetBtnLabel } from './resetBtnLabel.js';
 export { default as resetCellsIsVisitingState } from './resetCellsIsVisitingState.js';
 export { default as setupCanvases } from './setupCanvases.js';
 export { default as setDefaultGridSize } from './setDefaultGridSize.js';

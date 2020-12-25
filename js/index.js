@@ -3,6 +3,7 @@ import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
 import {
   loadSprite,
+  resetBtnLabel,
   setupCanvases,
   setDefaultGridSize,
 } from './utils/index.js';
@@ -97,9 +98,7 @@ changeGridSizeBtn.addEventListener('click', function () {
 
   if (!isNumOfColsWithinRange || !isNumOfRowsWithinRange) {
     this.textContent = 'Enter a valid number!';
-    setTimeout(() => {
-      changeGridSizeBtn.textContent = 'Change Grid Size';
-    }, 2000);
+    resetBtnLabel(changeGridSizeBtn, 'Change Grid Size');
     return;
   }
 
@@ -187,9 +186,7 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
 
   if (!isMazeGenerated) {
     pathfindingAlgosDropdownBtnLabel.textContent = 'Generate a maze!';
-    setTimeout(() => {
-      pathfindingAlgosDropdownBtnLabel.textContent = 'Solution';
-    }, 2000);
+    resetBtnLabel(pathfindingAlgosDropdownBtnLabel, 'Solution');
     return;
   }
 
