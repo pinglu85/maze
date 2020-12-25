@@ -17,7 +17,34 @@ function selectCellFromArr(arr, option) {
   return arr[lastIndex];
 }
 
-function growingTree(grid, option) {
+async function updateActiveCells(grid, selectedCell, activeCells, resolve) {
+  const randomAvailNeighbor = selectedCell.getRandomAvailNeighbor(grid);
+  if (!randomAvailNeighbor) {
+    activeCells.pop();
+    resolve();
+    return;
+  }
+
+  const [dir, neighbor] = randomAvailNeighbor;
+
+  selectedCell.dropWall(dir);
+
+  const oppositeDir = getOppositeDir(dir);
+  neighbor.dropWall(oppositeDir);
+  neighbor.isVisited = true;
+  activeCells.push(neighbor);
+  resolve();
+}
+
+function asyncUpdateActiveCells(grid, selectedCell, activeCells, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      updateActiveCells(grid, selectedCell, activeCells, resolve);
+    }, wait);
+  });
+}
+
+async function asyncGrowingTree(grid, option, wait = 50) {
   const activeCells = [];
   const randomRow = getRandomIndex(grid.length);
   const randomCol = getRandomIndex(grid[0].length);
@@ -26,25 +53,15 @@ function growingTree(grid, option) {
 
   while (activeCells.length > 0) {
     const selectedCell = selectCellFromArr(activeCells, option);
+    selectedCell.isStartCell = true;
     if (!selectedCell.isVisited) {
       selectedCell.isVisited = true;
     }
-
-    const randomAvailNeighbor = selectedCell.getRandomAvailNeighbor(grid);
-    if (!randomAvailNeighbor) {
-      activeCells.pop();
-      continue;
-    }
-
-    const [dir, neighbor] = randomAvailNeighbor;
-
-    selectedCell.dropWall(dir);
-
-    const oppositeDir = getOppositeDir(dir);
-    neighbor.dropWall(oppositeDir);
-    neighbor.isVisited = true;
-    activeCells.push(neighbor);
+    await asyncUpdateActiveCells(grid, selectedCell, activeCells, wait);
+    selectedCell.isStartCell = false;
   }
+
+  return Promise.resolve();
 }
 
-export default growingTree;
+export default asyncGrowingTree;
