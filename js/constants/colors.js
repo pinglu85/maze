@@ -9,12 +9,12 @@ export const CELL_COLORS = {
   sameSet: '#fcccd9',
   differentSet: '#c8ffc4',
   pathfinding: {
-    visited: '#d0c9fc',
-    visiting: '#9586f9',
-    exitColor: '#6d2aea',
+    visited: '#81AFDE',
+    visiting: '#a051bc',
+    exitColor: '#660099',
   },
 };
 export const FOOTPRINT_COLORS = {
   newFootprint: '#ffcc01',
-  oldFootprint: '#9c45ed',
+  oldFootprint: '#d76367',
 };

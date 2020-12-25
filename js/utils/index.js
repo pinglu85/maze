@@ -1,4 +1,5 @@
 export { default as delay } from './delay.js';
+export { default as drawDropShadow } from './drawDropShadow.js';
 export { default as getOppositeDir } from './getOppositeDir.js';
 export { default as getRandomIndex } from './getRandomIndex.js';
 export { default as getStartOrEndIndexOfArray } from './getStartOrEndIndexOfArray.js';
