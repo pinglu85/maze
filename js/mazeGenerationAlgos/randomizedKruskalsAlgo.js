@@ -1,22 +1,8 @@
 import { delay, getOppositeDir, shuffleArr } from '../utils/index.js';
 
-async function merge(cellPairs, cellSets, wait, resolve) {
-  const [cell, [dir, neighbor]] = cellPairs.pop();
-  cell.isStartCell = true;
-  if (!cell.isVisited) {
-    cell.isVisited = true;
-  }
-
-  neighbor.isNeighbor = true;
-
-  await delay(wait);
-
+async function merge(cell, dir, neighbor, cellSets, resolve) {
   if (cell.cellSetId === neighbor.cellSetId) {
     neighbor.isInSameSet = true;
-    await delay(wait);
-    cell.isStartCell = false;
-    neighbor.isNeighbor = false;
-    neighbor.isInSameSet = false;
     resolve();
     return;
   }
@@ -40,18 +26,13 @@ async function merge(cellPairs, cellSets, wait, resolve) {
   const oppositeDir = getOppositeDir(dir);
   neighbor.dropWall(oppositeDir);
   neighbor.isVisited = true;
-
-  await delay(wait);
-  cell.isStartCell = false;
-  neighbor.isNeighbor = false;
-  neighbor.isInDifferentSet = false;
   resolve();
 }
 
-function asyncMerge(cellPairs, cellSets, wait) {
+function asyncMerge(cell, dir, neighbor, cellSets, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      merge(cellPairs, cellSets, wait, resolve);
+      merge(cell, dir, neighbor, cellSets, resolve);
     }, wait);
   });
 }
@@ -77,7 +58,21 @@ async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
   cellPairs = shuffleArr(cellPairs);
 
   while (cellSets.size > 1) {
-    await asyncMerge(cellPairs, cellSets, wait * 2);
+    const [cell, [dir, neighbor]] = cellPairs.pop();
+    cell.isStartCell = true;
+    if (!cell.isVisited) {
+      cell.isVisited = true;
+    }
+
+    neighbor.isNeighbor = true;
+    await asyncMerge(cell, dir, neighbor, cellSets, wait);
+
+    await delay(wait);
+
+    cell.isStartCell = false;
+    neighbor.isNeighbor = false;
+    neighbor.isInSameSet = false;
+    neighbor.isInDifferentSet = false;
   }
 
   return Promise.resolve();
