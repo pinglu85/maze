@@ -30,21 +30,19 @@ function asyncGetNeighbor(grid, lastCell, wait) {
 }
 
 async function asyncWalk(grid, stack, wait) {
-  const newStack = [...stack];
-  let startCell = newStack[newStack.length - 1];
+  let startCell = stack[stack.length - 1];
   while (startCell) {
     startCell = await asyncGetNeighbor(grid, startCell, wait);
     if (startCell) {
-      newStack.push(startCell);
+      stack.push(startCell);
     }
   }
-  return Promise.resolve(newStack);
+  return Promise.resolve();
 }
 
 async function backtracking(grid, stack, wait, resolve) {
-  const newStack = [...stack];
-  while (newStack.length) {
-    const lastCell = newStack[newStack.length - 1];
+  while (stack.length > 0) {
+    const lastCell = stack[stack.length - 1];
     lastCell.isScanning = true;
 
     await delay(wait);
@@ -53,7 +51,7 @@ async function backtracking(grid, stack, wait, resolve) {
     lastCell.isScanning = false;
 
     if (!randomAvailNeighbor) {
-      newStack.pop();
+      stack.pop();
       continue;
     }
 
@@ -65,12 +63,12 @@ async function backtracking(grid, stack, wait, resolve) {
     neighbor.dropWall(oppositeDir);
     neighbor.isStartCell = true;
 
-    newStack.push(neighbor);
-    resolve(newStack);
+    stack.push(neighbor);
+    resolve();
     return;
   }
 
-  resolve([]);
+  resolve();
 }
 
 function asyncBacktracking(grid, stack, wait) {
@@ -90,8 +88,8 @@ async function asyncRecursiveBacktracker(grid, wait = 50) {
   let stack = [startCell];
 
   while (stack.length) {
-    stack = await asyncWalk(grid, stack, wait);
-    stack = await asyncBacktracking(grid, stack, wait);
+    await asyncWalk(grid, stack, wait);
+    await asyncBacktracking(grid, stack, wait);
   }
 
   return Promise.resolve();
