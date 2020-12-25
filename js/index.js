@@ -1,7 +1,6 @@
 import Grid from './Grid.js';
 import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
-import dijkstra from './dijkstra.js';
 import {
   loadSprite,
   setupCanvases,
@@ -16,11 +15,17 @@ import {
   LINE_WIDTH,
 } from './constants/size.js';
 
+const changeGridSizeBtn = document.getElementById('change-grid-size-btn');
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
 const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
-const solutionBtn = document.getElementById('solution-btn');
-const changeGridSizeBtn = document.getElementById('change-grid-size-btn');
+const pathfindingAlgosDropdown = document.getElementById(
+  'pathfinding-algos-dropdown'
+);
+const pathfindingAlgosDropdownBtnLabel = document.getElementById(
+  'pathfinding-dropdown-btn-label'
+);
+const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 
 const canvasWrapper = document.getElementById('canvas-wrapper');
 const mazeCanvas = document.getElementById('maze-canvas');
@@ -94,7 +99,7 @@ changeGridSizeBtn.addEventListener('click', function () {
     this.textContent = 'Enter a valid number!';
     setTimeout(() => {
       changeGridSizeBtn.textContent = 'Change Grid Size';
-    }, 2500);
+    }, 2000);
     return;
   }
 
@@ -133,11 +138,18 @@ mazeAlgosDropdown.addEventListener('click', (e) => {
 });
 
 document.addEventListener('click', (e) => {
-  const mazeAlgosListIsShown = mazeAlgosList.classList.contains('is-active');
-  const mazeAlgosDropdownIsClicked = mazeAlgosDropdown.contains(e.target);
-  if (mazeAlgosListIsShown && !mazeAlgosDropdownIsClicked) {
-    mazeAlgosList.classList.remove('is-active');
-  }
+  const dropDowns = [
+    [mazeAlgosList, mazeAlgosDropdown],
+    [pathfindingAlgosList, pathfindingAlgosDropdown],
+  ];
+
+  dropDowns.forEach(([dropDownMenu, dropDownWrapper]) => {
+    const dropDownMenuIsShown = dropDownMenu.classList.contains('is-active');
+    const dropDownWrapperIsClicked = dropDownWrapper.contains(e.target);
+    if (dropDownMenuIsShown && !dropDownWrapperIsClicked) {
+      dropDownMenu.classList.remove('is-active');
+    }
+  });
 });
 
 newMazeBtn.addEventListener('click', async function () {
@@ -156,18 +168,35 @@ newMazeBtn.addEventListener('click', async function () {
 
   isGeneratingMaze = true;
   toggleBtnsIsDisabled();
-  solutionBtn.textContent = 'Solution';
 
   drawMaze();
   isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
 });
 
-solutionBtn.addEventListener('click', async function () {
-  if (!isMazeGenerated) {
-    this.textContent = 'Generate a maze!';
+pathfindingAlgosDropdown.addEventListener('click', function (e) {
+  if (e.target && e.target.nodeName !== 'A') {
+    pathfindingAlgosList.classList.add('is-active');
     return;
   }
 
+  pathfindingAlgosList.classList.remove('is-active');
+
+  if (isGeneratingMaze || isSearchingSolution) {
+    return;
+  }
+
+  if (!isMazeGenerated) {
+    pathfindingAlgosDropdownBtnLabel.textContent = 'Generate a maze!';
+    setTimeout(() => {
+      pathfindingAlgosDropdownBtnLabel.textContent = 'Solution';
+    }, 2000);
+    return;
+  }
+
+  findSolution(e.target.textContent);
+});
+
+async function findSolution(algo) {
   if (isSolutionFound) {
     grid.clearSolution();
     startNode.reset(grid);
@@ -182,7 +211,7 @@ solutionBtn.addEventListener('click', async function () {
   toggleBtnsIsDisabled();
 
   visualizePathfindingAlgo();
-  startNode.pathCoordinates = await dijkstra(grid);
+  startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
     isSearchingSolution = false;
     isSolutionFound = true;
@@ -191,7 +220,7 @@ solutionBtn.addEventListener('click', async function () {
   }
 
   drawSolution();
-});
+}
 
 function drawMaze() {
   mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -250,6 +279,5 @@ function drawSolution() {
 
 function toggleBtnsIsDisabled() {
   newMazeBtn.disabled = !newMazeBtn.disabled;
-  solutionBtn.disabled = !solutionBtn.disabled;
   changeGridSizeBtn.disabled = !changeGridSizeBtn.disabled;
 }

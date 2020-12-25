@@ -40,7 +40,16 @@
         </div>
       </div>
       <button type="button" id="new-maze-btn">New Maze</button>
-      <button type="button" id="solution-btn">Solution</button>
+      <div class="dropdown" id="pathfinding-algos-dropdown">
+        <button type="button" class="dropdown__btn">
+          <span id="pathfinding-dropdown-btn-label">Solution</span>
+          <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+        </button>
+        <div class="dropdown__menu" id="pathfinding-algos-list">
+          <a href="#">Dijkstra's Algorithm</a>
+          <a href="#">A&#42; Search</a>
+        </div>
+      </div>
     </div>
     <main class="main">
       <div class="canvas-wrapper" id="canvas-wrapper">
