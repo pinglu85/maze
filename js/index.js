@@ -3,10 +3,10 @@ import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
 import {
   loadSprite,
-  resetBtnLabel,
   setupCanvases,
   setDefaultGridSize,
 } from './utils/index.js';
+import showWarning from './ui/toggleWarning.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
 import {
   CELL_SIZE,
@@ -22,9 +22,6 @@ const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
 const pathfindingAlgosDropdown = document.getElementById(
   'pathfinding-algos-dropdown'
-);
-const pathfindingAlgosDropdownBtnLabel = document.getElementById(
-  'pathfinding-dropdown-btn-label'
 );
 const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 
@@ -91,14 +88,17 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 changeGridSizeBtn.addEventListener('click', function () {
-  const isNumOfColsWithinRange =
-    numOfCols >= MIN_GRID_SIZE && numOfCols <= MAX_GRID_SIZE;
   const isNumOfRowsWithinRange =
     numOfRows >= MIN_GRID_SIZE && numOfRows <= MAX_GRID_SIZE;
+  if (!isNumOfRowsWithinRange) {
+    showWarning('rows');
+    return;
+  }
 
-  if (!isNumOfColsWithinRange || !isNumOfRowsWithinRange) {
-    this.textContent = 'Enter a valid number!';
-    resetBtnLabel(changeGridSizeBtn, 'Change Grid Size');
+  const isNumOfColsWithinRange =
+    numOfCols >= MIN_GRID_SIZE && numOfCols <= MAX_GRID_SIZE;
+  if (!isNumOfColsWithinRange) {
+    showWarning('columns');
     return;
   }
 
@@ -153,7 +153,7 @@ document.addEventListener('click', (e) => {
 
 newMazeBtn.addEventListener('click', async function () {
   if (!mazeGenerationAlgo) {
-    this.textContent = 'Pick an algorithm!';
+    showWarning('algorithm');
     return;
   }
 
@@ -185,8 +185,7 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
   }
 
   if (!isMazeGenerated) {
-    pathfindingAlgosDropdownBtnLabel.textContent = 'Generate a maze!';
-    resetBtnLabel(pathfindingAlgosDropdownBtnLabel, 'Solution');
+    showWarning('maze');
     return;
   }
 

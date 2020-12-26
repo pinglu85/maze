@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Maze Generator and Solver with Visualization of Maze Generation Algorithm
-    </title>
+    <title>Maze Generator and Solver with Visualization of Algorithms</title>
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://unpkg.com/feather-icons"></script>
   </head>
@@ -42,7 +40,7 @@
       <button type="button" id="new-maze-btn">New Maze</button>
       <div class="dropdown" id="pathfinding-algos-dropdown">
         <button type="button" class="dropdown__btn">
-          <span id="pathfinding-dropdown-btn-label">Solution</span>
+          Solution
           <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
         </button>
         <div class="dropdown__menu" id="pathfinding-algos-list">
@@ -57,6 +55,21 @@
         <canvas id="solution-canvas"></canvas>
       </div>
     </main>
+    <div id="warning" class="warning">
+      <div class="warning__body">
+        <div class="warning__content">
+          <i class="warning__icon" data-feather="alert-circle"></i>
+          <p class="warning__message">
+            <strong>Whoops. </strong>
+            <span id="warning-message"></span>
+          </p>
+        </div>
+        <button type="button" id="dismiss-btn" class="dismiss">
+          <i class="dismiss__icon" data-feather="x"></i>
+          <span class="sr-only">Dismiss Warning</span>
+        </button>
+      </div>
+    </div>
     <script type="module" src="js/index.js"></script>
     <script>
       feather.replace();
