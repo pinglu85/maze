@@ -48,10 +48,6 @@ body {
   box-shadow: 0px 5px 24px rgba(92, 92, 92, 0.25);
 }
 
-.is-active {
-  display: block;
-}
-
 .dropdown__menu a {
   display: block;
   padding: 0.5rem;
@@ -80,4 +76,71 @@ body {
 #maze-canvas,
 #solution-canvas {
   position: absolute;
+}
+
+.warning {
+  display: none;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
+
+@media (min-width: 577px) {
+  .warning {
+    left: calc(50% - 240px);
+  }
+}
+
+.warning__body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 480px;
+  max-width: 100%;
+  padding: 1rem;
+  background-color: #fbeeca;
+  border-radius: 0.25rem;
+  box-shadow: 0px 5px 24px rgba(92, 92, 92, 0.25);
+}
+
+.warning__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning__icon,
+.dismiss__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.warning__message {
+  margin-left: 0.5rem;
+}
+
+.dismiss {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  opacity: 0.5;
+}
+
+.dismiss:hover,
+.dismiss:active {
+  opacity: 1;
+}
+
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  top: auto;
+  overflow: hidden;
+}
+
+.is-active {
+  display: block;
 }
