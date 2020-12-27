@@ -37,6 +37,14 @@ class Cell {
 
     this.distanceToEntrance = Infinity;
 
+    // State for A* Searching algorithm
+    this.parent = null;
+    this.isInOpenList = false;
+    this.isInClosedList = false;
+    this.g = Infinity;
+    this.h = Infinity;
+    this.f = Infinity;
+
     // State for visualization of pathfinding algorithm.
     this.isVisiting = false;
     this.isExitColor = false;
@@ -257,6 +265,14 @@ class Cell {
 
     if (this.isExitColor) {
       return colors.pathfinding.exitColor;
+    }
+
+    if (this.isInClosedList) {
+      return colors.pathfinding.visited;
+    }
+
+    if (this.isInOpenList) {
+      return colors.pathfinding.visiting;
     }
 
     if (this.distanceToEntrance !== Infinity) {

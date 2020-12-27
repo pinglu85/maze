@@ -8,7 +8,7 @@ import {
   asyncRandomizedKruskalsAlgo,
   asyncAldousBroderAlgo,
 } from './mazeGenerationAlgos/index.js';
-import { asyncDijkstrasAlgo } from './pathfindingAlgos/index.js';
+import { aStarSearch, asyncDijkstrasAlgo } from './pathfindingAlgos/index.js';
 import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
 
 class Grid {
@@ -82,6 +82,8 @@ class Grid {
     switch (algo) {
       case "Dijkstra's Algorithm":
         return asyncFindSolution(asyncDijkstrasAlgo);
+      case 'A* Search':
+        return asyncFindSolution(aStarSearch);
       default:
       // do nothing
     }
@@ -151,6 +153,11 @@ class Grid {
         col.distanceToEntrance = Infinity;
         col.isExitColor = false;
         col.opacity = 0;
+        col.parent = null;
+        col.isInOpenList = false;
+        col.isInClosedList = false;
+        col.h = Infinity;
+        col.f = Infinity;
       }
     }
   }
