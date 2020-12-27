@@ -64,6 +64,10 @@ class Grid {
         return asyncGenerateMaze(asyncRandomizedKruskalsAlgo);
       case 'Aldous-Broder Algorithm':
         return asyncGenerateMaze(asyncAldousBroderAlgo);
+      case 'Open Grid':
+        this.dropInteriorWalls();
+        this.generateMazeEntryAndExit();
+        return Promise.resolve(false);
       default:
       // do nothing
     }
