@@ -128,7 +128,10 @@ mazeAlgosDropdown.addEventListener('click', (e) => {
   if (e.target && e.target.nodeName === 'A') {
     if (!isGeneratingMaze && !isSearchingSolution) {
       mazeGenerationAlgo = e.target.textContent;
-      newMazeBtn.textContent = `New Maze with ${mazeGenerationAlgo}`;
+      newMazeBtn.textContent =
+        mazeGenerationAlgo === 'Open Grid'
+          ? 'Open Grid'
+          : `New Maze with ${mazeGenerationAlgo}`;
     }
     mazeAlgosList.classList.remove('is-active');
   } else {
