@@ -1,7 +1,11 @@
 import Grid from './Grid.js';
 import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
-import { loadSprite, setDefaultGridSize } from './utils/index.js';
+import {
+  loadStartNodeSprites,
+  loadTargetNodeSprites,
+  setDefaultGridSize,
+} from './utils/index.js';
 import setupCanvases from './ui/setupCanvases.js';
 import { updateInputs, parseInputValue } from './ui/handleInputs.js';
 import showWarning from './ui/toggleWarning.js';
@@ -20,13 +24,9 @@ const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
 const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTH);
-const startNodeSprites = Array.from(new Array(10), (_, i) =>
-  loadSprite(`./assets/start-node-${i}.png`)
-);
+const startNodeSprites = loadStartNodeSprites(10);
 const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
-const targetNodeSprites = ['normal', 'white'].map((option) =>
-  loadSprite(`./assets/target-node-${option}.png`)
-);
+const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
 let numOfCols = 0;
