@@ -1,4 +1,4 @@
-function aStarSearch(grid, entranceCell, exitCell) {
+async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const openList = [entranceCell];
   const closedList = [];
   entranceCell.isInOpenList = true;
@@ -6,40 +6,59 @@ function aStarSearch(grid, entranceCell, exitCell) {
   entranceCell.f = 0;
 
   while (openList.length > 0) {
-    const q = openList.sort((cellA, cellB) => cellB.f - cellA.f).pop();
-    q.isInOpenList = false;
-    closedList.push(q);
-    q.isInClosedList = true;
+    await asyncGetSuccessors(grid, exitCell, openList, closedList, wait);
+  }
 
-    const successors = q.getConnectedNeighbors(grid);
+  return reconstructPath(exitCell);
+}
 
-    for (const successor of successors) {
-      if (successor.isInClosedList) {
-        continue;
+function asyncGetSuccessors(grid, exitCell, openList, closedList, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      getSuccessors(grid, exitCell, openList, closedList, resolve);
+    }, wait);
+  });
+}
+
+function getSuccessors(grid, exitCell, openList, closedList, resolve) {
+  const q = openList.sort((cellA, cellB) => cellB.f - cellA.f).pop();
+  q.isInOpenList = false;
+  closedList.push(q);
+  q.isInClosedList = true;
+  q.opacity = 0.8;
+
+  const successors = q.getConnectedNeighbors(grid);
+
+  for (const successor of successors) {
+    if (successor.isInClosedList) {
+      continue;
+    }
+
+    successor.parent = q;
+
+    if (successor.isExit) {
+      successor.isExitColor = true;
+      openList.length = 0;
+      resolve();
+      return;
+    }
+
+    const newG = q.g + 1;
+    const newH = computeManhattanDistance(successor, exitCell);
+    const newF = newG + newH;
+
+    if (successor.f > newF) {
+      if (!successor.isInOpenList) {
+        openList.push(successor);
+        successor.isInOpenList = true;
       }
-
-      successor.parent = q;
-
-      if (successor.isExit) {
-        return reconstructPath(exitCell);
-      }
-
-      const newG = q.g + 1;
-      const newH = computeManhattanDistance(successor, exitCell);
-      const newF = newG + newH;
-
-      if (successor.f > newF) {
-        if (!successor.isInOpenList) {
-          openList.push(successor);
-        }
-        successor.g = newG;
-        successor.h = newH;
-        successor.f = newF;
-      }
+      successor.g = newG;
+      successor.h = newH;
+      successor.f = newF;
     }
   }
 
-  return [];
+  resolve();
 }
 
 function computeManhattanDistance(currCell, goal) {
@@ -65,4 +84,4 @@ function reconstructPath(exitCell) {
   return pathCoordinates;
 }
 
-export default aStarSearch;
+export default asyncAStarSearch;

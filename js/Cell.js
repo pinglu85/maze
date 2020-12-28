@@ -259,7 +259,7 @@ class Cell {
       return colors.neighbor;
     }
 
-    if (this.isVisiting) {
+    if (this.isVisiting || this.isInOpenList) {
       return colors.pathfinding.visiting;
     }
 
@@ -269,10 +269,6 @@ class Cell {
 
     if (this.isInClosedList) {
       return colors.pathfinding.visited;
-    }
-
-    if (this.isInOpenList) {
-      return colors.pathfinding.visiting;
     }
 
     if (this.distanceToEntrance !== Infinity) {

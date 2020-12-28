@@ -8,7 +8,10 @@ import {
   asyncRandomizedKruskalsAlgo,
   asyncAldousBroderAlgo,
 } from './mazeGenerationAlgos/index.js';
-import { aStarSearch, asyncDijkstrasAlgo } from './pathfindingAlgos/index.js';
+import {
+  asyncAStarSearch,
+  asyncDijkstrasAlgo,
+} from './pathfindingAlgos/index.js';
 import { getRandomIndex, getStartOrEndIndexOfArray } from './utils/index.js';
 
 class Grid {
@@ -87,7 +90,7 @@ class Grid {
       case "Dijkstra's Algorithm":
         return asyncFindSolution(asyncDijkstrasAlgo);
       case 'A* Search':
-        return asyncFindSolution(aStarSearch);
+        return asyncFindSolution(asyncAStarSearch);
       default:
       // do nothing
     }
