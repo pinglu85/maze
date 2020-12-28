@@ -1,4 +1,9 @@
-export default function setupCanvases(canvasWrapperNode, ...canvases) {
+const canvasWrapper = document.getElementById('canvas-wrapper');
+const mazeCanvas = document.getElementById('maze-canvas');
+const solutionCanvas = document.getElementById('solution-canvas');
+const canvases = [mazeCanvas, solutionCanvas];
+
+function setupCanvases() {
   const ctxes = canvases.map((canvas) => canvas.getContext('2d'));
   const setCanvasesSize = (numOfCols, numOfRows, cellSize, lineWidth) => {
     const offset =
@@ -10,11 +15,13 @@ export default function setupCanvases(canvasWrapperNode, ...canvases) {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
     });
-    canvasWrapperNode.style.width = `${canvasWidth}px`;
-    canvasWrapperNode.style.height = `${canvasHeight}px`;
+    canvasWrapper.style.width = `${canvasWidth}px`;
+    canvasWrapper.style.height = `${canvasHeight}px`;
 
     return { canvasWidth, canvasHeight };
   };
 
   return [ctxes, setCanvasesSize];
 }
+
+export default setupCanvases;
