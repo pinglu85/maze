@@ -1,26 +1,3 @@
-function computeManhattanDistance(currCell, goal) {
-  return (
-    Math.abs(currCell.colIndex - goal.colIndex) +
-    Math.abs(currCell.rowIndex - goal.rowIndex)
-  );
-}
-
-function reconstructPath(exitCell) {
-  if (!exitCell.parent) {
-    return [];
-  }
-
-  let breadcrumb = exitCell;
-  const pathCoordinates = [];
-
-  while (breadcrumb) {
-    pathCoordinates.push([breadcrumb.centerX, breadcrumb.centerY]);
-    breadcrumb = breadcrumb.parent;
-  }
-
-  return pathCoordinates;
-}
-
 function aStarSearch(grid, entranceCell, exitCell) {
   const openList = [entranceCell];
   const closedList = [];
@@ -63,6 +40,29 @@ function aStarSearch(grid, entranceCell, exitCell) {
   }
 
   return [];
+}
+
+function computeManhattanDistance(currCell, goal) {
+  return (
+    Math.abs(currCell.colIndex - goal.colIndex) +
+    Math.abs(currCell.rowIndex - goal.rowIndex)
+  );
+}
+
+function reconstructPath(exitCell) {
+  if (!exitCell.parent) {
+    return [];
+  }
+
+  let breadcrumb = exitCell;
+  const pathCoordinates = [];
+
+  while (breadcrumb) {
+    pathCoordinates.push([breadcrumb.centerX, breadcrumb.centerY]);
+    breadcrumb = breadcrumb.parent;
+  }
+
+  return pathCoordinates;
 }
 
 export default aStarSearch;
