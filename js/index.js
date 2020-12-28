@@ -1,11 +1,8 @@
 import Grid from './Grid.js';
 import StartNode from './StartNode.js';
 import TargetNode from './TargetNode.js';
-import {
-  loadSprite,
-  setupCanvases,
-  setDefaultGridSize,
-} from './utils/index.js';
+import { loadSprite, setDefaultGridSize } from './utils/index.js';
+import setupCanvases from './ui/setupCanvases.js';
 import { updateInputs, parseInputValue } from './ui/handleInputs.js';
 import showWarning from './ui/toggleWarning.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
@@ -20,14 +17,7 @@ const pathfindingAlgosDropdown = document.getElementById(
 );
 const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 
-const canvasWrapper = document.getElementById('canvas-wrapper');
-const mazeCanvas = document.getElementById('maze-canvas');
-const solutionCanvas = document.getElementById('solution-canvas');
-const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases(
-  canvasWrapper,
-  mazeCanvas,
-  solutionCanvas
-);
+const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
 const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTH);
 const startNodeSprites = Array.from(new Array(10), (_, i) =>
