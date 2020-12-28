@@ -1,10 +1,10 @@
-import { delay, resetCellsIsVisitingState } from '../utils/index.js';
+import { delay } from '../utils/index.js';
 
 function getNewFrontiers(grid, frontiers, distance, resolve) {
   const newFrontiers = [];
 
   for (const cell of frontiers) {
-    cell.isVisiting = false;
+    cell.isToBeVisited = false;
     cell.opacity = 0.01;
 
     const unvisitedConnectedNeighbors = cell
@@ -14,17 +14,11 @@ function getNewFrontiers(grid, frontiers, distance, resolve) {
     for (const neighbor of unvisitedConnectedNeighbors) {
       neighbor.distanceToEntrance = distance;
       if (neighbor.isExit) {
-        resetCellsIsVisitingState(
-          ...unvisitedConnectedNeighbors,
-          ...newFrontiers,
-          ...frontiers
-        );
         neighbor.isExitColor = true;
-        neighbor.opacity = 0;
         resolve([]);
         return;
       }
-      neighbor.isVisiting = true;
+      neighbor.isToBeVisited = true;
     }
 
     newFrontiers.push(...unvisitedConnectedNeighbors);
