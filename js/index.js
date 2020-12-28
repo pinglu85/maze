@@ -6,15 +6,10 @@ import {
   setupCanvases,
   setDefaultGridSize,
 } from './utils/index.js';
+import { updateInputs, parseInputValue } from './ui/handleInputs.js';
 import showWarning from './ui/toggleWarning.js';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors.js';
-import {
-  CELL_SIZE,
-  SPRITE_SIZE,
-  MIN_GRID_SIZE,
-  MAX_GRID_SIZE,
-  LINE_WIDTH,
-} from './constants/size.js';
+import { CELL_SIZE, SPRITE_SIZE, LINE_WIDTH } from './constants/size.js';
 
 const changeGridSizeBtn = document.getElementById('change-grid-size-btn');
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
@@ -44,9 +39,10 @@ const targetNodeSprites = ['normal', 'white'].map((option) =>
 );
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
-const inputCols = document.getElementById('cols');
-const inputRows = document.getElementById('rows');
-let numOfCols, numOfRows, canvasWidth, canvasHeight;
+let numOfCols = 0;
+let numOfRows = 0;
+let canvasWidth = 0;
+let canvasHeight = 0;
 
 let mazeGenerationAlgo = '';
 let isGeneratingMaze = false;
@@ -59,8 +55,8 @@ window.addEventListener('DOMContentLoaded', () => {
   numOfCols = defaultGridSize.numOfCols;
   numOfRows = defaultGridSize.numOfRows;
 
-  inputCols.value = numOfCols;
-  inputRows.value = numOfRows;
+  updateInputs(numOfCols, numOfRows);
+
   const canvasSize = setCanvasesSize(
     numOfCols,
     numOfRows,
@@ -74,40 +70,25 @@ window.addEventListener('DOMContentLoaded', () => {
   grid.draw(mazeCtx);
 });
 
-[inputRows, inputCols].forEach((input) => {
-  input.addEventListener('input', (e) => {
-    const value = e.target.value ? parseInt(e.target.value) : null;
-    if (e.target.id === 'rows') {
-      numOfRows = value;
-      inputRows.value = value;
-    } else {
-      numOfCols = value;
-      inputCols.value = value;
-    }
-  });
-});
-
 changeGridSizeBtn.addEventListener('click', function () {
-  const isNumOfRowsWithinRange =
-    numOfRows >= MIN_GRID_SIZE && numOfRows <= MAX_GRID_SIZE;
-  if (!isNumOfRowsWithinRange) {
+  const newNumOfRows = parseInputValue('rows');
+  if (!newNumOfRows) {
     showWarning('rows');
     return;
   }
 
-  const isNumOfColsWithinRange =
-    numOfCols >= MIN_GRID_SIZE && numOfCols <= MAX_GRID_SIZE;
-  if (!isNumOfColsWithinRange) {
+  const newNumOfCols = parseInputValue('cols');
+  if (!newNumOfCols) {
     showWarning('columns');
     return;
   }
 
-  if (
-    numOfCols === grid.content[0].length &&
-    numOfRows === grid.content.length
-  ) {
+  if (newNumOfCols === numOfCols && newNumOfRows === numOfRows) {
     return;
   }
+
+  numOfCols = newNumOfCols;
+  numOfRows = newNumOfRows;
 
   const canvasSize = setCanvasesSize(
     numOfCols,
