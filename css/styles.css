@@ -12,13 +12,13 @@ body {
 
 .header {
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .header__title {
   width: 100%;
   text-align: center;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-family: 'Saira Extra Condensed', sans-serif;
   font-size: 2rem;
 }
 
