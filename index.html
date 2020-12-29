@@ -3,53 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maze Generator and Solver with Visualization of Algorithms</title>
+    <title>Maze Generator & Solver with Algorithm Visualizations</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Yanone+Kaffeesatz:wght@400&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://unpkg.com/feather-icons"></script>
   </head>
   <body>
-    <div class="controls">
-      <label>
-        Rows
-        <input id="rows" type="number" min="3" max="40" />
-        <span>(Range: 3 - 40)</span>
-      </label>
-      <label>
-        Columns
-        <input id="cols" type="number" min="3" max="40" />
-        <span>(Range: 3 - 40)</span>
-      </label>
-      <button type="button" id="change-grid-size-btn">Change Grid Size</button>
-      <div class="dropdown" id="maze-algos-dropdown">
-        <button type="button" class="dropdown__btn">
-          Maze Generation Algos
-          <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+    <header class="header">
+      <h1 class="header__title">
+        Maze Generator & Solver with Algorithm Visualizations
+      </h1>
+      <div class="controls">
+        <label>
+          Rows
+          <input id="rows" type="number" min="3" max="40" />
+          <span>(Range: 3 - 40)</span>
+        </label>
+        <label>
+          Columns
+          <input id="cols" type="number" min="3" max="40" />
+          <span>(Range: 3 - 40)</span>
+        </label>
+        <button type="button" id="change-grid-size-btn">
+          Change Grid Size
         </button>
-        <div class="dropdown__menu" id="maze-algos-list">
-          <a href="#">Hunt and Kill</a>
-          <a href="#">Recursive Backtracker</a>
-          <a href="#">Recursive Division</a>
-          <a href="#">Growing Tree (random)</a>
-          <a href="#">Growing Tree (last)</a>
-          <a href="#">Growing Tree (mix)</a>
-          <a href="#">Binary Tree</a>
-          <a href="#">Randomized Kruskal's Algorithm</a>
-          <a href="#">Aldous-Broder Algorithm</a>
-          <a href="#" class="dropdown__item--border">Open Grid</a>
+        <div class="dropdown" id="maze-algos-dropdown">
+          <button type="button" class="dropdown__btn">
+            Maze Generation Algos
+            <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+          </button>
+          <div class="dropdown__menu" id="maze-algos-list">
+            <a href="#">Hunt and Kill</a>
+            <a href="#">Recursive Backtracker</a>
+            <a href="#">Recursive Division</a>
+            <a href="#">Growing Tree (random)</a>
+            <a href="#">Growing Tree (last)</a>
+            <a href="#">Growing Tree (mix)</a>
+            <a href="#">Binary Tree</a>
+            <a href="#">Randomized Kruskal's Algorithm</a>
+            <a href="#">Aldous-Broder Algorithm</a>
+            <a href="#" class="dropdown__item--border">Open Grid</a>
+          </div>
+        </div>
+        <button type="button" id="new-maze-btn">New Maze</button>
+        <div class="dropdown" id="pathfinding-algos-dropdown">
+          <button type="button" class="dropdown__btn">
+            Solution
+            <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+          </button>
+          <div class="dropdown__menu" id="pathfinding-algos-list">
+            <a href="#">Dijkstra's Algorithm</a>
+            <a href="#">A&#42; Search</a>
+          </div>
         </div>
       </div>
-      <button type="button" id="new-maze-btn">New Maze</button>
-      <div class="dropdown" id="pathfinding-algos-dropdown">
-        <button type="button" class="dropdown__btn">
-          Solution
-          <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
-        </button>
-        <div class="dropdown__menu" id="pathfinding-algos-list">
-          <a href="#">Dijkstra's Algorithm</a>
-          <a href="#">A&#42; Search</a>
-        </div>
-      </div>
-    </div>
+    </header>
     <main class="main">
       <div class="canvas-wrapper" id="canvas-wrapper">
         <canvas id="maze-canvas"></canvas>

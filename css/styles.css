@@ -10,6 +10,18 @@ body {
   height: 100%;
 }
 
+.header {
+  width: 100%;
+  padding: 1rem;
+}
+
+.header__title {
+  width: 100%;
+  text-align: center;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 2rem;
+}
+
 .controls {
   width: 100%;
   display: flex;
