@@ -31,7 +31,7 @@ let numOfRows = 0;
 let canvasWidth = 0;
 let canvasHeight = 0;
 
-let mazeGenerationAlgo = '';
+let mazeAlgo = '';
 let isGeneratingMaze = false;
 let isMazeGenerated = false;
 let isSearchingSolution = false;
@@ -95,11 +95,9 @@ changeGridSizeBtn.addEventListener('click', function () {
 mazeAlgosDropdown.addEventListener('click', (e) => {
   if (e.target && e.target.nodeName === 'A') {
     if (!isGeneratingMaze && !isSearchingSolution) {
-      mazeGenerationAlgo = e.target.textContent;
+      mazeAlgo = e.target.textContent;
       newMazeBtn.textContent =
-        mazeGenerationAlgo === 'Open Grid'
-          ? 'Open Grid'
-          : `New Maze with ${mazeGenerationAlgo}`;
+        mazeAlgo === 'Open Grid' ? 'Open Grid' : `New Maze with ${mazeAlgo}`;
     }
     mazeAlgosList.classList.remove('is-active');
   } else {
@@ -123,7 +121,7 @@ document.addEventListener('click', (e) => {
 });
 
 newMazeBtn.addEventListener('click', async function () {
-  if (!mazeGenerationAlgo) {
+  if (!mazeAlgo) {
     showWarning('algorithm');
     return;
   }
@@ -140,7 +138,7 @@ newMazeBtn.addEventListener('click', async function () {
   toggleBtnsIsDisabled();
 
   drawMaze();
-  isGeneratingMaze = await grid.generateMaze(mazeGenerationAlgo);
+  isGeneratingMaze = await grid.generateMaze(mazeAlgo);
 });
 
 pathfindingAlgosDropdown.addEventListener('click', function (e) {
