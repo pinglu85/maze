@@ -230,13 +230,19 @@ body {
 .main {
   display: flex;
   justify-content: center;
-  margin-top: 160px;
+  margin-top: 240px;
   width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) and (min-width: 577px) {
   .main {
-    margin-top: 240px;
+    margin-top: 360px;
+  }
+}
+
+@media (max-width: 576px) and (min-width: 321px) {
+  .main {
+    margin-top: 320px;
   }
 }
 
