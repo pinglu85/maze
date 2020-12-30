@@ -1,6 +1,6 @@
 # Maze Generator and Solver Visualization
 
-This is a web application built using vanilla JavaScript and is used to visualize maze algorithms and pathfinding algorithms. I built this application because I was fascinated by these algorithms and also wanted to improve my Front-End skills. You can access it here: https://pinglu85.github.io/maze/
+This is a web application built with vanilla JavaScript and is used to visualize maze algorithms and pathfinding algorithms. I built this application because I was fascinated by these algorithms and also wanted to improve my Front-End skills. You can access it here: https://pinglu85.github.io/maze/
 
 ## Maze Algorithms
 
