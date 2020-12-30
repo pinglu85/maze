@@ -48,7 +48,7 @@ class Grid {
     };
 
     switch (algo) {
-      case 'Hunt and Kill':
+      case 'Hunt-and-Kill':
         return asyncGenerateMaze(asyncHuntAndKill);
       case 'Recursive Backtracker':
         return asyncGenerateMaze(asyncRecursiveBacktracker);
