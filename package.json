@@ -1,7 +1,7 @@
 {
   "name": "maze",
   "version": "1.0.0",
-  "description": "Maze Generator and Solver with Visualization of Maze Generation Algorithms and Pathfinding Algorithms",
+  "description": "Maze Generator and Solver Visualizer",
   "main": "js/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
