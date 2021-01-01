@@ -7,7 +7,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: './src/index.js',
-  devtool: 'none',
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new MiniCssExtractPlugin(),
