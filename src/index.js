@@ -8,6 +8,7 @@ import showWarning from './ui/toggleWarning';
 import setDefaultGridSize from './ui/setDefaultGridSize';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors';
 import { CELL_SIZE, SPRITE_SIZE, LINE_WIDTH } from './constants/size';
+import './index.css';
 
 const changeGridSizeBtn = document.getElementById('change-grid-size-btn');
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
