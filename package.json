@@ -2,7 +2,7 @@
   "name": "maze",
   "version": "1.0.0",
   "description": "Maze Generator & Solver Visualizer",
-  "main": "js/index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
