@@ -1,4 +1,4 @@
-import { MIN_GRID_SIZE, MAX_GRID_SIZE } from '../constants/size.js';
+import { MIN_GRID_SIZE, MAX_GRID_SIZE } from '../constants/size';
 
 const inputCols = document.getElementById('cols');
 const inputRows = document.getElementById('rows');

@@ -1,4 +1,4 @@
-import { delay, getOppositeDir, shuffleArr } from '../utils/index.js';
+import { delay, getOppositeDir, shuffleArr } from '../utils';
 
 async function merge(cell, dir, neighbor, cellSets, resolve) {
   if (cell.cellSetId === neighbor.cellSetId) {

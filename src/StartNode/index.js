@@ -1,4 +1,4 @@
-import { applyDropShadow, getOppositeDir } from './utils/index.js';
+import { applyDropShadow, getOppositeDir } from '../utils';
 
 const TO_RADIANS = Math.PI / 180;
 

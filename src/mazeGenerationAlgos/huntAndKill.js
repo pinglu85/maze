@@ -3,7 +3,7 @@ import {
   getOppositeDir,
   getRandomIndex,
   shuffleArrIndices,
-} from '../utils/index.js';
+} from '../utils';
 
 function walk(grid, cell, resolve) {
   cell.isStartCell = false;

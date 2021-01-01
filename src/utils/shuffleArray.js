@@ -1,4 +1,4 @@
-import { getRandomIndex, swapItemsInArray } from './index.js';
+import { getRandomIndex, swapItemsInArray } from '.';
 
 // Fisher-Yates shuffle
 export const shuffleArr = (arr) => {
