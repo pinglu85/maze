@@ -3,7 +3,7 @@ import {
   getOppositeDir,
   getRandomIndex,
   swapItemsInArray,
-} from '../utils';
+} from '../../utils';
 
 function walk(prevCell, cell, grid, resolve) {
   if (prevCell) {

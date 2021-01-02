@@ -1,4 +1,4 @@
-import { delay } from '../utils';
+import { delay } from '../../utils';
 
 function getNewFrontiers(grid, frontiers, distance, resolve) {
   const newFrontiers = [];
