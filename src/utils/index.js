@@ -9,4 +9,3 @@ export { default as setDefaultGridSize } from './setDefaultGridSize';
 export { default as setupCanvases } from './setupCanvases';
 export { shuffleArr, shuffleArrIndices } from './shuffleArray';
 export { default as swapItemsInArray } from './swapItemsInArray';
-export { default as showWarning } from './toggleWarning';
