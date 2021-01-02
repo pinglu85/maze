@@ -5,7 +5,7 @@ const canvases = [mazeCanvas, solutionCanvas];
 
 function setupCanvases() {
   const ctxes = canvases.map((canvas) => canvas.getContext('2d'));
-  const setCanvasesSize = (numOfCols, numOfRows, cellSize, lineWidth) => {
+  const setCanvasesSize = (numOfRows, numOfCols, cellSize, lineWidth) => {
     const offset =
       lineWidth.outerWall + lineWidth.halfOuterInteriorWallDiff * 2;
     const canvasWidth = Math.floor(numOfCols * cellSize) + offset;

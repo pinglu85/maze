@@ -83,8 +83,8 @@ function asyncHunt(grid, wait) {
 
 async function asyncHuntAndKill(grid, wait = 50) {
   const randomRow = getRandomIndex(grid.length);
-  const randomColumn = getRandomIndex(grid[0].length);
-  let startCell = grid[randomRow][randomColumn];
+  const randomCol = getRandomIndex(grid[0].length);
+  let startCell = grid[randomRow][randomCol];
   startCell.isStartCell = true;
 
   while (startCell) {

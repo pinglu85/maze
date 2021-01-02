@@ -1,11 +1,11 @@
 import { MIN_GRID_SIZE, MAX_GRID_SIZE } from '../constants/size';
 
-const inputCols = document.getElementById('cols');
 const inputRows = document.getElementById('rows');
+const inputCols = document.getElementById('cols');
 
-export const updateInputs = (numOfCols, numOfRows) => {
-  inputCols.value = numOfCols;
+export const updateInputs = (numOfRows, numOfCols) => {
   inputRows.value = numOfRows;
+  inputCols.value = numOfCols;
 };
 
 export const parseInputValue = (id) => {
