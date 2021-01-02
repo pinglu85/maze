@@ -23,15 +23,15 @@ class Grid {
     this.exitDir = '';
   }
 
-  setContent(width, height) {
+  setContent(numOfRows, numOfCols) {
     const offset =
       Math.floor(this.lineWidth.outerWall / 2) +
       this.lineWidth.halfOuterInteriorWallDiff;
 
-    this.content = Array.from(new Array(height), (_, rowIndex) =>
-      Array.from(new Array(width), (_, colIndex) => {
+    this.content = Array.from(new Array(numOfRows), (_, rowIndex) =>
+      Array.from(new Array(numOfCols), (_, colIndex) => {
         const cell = new Cell(rowIndex, colIndex, this.cellSize, offset);
-        cell.setOuterWalls(height, width);
+        cell.setOuterWalls(numOfRows, numOfCols);
         return cell;
       })
     );

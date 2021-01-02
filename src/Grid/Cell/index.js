@@ -118,16 +118,16 @@ class Cell {
     return connectedNeighbors;
   }
 
-  setOuterWalls(height, width) {
+  setOuterWalls(numOfRows, numOfCols) {
     if (this.rowIndex === 0) {
       this.outerWalls.north = true;
-    } else if (this.rowIndex === height - 1) {
+    } else if (this.rowIndex === numOfRows - 1) {
       this.outerWalls.south = true;
     }
 
     if (this.colIndex === 0) {
       this.outerWalls.west = true;
-    } else if (this.colIndex === width - 1) {
+    } else if (this.colIndex === numOfCols - 1) {
       this.outerWalls.east = true;
     }
   }
