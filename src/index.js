@@ -31,8 +31,8 @@ const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
 const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
-let numOfCols = 0;
 let numOfRows = 0;
+let numOfCols = 0;
 let canvasWidth = 0;
 let canvasHeight = 0;
 
@@ -44,21 +44,21 @@ let isSolutionFound = false;
 
 window.addEventListener('DOMContentLoaded', () => {
   const defaultGridSize = setDefaultGridSize();
-  numOfCols = defaultGridSize.numOfCols;
   numOfRows = defaultGridSize.numOfRows;
+  numOfCols = defaultGridSize.numOfCols;
 
-  updateInputs(numOfCols, numOfRows);
+  updateInputs(numOfRows, numOfCols);
 
   const canvasSize = setCanvasesSize(
-    numOfCols,
     numOfRows,
+    numOfCols,
     CELL_SIZE,
     LINE_WIDTH
   );
   canvasWidth = canvasSize.canvasWidth;
   canvasHeight = canvasSize.canvasHeight;
 
-  grid.setContent(numOfCols, numOfRows);
+  grid.setContent(numOfRows, numOfCols);
   grid.draw(mazeCtx);
 });
 
@@ -79,19 +79,19 @@ changeGridSizeBtn.addEventListener('click', function () {
     return;
   }
 
-  numOfCols = newNumOfCols;
   numOfRows = newNumOfRows;
+  numOfCols = newNumOfCols;
 
   const canvasSize = setCanvasesSize(
-    numOfCols,
     numOfRows,
+    numOfCols,
     CELL_SIZE,
     LINE_WIDTH
   );
   canvasWidth = canvasSize.canvasWidth;
   canvasHeight = canvasSize.canvasHeight;
 
-  grid.setContent(numOfCols, numOfRows);
+  grid.setContent(numOfRows, numOfCols);
   grid.draw(mazeCtx);
   isMazeGenerated = false;
   isSolutionFound = false;
@@ -132,7 +132,7 @@ newMazeBtn.addEventListener('click', async function () {
   }
 
   if (isMazeGenerated) {
-    grid.setContent(numOfCols, numOfRows);
+    grid.setContent(numOfRows, numOfCols);
     solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     isMazeGenerated = false;
   }
