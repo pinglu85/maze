@@ -1,0 +1,38 @@
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--light-yellow);
+  border-radius: 0.25rem;
+  box-shadow: var(--box-shadow);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.message {
+  margin-left: 0.5rem;
+  word-wrap: normal;
+}
+
+.dismiss {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  opacity: 0.5;
+}
+
+.dismiss:hover,
+.dismiss:active {
+  opacity: 1;
+}

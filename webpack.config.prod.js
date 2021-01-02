@@ -31,10 +31,22 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
+        include: /\.module\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1, modules: true },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        exclude: [/node_modules/, /\.module\.css$/],
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.png$/,
+        test: /\.(png|svg)$/,
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {

@@ -1,13 +1,13 @@
 import Grid from './Grid';
 import StartNode from './StartNode';
 import TargetNode from './TargetNode';
+import warning from './Warning';
 import {
   loadStartNodeSprites,
   loadTargetNodeSprites,
   setupCanvases,
   updateInputs,
   parseInputValue,
-  showWarning,
   setDefaultGridSize,
 } from './utils';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors';
@@ -65,13 +65,13 @@ window.addEventListener('DOMContentLoaded', () => {
 changeGridSizeBtn.addEventListener('click', function () {
   const newNumOfRows = parseInputValue('rows');
   if (!newNumOfRows) {
-    showWarning('rows');
+    warning.show('rows');
     return;
   }
 
   const newNumOfCols = parseInputValue('cols');
   if (!newNumOfCols) {
-    showWarning('columns');
+    warning.show('columns');
     return;
   }
 
@@ -127,7 +127,7 @@ document.addEventListener('click', (e) => {
 
 newMazeBtn.addEventListener('click', async function () {
   if (!mazeAlgo) {
-    showWarning('algorithm');
+    warning.show('algorithm');
     return;
   }
 
@@ -159,7 +159,7 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
   }
 
   if (!isMazeGenerated) {
-    showWarning('maze');
+    warning.show('maze');
     return;
   }
 
