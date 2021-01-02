@@ -250,8 +250,7 @@ body {
   position: relative;
 }
 
-#maze-canvas,
-#solution-canvas {
+canvas {
   position: absolute;
 }
 
