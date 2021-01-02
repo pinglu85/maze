@@ -39,12 +39,13 @@ module.exports = {
             loader: 'css-loader',
             options: { importLoaders: 1, modules: true },
           },
+          'postcss-loader',
         ],
       },
       {
         test: /\.css$/,
         exclude: [/node_modules/, /\.module\.css$/],
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(png|svg)$/,
