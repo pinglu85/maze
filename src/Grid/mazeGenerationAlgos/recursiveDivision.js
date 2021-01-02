@@ -1,4 +1,4 @@
-import { delay, getRandomIndex } from '../utils';
+import { delay, getRandomIndex } from '../../utils';
 
 function computeMid(start, end) {
   if (end - start >= 2) {

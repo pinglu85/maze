@@ -1,4 +1,4 @@
-import { getOppositeDir, getRandomIndex } from '../utils';
+import { getOppositeDir, getRandomIndex } from '../../utils';
 
 function walk(grid, cell, resolve) {
   cell.isStartCell = false;

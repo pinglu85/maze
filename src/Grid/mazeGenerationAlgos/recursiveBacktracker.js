@@ -1,4 +1,4 @@
-import { delay, getOppositeDir, getRandomIndex } from '../utils';
+import { delay, getOppositeDir, getRandomIndex } from '../../utils';
 
 function getNewStartCell(grid, prevStartCell, resolve) {
   prevStartCell.isStartCell = false;

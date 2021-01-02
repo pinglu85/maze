@@ -1,4 +1,4 @@
-import Cell from '../Cell';
+import Cell from './Cell';
 import {
   asyncHuntAndKill,
   asyncRecursiveBacktracker,
@@ -7,8 +7,8 @@ import {
   asyncBinaryTree,
   asyncRandomizedKruskalsAlgo,
   asyncAldousBroderAlgo,
-} from '../mazeGenerationAlgos';
-import { asyncAStarSearch, asyncDijkstrasAlgo } from '../pathfindingAlgos';
+} from './mazeGenerationAlgos';
+import { asyncAStarSearch, asyncDijkstrasAlgo } from './pathfindingAlgos';
 import { getRandomIndex, getStartOrEndIndexOfArray } from '../utils';
 
 class Grid {

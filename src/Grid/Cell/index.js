@@ -1,4 +1,4 @@
-import { getRandomIndex } from '../utils';
+import { getRandomIndex } from '../../utils';
 
 class Cell {
   constructor(rowIndex, colIndex, cellSize, offset) {

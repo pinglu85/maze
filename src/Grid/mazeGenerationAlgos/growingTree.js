@@ -1,4 +1,4 @@
-import { getOppositeDir, getRandomIndex, swapItemsInArray } from '../utils';
+import { getOppositeDir, getRandomIndex, swapItemsInArray } from '../../utils';
 
 function selectCellFromArr(arr, option) {
   const lastIndex = arr.length - 1;
