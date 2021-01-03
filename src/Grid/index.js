@@ -131,20 +131,20 @@ class Grid {
 
   dropInteriorWalls() {
     for (const row of this.content) {
-      for (const col of row) {
-        col.isVisited = true;
+      for (const cell of row) {
+        cell.isVisited = true;
         const interiorWalls = {
           north: true,
           east: true,
           south: true,
           west: true,
         };
-        for (const dir in col.outerWalls) {
+        for (const dir in cell.outerWalls) {
           interiorWalls[dir] = false;
         }
         for (const dir in interiorWalls) {
           if (interiorWalls[dir]) {
-            col.dropWall(dir);
+            cell.dropWall(dir);
           }
         }
       }
@@ -153,16 +153,16 @@ class Grid {
 
   clearSolution() {
     for (const row of this.content) {
-      for (const col of row) {
-        col.resetStateForPathfinding();
+      for (const cell of row) {
+        cell.resetStateForPathfinding();
       }
     }
   }
 
   draw(ctx) {
     for (const row of this.content) {
-      for (const col of row) {
-        col.draw(ctx, this.cellSize, this.cellColors, this.lineWidth);
+      for (const cell of row) {
+        cell.draw(ctx, this.cellSize, this.cellColors, this.lineWidth);
       }
     }
   }

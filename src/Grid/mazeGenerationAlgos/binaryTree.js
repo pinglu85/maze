@@ -47,8 +47,8 @@ async function asyncBinaryTree(grid, wait = 50) {
   const flattenedGrid = [];
 
   for (const row of grid) {
-    for (const col of row) {
-      flattenedGrid.push(col);
+    for (const cell of row) {
+      flattenedGrid.push(cell);
     }
   }
 
