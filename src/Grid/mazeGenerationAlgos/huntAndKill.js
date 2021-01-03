@@ -36,9 +36,9 @@ function asyncWalk(grid, cell, wait) {
 
 async function hunt(grid, wait, resolve) {
   let randomVisitedNeighbor;
-  for (const i of shuffleArrIndices(grid.length)) {
-    for (const j of shuffleArrIndices(grid[i].length)) {
-      const cell = grid[i][j];
+  for (const rowIndex of shuffleArrIndices(grid.length)) {
+    for (const colIndex of shuffleArrIndices(grid[rowIndex].length)) {
+      const cell = grid[rowIndex][colIndex];
       cell.isScanning = true;
       await delay(wait);
       if (cell.isVisited) {
@@ -56,14 +56,14 @@ async function hunt(grid, wait, resolve) {
         const oppositeDir = getOppositeDir(dir);
         neighbor.dropWall(oppositeDir);
 
-        grid[i].forEach((cell) => {
+        grid[rowIndex].forEach((cell) => {
           cell.isScanning = false;
         });
         resolve(cell);
         return;
       }
     }
-    grid[i].forEach((cell) => {
+    grid[rowIndex].forEach((cell) => {
       cell.isScanning = false;
     });
   }
