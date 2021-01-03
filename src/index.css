@@ -80,25 +80,14 @@ body {
   }
 
   .navbar__controls {
+    flex-wrap: wrap;
     width: 100%;
   }
 }
 
 @media (max-width: 576px) {
   .header {
-    padding: 1rem;
-  }
-
-  .navbar {
-    display: block;
-  }
-
-  .navbar__controls {
-    overflow: auto;
-  }
-
-  .navbar__controls > *:not(:first-child) {
-    margin-left: 1rem;
+    padding: 0.5rem 0.75rem;
   }
 }
 
@@ -164,7 +153,7 @@ body {
 
 .dropdown__menu {
   display: none;
-  position: fixed;
+  position: absolute;
   width: 200px;
   margin-top: 1rem;
   list-style: none;
