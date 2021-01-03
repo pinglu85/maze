@@ -20,7 +20,7 @@ class StartNode {
     this.previousTime = 0;
   }
 
-  reset(grid) {
+  resetState(grid) {
     this.centerX = grid.entranceCell.centerX;
     this.centerY = grid.entranceCell.centerY;
     this.facingDir = getOppositeDir(grid.entranceDir);
