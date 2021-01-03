@@ -169,7 +169,7 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
 async function findSolution(algo) {
   if (isSolutionFound) {
     grid.clearSolution();
-    startNode.reset(grid);
+    startNode.resetState(grid);
     mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     startNode.draw(solutionCtx);
@@ -197,7 +197,7 @@ function drawMaze() {
   grid.draw(mazeCtx);
 
   if (!isGeneratingMaze) {
-    startNode.reset(grid);
+    startNode.resetState(grid);
     startNode.draw(solutionCtx);
 
     targetNode.setPosition(grid);
