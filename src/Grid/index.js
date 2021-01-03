@@ -154,15 +154,7 @@ class Grid {
   clearSolution() {
     for (const row of this.content) {
       for (const col of row) {
-        col.distanceToEntrance = Infinity;
-        col.isToBeVisited = false;
-        col.isExitColor = false;
-        col.opacity = 0;
-        col.parent = null;
-        col.isInOpenList = false;
-        col.isInClosedList = false;
-        col.h = Infinity;
-        col.f = Infinity;
+        col.resetStateForPathfinding();
       }
     }
   }
