@@ -14,9 +14,12 @@
   <body>
     <header class="header">
       <nav class="navbar">
-        <div class="navbar__page-title">
-          <a href="/">Maze Generator & Solver Visualizer</a>
-        </div>
+        <a href="/" class="navbar__logo">
+          <img
+            src="<%=require('./assets/logo.svg')%>"
+            alt="Maze Generator & Solver Visualizer"
+          />
+        </a>
         <div class="navbar__controls">
           <div class="dropdown" id="maze-algos-dropdown">
             <button type="button" class="btn btn--dropdown">

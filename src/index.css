@@ -42,29 +42,19 @@ body {
   width: 100%;
 }
 
-.navbar a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.navbar__page-title {
+.navbar__logo {
   width: 30%;
 }
 
-.navbar__page-title a {
-  font-family: 'Saira Extra Condensed', sans-serif;
-  font-size: 1.5rem;
-}
-
-.navbar__page-title a:hover,
-.navbar__page-title a:focus {
-  color: var(--green);
+.navbar__logo > img {
+  width: 300px;
 }
 
 .navbar__controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   width: 70%;
 }
 
@@ -73,14 +63,13 @@ body {
     flex-direction: column;
   }
 
-  .navbar__page-title {
+  .navbar__logo {
     width: 100%;
     margin-bottom: 1rem;
     text-align: center;
   }
 
   .navbar__controls {
-    flex-wrap: wrap;
     width: 100%;
   }
 }
@@ -88,6 +77,14 @@ body {
 @media (max-width: 576px) {
   .header {
     padding: 0.5rem 0.75rem;
+  }
+
+  .navbar__logo {
+    margin-bottom: 0.5rem;
+  }
+
+  .navbar__logo > img {
+    width: 260px;
   }
 }
 
