@@ -25,7 +25,7 @@ function importAll(r) {
   let sprites = {};
   r.keys().forEach((item) => {
     const key = item.replace(/\.\/(.+)\.png/, '$1');
-    sprites[key] = r(item).default;
+    sprites[key] = r(item);
   });
   return sprites;
 }
