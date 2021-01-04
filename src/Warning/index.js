@@ -1,5 +1,5 @@
-import alertIcon from './alert-circle.svg';
-import dismissIcon from './x.svg';
+import alertIcon from '../assets/alert-circle.svg';
+import dismissIcon from '../assets/x.svg';
 import styles from './style.module.css';
 
 class Warning {
