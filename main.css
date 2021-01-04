@@ -235,8 +235,17 @@ body {
 }
 
 .dropdown__btn__icon {
-  margin-left: 0.5rem;
-  width: 1.125rem;
+  margin-left: 0.25rem;
+  width: 1.175rem;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+
+.btn--dropdown:focus > .dropdown__btn__icon {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .dropdown__menu {
