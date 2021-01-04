@@ -9,7 +9,6 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
-    <script src="https://unpkg.com/feather-icons"></script>
   </head>
   <body>
     <header class="header">
@@ -24,7 +23,10 @@
           <div class="dropdown" id="maze-algos-dropdown">
             <button type="button" class="btn btn--dropdown">
               Maze Algorithms
-              <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+              <img
+                class="dropdown__btn__icon"
+                src="<%=require('./assets/chevron-down.svg')%>"
+              />
             </button>
             <ul class="dropdown__menu" id="maze-algos-list">
               <li class="dropdown__item"><a href="#">Hunt-and-Kill</a></li>
@@ -57,7 +59,10 @@
           <div class="dropdown" id="pathfinding-algos-dropdown">
             <button type="button" class="btn btn--dropdown">
               Solution
-              <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+              <img
+                class="dropdown__btn__icon"
+                src="<%=require('./assets/chevron-down.svg')%>"
+              />
             </button>
             <ul class="dropdown__menu" id="pathfinding-algos-list">
               <li class="dropdown__item">
@@ -89,8 +94,5 @@
       </div>
     </main>
     <div id="warning" class="warning"></div>
-    <script>
-      feather.replace();
-    </script>
   </body>
 </html>
