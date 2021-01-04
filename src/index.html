@@ -6,10 +6,9 @@
     <title>Maze Generator & Solver Visualizer</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Saira+Extra+Condensed:wght@500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
-    <script src="https://unpkg.com/feather-icons"></script>
   </head>
   <body>
     <header class="header">
@@ -24,7 +23,20 @@
           <div class="dropdown" id="maze-algos-dropdown">
             <button type="button" class="btn btn--dropdown">
               Maze Algorithms
-              <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="dropdown__btn__icon"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </button>
             <ul class="dropdown__menu" id="maze-algos-list">
               <li class="dropdown__item"><a href="#">Hunt-and-Kill</a></li>
@@ -57,7 +69,20 @@
           <div class="dropdown" id="pathfinding-algos-dropdown">
             <button type="button" class="btn btn--dropdown">
               Solution
-              <i class="dropdown__btn__icon" data-feather="chevron-down"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="dropdown__btn__icon"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </button>
             <ul class="dropdown__menu" id="pathfinding-algos-list">
               <li class="dropdown__item">
@@ -89,8 +114,5 @@
       </div>
     </main>
     <div id="warning" class="warning"></div>
-    <script>
-      feather.replace();
-    </script>
   </body>
 </html>
