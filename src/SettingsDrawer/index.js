@@ -41,6 +41,7 @@ class SettingsDrawer {
       return;
     }
 
+    this._saveBtn.disabled = false;
     this._saveBtn.addEventListener(
       'click',
       this._saveSettings.bind(
