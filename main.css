@@ -462,6 +462,7 @@ canvas {
   right: -30vw;
   width: 30vw;
   height: 100vh;
+  overflow: auto;
   padding: 1rem 2rem;
   visibility: hidden;
   opacity: 0;
