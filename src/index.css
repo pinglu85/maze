@@ -298,7 +298,7 @@ canvas {
 @media (max-width: 576px) {
   .settings-drawer {
     right: -80vw;
-    width: 80vw;
+    width: 90vw;
     padding: 1rem 1.5rem;
   }
 }
