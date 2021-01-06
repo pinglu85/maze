@@ -159,6 +159,11 @@ h3 {
   background: var(--light-grey);
 }
 
+.btn--icon {
+  display: flex;
+  align-items: center;
+}
+
 .dropdown {
   position: relative;
 }
@@ -222,12 +227,7 @@ h3 {
 }
 
 .navbar__settings-icon {
-  width: 1.125rem;
-}
-
-.btn:hover > .navbar__settings-icon,
-.btn:active > .navbar__settings-icon {
-  fill: var(--green);
+  width: 1.25rem;
 }
 
 .main {
