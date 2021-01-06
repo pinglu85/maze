@@ -24,6 +24,7 @@ class SettingsDrawer {
   open(gridSize, canvasSize, setCanvasesSize, grid, mazeCtx, mazeStates) {
     this._root.classList.add('is-open');
     this._backdrop.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
 
     this._setInputsValue(gridSize);
     setTimeout(() => {
@@ -59,6 +60,7 @@ class SettingsDrawer {
   _close = () => {
     this._root.classList.remove('is-open');
     this._backdrop.classList.remove('is-active');
+    document.body.style.overflow = 'auto';
 
     [this._inputRows, this._inputCols].forEach((input) =>
       input.removeEventListener('input', this._onInputChange)
