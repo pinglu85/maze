@@ -6,7 +6,7 @@
     <title>Maze Generator & Solver Visualizer</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Merriweather:wght@300&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -91,18 +91,17 @@
               <li class="dropdown__item"><a href="#">A&#42; Search</a></li>
             </ul>
           </div>
-          <label class="navbar__label" id="rows-label">
-            Rows
-            <input id="rows" type="number" min="3" max="40" />
-            <span class="clue">(Range: 3 - 40)</span>
-          </label>
-          <label class="navbar__label" id="cols-label">
-            Columns
-            <input id="cols" type="number" min="3" max="40" />
-            <span class="clue">(Range: 3 - 40)</span>
-          </label>
-          <button type="button" class="btn" id="change-grid-size-btn">
-            Change Grid Size
+          <button type="button" class="btn" id="settings-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="navbar__settings-icon"
+            >
+              <path
+                d="M20.3 15.4c.1-.2.3-.4.7-.4 1.7 0 3-1.3 3-3s-1.3-3-3-3h-.2c-.2 0-.4-.1-.5-.3 0-.1 0-.1-.1-.2-.1-.2-.1-.5.2-.8 1.2-1.2 1.2-3.1 0-4.2-.6-.6-1.3-.9-2.1-.9s-1.6.3-2.2.9c-.2.2-.5.2-.7.1-.2 0-.4-.3-.4-.6 0-1.7-1.3-3-3-3S9 1.3 9 3v.2c0 .2-.1.4-.3.5-.1 0-.1 0-.2.1-.2.1-.5 0-.8-.2-1.2-1.2-3.1-1.2-4.2 0-1.2 1.2-1.2 3.1.1 4.3.2.2.2.5.1.8-.1.2-.4.4-.7.4-1.7 0-3 1.3-3 3s1.3 3 3 3h.2c.3 0 .5.2.6.4s.1.5-.2.8c-.6.6-.9 1.3-.9 2.1s.3 1.5.9 2.1c1.2 1.2 3.1 1.2 4.3-.1.2-.2.5-.2.8-.1s.4.3.4.7c0 1.7 1.3 3 3 3s3-1.3 3-3v-.2c0-.3.2-.5.4-.6s.5-.1.8.2c1.2 1.2 3.1 1.2 4.2 0 1.2-1.2 1.2-3.1-.1-4.3-.1-.2-.2-.5-.1-.7zM12 16c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"
+              />
+            </svg>
+            <span class="sr-only">Settings</span>
           </button>
         </div>
       </nav>
@@ -114,5 +113,7 @@
       </div>
     </main>
     <div id="warning" class="warning"></div>
+    <div id="settings-drawer" class="settings-drawer"></div>
+    <div id="backdrop" class="backdrop"></div>
   </body>
 </html>
