@@ -1,15 +1,23 @@
-export default function setDefaultGridSize() {
+export default function setDefaultGridSize(gridSize) {
   if (window.matchMedia('(max-width: 576px)').matches) {
-    return { numOfRows: 8, numOfCols: 9 };
+    gridSize.numOfRows = 8;
+    gridSize.numOfCols = 9;
+    return;
   }
 
   if (window.matchMedia('(min-width: 577px) and (max-width: 768px)').matches) {
-    return { numOfRows: 15, numOfCols: 20 };
+    gridSize.numOfRows = 15;
+    gridSize.numOfCols = 20;
+    return;
   }
 
   if (window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches) {
-    return { numOfRows: 15, numOfCols: 30 };
+    gridSize.numOfRows = 15;
+    gridSize.numOfCols = 30;
+    return;
   }
 
-  return { numOfRows: 14, numOfCols: 40 };
+  gridSize.numOfRows = 14;
+  gridSize.numOfCols = 40;
+  return;
 }

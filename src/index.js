@@ -2,19 +2,17 @@ import Grid from './Grid';
 import StartNode from './StartNode';
 import TargetNode from './TargetNode';
 import warning from './Warning';
+import settingsDrawer from './SettingsDrawer';
 import {
   loadStartNodeSprites,
   loadTargetNodeSprites,
   setupCanvases,
-  updateInputs,
-  parseInputValue,
   setDefaultGridSize,
 } from './utils';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors';
 import { CELL_SIZE, SPRITE_SIZE, LINE_WIDTH } from './constants/size';
 import './index.css';
 
-const changeGridSizeBtn = document.getElementById('change-grid-size-btn');
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
 const mazeAlgosList = document.getElementById('maze-algos-list');
 const newMazeBtn = document.getElementById('new-maze-btn');
@@ -22,6 +20,7 @@ const pathfindingAlgosDropdown = document.getElementById(
   'pathfinding-algos-dropdown'
 );
 const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
+const settingsBtn = document.getElementById('settings-btn');
 
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
@@ -31,75 +30,46 @@ const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
 const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
-let numOfRows = 0;
-let numOfCols = 0;
-let canvasWidth = 0;
-let canvasHeight = 0;
+const gridSize = {
+  numOfRows: 0,
+  numOfCols: 0,
+};
+const canvasSize = {
+  width: 0,
+  height: 0,
+};
 
 let mazeAlgo = '';
-let isGeneratingMaze = false;
-let isMazeGenerated = false;
-let isSearchingSolution = false;
-let isSolutionFound = false;
+const mazeStates = {
+  isGenerating: false,
+  isGenerated: false,
+  isSearchingSolution: false,
+  isSolutionFound: false,
+};
 
 window.addEventListener('DOMContentLoaded', () => {
-  const defaultGridSize = setDefaultGridSize();
-  numOfRows = defaultGridSize.numOfRows;
-  numOfCols = defaultGridSize.numOfCols;
+  setDefaultGridSize(gridSize);
 
-  updateInputs(numOfRows, numOfCols);
+  setCanvasesSize(gridSize, canvasSize);
 
-  const canvasSize = setCanvasesSize(
-    numOfRows,
-    numOfCols,
-    CELL_SIZE,
-    LINE_WIDTH
-  );
-  canvasWidth = canvasSize.canvasWidth;
-  canvasHeight = canvasSize.canvasHeight;
-
-  grid.setContent(numOfRows, numOfCols);
+  grid.setContent(gridSize.numOfRows, gridSize.numOfCols);
   grid.draw(mazeCtx);
 });
 
-changeGridSizeBtn.addEventListener('click', function () {
-  const newNumOfRows = parseInputValue('rows');
-  if (!newNumOfRows) {
-    warning.show('rows');
-    return;
-  }
-
-  const newNumOfCols = parseInputValue('cols');
-  if (!newNumOfCols) {
-    warning.show('columns');
-    return;
-  }
-
-  if (newNumOfCols === numOfCols && newNumOfRows === numOfRows) {
-    return;
-  }
-
-  numOfRows = newNumOfRows;
-  numOfCols = newNumOfCols;
-
-  const canvasSize = setCanvasesSize(
-    numOfRows,
-    numOfCols,
-    CELL_SIZE,
-    LINE_WIDTH
+settingsBtn.addEventListener('click', () => {
+  settingsDrawer.open(
+    gridSize,
+    canvasSize,
+    setCanvasesSize,
+    grid,
+    mazeCtx,
+    mazeStates
   );
-  canvasWidth = canvasSize.canvasWidth;
-  canvasHeight = canvasSize.canvasHeight;
-
-  grid.setContent(numOfRows, numOfCols);
-  grid.draw(mazeCtx);
-  isMazeGenerated = false;
-  isSolutionFound = false;
 });
 
 mazeAlgosDropdown.addEventListener('click', (e) => {
   if (e.target && e.target.nodeName === 'A') {
-    if (!isGeneratingMaze && !isSearchingSolution) {
+    if (!mazeStates.isGenerating && !mazeStates.isSearchingSolution) {
       mazeAlgo = e.target.textContent;
       newMazeBtn.textContent =
         mazeAlgo === 'Open Grid' ? 'Open Grid' : `New Maze with ${mazeAlgo}`;
@@ -131,19 +101,19 @@ newMazeBtn.addEventListener('click', async function () {
     return;
   }
 
-  if (isMazeGenerated) {
-    grid.setContent(numOfRows, numOfCols);
-    solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-    isMazeGenerated = false;
+  if (mazeStates.isGenerated) {
+    grid.setContent(gridSize.numOfRows, gridSize.numOfCols);
+    solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+    mazeStates.isGenerated = false;
   }
 
-  isSolutionFound = false;
+  mazeStates.isSolutionFound = false;
 
-  isGeneratingMaze = true;
+  mazeStates.isGenerating = true;
   toggleBtnsIsDisabled();
 
   drawMaze();
-  isGeneratingMaze = await grid.generateMaze(mazeAlgo);
+  mazeStates.isGenerating = await grid.generateMaze(mazeAlgo);
 });
 
 pathfindingAlgosDropdown.addEventListener('click', function (e) {
@@ -154,11 +124,11 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
 
   pathfindingAlgosList.classList.remove('is-active');
 
-  if (isGeneratingMaze || isSearchingSolution) {
+  if (mazeStates.isGenerating || mazeStates.isSearchingSolution) {
     return;
   }
 
-  if (!isMazeGenerated) {
+  if (!mazeStates.isGenerated) {
     warning.show('maze');
     return;
   }
@@ -167,24 +137,24 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
 });
 
 async function findSolution(algo) {
-  if (isSolutionFound) {
+  if (mazeStates.isSolutionFound) {
     grid.clearSolution();
     startNode.resetState(grid);
-    mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-    solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+    mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+    solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
     startNode.draw(solutionCtx);
     targetNode.draw(solutionCtx, 'spriteNormal');
-    isSolutionFound = false;
+    mazeStates.isSolutionFound = false;
   }
 
-  isSearchingSolution = true;
+  mazeStates.isSearchingSolution = true;
   toggleBtnsIsDisabled();
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
-    isSearchingSolution = false;
-    isSolutionFound = true;
+    mazeStates.isSearchingSolution = false;
+    mazeStates.isSolutionFound = true;
     toggleBtnsIsDisabled();
     return;
   }
@@ -193,10 +163,10 @@ async function findSolution(algo) {
 }
 
 function drawMaze() {
-  mazeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+  mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   grid.draw(mazeCtx);
 
-  if (!isGeneratingMaze) {
+  if (!mazeStates.isGenerating) {
     startNode.resetState(grid);
     startNode.draw(solutionCtx);
 
@@ -204,7 +174,7 @@ function drawMaze() {
     targetNode.draw(solutionCtx, 'spriteNormal');
 
     toggleBtnsIsDisabled();
-    isMazeGenerated = true;
+    mazeStates.isGenerated = true;
     return;
   }
 
@@ -228,13 +198,13 @@ function drawSolution() {
     startNode.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
   };
 
-  solutionCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+  solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 
   if (startNode.atExit) {
     drawStartNodeAndFootprints();
     targetNode.resetScale();
-    isSearchingSolution = false;
-    isSolutionFound = true;
+    mazeStates.isSearchingSolution = false;
+    mazeStates.isSolutionFound = true;
     toggleBtnsIsDisabled();
     return;
   }
@@ -249,5 +219,4 @@ function drawSolution() {
 
 function toggleBtnsIsDisabled() {
   newMazeBtn.disabled = !newMazeBtn.disabled;
-  changeGridSizeBtn.disabled = !changeGridSizeBtn.disabled;
 }

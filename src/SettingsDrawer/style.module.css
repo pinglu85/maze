@@ -1,0 +1,74 @@
+.drawerTitle {
+  margin-top: 1.5rem;
+}
+
+.setting {
+  padding: 2.5rem 0;
+}
+
+.settingWithBorderTop {
+  border-top: 0.0625rem solid var(--grey);
+}
+
+.settingLabel {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.settingLabel input {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--grey);
+  border-radius: 0.25rem;
+}
+
+.settingLabel input:focus {
+  outline: none;
+  border: 2px solid var(--green);
+}
+
+.clue {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--light-black);
+}
+
+.drawerBtn {
+  width: 100%;
+}
+
+.warning {
+  margin-top: 1.5rem;
+}
+
+.warningBody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  background: var(--light-yellow);
+  border-radius: 0.25rem;
+}
+
+.warningContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.warningIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.warningMessage {
+  margin-left: 0.5rem;
+  word-wrap: normal;
+}
