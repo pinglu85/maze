@@ -1,23 +1,57 @@
+import { checkIsMobile, checkIsTablet, checkIsBigTablet } from '.';
+import {
+  GRID_SIZE_MOBILE,
+  GRID_SIZE_TABLET,
+  GRID_SIZE_BIG_TABLET,
+  GRID_SIZE_DESKTOP,
+} from '../constants/localStorageKeys';
+
 export default function setDefaultGridSize(gridSize) {
-  if (window.matchMedia('(max-width: 576px)').matches) {
-    gridSize.numOfRows = 8;
-    gridSize.numOfCols = 9;
+  let storedGridSize;
+
+  if (checkIsMobile()) {
+    storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_MOBILE));
+    if (!storedGridSize) {
+      setGridSize(gridSize, { numOfRows: 8, numOfCols: 9 });
+      return;
+    }
+
+    setGridSize(gridSize, storedGridSize);
     return;
   }
 
-  if (window.matchMedia('(min-width: 577px) and (max-width: 768px)').matches) {
-    gridSize.numOfRows = 15;
-    gridSize.numOfCols = 20;
+  if (checkIsTablet()) {
+    storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_TABLET));
+    if (!storedGridSize) {
+      setGridSize(gridSize, { numOfRows: 15, numOfCols: 20 });
+      return;
+    }
+
+    setGridSize(gridSize, storedGridSize);
     return;
   }
 
-  if (window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches) {
-    gridSize.numOfRows = 15;
-    gridSize.numOfCols = 30;
+  if (checkIsBigTablet()) {
+    storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_BIG_TABLET));
+    if (!storedGridSize) {
+      setGridSize(gridSize, { numOfRows: 15, numOfCols: 30 });
+      return;
+    }
+
+    setGridSize(gridSize, storedGridSize);
     return;
   }
 
-  gridSize.numOfRows = 14;
-  gridSize.numOfCols = 40;
-  return;
+  storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_DESKTOP));
+  if (!storedGridSize) {
+    setGridSize(gridSize, { numOfRows: 14, numOfCols: 40 });
+    return;
+  }
+
+  setGridSize(gridSize, storedGridSize);
+}
+
+function setGridSize(gridSize, { numOfRows, numOfCols }) {
+  gridSize.numOfRows = numOfRows;
+  gridSize.numOfCols = numOfCols;
 }
