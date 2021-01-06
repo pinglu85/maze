@@ -49,7 +49,7 @@ class Warning {
           <span>${message}</span>
         </p>
       </div>
-      <button type="button" id="dismiss-btn" class="${styles.dismiss}">
+      <button type="button" id="dismiss-btn" class="btn btn--icon ${styles.dismiss}">
         <img class="${styles.icon}" src=${dismissIcon}>
         <span class="sr-only">Dismiss Warning</span>
       </button>
