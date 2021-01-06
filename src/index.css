@@ -45,7 +45,7 @@ h3 {
   width: 100%;
   padding: 1rem 1.5rem;
   z-index: 20;
-  border-bottom: 1px solid var(--light-grey);
+  border-bottom: 0.0625rem solid var(--light-grey);
   background: #ffffff;
 }
 
@@ -276,9 +276,9 @@ canvas {
 .settings-drawer {
   position: fixed;
   top: 0;
-  right: -30vw;
-  width: 30vw;
-  height: 100vh;
+  right: -30%;
+  width: 30%;
+  height: 100%;
   overflow: auto;
   padding: 1rem 2rem;
   visibility: hidden;
@@ -290,15 +290,15 @@ canvas {
 
 @media (max-width: 1024px) and (min-width: 577px) {
   .settings-drawer {
-    right: -45vw;
-    width: 45vw;
+    right: -45%;
+    width: 45%;
   }
 }
 
 @media (max-width: 576px) {
   .settings-drawer {
-    right: -80vw;
-    width: 90vw;
+    right: -80%;
+    width: 90%;
     padding: 1rem 1.5rem;
   }
 }
@@ -314,8 +314,8 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 119;
   background: var(--grey-alpha);
   transition: opacity 0.3s ease-out;
