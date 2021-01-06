@@ -278,7 +278,7 @@ canvas {
   top: 0;
   right: -30vw;
   width: 30vw;
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   padding: 1rem 2rem;
   visibility: hidden;
