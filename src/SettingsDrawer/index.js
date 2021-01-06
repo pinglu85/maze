@@ -1,4 +1,11 @@
 import parseInputValue from './parseInputValue';
+import { checkIsMobile, checkIsTablet, checkIsBigTablet } from '../utils';
+import {
+  GRID_SIZE_MOBILE,
+  GRID_SIZE_TABLET,
+  GRID_SIZE_BIG_TABLET,
+  GRID_SIZE_DESKTOP,
+} from '../constants/localStorageKeys';
 import alertIcon from '../assets/alert-circle.svg';
 import styles from './style.module.css';
 
@@ -101,6 +108,8 @@ class SettingsDrawer {
     ) {
       gridSize.numOfRows = updatedNumOfRows;
       gridSize.numOfCols = updatedNumOfCols;
+      this._saveGridSizeToLocalStorage(gridSize);
+
       mazeStates.isGenerated = false;
       mazeStates.isSolutionFound = false;
 
@@ -110,6 +119,27 @@ class SettingsDrawer {
     }
 
     this._close();
+  }
+
+  _saveGridSizeToLocalStorage(gridSize) {
+    const stringifiedGridSize = JSON.stringify(gridSize);
+
+    if (checkIsMobile()) {
+      localStorage.setItem(GRID_SIZE_MOBILE, stringifiedGridSize);
+      return;
+    }
+
+    if (checkIsTablet()) {
+      localStorage.setItem(GRID_SIZE_TABLET, stringifiedGridSize);
+      return;
+    }
+
+    if (checkIsBigTablet()) {
+      localStorage.setItem(GRID_SIZE_BIG_TABLET, stringifiedGridSize);
+      return;
+    }
+
+    localStorage.setItem(GRID_SIZE_DESKTOP, stringifiedGridSize);
   }
 
   _showWarning(content) {
