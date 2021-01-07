@@ -28,6 +28,7 @@
 }
 
 ._3AAFn1ILIcb883bOuoyJ_2 {
+  display: block;
   width: 20px;
   height: 20px;
 }
@@ -38,20 +39,16 @@
 }
 
 ._1vUkhyCZTmrSQLXekEWnql {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background: none;
-  border: none;
   opacity: 0.5;
 }
 
 ._1vUkhyCZTmrSQLXekEWnql:hover,
 ._1vUkhyCZTmrSQLXekEWnql:active {
   opacity: 1;
+}
+
+.rWCPmLyqv-n39aBWecoax {
+  display: block;
 }
 
 ._2YHABzX-d4jXpz-8Ddq6U0 {
@@ -78,6 +75,7 @@
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.7rem 1rem;
+  font-size: 1rem;
   border: 1px solid var(--grey);
   border-radius: 0.25rem;
   -webkit-appearance: none;
@@ -198,7 +196,7 @@ h3 {
   width: 100%;
   padding: 1rem 1.5rem;
   z-index: 20;
-  border-bottom: 1px solid var(--light-grey);
+  border-bottom: 0.0625rem solid var(--light-grey);
   background: #ffffff;
 }
 
@@ -223,54 +221,38 @@ h3 {
 }
 
 .navbar__logo {
-  width: 30%;
+  width: 280px;
 }
 
 .navbar__logo > img {
-  width: 300px;
+  display: block;
 }
 
 .navbar__controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  width: 70%;
+  width: calc(100% - 280px);
 }
 
-@media (min-width: 1025px) {
-  .navbar__controls > *:not(:last-child) {
-    margin-right: 3rem;
-  }
+.navbar__controls__main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 2.5rem;
 }
 
-@media (max-width: 1024px) {
-  .navbar {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-
-  .navbar__logo {
-    width: 100%;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .navbar__controls {
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    width: 100%;
-  }
+.navbar__controls__main > * {
+  margin-right: 2.5rem;
 }
 
 @media (max-width: 576px) {
@@ -278,12 +260,34 @@ h3 {
     padding: 0.5rem 0.75rem;
   }
 
+  .navbar {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+
   .navbar__logo {
+    width: 260px;
     margin-bottom: 0.5rem;
   }
 
-  .navbar__logo > img {
-    width: 260px;
+  .navbar__controls {
+    width: 100%;
+  }
+
+  .navbar__controls__main {
+    margin-left: 0;
+  }
+
+  .navbar__controls__main > * {
+    margin-right: 1.5rem;
   }
 }
 
@@ -380,6 +384,7 @@ h3 {
 
 @media (max-width: 576px) {
   .dropdown__menu {
+    width: 180px;
     max-height: 58vh;
     overflow: auto;
   }
@@ -404,12 +409,8 @@ h3 {
 }
 
 .navbar__settings-icon {
-  width: 1.125rem;
-}
-
-.btn:hover > .navbar__settings-icon,
-.btn:active > .navbar__settings-icon {
-  fill: var(--green);
+  display: block;
+  width: 1.25rem;
 }
 
 .main {
@@ -462,9 +463,9 @@ canvas {
 .settings-drawer {
   position: fixed;
   top: 0;
-  right: -30vw;
-  width: 30vw;
-  height: 100vh;
+  right: -30%;
+  width: 30%;
+  height: 100%;
   overflow: auto;
   padding: 1rem 2rem;
   visibility: hidden;
@@ -477,15 +478,15 @@ canvas {
 
 @media (max-width: 1024px) and (min-width: 577px) {
   .settings-drawer {
-    right: -45vw;
-    width: 45vw;
+    right: -45%;
+    width: 45%;
   }
 }
 
 @media (max-width: 576px) {
   .settings-drawer {
-    right: -80vw;
-    width: 90vw;
+    right: -80%;
+    width: 90%;
     padding: 1rem 1.5rem;
   }
 }
@@ -501,8 +502,8 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 119;
   background: var(--grey-alpha);
   -webkit-transition: opacity 0.3s ease-out;
