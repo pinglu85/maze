@@ -86,6 +86,7 @@ mazeAlgosDropdown.addEventListener('click', async (e) => {
   mazeStates.isSolutionFound = false;
 
   mazeStates.isGenerating = true;
+  toggleBtnsDisabled();
 
   drawMaze();
   mazeStates.isGenerating = await grid.generateMaze(e.target.textContent);
@@ -138,12 +139,14 @@ async function findSolution(algo) {
   }
 
   mazeStates.isSearchingSolution = true;
+  toggleBtnsDisabled();
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
     mazeStates.isSearchingSolution = false;
     mazeStates.isSolutionFound = true;
+    toggleBtnsDisabled();
     return;
   }
 
@@ -162,6 +165,7 @@ function drawMaze() {
     targetNode.draw(solutionCtx, 'spriteNormal');
 
     mazeStates.isGenerated = true;
+    toggleBtnsDisabled();
     return;
   }
 
@@ -192,6 +196,7 @@ function drawSolution() {
     targetNode.resetScale();
     mazeStates.isSearchingSolution = false;
     mazeStates.isSolutionFound = true;
+    toggleBtnsDisabled();
     return;
   }
 
@@ -201,4 +206,9 @@ function drawSolution() {
   drawStartNodeAndFootprints();
 
   requestAnimationFrame(drawSolution);
+}
+
+function toggleBtnsDisabled() {
+  mazeAlgosList.classList.toggle('disabled');
+  pathfindingAlgosList.classList.toggle('disabled');
 }

@@ -215,6 +215,10 @@ h3 {
   color: #ffffff;
 }
 
+.dropdown__menu.disabled .dropdown__item a:hover {
+  background: var(--light-grey);
+}
+
 .dropdown__item--border {
   border-top: 0.0625rem solid var(--grey);
 }
