@@ -211,4 +211,5 @@ function drawSolution() {
 function toggleBtnsDisabled() {
   mazeAlgosList.classList.toggle('disabled');
   pathfindingAlgosList.classList.toggle('disabled');
+  settingsDrawer.saveBtn.disabled = !settingsDrawer.saveBtn.disabled;
 }
