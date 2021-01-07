@@ -135,10 +135,6 @@ h3 {
   outline: none;
 }
 
-.btn:disabled {
-  color: var(--light-grey);
-}
-
 .btn--primary {
   padding: 0.8rem 1rem;
   color: #ffffff;
