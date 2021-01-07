@@ -20,78 +20,81 @@
           />
         </a>
         <div class="navbar__controls">
-          <div class="dropdown" id="maze-algos-dropdown">
-            <button type="button" class="btn btn--dropdown">
-              Maze Algorithms
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="dropdown__btn__icon"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <ul class="dropdown__menu" id="maze-algos-list">
-              <li class="dropdown__item"><a href="#">Hunt-and-Kill</a></li>
-              <li class="dropdown__item">
-                <a href="#">Recursive Backtracker</a>
-              </li>
-              <li class="dropdown__item"><a href="#">Recursive Division</a></li>
-              <li class="dropdown__item">
-                <a href="#">Growing Tree (random)</a>
-              </li>
-              <li class="dropdown__item">
-                <a href="#">Growing Tree (last)</a>
-              </li>
-              <li class="dropdown__item"><a href="#">Growing Tree (mix)</a></li>
-              <li class="dropdown__item"><a href="#">Binary Tree</a></li>
-              <li class="dropdown__item">
-                <a href="#">Randomized Kruskal's Algorithm</a>
-              </li>
-              <li class="dropdown__item">
-                <a href="#">Aldous-Broder Algorithm</a>
-              </li>
-              <li class="dropdown__item dropdown__item--border">
-                <a href="#">Open Grid</a>
-              </li>
-            </ul>
+          <div class="navbar__controls__main">
+            <div class="dropdown" id="maze-algos-dropdown">
+              <button type="button" class="btn btn--dropdown">
+                New Maze
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="dropdown__btn__icon"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <ul class="dropdown__menu" id="maze-algos-list">
+                <li class="dropdown__item"><a href="#">Hunt-and-Kill</a></li>
+                <li class="dropdown__item">
+                  <a href="#">Recursive Backtracker</a>
+                </li>
+                <li class="dropdown__item">
+                  <a href="#">Recursive Division</a>
+                </li>
+                <li class="dropdown__item">
+                  <a href="#">Growing Tree (random)</a>
+                </li>
+                <li class="dropdown__item">
+                  <a href="#">Growing Tree (last)</a>
+                </li>
+                <li class="dropdown__item">
+                  <a href="#">Growing Tree (mix)</a>
+                </li>
+                <li class="dropdown__item"><a href="#">Binary Tree</a></li>
+                <li class="dropdown__item">
+                  <a href="#">Randomized Kruskal's Algorithm</a>
+                </li>
+                <li class="dropdown__item">
+                  <a href="#">Aldous-Broder Algorithm</a>
+                </li>
+                <li class="dropdown__item dropdown__item--border">
+                  <a href="#">Open Grid</a>
+                </li>
+              </ul>
+            </div>
+            <div class="dropdown" id="pathfinding-algos-dropdown">
+              <button type="button" class="btn btn--dropdown">
+                Solution
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="dropdown__btn__icon"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <ul class="dropdown__menu" id="pathfinding-algos-list">
+                <li class="dropdown__item">
+                  <a href="#">Dijkstra's Algorithm</a>
+                </li>
+                <li class="dropdown__item"><a href="#">A&#42; Search</a></li>
+              </ul>
+            </div>
           </div>
-          <button type="button" class="btn btn--primary" id="new-maze-btn">
-            New Maze
-          </button>
-          <div class="dropdown" id="pathfinding-algos-dropdown">
-            <button type="button" class="btn btn--dropdown">
-              Solution
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="dropdown__btn__icon"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <ul class="dropdown__menu" id="pathfinding-algos-list">
-              <li class="dropdown__item">
-                <a href="#">Dijkstra's Algorithm</a>
-              </li>
-              <li class="dropdown__item"><a href="#">A&#42; Search</a></li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn--icon" id="settings-btn">
+          <button type="button" class="btn" id="settings-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
