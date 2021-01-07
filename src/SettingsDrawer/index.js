@@ -17,7 +17,7 @@ class SettingsDrawer {
     this._inputRows = document.getElementById('rows');
     this._inputCols = document.getElementById('cols');
     this._dismissBtn = document.getElementById('drawer-dismiss-btn');
-    this._saveBtn = document.getElementById('save-settings-btn');
+    this.saveBtn = document.getElementById('save-settings-btn');
     this._warningRoot = document.getElementById('drawer-warning');
   }
 
@@ -37,13 +37,7 @@ class SettingsDrawer {
       input.addEventListener('input', this._onInputChange)
     );
 
-    if (mazeStates.isGenerating || mazeStates.isSearchingSolution) {
-      this._saveBtn.disabled = true;
-      return;
-    }
-
-    this._saveBtn.disabled = false;
-    this._saveBtn.addEventListener(
+    this.saveBtn.addEventListener(
       'click',
       this._saveSettings.bind(
         this,
@@ -67,7 +61,7 @@ class SettingsDrawer {
     );
 
     this._dismissBtn.removeEventListener('click', this._close);
-    this._saveBtn.removeEventListener('click', this._saveSettings);
+    this.saveBtn.removeEventListener('click', this._saveSettings);
 
     this._clearWarning();
   };
