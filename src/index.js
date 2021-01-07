@@ -15,7 +15,6 @@ import './index.css';
 
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
 const mazeAlgosList = document.getElementById('maze-algos-list');
-const newMazeBtn = document.getElementById('new-maze-btn');
 const pathfindingAlgosDropdown = document.getElementById(
   'pathfinding-algos-dropdown'
 );
@@ -39,7 +38,6 @@ const canvasSize = {
   height: 0,
 };
 
-let mazeAlgo = '';
 const mazeStates = {
   isGenerating: false,
   isGenerated: false,
@@ -67,37 +65,15 @@ settingsBtn.addEventListener('click', () => {
   );
 });
 
-mazeAlgosDropdown.addEventListener('click', (e) => {
-  if (e.target && e.target.nodeName === 'A') {
-    if (!mazeStates.isGenerating && !mazeStates.isSearchingSolution) {
-      mazeAlgo = e.target.textContent;
-      newMazeBtn.textContent =
-        mazeAlgo === 'Open Grid' ? 'Open Grid' : `New Maze with ${mazeAlgo}`;
-    }
-    mazeAlgosList.classList.remove('is-active');
-  } else {
+mazeAlgosDropdown.addEventListener('click', async (e) => {
+  if (e.target && e.target.nodeName !== 'A') {
     mazeAlgosList.classList.add('is-active');
+    return;
   }
-});
 
-document.addEventListener('click', (e) => {
-  const dropDowns = [
-    [mazeAlgosList, mazeAlgosDropdown],
-    [pathfindingAlgosList, pathfindingAlgosDropdown],
-  ];
+  mazeAlgosList.classList.remove('is-active');
 
-  dropDowns.forEach(([dropDownMenu, dropDownWrapper]) => {
-    const dropDownMenuIsShown = dropDownMenu.classList.contains('is-active');
-    const dropDownWrapperIsClicked = dropDownWrapper.contains(e.target);
-    if (dropDownMenuIsShown && !dropDownWrapperIsClicked) {
-      dropDownMenu.classList.remove('is-active');
-    }
-  });
-});
-
-newMazeBtn.addEventListener('click', async function () {
-  if (!mazeAlgo) {
-    warning.show('algorithm');
+  if (mazeStates.isGenerating || mazeStates.isSearchingSolution) {
     return;
   }
 
@@ -110,10 +86,9 @@ newMazeBtn.addEventListener('click', async function () {
   mazeStates.isSolutionFound = false;
 
   mazeStates.isGenerating = true;
-  toggleBtnsIsDisabled();
 
   drawMaze();
-  mazeStates.isGenerating = await grid.generateMaze(mazeAlgo);
+  mazeStates.isGenerating = await grid.generateMaze(e.target.textContent);
 });
 
 pathfindingAlgosDropdown.addEventListener('click', function (e) {
@@ -136,6 +111,21 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
   findSolution(e.target.textContent);
 });
 
+document.addEventListener('click', (e) => {
+  const dropDowns = [
+    [mazeAlgosList, mazeAlgosDropdown],
+    [pathfindingAlgosList, pathfindingAlgosDropdown],
+  ];
+
+  dropDowns.forEach(([dropDownMenu, dropDownWrapper]) => {
+    const dropDownMenuIsShown = dropDownMenu.classList.contains('is-active');
+    const dropDownWrapperIsClicked = dropDownWrapper.contains(e.target);
+    if (dropDownMenuIsShown && !dropDownWrapperIsClicked) {
+      dropDownMenu.classList.remove('is-active');
+    }
+  });
+});
+
 async function findSolution(algo) {
   if (mazeStates.isSolutionFound) {
     grid.clearSolution();
@@ -148,14 +138,12 @@ async function findSolution(algo) {
   }
 
   mazeStates.isSearchingSolution = true;
-  toggleBtnsIsDisabled();
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
     mazeStates.isSearchingSolution = false;
     mazeStates.isSolutionFound = true;
-    toggleBtnsIsDisabled();
     return;
   }
 
@@ -173,7 +161,6 @@ function drawMaze() {
     targetNode.setPosition(grid);
     targetNode.draw(solutionCtx, 'spriteNormal');
 
-    toggleBtnsIsDisabled();
     mazeStates.isGenerated = true;
     return;
   }
@@ -205,7 +192,6 @@ function drawSolution() {
     targetNode.resetScale();
     mazeStates.isSearchingSolution = false;
     mazeStates.isSolutionFound = true;
-    toggleBtnsIsDisabled();
     return;
   }
 
@@ -215,8 +201,4 @@ function drawSolution() {
   drawStartNodeAndFootprints();
 
   requestAnimationFrame(drawSolution);
-}
-
-function toggleBtnsIsDisabled() {
-  newMazeBtn.disabled = !newMazeBtn.disabled;
 }
