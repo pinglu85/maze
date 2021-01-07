@@ -233,6 +233,7 @@ h3 {
   justify-content: center;
   margin-top: 240px;
   width: 100%;
+  overflow: auto;
 }
 
 @media (max-width: 1024px) and (min-width: 577px) {
