@@ -3,11 +3,19 @@ import StartNode from './StartNode';
 import TargetNode from './TargetNode';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
+import mazeStateReducer from './store/mazeStateReducer';
+import {
+  generatingNewMaze,
+  mazeGenerated,
+  searchingSolution,
+  solutionFound,
+} from './store/actions';
 import {
   loadStartNodeSprites,
   loadTargetNodeSprites,
   setupCanvases,
   setDefaultGridSize,
+  store,
 } from './utils';
 import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors';
 import { CELL_SIZE, SPRITE_SIZE, LINE_WIDTH } from './constants/size';
@@ -29,40 +37,54 @@ const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
 const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
-const gridSize = {
-  numOfRows: 0,
-  numOfCols: 0,
-};
-const canvasSize = {
-  width: 0,
-  height: 0,
-};
-
-const mazeStates = {
+const initialMazeState = {
+  gridSize: {
+    numOfRows: 0,
+    numOfCols: 0,
+  },
+  canvasSize: {
+    width: 0,
+    height: 0,
+  },
   isGenerating: false,
   isGenerated: false,
   isSearchingSolution: false,
   isSolutionFound: false,
 };
 
+const mazeStore = store.createStore(mazeStateReducer, initialMazeState);
+
+mazeStore.subscribe((prevState, state) => {
+  const { gridSize: prevGridSize } = prevState;
+  const { gridSize } = state;
+  if (
+    prevGridSize.numOfRows !== gridSize.numOfRows ||
+    prevGridSize.numOfCols !== gridSize.numOfCols
+  ) {
+    setCanvasesSize(state.canvasSize);
+    grid.setContent(gridSize);
+    grid.draw(mazeCtx);
+  }
+});
+
+mazeStore.subscribe((prevState, state) => {
+  if (
+    prevState.isGenerating !== state.isGenerating ||
+    prevState.isSearchingSolution !== state.isSearchingSolution
+  ) {
+    mazeAlgosList.classList.toggle('disabled');
+    pathfindingAlgosList.classList.toggle('disabled');
+    settingsDrawer.saveBtn.disabled = !settingsDrawer.saveBtn.disabled;
+  }
+});
+
 window.addEventListener('DOMContentLoaded', () => {
-  setDefaultGridSize(gridSize);
-
-  setCanvasesSize(gridSize, canvasSize);
-
-  grid.setContent(gridSize.numOfRows, gridSize.numOfCols);
-  grid.draw(mazeCtx);
+  setDefaultGridSize(mazeStore.dispatch);
 });
 
 settingsBtn.addEventListener('click', () => {
-  settingsDrawer.open(
-    gridSize,
-    canvasSize,
-    setCanvasesSize,
-    grid,
-    mazeCtx,
-    mazeStates
-  );
+  const { gridSize } = mazeStore.getState();
+  settingsDrawer.open(gridSize, mazeStore.dispatch);
 });
 
 mazeAlgosDropdown.addEventListener('click', async (e) => {
@@ -73,23 +95,28 @@ mazeAlgosDropdown.addEventListener('click', async (e) => {
 
   mazeAlgosList.classList.remove('is-active');
 
-  if (mazeStates.isGenerating || mazeStates.isSearchingSolution) {
+  const {
+    gridSize,
+    canvasSize,
+    isGenerating,
+    isGenerated,
+    isSearchingSolution,
+  } = mazeStore.getState();
+
+  if (isGenerating || isSearchingSolution) {
     return;
   }
 
-  if (mazeStates.isGenerated) {
-    grid.setContent(gridSize.numOfRows, gridSize.numOfCols);
+  if (isGenerated) {
+    grid.setContent(gridSize);
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
-    mazeStates.isGenerated = false;
   }
 
-  mazeStates.isSolutionFound = false;
-
-  mazeStates.isGenerating = true;
-  toggleBtnsDisabled();
+  store.dispatch(generatingNewMaze());
 
   drawMaze();
-  mazeStates.isGenerating = await grid.generateMaze(e.target.textContent);
+  await grid.generateMaze(e.target.textContent);
+  store.dispatch(mazeGenerated());
 });
 
 pathfindingAlgosDropdown.addEventListener('click', function (e) {
@@ -100,16 +127,24 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
 
   pathfindingAlgosList.classList.remove('is-active');
 
-  if (mazeStates.isGenerating || mazeStates.isSearchingSolution) {
+  const {
+    canvasSize,
+    isGenerating,
+    isGenerated,
+    isSearchingSolution,
+    isSolutionFound,
+  } = mazeStore.getState();
+
+  if (isGenerating || isSearchingSolution) {
     return;
   }
 
-  if (!mazeStates.isGenerated) {
+  if (!isGenerated) {
     popupWarning.show('generate a maze');
     return;
   }
 
-  findSolution(e.target.textContent);
+  findSolution(e.target.textContent, canvasSize, isSolutionFound);
 });
 
 document.addEventListener('click', (e) => {
@@ -127,26 +162,22 @@ document.addEventListener('click', (e) => {
   });
 });
 
-async function findSolution(algo) {
-  if (mazeStates.isSolutionFound) {
+async function findSolution(algo, canvasSize, isSolutionFound) {
+  if (isSolutionFound) {
     grid.clearSolution();
     startNode.resetState(grid);
     mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
     startNode.draw(solutionCtx);
     targetNode.draw(solutionCtx, 'spriteNormal');
-    mazeStates.isSolutionFound = false;
   }
 
-  mazeStates.isSearchingSolution = true;
-  toggleBtnsDisabled();
+  mazeStore.dispatch(searchingSolution());
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
-    mazeStates.isSearchingSolution = false;
-    mazeStates.isSolutionFound = true;
-    toggleBtnsDisabled();
+    mazeStore.dispatch(solutionFound());
     return;
   }
 
@@ -154,18 +185,16 @@ async function findSolution(algo) {
 }
 
 function drawMaze() {
+  const { isGenerating, canvasSize } = mazeStore.getState();
   mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   grid.draw(mazeCtx);
 
-  if (!mazeStates.isGenerating) {
+  if (!isGenerating) {
     startNode.resetState(grid);
     startNode.draw(solutionCtx);
 
     targetNode.setPosition(grid);
     targetNode.draw(solutionCtx, 'spriteNormal');
-
-    mazeStates.isGenerated = true;
-    toggleBtnsDisabled();
     return;
   }
 
@@ -189,14 +218,13 @@ function drawSolution() {
     startNode.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
   };
 
+  const { canvasSize } = mazeStore.getState();
   solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 
   if (startNode.atExit) {
     drawStartNodeAndFootprints();
     targetNode.resetScale();
-    mazeStates.isSearchingSolution = false;
-    mazeStates.isSolutionFound = true;
-    toggleBtnsDisabled();
+    mazeStore.dispatch(solutionFound());
     return;
   }
 
@@ -206,10 +234,4 @@ function drawSolution() {
   drawStartNodeAndFootprints();
 
   requestAnimationFrame(drawSolution);
-}
-
-function toggleBtnsDisabled() {
-  mazeAlgosList.classList.toggle('disabled');
-  pathfindingAlgosList.classList.toggle('disabled');
-  settingsDrawer.saveBtn.disabled = !settingsDrawer.saveBtn.disabled;
 }

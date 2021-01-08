@@ -23,7 +23,7 @@ class Grid {
     this.exitDir = '';
   }
 
-  setContent(numOfRows, numOfCols) {
+  setContent = ({ numOfRows, numOfCols }) => {
     const offset =
       Math.floor(this.lineWidth.outerWall / 2) +
       this.lineWidth.halfOuterInteriorWallDiff;
@@ -35,13 +35,13 @@ class Grid {
         return cell;
       })
     );
-  }
+  };
 
   generateMaze(algo) {
     const asyncGenerateMaze = async (mazeGenerationAlgo, arg) => {
       await mazeGenerationAlgo(this.content, arg);
       this.generateMazeEntryAndExit();
-      return Promise.resolve(false);
+      return Promise.resolve();
     };
 
     switch (algo) {
@@ -67,7 +67,7 @@ class Grid {
       case 'Open Grid':
         this.dropInteriorWalls();
         this.generateMazeEntryAndExit();
-        return Promise.resolve(false);
+        return Promise.resolve();
       default:
       // do nothing
     }
@@ -159,13 +159,13 @@ class Grid {
     }
   }
 
-  draw(ctx) {
+  draw = (ctx) => {
     for (const row of this.content) {
       for (const cell of row) {
         cell.draw(ctx, this.cellSize, this.cellColors, this.lineWidth);
       }
     }
-  }
+  };
 }
 
 export default Grid;
