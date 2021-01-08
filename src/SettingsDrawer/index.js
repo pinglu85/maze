@@ -1,6 +1,7 @@
 import warning from '../shared/Warning';
 import parseInputValue from './parseInputValue';
 import { checkIsMobile, checkIsTablet, checkIsBigTablet } from '../utils';
+import { updateGridSize } from '../store/actions';
 import {
   GRID_SIZE_MOBILE,
   GRID_SIZE_TABLET,
@@ -21,7 +22,7 @@ class SettingsDrawer {
     this._warningRoot = document.getElementById('drawer-warning');
   }
 
-  open(gridSize, canvasSize, setCanvasesSize, grid, mazeCtx, mazeStates) {
+  open(gridSize, dispatch) {
     this._root.classList.add('is-open');
     this._backdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
@@ -39,15 +40,7 @@ class SettingsDrawer {
 
     this.saveBtn.addEventListener(
       'click',
-      this._saveSettings.bind(
-        this,
-        gridSize,
-        canvasSize,
-        setCanvasesSize,
-        grid,
-        mazeCtx,
-        mazeStates
-      )
+      this._saveSettings.bind(this, dispatch)
     );
   }
 
@@ -79,14 +72,7 @@ class SettingsDrawer {
     }
   };
 
-  _saveSettings(
-    gridSize,
-    canvasSize,
-    setCanvasesSize,
-    grid,
-    mazeCtx,
-    mazeStates
-  ) {
+  _saveSettings(dispatch) {
     const updatedNumOfRows = parseInputValue(this._inputRows.value);
     let warningMessage = 'enter a valid number for';
 
@@ -101,21 +87,13 @@ class SettingsDrawer {
       return;
     }
 
-    if (
-      updatedNumOfRows !== gridSize.numOfRows ||
-      updatedNumOfCols !== gridSize.numOfCols
-    ) {
-      gridSize.numOfRows = updatedNumOfRows;
-      gridSize.numOfCols = updatedNumOfCols;
-      this._saveGridSizeToLocalStorage(gridSize);
+    const updatedGridSize = {
+      numOfRows: updatedNumOfRows,
+      numOfCols: updatedNumOfCols,
+    };
 
-      mazeStates.isGenerated = false;
-      mazeStates.isSolutionFound = false;
-
-      setCanvasesSize(gridSize, canvasSize);
-      grid.setContent(gridSize.numOfRows, gridSize.numOfCols);
-      grid.draw(mazeCtx);
-    }
+    this._saveGridSizeToLocalStorage(updatedGridSize);
+    dispatch(updateGridSize(updatedGridSize));
 
     this._close();
   }
