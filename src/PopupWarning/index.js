@@ -2,9 +2,9 @@ import alertIcon from '../assets/alert-circle.svg';
 import dismissIcon from '../assets/x.svg';
 import styles from './style.module.css';
 
-class Warning {
+class PopupWarning {
   constructor() {
-    this.root = document.getElementById('warning');
+    this.root = document.getElementById('popup-warning');
     this.dismissBtn = null;
   }
 
@@ -58,6 +58,6 @@ class Warning {
   }
 }
 
-const warning = new Warning();
+const popupWarning = new PopupWarning();
 
-export default warning;
+export default popupWarning;

@@ -1,7 +1,7 @@
 import Grid from './Grid';
 import StartNode from './StartNode';
 import TargetNode from './TargetNode';
-import warning from './Warning';
+import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import {
   loadStartNodeSprites,
@@ -105,7 +105,7 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
   }
 
   if (!mazeStates.isGenerated) {
-    warning.show('maze');
+    popupWarning.show('maze');
     return;
   }
 
