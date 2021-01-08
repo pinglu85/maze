@@ -1,0 +1,25 @@
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  background: var(--light-yellow);
+  border-radius: 0.25rem;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.message {
+  margin-left: 0.5rem;
+  word-wrap: normal;
+}

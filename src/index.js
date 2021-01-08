@@ -105,7 +105,7 @@ pathfindingAlgosDropdown.addEventListener('click', function (e) {
   }
 
   if (!mazeStates.isGenerated) {
-    popupWarning.show('maze');
+    popupWarning.show('generate a maze');
     return;
   }
 
