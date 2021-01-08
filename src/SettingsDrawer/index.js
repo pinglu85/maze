@@ -168,7 +168,7 @@ class SettingsDrawer {
           <span class="${styles.clue}">(Range: 3 - 40)</span>
         </label>
       </div>
-      <div class="${styles.drawerActions}">
+      <div>
         <button type="button" class="btn btn--primary ${styles.drawerBtn}" id="save-settings-btn">Save</button>
       </div>
     `;
