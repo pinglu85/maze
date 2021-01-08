@@ -1,4 +1,4 @@
-import alertIcon from '../assets/alert-circle.svg';
+import warning from '../shared/Warning';
 import dismissIcon from '../assets/x.svg';
 import styles from './style.module.css';
 
@@ -8,11 +8,11 @@ class PopupWarning {
     this.dismissBtn = null;
   }
 
-  show(content) {
+  show(message) {
     this.root.classList.add('is-active');
-    this.root.innerHTML = this._template(content);
+    this.root.innerHTML = this._template(message);
 
-    this.dismissBtn = document.getElementById('dismiss-btn');
+    this.dismissBtn = document.getElementById('popup-warning-dismiss-btn');
     this.dismissBtn.addEventListener('click', this._hide);
   }
 
@@ -22,39 +22,14 @@ class PopupWarning {
     this.root.innerHTML = '';
   };
 
-  _template(content) {
-    let message = '';
-
-    switch (content) {
-      case 'rows':
-      case 'columns':
-        message = `You did not enter a valid number for ${content}.`;
-        break;
-      case 'algorithm':
-        message = `You did not select an ${content}.`;
-        break;
-      case 'maze':
-        message = `You did not generate a ${content}.`;
-        break;
-      default:
-        return '';
-    }
-
-    return `
-    <div class="${styles.body}">
-      <div class="${styles.content}">
-        <img class="${styles.icon}" src=${alertIcon}>
-        <p class="${styles.message}">
-          <strong>Whoops. </strong>
-          <span>${message}</span>
-        </p>
-      </div>
-      <button type="button" id="dismiss-btn" class="btn ${styles.dismiss}">
+  _template(message) {
+    const dismissBtn = ` 
+      <button type="button" id="popup-warning-dismiss-btn" class="btn ${styles.dismiss}">
         <img class="${styles.icon}" src=${dismissIcon}>
         <span class="sr-only">Dismiss Warning</span>
       </button>
-    </div>
-  `;
+    `;
+    return warning.template(message, dismissBtn);
   }
 }
 

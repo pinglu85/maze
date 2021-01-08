@@ -1,3 +1,4 @@
+import warning from '../shared/Warning';
 import parseInputValue from './parseInputValue';
 import { checkIsMobile, checkIsTablet, checkIsBigTablet } from '../utils';
 import {
@@ -6,7 +7,6 @@ import {
   GRID_SIZE_BIG_TABLET,
   GRID_SIZE_DESKTOP,
 } from '../constants/localStorageKeys';
-import alertIcon from '../assets/alert-circle.svg';
 import styles from './style.module.css';
 
 class SettingsDrawer {
@@ -88,14 +88,16 @@ class SettingsDrawer {
     mazeStates
   ) {
     const updatedNumOfRows = parseInputValue(this._inputRows.value);
+    let warningMessage = 'enter a valid number for';
+
     if (!updatedNumOfRows) {
-      this._showWarning('rows');
+      this._showWarning(`${warningMessage} rows`);
       return;
     }
 
     const updatedNumOfCols = parseInputValue(this._inputCols.value);
     if (!updatedNumOfCols) {
-      this._showWarning('cols');
+      this._showWarning(`${warningMessage} columns`);
       return;
     }
 
@@ -139,8 +141,8 @@ class SettingsDrawer {
     localStorage.setItem(GRID_SIZE_DESKTOP, stringifiedGridSize);
   }
 
-  _showWarning(content) {
-    this._warningRoot.innerHTML = this._warningTemplate(content);
+  _showWarning(message) {
+    this._warningRoot.innerHTML = warning.template(message);
   }
 
   _clearWarning() {
@@ -170,20 +172,6 @@ class SettingsDrawer {
       </div>
       <div>
         <button type="button" class="btn btn--primary ${styles.drawerBtn}" id="save-settings-btn">Save</button>
-      </div>
-    `;
-  }
-
-  _warningTemplate(content) {
-    return ` 
-      <div class="${styles.warningBody}">
-        <div class="${styles.warningContent}">
-          <img class="${styles.warningIcon}" src=${alertIcon}>
-          <p class="${styles.warningMessage}">
-            <strong>Whoops. </strong>
-            <span>You did not enter a valid number for ${content}</span>
-          </p>
-        </div>
       </div>
     `;
   }
