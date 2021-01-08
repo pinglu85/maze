@@ -1,4 +1,4 @@
-._2YY9TvOttb0BaZFXRNS_7m {
+._2-lXph-IPfctUnWXtxKB4Y {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9,13 +9,12 @@
       -ms-flex-align: center;
           align-items: center;
   padding: 1rem;
+  font-size: 0.875rem;
   background: var(--light-yellow);
   border-radius: 0.25rem;
-  -webkit-box-shadow: var(--box-shadow);
-          box-shadow: var(--box-shadow);
 }
 
-._283JCZ1ILssezlSVA1piAP {
+._1_Gs0b90shQbE8DnPyYS1y {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -27,23 +26,22 @@
           align-items: center;
 }
 
-._3AAFn1ILIcb883bOuoyJ_2 {
-  display: block;
+.SHlMkqOyhn5PWYUP3mJZ0 {
   width: 20px;
   height: 20px;
 }
 
-.KOzdjS9-8X4uwMNmoSLaa {
+.ZjNb5-mHTw3XCGPFYXN1e {
   margin-left: 0.5rem;
   word-wrap: normal;
 }
 
-._1vUkhyCZTmrSQLXekEWnql {
+._1bRaiwvJyiOXz846HgS7ad {
   opacity: 0.5;
 }
 
-._1vUkhyCZTmrSQLXekEWnql:hover,
-._1vUkhyCZTmrSQLXekEWnql:active {
+._1bRaiwvJyiOXz846HgS7ad:hover,
+._1bRaiwvJyiOXz846HgS7ad:active {
   opacity: 1;
 }
 
@@ -102,44 +100,6 @@
 
 ._1FIqTGRsfVxPVvTM8N_feV {
   margin-top: 1.5rem;
-}
-
-.N4SSH0K5wgN7CDosOtz-P {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 1rem;
-  font-size: 0.875rem;
-  background: var(--light-yellow);
-  border-radius: 0.25rem;
-}
-
-._1u8xDLaob2A_aTMP43vcN0 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-._3W1it9LG6YfKU8-nyk0iLI {
-  width: 20px;
-  height: 20px;
-}
-
-._2dWtWfEWXPo4Xa5_Bp8gS8 {
-  margin-left: 0.5rem;
-  word-wrap: normal;
 }
 
 :root {
@@ -445,7 +405,7 @@ canvas {
   position: absolute;
 }
 
-.warning {
+.popup-warning {
   display: none;
   position: fixed;
   top: 0;
@@ -453,10 +413,12 @@ canvas {
   width: 480px;
   max-width: 100%;
   z-index: 99;
+  -webkit-box-shadow: var(--box-shadow);
+          box-shadow: var(--box-shadow);
 }
 
 @media (max-width: 576px) {
-  .warning {
+  .popup-warning {
     left: 0;
   }
 }
