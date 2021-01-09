@@ -156,12 +156,12 @@ class Cell {
     return droppedOuterWall;
   }
 
-  draw(ctx, cellSize, colors, lineWidth) {
-    const halfInteriorWallLineWidth = Math.floor(lineWidth.interiorWall / 2);
+  draw(ctx, cellSize, colors, lineWidths) {
+    const halfInteriorWallLineWidth = Math.floor(lineWidths.interiorWall / 2);
 
     const fillRectStartX = this.startX + halfInteriorWallLineWidth;
     const fillRectStartY = this.startY + halfInteriorWallLineWidth;
-    const fillRectSize = cellSize - lineWidth.interiorWall;
+    const fillRectSize = cellSize - lineWidths.interiorWall;
 
     ctx.fillStyle = this._getCtxFillStyle(colors);
     ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
@@ -175,26 +175,26 @@ class Cell {
     ctx.strokeStyle = colors.border;
 
     const startXWithLineWidthOffset = this.outerWalls.west
-      ? this.startX - lineWidth.outerWall
+      ? this.startX - lineWidths.outerWall
       : this.startX - halfInteriorWallLineWidth;
     const startYWithLineWidthOffset = this.outerWalls.north
-      ? this.startY - lineWidth.outerWall
+      ? this.startY - lineWidths.outerWall
       : this.startY - halfInteriorWallLineWidth;
     const endXWithLineWidthOffset = this.outerWalls.east
-      ? this.endX + lineWidth.outerWall
+      ? this.endX + lineWidths.outerWall
       : this.endX + halfInteriorWallLineWidth;
     const endYWithLineWidthOffset = this.outerWalls.south
-      ? this.endY + lineWidth.outerWall
+      ? this.endY + lineWidths.outerWall
       : this.endY + halfInteriorWallLineWidth;
 
     if (this.northWall) {
       let startY = this.startY;
 
-      ctx.lineWidth = lineWidth.interiorWall;
+      ctx.lineWidth = lineWidths.interiorWall;
 
       if (this.outerWalls.north) {
-        ctx.lineWidth = lineWidth.outerWall;
-        startY -= lineWidth.halfOuterInteriorWallDiff;
+        ctx.lineWidth = lineWidths.outerWall;
+        startY -= lineWidths.halfOuterInteriorWallDiff;
       }
 
       ctx.beginPath();
@@ -206,11 +206,11 @@ class Cell {
     if (this.eastWall) {
       let endX = this.endX;
 
-      ctx.lineWidth = lineWidth.interiorWall;
+      ctx.lineWidth = lineWidths.interiorWall;
 
       if (this.outerWalls.east) {
-        ctx.lineWidth = lineWidth.outerWall;
-        endX += lineWidth.halfOuterInteriorWallDiff;
+        ctx.lineWidth = lineWidths.outerWall;
+        endX += lineWidths.halfOuterInteriorWallDiff;
       }
 
       ctx.beginPath();
@@ -222,11 +222,11 @@ class Cell {
     if (this.southWall) {
       let endY = this.endY;
 
-      ctx.lineWidth = lineWidth.interiorWall;
+      ctx.lineWidth = lineWidths.interiorWall;
 
       if (this.outerWalls.south) {
-        ctx.lineWidth = lineWidth.outerWall;
-        endY += lineWidth.halfOuterInteriorWallDiff;
+        ctx.lineWidth = lineWidths.outerWall;
+        endY += lineWidths.halfOuterInteriorWallDiff;
       }
 
       ctx.beginPath();
@@ -238,11 +238,11 @@ class Cell {
     if (this.westWall) {
       let startX = this.startX;
 
-      ctx.lineWidth = lineWidth.interiorWall;
+      ctx.lineWidth = lineWidths.interiorWall;
 
       if (this.outerWalls.west) {
-        ctx.lineWidth = lineWidth.outerWall;
-        startX -= lineWidth.halfOuterInteriorWallDiff;
+        ctx.lineWidth = lineWidths.outerWall;
+        startX -= lineWidths.halfOuterInteriorWallDiff;
       }
 
       ctx.beginPath();
