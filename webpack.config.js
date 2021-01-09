@@ -6,6 +6,7 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   devtool: 'eval-cheap-module-source-map',
+  target: 'web',
   devServer: {
     contentBase: './dist',
     host: '0.0.0.0',
