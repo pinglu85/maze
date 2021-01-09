@@ -12,11 +12,11 @@ import { asyncAStarSearch, asyncDijkstrasAlgo } from './pathfindingAlgos';
 import { getRandomIndex, getStartOrEndIndexOfArray } from '../utils';
 
 class Grid {
-  constructor(cellSize, cellColors, lineWidth) {
+  constructor(cellSize, cellColors, lineWidths) {
     this.content = [];
     this.cellSize = cellSize;
     this.cellColors = cellColors;
-    this.lineWidth = lineWidth;
+    this.lineWidths = lineWidths;
     this.entranceCell = null;
     this.entranceDir = '';
     this.exitCell = null;
@@ -25,8 +25,8 @@ class Grid {
 
   setContent = ({ numOfRows, numOfCols }) => {
     const offset =
-      Math.floor(this.lineWidth.outerWall / 2) +
-      this.lineWidth.halfOuterInteriorWallDiff;
+      Math.floor(this.lineWidths.outerWall / 2) +
+      this.lineWidths.halfOuterInteriorWallDiff;
 
     this.content = Array.from(new Array(numOfRows), (_, rowIndex) =>
       Array.from(new Array(numOfCols), (_, colIndex) => {
@@ -162,7 +162,7 @@ class Grid {
   draw = (ctx) => {
     for (const row of this.content) {
       for (const cell of row) {
-        cell.draw(ctx, this.cellSize, this.cellColors, this.lineWidth);
+        cell.draw(ctx, this.cellSize, this.cellColors, this.lineWidths);
       }
     }
   };
