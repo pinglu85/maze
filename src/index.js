@@ -87,67 +87,7 @@ settingsBtn.addEventListener('click', () => {
   settingsDrawer.open(gridSize, mazeStore.dispatch);
 });
 
-mazeAlgosDropdown.addEventListener('click', async (e) => {
-  if (e.target && e.target.nodeName !== 'A') {
-    mazeAlgosList.classList.add('is-active');
-    return;
-  }
-
-  mazeAlgosList.classList.remove('is-active');
-
-  const {
-    gridSize,
-    canvasSize,
-    isGenerating,
-    isGenerated,
-    isSearchingSolution,
-  } = mazeStore.getState();
-
-  if (isGenerating || isSearchingSolution) {
-    return;
-  }
-
-  if (isGenerated) {
-    grid.setContent(gridSize);
-    solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
-  }
-
-  store.dispatch(generatingNewMaze());
-
-  drawMaze();
-  await grid.generateMaze(e.target.textContent);
-  store.dispatch(mazeGenerated());
-});
-
-pathfindingAlgosDropdown.addEventListener('click', function (e) {
-  if (e.target && e.target.nodeName !== 'A') {
-    pathfindingAlgosList.classList.add('is-active');
-    return;
-  }
-
-  pathfindingAlgosList.classList.remove('is-active');
-
-  const {
-    canvasSize,
-    isGenerating,
-    isGenerated,
-    isSearchingSolution,
-    isSolutionFound,
-  } = mazeStore.getState();
-
-  if (isGenerating || isSearchingSolution) {
-    return;
-  }
-
-  if (!isGenerated) {
-    popupWarning.show('generate a maze');
-    return;
-  }
-
-  findSolution(e.target.textContent, canvasSize, isSolutionFound);
-});
-
-document.addEventListener('click', (e) => {
+const handleDropdownMenuClose = (e) => {
   const dropDowns = [
     [mazeAlgosList, mazeAlgosDropdown],
     [pathfindingAlgosList, pathfindingAlgosDropdown],
@@ -160,7 +100,61 @@ document.addEventListener('click', (e) => {
       dropDownMenu.classList.remove('is-active');
     }
   });
-});
+};
+document.addEventListener('click', handleDropdownMenuClose);
+
+const handleMazeAlgosDropdownClick = async (e) => {
+  if (e.target && e.target.nodeName !== 'A') {
+    mazeAlgosList.classList.add('is-active');
+    return;
+  }
+
+  mazeAlgosList.classList.remove('is-active');
+
+  const mazeState = mazeStore.getState();
+  if (mazeState.isGenerating || mazeState.isSearchingSolution) {
+    return;
+  }
+
+  if (mazeState.isGenerated) {
+    const { gridSize, canvasSize } = mazeState;
+    grid.setContent(gridSize);
+    solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+  }
+
+  store.dispatch(generatingNewMaze());
+
+  drawMaze();
+  await grid.generateMaze(e.target.textContent);
+  store.dispatch(mazeGenerated());
+};
+mazeAlgosDropdown.addEventListener('click', handleMazeAlgosDropdownClick);
+
+const handlePathfindingAlgosDropdownClick = (e) => {
+  if (e.target && e.target.nodeName !== 'A') {
+    pathfindingAlgosList.classList.add('is-active');
+    return;
+  }
+
+  pathfindingAlgosList.classList.remove('is-active');
+
+  const mazeState = mazeStore.getState();
+  if (mazeState.isGenerating || mazeState.isSearchingSolution) {
+    return;
+  }
+
+  if (!mazeState.isGenerated) {
+    popupWarning.show('generate a maze');
+    return;
+  }
+
+  const { canvasSize, isSolutionFound } = mazeState;
+  findSolution(e.target.textContent, canvasSize, isSolutionFound);
+};
+pathfindingAlgosDropdown.addEventListener(
+  'click',
+  handlePathfindingAlgosDropdownClick
+);
 
 async function findSolution(algo, canvasSize, isSolutionFound) {
   if (isSolutionFound) {
