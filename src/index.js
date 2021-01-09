@@ -17,7 +17,11 @@ import {
   setDefaultGridSize,
   store,
 } from './utils';
-import { CELL_COLORS, FOOTPRINT_COLORS } from './constants/colors';
+import {
+  CELL_COLORS,
+  FOOTPRINT_COLORS,
+  GUIDES_COLOR,
+} from './constants/colors';
 import { CELL_SIZE, SPRITE_SIZE, LINE_WIDTHS } from './constants/size';
 import './index.css';
 
@@ -31,11 +35,12 @@ const settingsBtn = document.getElementById('settings-btn');
 
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
-const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTHS);
+const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTHS, GUIDES_COLOR);
 const startNodeSprites = loadStartNodeSprites(10);
 const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
 const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
+let mazeAlgo = '';
 
 const initialMazeState = {
   gridSize: {
@@ -125,7 +130,8 @@ const handleMazeAlgosDropdownClick = async (e) => {
   store.dispatch(generatingNewMaze());
 
   drawMaze();
-  await grid.generateMaze(e.target.textContent);
+  mazeAlgo = e.target.textContent;
+  await grid.generateMaze(mazeAlgo);
   store.dispatch(mazeGenerated());
 };
 mazeAlgosDropdown.addEventListener('click', handleMazeAlgosDropdownClick);
@@ -181,6 +187,9 @@ async function findSolution(algo, canvasSize, isSolutionFound) {
 function drawMaze() {
   const { isGenerating, canvasSize } = mazeStore.getState();
   mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+  if (mazeAlgo === 'Open Grid') {
+    grid.drawGuides(mazeCtx);
+  }
   grid.draw(mazeCtx);
 
   if (!isGenerating) {
@@ -196,6 +205,9 @@ function drawMaze() {
 }
 
 function visualizePathfindingAlgo() {
+  if (mazeAlgo === 'Open Grid') {
+    grid.drawGuides(mazeCtx);
+  }
   grid.draw(mazeCtx);
 
   const isPathFound = startNode.pathCoordinates.length > 0;

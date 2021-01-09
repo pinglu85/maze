@@ -12,11 +12,15 @@ import { asyncAStarSearch, asyncDijkstrasAlgo } from './pathfindingAlgos';
 import { getRandomIndex, getStartOrEndIndexOfArray } from '../utils';
 
 class Grid {
-  constructor(cellSize, cellColors, lineWidths) {
+  constructor(cellSize, cellColors, lineWidths, guidesColor) {
     this.content = [];
     this.cellSize = cellSize;
     this.cellColors = cellColors;
     this.lineWidths = lineWidths;
+    this.cellPosOffSet =
+      Math.floor(this.lineWidths.outerWall / 2) +
+      this.lineWidths.halfOuterInteriorWallDiff;
+    this.guidesColor = guidesColor;
     this.entranceCell = null;
     this.entranceDir = '';
     this.exitCell = null;
@@ -24,13 +28,14 @@ class Grid {
   }
 
   setContent = ({ numOfRows, numOfCols }) => {
-    const offset =
-      Math.floor(this.lineWidths.outerWall / 2) +
-      this.lineWidths.halfOuterInteriorWallDiff;
-
     this.content = Array.from(new Array(numOfRows), (_, rowIndex) =>
       Array.from(new Array(numOfCols), (_, colIndex) => {
-        const cell = new Cell(rowIndex, colIndex, this.cellSize, offset);
+        const cell = new Cell(
+          rowIndex,
+          colIndex,
+          this.cellSize,
+          this.cellPosOffSet
+        );
         cell.setOuterWalls(numOfRows, numOfCols);
         return cell;
       })
@@ -166,6 +171,34 @@ class Grid {
       }
     }
   };
+
+  drawGuides(ctx) {
+    const numOfRows = this.content.length;
+    const numOfCols = this.content[0].length;
+    const width = numOfCols * this.cellSize + this.cellPosOffSet;
+    const height = numOfRows * this.cellSize + this.cellPosOffSet;
+
+    ctx.lineWidth = this.lineWidths.interiorWall;
+    ctx.strokeStyle = this.guidesColor;
+
+    // Draw horizontal lines
+    for (let i = 1; i < numOfRows; i++) {
+      const posY = i * this.cellSize + this.cellPosOffSet;
+      ctx.beginPath();
+      ctx.moveTo(0, posY);
+      ctx.lineTo(width, posY);
+      ctx.stroke();
+    }
+
+    // Draw vertical lines
+    for (let j = 1; j < numOfCols; j++) {
+      const posX = j * this.cellSize + this.cellPosOffSet;
+      ctx.beginPath();
+      ctx.moveTo(posX, 0);
+      ctx.lineTo(posX, height);
+      ctx.stroke();
+    }
+  }
 }
 
 export default Grid;

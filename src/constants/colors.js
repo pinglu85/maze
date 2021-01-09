@@ -18,3 +18,4 @@ export const FOOTPRINT_COLORS = {
   newFootprint: '#ffcc01',
   oldFootprint: '#d76367',
 };
+export const GUIDES_COLOR = '#f4f6f7';
