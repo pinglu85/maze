@@ -258,7 +258,7 @@ class Cell {
     }
 
     if (this.isBeingScanned) {
-      return colors.scanning;
+      return colors.beingScanned;
     }
 
     if (this.isInSameSet) {
