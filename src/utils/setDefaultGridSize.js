@@ -45,7 +45,7 @@ export default function setDefaultGridSize(dispatch) {
 
   storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_DESKTOP));
   if (!storedGridSize) {
-    setGridSize(dispatch, { numOfRows: 13, numOfCols: 40 });
+    setGridSize(dispatch, { numOfRows: 12, numOfCols: 40 });
     return;
   }
 
