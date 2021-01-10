@@ -13,8 +13,8 @@ function selectCellFromArr(arr, option) {
   return arr[lastIndex];
 }
 
-async function updateActiveCells(grid, startCell, activeCells, resolve) {
-  const randomAvailNeighbor = startCell.getRandomAvailNeighbor(grid);
+async function updateActiveCells(grid, startingCell, activeCells, resolve) {
+  const randomAvailNeighbor = startingCell.getRandomAvailNeighbor(grid);
   if (!randomAvailNeighbor) {
     activeCells.pop();
     resolve();
@@ -23,7 +23,7 @@ async function updateActiveCells(grid, startCell, activeCells, resolve) {
 
   const [dir, neighbor] = randomAvailNeighbor;
 
-  startCell.dropWall(dir);
+  startingCell.dropWall(dir);
 
   const oppositeDir = getOppositeDir(dir);
   neighbor.dropWall(oppositeDir);
@@ -32,10 +32,10 @@ async function updateActiveCells(grid, startCell, activeCells, resolve) {
   resolve();
 }
 
-function asyncUpdateActiveCells(grid, startCell, activeCells, wait) {
+function asyncUpdateActiveCells(grid, startingCell, activeCells, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      updateActiveCells(grid, startCell, activeCells, resolve);
+      updateActiveCells(grid, startingCell, activeCells, resolve);
     }, wait);
   });
 }
@@ -44,17 +44,17 @@ async function asyncGrowingTree(grid, option, wait = 50) {
   const activeCells = [];
   const randomRow = getRandomIndex(grid.length);
   const randomCol = getRandomIndex(grid[0].length);
-  let startCell = grid[randomRow][randomCol];
-  activeCells.push(startCell);
+  let startingCell = grid[randomRow][randomCol];
+  activeCells.push(startingCell);
 
   while (activeCells.length > 0) {
-    startCell = selectCellFromArr(activeCells, option);
-    startCell.isStartCell = true;
-    if (!startCell.isVisited) {
-      startCell.isVisited = true;
+    startingCell = selectCellFromArr(activeCells, option);
+    startingCell.isStartingCell = true;
+    if (!startingCell.isVisited) {
+      startingCell.isVisited = true;
     }
-    await asyncUpdateActiveCells(grid, startCell, activeCells, wait);
-    startCell.isStartCell = false;
+    await asyncUpdateActiveCells(grid, startingCell, activeCells, wait);
+    startingCell.isStartingCell = false;
   }
 
   return Promise.resolve();

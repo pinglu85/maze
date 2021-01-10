@@ -6,7 +6,7 @@ import {
 } from '../../utils';
 
 function walk(grid, cell, resolve) {
-  cell.isStartCell = false;
+  cell.isStartingCell = false;
   cell.isVisited = true;
 
   const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
@@ -21,7 +21,7 @@ function walk(grid, cell, resolve) {
 
   const oppositeDir = getOppositeDir(dir);
   neighbor.dropWall(oppositeDir);
-  neighbor.isStartCell = true;
+  neighbor.isStartingCell = true;
 
   resolve(neighbor);
 }
@@ -51,7 +51,7 @@ async function hunt(grid, wait, resolve) {
 
         cell.dropWall(dir);
         cell.isVisited = true;
-        cell.isStartCell = true;
+        cell.isStartingCell = true;
 
         const oppositeDir = getOppositeDir(dir);
         neighbor.dropWall(oppositeDir);
@@ -84,15 +84,15 @@ function asyncHunt(grid, wait) {
 async function asyncHuntAndKill(grid, wait = 50) {
   const randomRow = getRandomIndex(grid.length);
   const randomCol = getRandomIndex(grid[0].length);
-  let startCell = grid[randomRow][randomCol];
-  startCell.isStartCell = true;
+  let startingCell = grid[randomRow][randomCol];
+  startingCell.isStartingCell = true;
 
-  while (startCell) {
-    let neighbor = await asyncWalk(grid, startCell, wait);
+  while (startingCell) {
+    let neighbor = await asyncWalk(grid, startingCell, wait);
     while (neighbor) {
       neighbor = await asyncWalk(grid, neighbor, wait);
     }
-    startCell = await asyncHunt(grid, wait);
+    startingCell = await asyncHunt(grid, wait);
   }
 
   return Promise.resolve();

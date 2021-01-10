@@ -27,7 +27,7 @@ class Cell {
     // visualization of maze generation algorithm.
     this.isVisited = false;
     this.isScanning = false;
-    this.isStartCell = false;
+    this.isStartingCell = false;
     this.isConnected = false;
     // State for Randomized Kruskal's Algorithm
     this.cellSetId = '';
@@ -253,7 +253,7 @@ class Cell {
   }
 
   _getCtxFillStyle(colors) {
-    if (this.isStartCell) {
+    if (this.isStartingCell) {
       return colors.start;
     }
 

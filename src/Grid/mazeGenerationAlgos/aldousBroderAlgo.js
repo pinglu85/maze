@@ -1,11 +1,11 @@
 import { getOppositeDir, getRandomIndex } from '../../utils';
 
 function walk(grid, cell, resolve) {
-  cell.isStartCell = false;
+  cell.isStartingCell = false;
   cell.isVisited = true;
 
   const [dir, neighbor] = cell.getRandomNeighbor(grid);
-  neighbor.isStartCell = true;
+  neighbor.isStartingCell = true;
 
   if (neighbor.isVisited) {
     resolve(neighbor);
@@ -31,18 +31,18 @@ function asyncWalk(grid, cell, wait) {
 async function asyncAldousBroderAlgo(grid, wait = 50) {
   const randomRow = getRandomIndex(grid.length);
   const randomCol = getRandomIndex(grid[0].length);
-  let startCell = grid[randomRow][randomCol];
-  startCell.isStartCell = true;
+  let startingCell = grid[randomRow][randomCol];
+  startingCell.isStartingCell = true;
 
   const hasUnvisitedCell = () => {
     return grid.some((row) => row.some((col) => !col.isVisited));
   };
 
   while (hasUnvisitedCell()) {
-    startCell = await asyncWalk(grid, startCell, wait);
+    startingCell = await asyncWalk(grid, startingCell, wait);
   }
 
-  startCell.isStartCell = false;
+  startingCell.isStartingCell = false;
   return Promise.resolve();
 }
 
