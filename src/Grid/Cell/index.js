@@ -26,7 +26,7 @@ class Cell {
     // State for maze generation and
     // visualization of maze generation algorithm.
     this.isVisited = false;
-    this.isScanning = false;
+    this.isBeingScanned = false;
     this.isStartingCell = false;
     this.isConnected = false;
     // State for Randomized Kruskal's Algorithm
@@ -257,7 +257,7 @@ class Cell {
       return colors.starting;
     }
 
-    if (this.isScanning) {
+    if (this.isBeingScanned) {
       return colors.scanning;
     }
 

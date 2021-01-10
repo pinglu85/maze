@@ -39,7 +39,7 @@ async function hunt(grid, wait, resolve) {
   for (const rowIndex of shuffleArrIndices(grid.length)) {
     for (const colIndex of shuffleArrIndices(grid[rowIndex].length)) {
       const cell = grid[rowIndex][colIndex];
-      cell.isScanning = true;
+      cell.isBeingScanned = true;
       await delay(wait);
       if (cell.isVisited) {
         continue;
@@ -57,14 +57,14 @@ async function hunt(grid, wait, resolve) {
         neighbor.dropWall(oppositeDir);
 
         grid[rowIndex].forEach((cell) => {
-          cell.isScanning = false;
+          cell.isBeingScanned = false;
         });
         resolve(cell);
         return;
       }
     }
     grid[rowIndex].forEach((cell) => {
-      cell.isScanning = false;
+      cell.isBeingScanned = false;
     });
   }
 
