@@ -59,7 +59,7 @@ async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
 
   while (cellSets.size > 1) {
     const [cell, [dir, neighbor]] = cellPairs.pop();
-    cell.isStartCell = true;
+    cell.isStartingCell = true;
     if (!cell.isVisited) {
       cell.isVisited = true;
     }
@@ -69,7 +69,7 @@ async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
 
     await delay(wait);
 
-    cell.isStartCell = false;
+    cell.isStartingCell = false;
     neighbor.isNeighbor = false;
     neighbor.isInSameSet = false;
     neighbor.isInDifferentSet = false;

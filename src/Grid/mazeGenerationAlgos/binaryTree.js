@@ -7,10 +7,10 @@ import {
 
 function walk(prevCell, cell, grid, resolve) {
   if (prevCell) {
-    prevCell.isStartCell = false;
+    prevCell.isStartingCell = false;
     prevCell.isVisited = true;
   }
-  cell.isStartCell = true;
+  cell.isStartingCell = true;
 
   const northernAndEasternNeighbors = cell
     .getNeighbors(grid)
@@ -52,22 +52,22 @@ async function asyncBinaryTree(grid, wait = 50) {
     }
   }
 
-  let prevStartCell, startCell;
+  let prevStartingCell, startingCell;
 
   while (flattenedGrid.length > 0) {
     const randomIndex = getRandomIndex(flattenedGrid.length);
     swapItemsInArray(flattenedGrid, randomIndex, flattenedGrid.length - 1);
-    startCell = flattenedGrid.pop();
+    startingCell = flattenedGrid.pop();
 
-    await asyncWalk(prevStartCell, startCell, grid, wait);
+    await asyncWalk(prevStartingCell, startingCell, grid, wait);
 
-    prevStartCell = startCell;
+    prevStartingCell = startingCell;
 
     await delay(wait * 3);
   }
 
-  startCell.isStartCell = false;
-  startCell.isVisited = true;
+  startingCell.isStartingCell = false;
+  startingCell.isVisited = true;
   return Promise.resolve();
 }
 
