@@ -43,12 +43,12 @@ async function asyncWalk(grid, stack, wait) {
 async function backtracking(grid, stack, wait, resolve) {
   while (stack.length > 0) {
     const prevStartCell = stack[stack.length - 1];
-    prevStartCell.isBeingScanned = true;
+    prevStartCell.isScanned = true;
 
     await delay(wait);
 
     const randomAvailNeighbor = prevStartCell.getRandomAvailNeighbor(grid);
-    prevStartCell.isBeingScanned = false;
+    prevStartCell.isScanned = false;
 
     if (!randomAvailNeighbor) {
       stack.pop();
