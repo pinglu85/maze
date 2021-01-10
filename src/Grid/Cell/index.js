@@ -254,7 +254,7 @@ class Cell {
 
   _getCtxFillStyle(colors) {
     if (this.isStartingCell) {
-      return colors.start;
+      return colors.starting;
     }
 
     if (this.isScanning) {
