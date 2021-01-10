@@ -1,7 +1,7 @@
 export const CELL_COLORS = {
   border: '#09395b',
   starting: '#57b3f9',
-  scanning: '#7cefb0',
+  scanned: '#7cefb0',
   visited: 'transparent',
   unvisited: '#d3d3d3',
   connected: '#ededed',
