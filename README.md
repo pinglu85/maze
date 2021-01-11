@@ -10,7 +10,7 @@ This application includes the following maze algorithms:
 
 - **Recursive Backtracker**: produces mazes that have long, twisty passages and relatively few dead ends; much faster than Hunt-and-Kill.
 
-- **Recursive Division**: the fastest algorithm without directional biases.
+- **Recursive Division**: a fast algorithm; builds walls, rather than breaking through them.
 
 - **Growing Tree**: depends heavily on how the next cell is selected from the set.
 
