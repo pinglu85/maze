@@ -14,7 +14,7 @@ function doUpdateGridAndCanvasSize(state, gridSize) {
       width: canvasWidth,
       height: canvasHeight,
     },
-    isGenerated: false,
+    isMazeGenerated: false,
     isSolutionFound: false,
   };
 }
