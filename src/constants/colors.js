@@ -10,7 +10,7 @@ export const CELL_COLORS = {
   differentSet: '#c8ffc4',
   pathfinding: {
     visited: '#81afde',
-    toBeVisited: '#b0d3f4',
+    toBeExplored: '#b0d3f4',
     exitColor: '#3c4699',
   },
 };
