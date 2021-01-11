@@ -1,7 +1,7 @@
 import doUpdateGridAndCanvasSize from './utils/doUpdateGridAndCanvasSize';
 import * as actionTypes from './actionTypes';
 
-function mazeStateReducer(state, action) {
+function appStateReducer(state, action) {
   switch (action.type) {
     case actionTypes.UPDATE_GRID_SIZE:
       return doUpdateGridAndCanvasSize(state, action.payload);
@@ -48,4 +48,4 @@ function mazeStateReducer(state, action) {
   }
 }
 
-export default mazeStateReducer;
+export default appStateReducer;

@@ -4,7 +4,7 @@ import TargetNode from './TargetNode';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import description from './Description';
-import mazeStateReducer from './store/mazeStateReducer';
+import appStateReducer from './store/appStateReducer';
 import {
   selectNewMazeAlgo,
   selectNewPathfindingAlgo,
@@ -62,7 +62,7 @@ const initialAppState = {
   isSolutionFound: false,
 };
 
-const appStore = store.createStore(mazeStateReducer, initialAppState);
+const appStore = store.createStore(appStateReducer, initialAppState);
 
 appStore.subscribe((prevState, state) => {
   const { gridSize: prevGridSize } = prevState;
