@@ -43,7 +43,8 @@ h3 {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1rem 1.5rem;
+  height: 72px;
+  padding: 0 1.5rem;
   z-index: 20;
   border-bottom: 0.0625rem solid var(--light-grey);
   background: #ffffff;
@@ -89,7 +90,8 @@ h3 {
 
 @media (max-width: 576px) {
   .header {
-    padding: 0.5rem 0.75rem;
+    height: 85px;
+    padding: 0 0.75rem;
   }
 
   .navbar {
@@ -229,27 +231,20 @@ h3 {
 }
 
 .main {
-  display: flex;
-  justify-content: center;
-  margin-top: 240px;
+  margin-top: 72px;
   width: 100%;
   overflow: auto;
 }
 
-@media (max-width: 1024px) and (min-width: 577px) {
+@media (max-width: 576px) {
   .main {
-    margin-top: 360px;
-  }
-}
-
-@media (max-width: 576px) and (min-width: 321px) {
-  .main {
-    margin-top: 320px;
+    margin-top: 85px;
   }
 }
 
 .canvas-wrapper {
   position: relative;
+  margin: 0 auto;
 }
 
 canvas {

@@ -5,6 +5,18 @@ function mazeStateReducer(state, action) {
   switch (action.type) {
     case actionTypes.UPDATE_GRID_SIZE:
       return doUpdateGridAndCanvasSize(state, action.payload);
+    case actionTypes.SELECT_NEW_MAZE_ALGO:
+      return {
+        ...state,
+        algoType: 'mazeAlgo',
+        mazeAlgo: action.payload,
+      };
+    case actionTypes.SELECT_NEW_PATHFINDING_ALGO:
+      return {
+        ...state,
+        algoType: 'pathfindingAlgo',
+        pathfindingAlgo: action.payload,
+      };
     case actionTypes.GENERATING_NEW_MAZE:
       return {
         ...state,
