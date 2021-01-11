@@ -44,7 +44,7 @@ const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
 const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
-const initialMazeState = {
+const initialAppState = {
   gridSize: {
     numOfRows: 0,
     numOfCols: 0,
@@ -62,7 +62,7 @@ const initialMazeState = {
   isSolutionFound: false,
 };
 
-const appStore = store.createStore(mazeStateReducer, initialMazeState);
+const appStore = store.createStore(mazeStateReducer, initialAppState);
 
 appStore.subscribe((prevState, state) => {
   const { gridSize: prevGridSize } = prevState;
