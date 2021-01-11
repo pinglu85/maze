@@ -20,16 +20,16 @@ function appStateReducer(state, action) {
     case actionTypes.GENERATING_NEW_MAZE:
       return {
         ...state,
-        isGenerating: true,
-        isGenerated: false,
+        isMazeGenerating: true,
+        isMazeGenerated: false,
         isSearchingSolution: false,
         isSolutionFound: false,
       };
     case actionTypes.MAZE_GENERATED:
       return {
         ...state,
-        isGenerating: false,
-        isGenerated: true,
+        isMazeGenerating: false,
+        isMazeGenerated: true,
       };
     case actionTypes.SEARCHING_SOLUTION:
       return {

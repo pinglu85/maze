@@ -56,8 +56,8 @@ const initialAppState = {
   algoType: '',
   mazeAlgo: '',
   pathfindingAlgo: '',
-  isGenerating: false,
-  isGenerated: false,
+  isMazeGenerating: false,
+  isMazeGenerated: false,
   isSearchingSolution: false,
   isSolutionFound: false,
 };
@@ -79,7 +79,7 @@ appStore.subscribe((prevState, state) => {
 
 appStore.subscribe((prevState, state) => {
   if (
-    prevState.isGenerating !== state.isGenerating ||
+    prevState.isMazeGenerating !== state.isMazeGenerating ||
     prevState.isSearchingSolution !== state.isSearchingSolution
   ) {
     mazeAlgosList.classList.toggle('disabled');
@@ -155,8 +155,8 @@ function handleDropdownClick(e, dropdownMenu) {
 
   dropdownMenu.classList.remove('is-active');
 
-  const { isGenerating, isSearchingSolution } = appStore.getState();
-  if (isGenerating || isSearchingSolution) {
+  const { isMazeGenerating, isSearchingSolution } = appStore.getState();
+  if (isMazeGenerating || isSearchingSolution) {
     return;
   }
 
@@ -170,11 +170,11 @@ function handleDropdownClick(e, dropdownMenu) {
 
 async function handleVisualizeMazeAlgo(algo) {
   const mazeState = appStore.getState();
-  if (mazeState.isGenerating || mazeState.isSearchingSolution) {
+  if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
     return;
   }
 
-  if (mazeState.isGenerated) {
+  if (mazeState.isMazeGenerated) {
     const { gridSize, canvasSize } = mazeState;
     grid.setContent(gridSize);
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
@@ -189,11 +189,11 @@ async function handleVisualizeMazeAlgo(algo) {
 
 function handleVisualizePathfindingAlgo(algo) {
   const mazeState = appStore.getState();
-  if (mazeState.isGenerating || mazeState.isSearchingSolution) {
+  if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
     return;
   }
 
-  if (!mazeState.isGenerated) {
+  if (!mazeState.isMazeGenerated) {
     popupWarning.show('generate a maze');
     return;
   }
@@ -225,14 +225,14 @@ async function findSolution(algo, canvasSize, isSolutionFound) {
 }
 
 function drawMaze() {
-  const { isGenerating, canvasSize, mazeAlgo } = appStore.getState();
+  const { isMazeGenerating, canvasSize, mazeAlgo } = appStore.getState();
   mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   if (mazeAlgo === 'Open Grid') {
     grid.drawGuides(mazeCtx);
   }
   grid.draw(mazeCtx);
 
-  if (!isGenerating) {
+  if (!isMazeGenerating) {
     startNode.resetState(grid);
     startNode.draw(solutionCtx);
 
