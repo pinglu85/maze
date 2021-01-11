@@ -37,7 +37,7 @@ class Cell {
 
     // State for Dijkstra's algorithm
     this.distanceToEntrance = Infinity;
-    this.isToBeVisited = false;
+    this.isToBeExplored = false;
 
     // State for A* Searching algorithm
     this.parent = null;
@@ -54,7 +54,7 @@ class Cell {
 
   resetStateForPathfinding() {
     this.distanceToEntrance = Infinity;
-    this.isToBeVisited = false;
+    this.isToBeExplored = false;
     this.isExitColor = false;
     this.opacity = 0;
     this.parent = null;
@@ -273,8 +273,8 @@ class Cell {
       return colors.neighbor;
     }
 
-    if (this.isToBeVisited || this.isInOpenList) {
-      return colors.pathfinding.toBeVisited;
+    if (this.isToBeExplored || this.isInOpenList) {
+      return colors.pathfinding.toBeExplored;
     }
 
     if (this.isExitColor) {

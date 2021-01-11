@@ -4,7 +4,7 @@ function getNewFrontiers(grid, frontiers, distance, resolve) {
   const newFrontiers = [];
 
   for (const cell of frontiers) {
-    cell.isToBeVisited = false;
+    cell.isToBeExplored = false;
     cell.opacity = 0.01;
 
     const unvisitedConnectedNeighbors = cell
@@ -18,7 +18,7 @@ function getNewFrontiers(grid, frontiers, distance, resolve) {
         resolve([]);
         return;
       }
-      neighbor.isToBeVisited = true;
+      neighbor.isToBeExplored = true;
     }
 
     newFrontiers.push(...unvisitedConnectedNeighbors);
