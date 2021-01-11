@@ -38,10 +38,9 @@ class SettingsDrawer {
       input.addEventListener('input', this._onInputChange)
     );
 
-    this.saveBtn.addEventListener(
-      'click',
-      this._saveSettings.bind(this, dispatch)
-    );
+    this.saveBtn.addEventListener('click', () => {
+      this._saveSettings(dispatch);
+    });
   }
 
   _close = () => {
