@@ -46,7 +46,7 @@ export const pathfindingAlgoSharedIcons = [
     borderColor: CELL_COLORS.border,
   },
   {
-    label: 'To Be Explored Cell',
+    label: 'Cell to Be Explored',
     bgColor: CELL_COLORS.pathfinding.toBeVisited,
     borderColor: CELL_COLORS.border,
   },
