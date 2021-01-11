@@ -17,7 +17,7 @@ import {
   loadStartNodeSprites,
   loadTargetNodeSprites,
   setupCanvases,
-  setDefaultGridSize,
+  setInitialGridSize,
   store,
 } from './utils';
 import {
@@ -114,7 +114,7 @@ mazeStore.subscribe((prevState, state) => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-  setDefaultGridSize(mazeStore.dispatch);
+  setInitialGridSize(mazeStore.dispatch);
   description.render('');
 });
 

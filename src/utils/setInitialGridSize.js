@@ -7,7 +7,7 @@ import {
   GRID_SIZE_DESKTOP,
 } from '../constants/localStorageKeys';
 
-export default function setDefaultGridSize(dispatch) {
+export default function setInitialGridSize(dispatch) {
   let storedGridSize;
 
   if (checkIsMobile()) {
