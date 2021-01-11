@@ -5,6 +5,16 @@ export const updateGridSize = (payload) => ({
   payload: payload,
 });
 
+export const selectNewMazeAlgo = (payload) => ({
+  type: actionTypes.SELECT_NEW_MAZE_ALGO,
+  payload: payload,
+});
+
+export const selectNewPathfindingAlgo = (payload) => ({
+  type: actionTypes.SELECT_NEW_PATHFINDING_ALGO,
+  payload: payload,
+});
+
 export const generatingNewMaze = () => ({
   type: actionTypes.GENERATING_NEW_MAZE,
 });

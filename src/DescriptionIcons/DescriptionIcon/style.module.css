@@ -1,0 +1,19 @@
+.descriptionIcon {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid;
+}
+
+.icon img {
+  width: 100%;
+  display: block;
+}
+
+.label {
+  margin-left: 0.5rem;
+}

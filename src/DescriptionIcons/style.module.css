@@ -1,0 +1,25 @@
+.iconList {
+  width: 100%;
+  overflow-x: auto;
+  list-style: none;
+}
+
+.listItem {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+}
+
+@media (max-width: 576px) {
+  .iconList {
+    white-space: nowrap;
+  }
+
+  .listItem {
+    margin-left: 2rem;
+  }
+
+  .iconList > .listItem:first-child {
+    margin-left: 0;
+  }
+}
