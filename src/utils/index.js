@@ -6,7 +6,7 @@ export { default as getRandomIndex } from './getRandomIndex';
 export { default as getStartOrEndIndexOfArray } from './getStartOrEndIndexOfArray';
 export { loadStartNodeSprites, loadTargetNodeSprites } from './loadSprites';
 export { checkIsMobile, checkIsTablet, checkIsBigTablet } from './mediaQueries';
-export { default as setDefaultGridSize } from './setDefaultGridSize';
+export { default as setInitialGridSize } from './setInitialGridSize';
 export { default as setupCanvases } from './setupCanvases';
 export { shuffleArr, shuffleArrIndices } from './shuffleArray';
 export { default as store } from './Store';
