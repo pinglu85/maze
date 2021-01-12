@@ -3,14 +3,18 @@ import { applyDropShadow, getOppositeDir } from '../utils';
 const TO_RADIANS = Math.PI / 180;
 
 class StartNode {
-  constructor(sprites, spriteSize) {
+  constructor(sprites, spriteSize, footprintRadius) {
     this.centerX = 0;
     this.centerY = 0;
     this.facingDir = '';
     this.exitDir = '';
-    this.spriteSize = spriteSize;
+
     this.sprites = sprites;
+    this.spriteSize = spriteSize;
     this.spriteIndex = 0;
+
+    this.footprintRadius = footprintRadius;
+
     this.pathCoordinates = [];
     this.currentPathSegment = null;
     this.prevCellCenters = [];
@@ -147,7 +151,7 @@ class StartNode {
     for (let i = numOfPrevCellCenters - 1; i >= 0; i--) {
       const [centerX, centerY] = this.prevCellCenters[i];
       ctx.beginPath();
-      ctx.arc(centerX, centerY, this.spriteSize / 6, 0, 2 * Math.PI);
+      ctx.arc(centerX, centerY, this.footprintRadius, 0, 2 * Math.PI);
       ctx.fillStyle = newFootprint;
       ctx.fill();
       ctx.globalAlpha = 0.05 * opacityCoefficient;

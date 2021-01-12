@@ -25,7 +25,12 @@ import {
   FOOTPRINT_COLORS,
   GUIDES_COLOR,
 } from './constants/colors';
-import { CELL_SIZE, SPRITE_SIZE, LINE_WIDTHS } from './constants/size';
+import {
+  CELL_SIZE,
+  SPRITE_SIZE,
+  FOOTPRINT_RADIUS,
+  LINE_WIDTHS,
+} from './constants/size';
 import './index.css';
 
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
@@ -40,7 +45,11 @@ const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
 const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTHS, GUIDES_COLOR);
 const startNodeSprites = loadStartNodeSprites(10);
-const startNode = new StartNode(startNodeSprites, SPRITE_SIZE);
+const startNode = new StartNode(
+  startNodeSprites,
+  SPRITE_SIZE,
+  FOOTPRINT_RADIUS
+);
 const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
