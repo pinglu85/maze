@@ -1,6 +1,4 @@
-import Grid from './Grid';
-import StartNode from './StartNode';
-import TargetNode from './TargetNode';
+import { grid, startNode, targetNode } from './globalVariables';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import description from './Description';
@@ -13,24 +11,7 @@ import {
   searchingSolution,
   solutionFound,
 } from './store/actions';
-import {
-  loadStartNodeSprites,
-  loadTargetNodeSprites,
-  setupCanvases,
-  setInitialGridSize,
-  createStore,
-} from './utils';
-import {
-  CELL_COLORS,
-  FOOTPRINT_COLORS,
-  GUIDES_COLOR,
-} from './constants/colors';
-import {
-  CELL_SIZE,
-  SPRITE_SIZE,
-  FOOTPRINT_RADIUS,
-  LINE_WIDTHS,
-} from './constants/size';
+import { setupCanvases, setInitialGridSize, createStore } from './utils';
 import './index.css';
 
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
@@ -42,17 +23,6 @@ const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 const settingsBtn = document.getElementById('settings-btn');
 
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
-
-const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTHS, GUIDES_COLOR);
-const startNodeSprites = loadStartNodeSprites(10);
-const startNode = new StartNode(
-  startNodeSprites,
-  SPRITE_SIZE,
-  FOOTPRINT_RADIUS,
-  FOOTPRINT_COLORS
-);
-const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
-const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
 
 const initialAppState = {
   gridSize: {
