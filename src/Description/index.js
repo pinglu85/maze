@@ -11,7 +11,7 @@ class Description {
   render = (algo, handleVisualize) => {
     if (algo === '') {
       this.root.innerHTML = `
-        <div class="${styles.prompt}">
+        <div class="${styles.encouragement}">
           Pick a maze algorithm and visualize it!
         </div>
       `;
