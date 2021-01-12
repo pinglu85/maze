@@ -62,9 +62,9 @@ const initialAppState = {
   isSolutionFound: false,
 };
 
-const appStore = createStore(appStateReducer, initialAppState);
+const store = createStore(appStateReducer, initialAppState);
 
-appStore.subscribe((prevState, state) => {
+store.subscribe((prevState, state) => {
   const { gridSize: prevGridSize } = prevState;
   const { gridSize } = state;
   if (
@@ -77,7 +77,7 @@ appStore.subscribe((prevState, state) => {
   }
 });
 
-appStore.subscribe((prevState, state) => {
+store.subscribe((prevState, state) => {
   if (
     prevState.isMazeGenerating !== state.isMazeGenerating ||
     prevState.isSearchingSolution !== state.isSearchingSolution
@@ -91,7 +91,7 @@ appStore.subscribe((prevState, state) => {
   }
 });
 
-appStore.subscribe((prevState, state) => {
+store.subscribe((prevState, state) => {
   if (prevState.algoType !== state.algoType) {
     const currAlgoType = state.algoType;
     const algo = state[currAlgoType];
@@ -114,13 +114,13 @@ appStore.subscribe((prevState, state) => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-  setInitialGridSize(appStore.dispatch);
+  setInitialGridSize(store.dispatch);
   description.render('');
 });
 
 settingsBtn.addEventListener('click', () => {
-  const { gridSize } = appStore.getState();
-  settingsDrawer.open(gridSize, appStore.dispatch);
+  const { gridSize } = store.getState();
+  settingsDrawer.open(gridSize, store.dispatch);
 });
 
 const handleDropdownMenuClose = (e) => {
@@ -155,21 +155,21 @@ function handleDropdownClick(e, dropdownMenu) {
 
   dropdownMenu.classList.remove('is-active');
 
-  const { isMazeGenerating, isSearchingSolution } = appStore.getState();
+  const { isMazeGenerating, isSearchingSolution } = store.getState();
   if (isMazeGenerating || isSearchingSolution) {
     return;
   }
 
   const algo = e.target.textContent;
   if (dropdownMenu.id === 'maze-algos-list') {
-    appStore.dispatch(selectNewMazeAlgo(algo));
+    store.dispatch(selectNewMazeAlgo(algo));
   } else {
-    appStore.dispatch(selectNewPathfindingAlgo(algo));
+    store.dispatch(selectNewPathfindingAlgo(algo));
   }
 }
 
 async function handleVisualizeMazeAlgo(algo) {
-  const mazeState = appStore.getState();
+  const mazeState = store.getState();
   if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
     return;
   }
@@ -180,15 +180,15 @@ async function handleVisualizeMazeAlgo(algo) {
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   }
 
-  appStore.dispatch(generatingNewMaze());
+  store.dispatch(generatingNewMaze());
 
   drawMaze();
   await grid.generateMaze(algo);
-  appStore.dispatch(mazeGenerated());
+  store.dispatch(mazeGenerated());
 }
 
 function handleVisualizePathfindingAlgo(algo) {
-  const mazeState = appStore.getState();
+  const mazeState = store.getState();
   if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
     return;
   }
@@ -212,12 +212,12 @@ async function findSolution(algo, canvasSize, isSolutionFound) {
     targetNode.draw(solutionCtx, 'spriteNormal');
   }
 
-  appStore.dispatch(searchingSolution());
+  store.dispatch(searchingSolution());
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
-    appStore.dispatch(solutionFound());
+    store.dispatch(solutionFound());
     return;
   }
 
@@ -225,7 +225,7 @@ async function findSolution(algo, canvasSize, isSolutionFound) {
 }
 
 function drawMaze() {
-  const { isMazeGenerating, canvasSize, mazeAlgo } = appStore.getState();
+  const { isMazeGenerating, canvasSize, mazeAlgo } = store.getState();
   mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   if (mazeAlgo === 'Open Grid') {
     grid.drawGuides(mazeCtx);
@@ -245,7 +245,7 @@ function drawMaze() {
 }
 
 function visualizePathfindingAlgo() {
-  const { mazeAlgo } = appStore.getState();
+  const { mazeAlgo } = store.getState();
   if (mazeAlgo === 'Open Grid') {
     grid.drawGuides(mazeCtx);
   }
@@ -265,13 +265,13 @@ function drawSolution() {
     startNode.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
   };
 
-  const { canvasSize } = appStore.getState();
+  const { canvasSize } = store.getState();
   solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 
   if (startNode.atExit) {
     drawStartNodeAndFootprints();
     targetNode.resetScale();
-    appStore.dispatch(solutionFound());
+    store.dispatch(solutionFound());
     return;
   }
 
