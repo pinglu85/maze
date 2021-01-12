@@ -2,6 +2,7 @@ import { grid, startNode, targetNode } from './globalVariables';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import description from './Description';
+import initialAppState from './constants/initialAppState';
 import appStateReducer from './store/appStateReducer';
 import {
   selectNewMazeAlgo,
@@ -23,24 +24,6 @@ const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 const settingsBtn = document.getElementById('settings-btn');
 
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
-
-const initialAppState = {
-  gridSize: {
-    numOfRows: 0,
-    numOfCols: 0,
-  },
-  canvasSize: {
-    width: 0,
-    height: 0,
-  },
-  algoType: '',
-  mazeAlgo: '',
-  pathfindingAlgo: '',
-  isMazeGenerating: false,
-  isMazeGenerated: false,
-  isSearchingSolution: false,
-  isSolutionFound: false,
-};
 
 const store = createStore(appStateReducer, initialAppState);
 
