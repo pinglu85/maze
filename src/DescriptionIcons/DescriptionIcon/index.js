@@ -1,12 +1,20 @@
 import styles from './style.module.css';
 
 class DescriptionIcon {
-  template({ label, bgColor, borderColor, iconSrc = null }) {
+  template({ label, bgColor, borderColor, iconSrc = null, iconSize = null }) {
     const icon = iconSrc ? `<img src="${iconSrc}" />` : '';
+    let iconStyles = styles.icon;
+
+    if (iconSize === 'big') {
+      iconStyles += ` ${styles.iconBig}`;
+    }
 
     return `
       <div class="${styles.descriptionIcon}">
-        <div class="${styles.icon}" style="background:${bgColor}; border-color:${borderColor};">
+        <div 
+          class="${iconStyles}" 
+          style="background:${bgColor}; border-color:${borderColor};"
+        >
           ${icon}
         </div>
         <div class="${styles.label}">${label}</div>

@@ -1,5 +1,6 @@
 import startNodeIconSrc from '../../assets/start-node.svg';
 import targetNodeIconSrc from '../../assets/target-node.svg';
+import shortestPathIconSrc from '../../assets/shortest-path.svg';
 import { CELL_COLORS } from '../../constants/colors';
 
 export const startNodeIcon = {
@@ -49,5 +50,12 @@ export const pathfindingAlgoSharedIcons = [
     label: 'Cell to Be Explored',
     bgColor: CELL_COLORS.pathfinding.toBeExplored,
     borderColor: CELL_COLORS.border,
+  },
+  {
+    label: 'Shortest Path',
+    bgColor: 'transparent',
+    borderColor: 'transparent',
+    iconSrc: shortestPathIconSrc,
+    iconSize: 'big',
   },
 ];

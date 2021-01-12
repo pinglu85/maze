@@ -9,6 +9,10 @@
   border: 1px solid;
 }
 
+.iconBig {
+  width: 4.5rem;
+}
+
 .icon img {
   width: 100%;
   display: block;
