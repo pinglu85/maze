@@ -162,9 +162,9 @@ function handleDropdownClick(e, dropdownMenu) {
 
   const algo = e.target.textContent;
   if (dropdownMenu.id === 'maze-algos-list') {
-    store.dispatch(selectNewMazeAlgo(algo));
+    appStore.dispatch(selectNewMazeAlgo(algo));
   } else {
-    store.dispatch(selectNewPathfindingAlgo(algo));
+    appStore.dispatch(selectNewPathfindingAlgo(algo));
   }
 }
 
@@ -180,11 +180,11 @@ async function handleVisualizeMazeAlgo(algo) {
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   }
 
-  store.dispatch(generatingNewMaze());
+  appStore.dispatch(generatingNewMaze());
 
   drawMaze();
   await grid.generateMaze(algo);
-  store.dispatch(mazeGenerated());
+  appStore.dispatch(mazeGenerated());
 }
 
 function handleVisualizePathfindingAlgo(algo) {
