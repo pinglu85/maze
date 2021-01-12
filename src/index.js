@@ -125,13 +125,13 @@ function handleDropdownClick(e, dropdownMenu) {
 }
 
 async function handleVisualizeMazeAlgo(algo) {
-  const mazeState = store.getState();
-  if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
+  const appState = store.getState();
+  if (appState.isMazeGenerating || appState.isSearchingSolution) {
     return;
   }
 
-  if (mazeState.isMazeGenerated) {
-    const { gridSize, canvasSize } = mazeState;
+  if (appState.isMazeGenerated) {
+    const { gridSize, canvasSize } = appState;
     grid.setContent(gridSize);
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   }
@@ -144,17 +144,17 @@ async function handleVisualizeMazeAlgo(algo) {
 }
 
 function handleVisualizePathfindingAlgo(algo) {
-  const mazeState = store.getState();
-  if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
+  const appState = store.getState();
+  if (appState.isMazeGenerating || appState.isSearchingSolution) {
     return;
   }
 
-  if (!mazeState.isMazeGenerated) {
+  if (!appState.isMazeGenerated) {
     popupWarning.show('generate a maze');
     return;
   }
 
-  const { canvasSize, isSolutionFound } = mazeState;
+  const { canvasSize, isSolutionFound } = appState;
   findSolution(algo, canvasSize, isSolutionFound);
 }
 
