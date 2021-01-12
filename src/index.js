@@ -48,7 +48,8 @@ const startNodeSprites = loadStartNodeSprites(10);
 const startNode = new StartNode(
   startNodeSprites,
   SPRITE_SIZE,
-  FOOTPRINT_RADIUS
+  FOOTPRINT_RADIUS,
+  FOOTPRINT_COLORS
 );
 const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
 const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
@@ -271,7 +272,7 @@ function visualizePathfindingAlgo() {
 function drawSolution() {
   const drawStartNodeAndFootprints = () => {
     startNode.draw(solutionCtx);
-    startNode.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
+    startNode.drawFootprints(solutionCtx);
   };
 
   const { canvasSize } = store.getState();
