@@ -4,14 +4,7 @@ import settingsDrawer from './SettingsDrawer';
 import description from './Description';
 import initialAppState from './constants/initialAppState';
 import appStateReducer from './store/appStateReducer';
-import {
-  selectNewMazeAlgo,
-  selectNewPathfindingAlgo,
-  generatingNewMaze,
-  mazeGenerated,
-  searchingSolution,
-  solutionFound,
-} from './store/actions';
+import * as actions from './store/actions';
 import { setupCanvases, setInitialGridSize, createStore } from './utils';
 import './index.css';
 
@@ -125,9 +118,9 @@ function handleDropdownClick(e, dropdownMenu) {
 
   const algo = e.target.textContent;
   if (dropdownMenu.id === 'maze-algos-list') {
-    store.dispatch(selectNewMazeAlgo(algo));
+    store.dispatch(actions.selectNewMazeAlgo(algo));
   } else {
-    store.dispatch(selectNewPathfindingAlgo(algo));
+    store.dispatch(actions.selectNewPathfindingAlgo(algo));
   }
 }
 
@@ -143,11 +136,11 @@ async function handleVisualizeMazeAlgo(algo) {
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   }
 
-  store.dispatch(generatingNewMaze());
+  store.dispatch(actions.generatingNewMaze());
 
   drawMaze();
   await grid.generateMaze(algo);
-  store.dispatch(mazeGenerated());
+  store.dispatch(actions.mazeGenerated());
 }
 
 function handleVisualizePathfindingAlgo(algo) {
@@ -175,12 +168,12 @@ async function findSolution(algo, canvasSize, isSolutionFound) {
     targetNode.draw(solutionCtx, 'spriteNormal');
   }
 
-  store.dispatch(searchingSolution());
+  store.dispatch(actions.searchingSolution());
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
-    store.dispatch(solutionFound());
+    store.dispatch(actions.solutionFound());
     return;
   }
 
@@ -234,7 +227,7 @@ function drawSolution() {
   if (startNode.atExit) {
     drawStartNodeAndFootprints();
     targetNode.resetScale();
-    store.dispatch(solutionFound());
+    store.dispatch(actions.solutionFound());
     return;
   }
 
