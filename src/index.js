@@ -20,7 +20,7 @@ const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
 const store = createStore(appStateReducer, initialAppState);
 
-store.subscribe((prevState, state) => {
+const redrawGridOnSizeChange = (prevState, state) => {
   const { gridSize: prevGridSize } = prevState;
   const { gridSize } = state;
   if (
@@ -31,9 +31,10 @@ store.subscribe((prevState, state) => {
     grid.setContent(gridSize);
     grid.draw(mazeCtx);
   }
-});
+};
+store.subscribe(redrawGridOnSizeChange);
 
-store.subscribe((prevState, state) => {
+const toggleBtnsDisabledOnStateChange = (prevState, state) => {
   if (
     prevState.isMazeGenerating !== state.isMazeGenerating ||
     prevState.isSearchingSolution !== state.isSearchingSolution
@@ -45,9 +46,10 @@ store.subscribe((prevState, state) => {
       description.visualizeBtn.disabled = !description.visualizeBtn.disabled;
     }
   }
-});
+};
+store.subscribe(toggleBtnsDisabledOnStateChange);
 
-store.subscribe((prevState, state) => {
+const renderDescriptionOnAlgoSelect = (prevState, state) => {
   if (prevState.algoType !== state.algoType) {
     const currAlgoType = state.algoType;
     const algo = state[currAlgoType];
@@ -67,7 +69,8 @@ store.subscribe((prevState, state) => {
   if (prevState.pathfindingAlgo !== state.pathfindingAlgo) {
     description.render(state.pathfindingAlgo, handleVisualizePathfindingAlgo);
   }
-});
+};
+store.subscribe(renderDescriptionOnAlgoSelect);
 
 window.addEventListener('DOMContentLoaded', () => {
   setInitialGridSize(store.dispatch);
