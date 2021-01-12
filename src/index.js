@@ -18,7 +18,7 @@ import {
   loadTargetNodeSprites,
   setupCanvases,
   setInitialGridSize,
-  store,
+  createStore,
 } from './utils';
 import {
   CELL_COLORS,
@@ -62,7 +62,7 @@ const initialAppState = {
   isSolutionFound: false,
 };
 
-const appStore = store.createStore(appStateReducer, initialAppState);
+const appStore = createStore(appStateReducer, initialAppState);
 
 appStore.subscribe((prevState, state) => {
   const { gridSize: prevGridSize } = prevState;

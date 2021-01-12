@@ -8,11 +8,11 @@ class Store {
     this.subscribers = [];
   }
 
-  createStore(reducer, initialState) {
+  createStore = (reducer, initialState) => {
     this.state = { ...initialState };
     this._reduce = reducer;
     return this;
-  }
+  };
 
   getState() {
     return this.state;
@@ -37,4 +37,4 @@ class Store {
 
 const store = new Store();
 
-export default store;
+export default store.createStore;
