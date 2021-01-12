@@ -1,36 +1,11 @@
-import Grid from './Grid';
-import StartNode from './StartNode';
-import TargetNode from './TargetNode';
+import { grid, startNode, targetNode } from './globalVariables';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import description from './Description';
+import initialAppState from './constants/initialAppState';
 import appStateReducer from './store/appStateReducer';
-import {
-  selectNewMazeAlgo,
-  selectNewPathfindingAlgo,
-  generatingNewMaze,
-  mazeGenerated,
-  searchingSolution,
-  solutionFound,
-} from './store/actions';
-import {
-  loadStartNodeSprites,
-  loadTargetNodeSprites,
-  setupCanvases,
-  setInitialGridSize,
-  createStore,
-} from './utils';
-import {
-  CELL_COLORS,
-  FOOTPRINT_COLORS,
-  GUIDES_COLOR,
-} from './constants/colors';
-import {
-  CELL_SIZE,
-  SPRITE_SIZE,
-  FOOTPRINT_RADIUS,
-  LINE_WIDTHS,
-} from './constants/size';
+import * as actions from './store/actions';
+import { setupCanvases, setInitialGridSize, createStore } from './utils';
 import './index.css';
 
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
@@ -43,37 +18,9 @@ const settingsBtn = document.getElementById('settings-btn');
 
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
-const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTHS, GUIDES_COLOR);
-const startNodeSprites = loadStartNodeSprites(10);
-const startNode = new StartNode(
-  startNodeSprites,
-  SPRITE_SIZE,
-  FOOTPRINT_RADIUS
-);
-const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
-const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
-
-const initialAppState = {
-  gridSize: {
-    numOfRows: 0,
-    numOfCols: 0,
-  },
-  canvasSize: {
-    width: 0,
-    height: 0,
-  },
-  algoType: '',
-  mazeAlgo: '',
-  pathfindingAlgo: '',
-  isMazeGenerating: false,
-  isMazeGenerated: false,
-  isSearchingSolution: false,
-  isSolutionFound: false,
-};
-
 const store = createStore(appStateReducer, initialAppState);
 
-store.subscribe((prevState, state) => {
+const redrawGridOnSizeChange = (prevState, state) => {
   const { gridSize: prevGridSize } = prevState;
   const { gridSize } = state;
   if (
@@ -84,9 +31,10 @@ store.subscribe((prevState, state) => {
     grid.setContent(gridSize);
     grid.draw(mazeCtx);
   }
-});
+};
+store.subscribe(redrawGridOnSizeChange);
 
-store.subscribe((prevState, state) => {
+const toggleBtnsDisabledOnStateChange = (prevState, state) => {
   if (
     prevState.isMazeGenerating !== state.isMazeGenerating ||
     prevState.isSearchingSolution !== state.isSearchingSolution
@@ -98,9 +46,10 @@ store.subscribe((prevState, state) => {
       description.visualizeBtn.disabled = !description.visualizeBtn.disabled;
     }
   }
-});
+};
+store.subscribe(toggleBtnsDisabledOnStateChange);
 
-store.subscribe((prevState, state) => {
+const renderDescriptionOnAlgoSelect = (prevState, state) => {
   if (prevState.algoType !== state.algoType) {
     const currAlgoType = state.algoType;
     const algo = state[currAlgoType];
@@ -120,7 +69,8 @@ store.subscribe((prevState, state) => {
   if (prevState.pathfindingAlgo !== state.pathfindingAlgo) {
     description.render(state.pathfindingAlgo, handleVisualizePathfindingAlgo);
   }
-});
+};
+store.subscribe(renderDescriptionOnAlgoSelect);
 
 window.addEventListener('DOMContentLoaded', () => {
   setInitialGridSize(store.dispatch);
@@ -171,43 +121,43 @@ function handleDropdownClick(e, dropdownMenu) {
 
   const algo = e.target.textContent;
   if (dropdownMenu.id === 'maze-algos-list') {
-    store.dispatch(selectNewMazeAlgo(algo));
+    store.dispatch(actions.selectNewMazeAlgo(algo));
   } else {
-    store.dispatch(selectNewPathfindingAlgo(algo));
+    store.dispatch(actions.selectNewPathfindingAlgo(algo));
   }
 }
 
 async function handleVisualizeMazeAlgo(algo) {
-  const mazeState = store.getState();
-  if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
+  const appState = store.getState();
+  if (appState.isMazeGenerating || appState.isSearchingSolution) {
     return;
   }
 
-  if (mazeState.isMazeGenerated) {
-    const { gridSize, canvasSize } = mazeState;
+  if (appState.isMazeGenerated) {
+    const { gridSize, canvasSize } = appState;
     grid.setContent(gridSize);
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   }
 
-  store.dispatch(generatingNewMaze());
+  store.dispatch(actions.generatingNewMaze());
 
   drawMaze();
   await grid.generateMaze(algo);
-  store.dispatch(mazeGenerated());
+  store.dispatch(actions.mazeGenerated());
 }
 
 function handleVisualizePathfindingAlgo(algo) {
-  const mazeState = store.getState();
-  if (mazeState.isMazeGenerating || mazeState.isSearchingSolution) {
+  const appState = store.getState();
+  if (appState.isMazeGenerating || appState.isSearchingSolution) {
     return;
   }
 
-  if (!mazeState.isMazeGenerated) {
+  if (!appState.isMazeGenerated) {
     popupWarning.show('generate a maze');
     return;
   }
 
-  const { canvasSize, isSolutionFound } = mazeState;
+  const { canvasSize, isSolutionFound } = appState;
   findSolution(algo, canvasSize, isSolutionFound);
 }
 
@@ -221,12 +171,12 @@ async function findSolution(algo, canvasSize, isSolutionFound) {
     targetNode.draw(solutionCtx, 'spriteNormal');
   }
 
-  store.dispatch(searchingSolution());
+  store.dispatch(actions.searchingSolution());
 
   visualizePathfindingAlgo();
   startNode.pathCoordinates = await grid.findSolution(algo);
   if (!startNode.pathCoordinates.length) {
-    store.dispatch(solutionFound());
+    store.dispatch(actions.solutionFound());
     return;
   }
 
@@ -271,7 +221,7 @@ function visualizePathfindingAlgo() {
 function drawSolution() {
   const drawStartNodeAndFootprints = () => {
     startNode.draw(solutionCtx);
-    startNode.drawFootprints(solutionCtx, FOOTPRINT_COLORS);
+    startNode.drawFootprints(solutionCtx);
   };
 
   const { canvasSize } = store.getState();
@@ -280,7 +230,7 @@ function drawSolution() {
   if (startNode.atExit) {
     drawStartNodeAndFootprints();
     targetNode.resetScale();
-    store.dispatch(solutionFound());
+    store.dispatch(actions.solutionFound());
     return;
   }
 
