@@ -17,7 +17,7 @@ export default function setInitialGridSize(dispatch) {
       return;
     }
 
-    setGridSize(storedGridSize);
+    setGridSize(dispatch, storedGridSize);
     return;
   }
 
