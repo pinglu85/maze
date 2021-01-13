@@ -9,5 +9,4 @@ export { checkIsMobile, checkIsTablet, checkIsBigTablet } from './mediaQueries';
 export { default as setInitialGridSize } from './setInitialGridSize';
 export { default as setupCanvases } from './setupCanvases';
 export { shuffleArr, shuffleArrIndices } from './shuffleArray';
-export { default as createStore } from './Store';
 export { default as swapItemsInArray } from './swapItemsInArray';

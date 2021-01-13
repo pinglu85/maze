@@ -2,10 +2,9 @@ import { grid, startNode, targetNode } from './globalVariables';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import description from './Description';
-import initialAppState from './constants/initialAppState';
-import appStateReducer from './store/appStateReducer';
+import store from './store';
 import * as actions from './store/actions';
-import { setupCanvases, setInitialGridSize, createStore } from './utils';
+import { setupCanvases, setInitialGridSize } from './utils';
 import './index.css';
 
 const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
@@ -17,8 +16,6 @@ const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 const settingsBtn = document.getElementById('settings-btn');
 
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
-
-const store = createStore(appStateReducer, initialAppState);
 
 const redrawGridOnSizeChange = (prevState, state) => {
   const { gridSize: prevGridSize } = prevState;
