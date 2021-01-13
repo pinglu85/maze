@@ -24,8 +24,8 @@ class PopupWarning {
 
   _template(message) {
     const dismissBtn = ` 
-      <button type="button" id="popup-warning-dismiss-btn" class="btn ${styles.dismiss}">
-        <img class="${styles.icon}" src=${dismissIcon}>
+      <button type="button" id="popup-warning-dismiss-btn" class="${styles.dismiss}">
+        ${dismissIcon}
         <span class="sr-only">Dismiss Warning</span>
       </button>
     `;

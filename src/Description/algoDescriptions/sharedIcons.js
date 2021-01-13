@@ -7,14 +7,14 @@ export const startNodeIcon = {
   label: 'Start Node',
   bgColor: 'transparent',
   borderColor: 'transparent',
-  iconSrc: startNodeIconSrc,
+  icon: startNodeIconSrc,
 };
 
 export const targetNodeIcon = {
   label: 'Target Node',
   bgColor: 'transparent',
   borderColor: 'transparent',
-  iconSrc: targetNodeIconSrc,
+  icon: targetNodeIconSrc,
 };
 
 export const mazeAlgoSharedIcons = [
@@ -55,7 +55,7 @@ export const pathfindingAlgoSharedIcons = [
     label: 'Shortest Path',
     bgColor: 'transparent',
     borderColor: 'transparent',
-    iconSrc: shortestPathIconSrc,
+    icon: shortestPathIconSrc,
     iconSize: 'big',
   },
 ];
