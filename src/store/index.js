@@ -1,3 +1,6 @@
+import createStore from './Store';
+import appStateReducer from './appStateReducer';
+
 const initialAppState = {
   gridSize: {
     numOfRows: 0,
@@ -16,4 +19,6 @@ const initialAppState = {
   isSolutionFound: false,
 };
 
-export default initialAppState;
+const store = createStore(appStateReducer, initialAppState);
+
+export default store;
