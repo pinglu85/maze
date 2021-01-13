@@ -1,8 +1,18 @@
 .dismiss {
+  border: none;
+  font-size: 0.875rem;
+  background: none;
+  cursor: pointer;
   opacity: 0.5;
 }
 
 .dismiss:hover,
 .dismiss:active {
+  color: var(--black);
   opacity: 1;
+}
+
+.dismiss svg {
+  display: block;
+  width: 100%;
 }

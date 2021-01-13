@@ -1,4 +1,4 @@
-import chevronDownIcon from './chevronDownIcon';
+import chevronDownIcon from '../../assets/chevron-down.svg';
 import styles from './style.module.css';
 
 class Dropdown {

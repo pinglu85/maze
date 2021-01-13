@@ -48,13 +48,18 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
       {
-        test: /\.(png|svg)$/,
+        test: /\.png$/,
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {
           outputPath: 'assets',
           esModule: false,
         },
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader',
       },
     ],
   },

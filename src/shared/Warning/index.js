@@ -6,7 +6,9 @@ class Warning {
     return ` 
       <div class="${styles.body}">
         <div class="${styles.content}">
-          <img class="${styles.icon}" src=${alertIcon}>
+          <div class="${styles.icon}">
+            ${alertIcon}
+          </div>
           <p class="${styles.message}">
             <strong>Whoops. </strong>
             <span>You did not ${message}.</span>
