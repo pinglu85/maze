@@ -1,8 +1,7 @@
-import Dropdown from '../shared/Dropdown';
-import store from '../store';
-import { selectNewMazeAlgo } from '../store/actions';
+import Dropdown from '../../shared/Dropdown';
+import store from '../../store';
+import { selectNewMazeAlgo } from '../../store/actions';
 
-const root = document.getElementById('maze-algo-dropdown');
 const btnLabel = 'Maze Algorithms';
 const items = [
   { text: 'Hunt-and-Kill' },
@@ -27,6 +26,5 @@ const handleClickItem = (e) => {
   store.dispatch(selectNewMazeAlgo(algo));
 };
 
-const mazeAlgoDropdown = new Dropdown(root, btnLabel, items, handleClickItem);
-
+const mazeAlgoDropdown = new Dropdown(btnLabel, items, handleClickItem);
 export default mazeAlgoDropdown;

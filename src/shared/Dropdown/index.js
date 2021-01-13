@@ -2,12 +2,13 @@ import chevronDownIcon from '../../assets/chevron-down.svg';
 import styles from './style.module.css';
 
 class Dropdown {
-  constructor(root, btnLabel, items, handleClickItem) {
-    this.root = root;
-    this.btnLabel = btnLabel;
-    this.items = items;
-    this.handleClickItem = handleClickItem;
+  constructor(btnLabel, items, handleClickItem) {
+    this._btnLabel = btnLabel;
+    this._items = items;
+    this._handleClickItem = handleClickItem;
 
+    this.root = document.createElement('div');
+    this.root.classList.add(styles.dropdown);
     this.root.innerHTML = this._template();
     this.menu = this.root.querySelector('ul');
     this.root.addEventListener('click', this._handleClickInside);
@@ -19,7 +20,7 @@ class Dropdown {
       return;
     }
 
-    this.handleClickItem(e);
+    this._handleClickItem(e);
     this._closeMenu();
   };
 
@@ -42,7 +43,7 @@ class Dropdown {
   }
 
   _template() {
-    const items = this.items
+    const items = this._items
       .map(({ text, style = '' }) => {
         return `
           <li class="${styles.dropdownItem} ${style ? styles[style] : ''}">
@@ -54,7 +55,7 @@ class Dropdown {
 
     return `
       <button type="button" class="btn ${styles.btnDropdown}">
-      ${this.btnLabel}
+        ${this._btnLabel}
         <span class="${styles.icon}">${chevronDownIcon}</span>       
       </button>
       <ul class="${styles.dropdownMenu}">
