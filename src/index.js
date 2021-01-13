@@ -1,4 +1,6 @@
 import { grid, startNode, targetNode } from './globalVariables';
+import mazeAlgoDropdown from './MazeAlgoDropdown';
+import pathfindingAlgoDropdown from './PathfindingAlgoDropdown';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import description from './Description';
@@ -7,14 +9,7 @@ import * as actions from './store/actions';
 import { setupCanvases, setInitialGridSize } from './utils';
 import './index.css';
 
-const mazeAlgosDropdown = document.getElementById('maze-algos-dropdown');
-const mazeAlgosList = document.getElementById('maze-algos-list');
-const pathfindingAlgosDropdown = document.getElementById(
-  'pathfinding-algos-dropdown'
-);
-const pathfindingAlgosList = document.getElementById('pathfinding-algos-list');
 const settingsBtn = document.getElementById('settings-btn');
-
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
 const redrawGridOnSizeChange = (prevState, state) => {
@@ -36,8 +31,12 @@ const toggleBtnsDisabledOnStateChange = (prevState, state) => {
     prevState.isMazeGenerating !== state.isMazeGenerating ||
     prevState.isSearchingSolution !== state.isSearchingSolution
   ) {
-    mazeAlgosList.classList.toggle('disabled');
-    pathfindingAlgosList.classList.toggle('disabled');
+    const mazeAlgoMenu = mazeAlgoDropdown.menu;
+    mazeAlgoMenu.classList.toggle('disabled');
+
+    const pathfindingAlgoMenu = pathfindingAlgoDropdown.menu;
+    pathfindingAlgoMenu.classList.toggle('disabled');
+
     settingsDrawer.saveBtn.disabled = !settingsDrawer.saveBtn.disabled;
     if (description.visualizeBtn) {
       description.visualizeBtn.disabled = !description.visualizeBtn.disabled;
@@ -78,51 +77,6 @@ settingsBtn.addEventListener('click', () => {
   const { gridSize } = store.getState();
   settingsDrawer.open(gridSize, store.dispatch);
 });
-
-const handleDropdownMenuClose = (e) => {
-  const dropDowns = [
-    [mazeAlgosList, mazeAlgosDropdown],
-    [pathfindingAlgosList, pathfindingAlgosDropdown],
-  ];
-
-  dropDowns.forEach(([dropDownMenu, dropDownWrapper]) => {
-    const dropDownMenuIsShown = dropDownMenu.classList.contains('is-active');
-    const dropDownWrapperIsClicked = dropDownWrapper.contains(e.target);
-    if (dropDownMenuIsShown && !dropDownWrapperIsClicked) {
-      dropDownMenu.classList.remove('is-active');
-    }
-  });
-};
-document.addEventListener('click', handleDropdownMenuClose);
-
-mazeAlgosDropdown.addEventListener('click', (e) => {
-  handleDropdownClick(e, mazeAlgosList);
-});
-
-pathfindingAlgosDropdown.addEventListener('click', (e) => {
-  handleDropdownClick(e, pathfindingAlgosList);
-});
-
-function handleDropdownClick(e, dropdownMenu) {
-  if (e.target && e.target.nodeName !== 'A') {
-    dropdownMenu.classList.add('is-active');
-    return;
-  }
-
-  dropdownMenu.classList.remove('is-active');
-
-  const { isMazeGenerating, isSearchingSolution } = store.getState();
-  if (isMazeGenerating || isSearchingSolution) {
-    return;
-  }
-
-  const algo = e.target.textContent;
-  if (dropdownMenu.id === 'maze-algos-list') {
-    store.dispatch(actions.selectNewMazeAlgo(algo));
-  } else {
-    store.dispatch(actions.selectNewPathfindingAlgo(algo));
-  }
-}
 
 async function handleVisualizeMazeAlgo(algo) {
   const appState = store.getState();
