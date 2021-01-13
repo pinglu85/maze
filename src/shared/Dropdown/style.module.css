@@ -1,3 +1,7 @@
+.dropdown {
+  position: relative;
+}
+
 .btnDropdown {
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,5 @@
 import { grid, startNode, targetNode } from './globalVariables';
-import mazeAlgoDropdown from './MazeAlgoDropdown';
-import pathfindingAlgoDropdown from './PathfindingAlgoDropdown';
+import navbar from './Navbar';
 import popupWarning from './PopupWarning';
 import settingsDrawer from './SettingsDrawer';
 import description from './Description';
@@ -9,7 +8,6 @@ import * as actions from './store/actions';
 import { setupCanvases, setInitialGridSize } from './utils';
 import './index.css';
 
-const settingsBtn = document.getElementById('settings-btn');
 const [[mazeCtx, solutionCtx], setCanvasesSize] = setupCanvases();
 
 const redrawGridOnSizeChange = (prevState, state) => {
@@ -31,10 +29,10 @@ const toggleBtnsDisabledOnStateChange = (prevState, state) => {
     prevState.isMazeGenerating !== state.isMazeGenerating ||
     prevState.isSearchingSolution !== state.isSearchingSolution
   ) {
-    const mazeAlgoMenu = mazeAlgoDropdown.menu;
+    const mazeAlgoMenu = navbar.mazeAlgoMenu;
     mazeAlgoMenu.classList.toggle('disabled');
 
-    const pathfindingAlgoMenu = pathfindingAlgoDropdown.menu;
+    const pathfindingAlgoMenu = navbar.pathfindingAlgoMenu;
     pathfindingAlgoMenu.classList.toggle('disabled');
 
     settingsDrawer.saveBtn.disabled = !settingsDrawer.saveBtn.disabled;
@@ -71,11 +69,6 @@ store.subscribe(renderDescriptionOnAlgoSelect);
 window.addEventListener('DOMContentLoaded', () => {
   setInitialGridSize(store.dispatch);
   description.render('');
-});
-
-settingsBtn.addEventListener('click', () => {
-  const { gridSize } = store.getState();
-  settingsDrawer.open(gridSize, store.dispatch);
 });
 
 async function handleVisualizeMazeAlgo(algo) {
