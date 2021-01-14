@@ -1,0 +1,14 @@
+.siteLogo {
+  width: 280px;
+}
+
+.siteLogo > img {
+  display: block;
+}
+
+@media (max-width: 576px) {
+  .siteLogo {
+    width: 260px;
+    margin-bottom: 0.5rem;
+  }
+}

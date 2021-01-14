@@ -11,61 +11,10 @@
   text-decoration: none;
 }
 
-.logo {
-  width: 280px;
-}
-
-.logo > img {
-  display: block;
-}
-
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: calc(100% - 280px);
-}
-
-.controlsMain {
-  display: flex;
-  align-items: center;
-  margin-left: 2.5rem;
-}
-
-.controlsMain > * {
-  margin-right: 2.5rem;
-}
-
 @media (max-width: 576px) {
   .navbar {
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-
-  .logo {
-    width: 260px;
-    margin-bottom: 0.5rem;
-  }
-
-  .controls {
-    width: 100%;
-  }
-
-  .controlsMain {
-    margin-left: 0;
-  }
-
-  .controlsMain > * {
-    margin-right: 1.5rem;
-  }
-}
-
-.btnSettings {
-  width: 1.25rem;
-}
-
-.btnSettings svg {
-  display: block;
-  width: 100%;
 }

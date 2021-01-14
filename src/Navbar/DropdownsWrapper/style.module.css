@@ -1,0 +1,19 @@
+.dropdownsWrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 2.5rem;
+}
+
+.dropdownsWrapper > * {
+  margin-right: 2.5rem;
+}
+
+@media (max-width: 576px) {
+  .dropdownsWrapper {
+    margin-left: 0;
+  }
+
+  .dropdownsWrapper > * {
+    margin-right: 1.5rem;
+  }
+}
