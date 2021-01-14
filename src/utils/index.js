@@ -1,4 +1,5 @@
 export { default as applyDropShadow } from './applyDropShadow';
+export { default as createDOMElement } from './createDOMElement';
 export { default as deepCloneObj } from './deepCloneObj';
 export { default as delay } from './delay';
 export { default as getOppositeDir } from './getOppositeDir';
