@@ -1,3 +1,4 @@
+import { createDOMElement } from '../../utils';
 import chevronDownIcon from '../../assets/chevron-down.svg';
 import styles from './style.module.css';
 
@@ -7,11 +8,13 @@ class Dropdown {
     this._items = items;
     this._handleClickItem = handleClickItem;
 
-    this.root = document.createElement('div');
-    this.root.classList.add(styles.dropdown);
-    this.root.innerHTML = this._template();
+    this.root = createDOMElement({
+      el: 'div',
+      classes: [styles.dropdown],
+      innerHTML: this._template(),
+      eventListener: { type: 'click', handler: this._handleClickInside },
+    });
     this.menu = this.root.querySelector('ul');
-    this.root.addEventListener('click', this._handleClickInside);
   }
 
   _handleClickInside = (e) => {
