@@ -40,7 +40,7 @@ class SettingsDrawer {
     );
 
     this.saveBtn.addEventListener('click', () => {
-      this._saveSettings(dispatch);
+      this._saveSettings(gridSize, dispatch);
     });
   }
 
@@ -72,7 +72,7 @@ class SettingsDrawer {
     }
   };
 
-  _saveSettings(dispatch) {
+  _saveSettings(gridSize, dispatch) {
     const updatedNumOfRows = parseInputValue(this._inputRows.value);
     let warningMessage = 'enter a valid number for';
 
@@ -84,6 +84,14 @@ class SettingsDrawer {
     const updatedNumOfCols = parseInputValue(this._inputCols.value);
     if (!updatedNumOfCols) {
       this._showWarning(`${warningMessage} columns`);
+      return;
+    }
+
+    const { numOfRows: prevNumOfRows, numOfCols: prevNumOfCols } = gridSize;
+    const isGridSizeChanged =
+      prevNumOfRows !== updatedNumOfRows || prevNumOfCols !== updatedNumOfCols;
+    if (!isGridSizeChanged) {
+      this._close();
       return;
     }
 
