@@ -73,9 +73,9 @@ class SettingsDrawer {
   };
 
   _saveSettings(gridSize, dispatch) {
-    const updatedNumOfRows = parseInputValue(this._inputRows.value);
     let warningMessage = 'enter a valid number for';
 
+    const updatedNumOfRows = parseInputValue(this._inputRows.value);
     if (!updatedNumOfRows) {
       this._showWarning(`${warningMessage} rows`);
       return;
