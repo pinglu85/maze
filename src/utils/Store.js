@@ -1,4 +1,4 @@
-import { deepCloneObj } from '../utils';
+import { deepCloneObj } from '.';
 
 class Store {
   constructor() {
