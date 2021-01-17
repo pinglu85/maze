@@ -1,4 +1,4 @@
-import createStore from './Store';
+import { createStore } from '../utils';
 import appStateReducer from './appStateReducer';
 
 const initialAppState = {
