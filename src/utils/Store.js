@@ -1,36 +1,41 @@
 import { deepCloneObj } from '.';
 
 class Store {
+  #prevState;
+  #state;
+  #reduce;
+  #subscribers;
+
   constructor() {
-    this.prevState = {};
-    this.state = {};
-    this._reduce = () => {};
-    this.subscribers = [];
+    this.#prevState = {};
+    this.#state = {};
+    this.#reduce = () => {};
+    this.#subscribers = [];
   }
 
   createStore = (reducer, initialState) => {
-    this.state = { ...initialState };
-    this._reduce = reducer;
+    this.#state = { ...initialState };
+    this.#reduce = reducer;
     return this;
   };
 
   getState() {
-    return this.state;
+    return this.#state;
   }
 
   dispatch = (action) => {
-    this.prevState = deepCloneObj(this.state);
-    this.state = this._reduce(this.state, action);
-    this._notifySubscribers();
+    this.#prevState = deepCloneObj(this.#state);
+    this.#state = this.#reduce(this.#state, action);
+    this.#notifySubscribers();
   };
 
   subscribe(fn) {
-    this.subscribers.push(fn);
+    this.#subscribers.push(fn);
   }
 
-  _notifySubscribers() {
-    this.subscribers.forEach((subscriber) => {
-      subscriber(this.prevState, this.state);
+  #notifySubscribers() {
+    this.#subscribers.forEach((subscriber) => {
+      subscriber(this.#prevState, this.#state);
     });
   }
 }
