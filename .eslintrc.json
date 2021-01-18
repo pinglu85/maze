@@ -12,6 +12,7 @@
         "jsx": true
     },
     "plugins": [
+        "classPrivateMethods",
         "react"
     ],
     "rules": {
