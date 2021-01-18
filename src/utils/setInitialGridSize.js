@@ -1,4 +1,4 @@
-import { checkIsMobile, checkIsTablet, checkIsBigTablet } from '.';
+import { checkDevice } from '.';
 import { updateGridSize } from '../store/actions';
 import {
   GRID_SIZE_MOBILE,
@@ -8,9 +8,10 @@ import {
 } from '../constants/localStorageKeys';
 
 export default function setInitialGridSize(dispatch) {
+  const device = checkDevice();
   let storedGridSize;
 
-  if (checkIsMobile()) {
+  if (device === 'mobile') {
     storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_MOBILE));
     if (!storedGridSize) {
       setGridSize(dispatch, { numOfRows: 8, numOfCols: 9 });
@@ -21,7 +22,7 @@ export default function setInitialGridSize(dispatch) {
     return;
   }
 
-  if (checkIsTablet()) {
+  if (device === 'tablet') {
     storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_TABLET));
     if (!storedGridSize) {
       setGridSize(dispatch, { numOfRows: 15, numOfCols: 20 });
@@ -32,7 +33,7 @@ export default function setInitialGridSize(dispatch) {
     return;
   }
 
-  if (checkIsBigTablet()) {
+  if (device === 'bigTablet') {
     storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_BIG_TABLET));
     if (!storedGridSize) {
       setGridSize(dispatch, { numOfRows: 15, numOfCols: 30 });

@@ -1,12 +1,15 @@
-export const checkIsMobile = () => {
-  return window.matchMedia('(max-width: 576px)').matches;
-};
+export default function checkDevice() {
+  if (window.matchMedia('(max-width: 576px)').matches) {
+    return 'mobile';
+  }
 
-export const checkIsTablet = () => {
-  return window.matchMedia('(min-width: 577px) and (max-width: 768px)').matches;
-};
+  if (window.matchMedia('(min-width: 577px) and (max-width: 768px)').matches) {
+    return 'tablet';
+  }
 
-export const checkIsBigTablet = () => {
-  return window.matchMedia('(min-width: 769px) and (max-width: 1024px)')
-    .matches;
-};
+  if (window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches) {
+    return 'bigTablet';
+  }
+
+  return 'desktop';
+}
