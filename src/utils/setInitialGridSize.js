@@ -6,6 +6,7 @@ import {
   GRID_SIZE_BIG_TABLET,
   GRID_SIZE_DESKTOP,
 } from '../constants/localStorageKeys';
+import { DEFAULT_GRID_SIZE } from '../constants/size';
 
 export default function setInitialGridSize(dispatch) {
   const device = checkDevice();
@@ -14,7 +15,7 @@ export default function setInitialGridSize(dispatch) {
   if (device === 'mobile') {
     storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_MOBILE));
     if (!storedGridSize) {
-      setGridSize(dispatch, { numOfRows: 8, numOfCols: 9 });
+      setGridSize(dispatch, DEFAULT_GRID_SIZE.mobile);
       return;
     }
 
@@ -25,7 +26,7 @@ export default function setInitialGridSize(dispatch) {
   if (device === 'tablet') {
     storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_TABLET));
     if (!storedGridSize) {
-      setGridSize(dispatch, { numOfRows: 15, numOfCols: 20 });
+      setGridSize(dispatch, DEFAULT_GRID_SIZE.tablet);
       return;
     }
 
@@ -36,7 +37,7 @@ export default function setInitialGridSize(dispatch) {
   if (device === 'bigTablet') {
     storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_BIG_TABLET));
     if (!storedGridSize) {
-      setGridSize(dispatch, { numOfRows: 15, numOfCols: 30 });
+      setGridSize(dispatch, DEFAULT_GRID_SIZE.bigTablet);
       return;
     }
 
@@ -46,7 +47,7 @@ export default function setInitialGridSize(dispatch) {
 
   storedGridSize = JSON.parse(localStorage.getItem(GRID_SIZE_DESKTOP));
   if (!storedGridSize) {
-    setGridSize(dispatch, { numOfRows: 13, numOfCols: 40 });
+    setGridSize(dispatch, DEFAULT_GRID_SIZE.desktop);
     return;
   }
 
