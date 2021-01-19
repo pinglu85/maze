@@ -1,14 +1,6 @@
 import Cell from './Cell';
-import {
-  asyncHuntAndKill,
-  asyncRecursiveBacktracker,
-  asyncRecursiveDivision,
-  asyncGrowingTree,
-  asyncBinaryTree,
-  asyncRandomizedKruskalsAlgo,
-  asyncAldousBroderAlgo,
-} from './mazeAlgos';
-import { asyncAStarSearch, asyncDijkstrasAlgo } from './pathfindingAlgos';
+import * as mazeAlgos from './mazeAlgos';
+import * as pathfindingAlgos from './pathfindingAlgos';
 import { getRandomIndex, getStartOrEndIndexOfArray } from '../utils';
 
 class Grid {
@@ -51,24 +43,24 @@ class Grid {
 
     switch (algo) {
       case 'Hunt-and-Kill':
-        return asyncGenerateMaze(asyncHuntAndKill);
+        return asyncGenerateMaze(mazeAlgos.asyncHuntAndKill);
       case 'Recursive Backtracker':
-        return asyncGenerateMaze(asyncRecursiveBacktracker);
+        return asyncGenerateMaze(mazeAlgos.asyncRecursiveBacktracker);
       case 'Recursive Division':
         this.dropInteriorWalls();
-        return asyncGenerateMaze(asyncRecursiveDivision);
+        return asyncGenerateMaze(mazeAlgos.asyncRecursiveDivision);
       case 'Growing Tree (random)':
-        return asyncGenerateMaze(asyncGrowingTree, 'random');
+        return asyncGenerateMaze(mazeAlgos.asyncGrowingTree, 'random');
       case 'Growing Tree (last)':
-        return asyncGenerateMaze(asyncGrowingTree, 'last');
+        return asyncGenerateMaze(mazeAlgos.asyncGrowingTree, 'last');
       case 'Growing Tree (mix)':
-        return asyncGenerateMaze(asyncGrowingTree, 'mix');
+        return asyncGenerateMaze(mazeAlgos.asyncGrowingTree, 'mix');
       case 'Binary Tree':
-        return asyncGenerateMaze(asyncBinaryTree);
+        return asyncGenerateMaze(mazeAlgos.asyncBinaryTree);
       case "Randomized Kruskal's Algorithm":
-        return asyncGenerateMaze(asyncRandomizedKruskalsAlgo);
+        return asyncGenerateMaze(mazeAlogs.asyncRandomizedKruskalsAlgo);
       case 'Aldous-Broder Algorithm':
-        return asyncGenerateMaze(asyncAldousBroderAlgo);
+        return asyncGenerateMaze(mazeAlgos.asyncAldousBroderAlgo);
       case 'Open Grid':
         this.dropInteriorWalls();
         this.generateMazeEntryAndExit();
@@ -90,9 +82,9 @@ class Grid {
 
     switch (algo) {
       case "Dijkstra's Algorithm":
-        return asyncFindSolution(asyncDijkstrasAlgo);
+        return asyncFindSolution(pathfindingAlgos.asyncDijkstrasAlgo);
       case 'A* Search':
-        return asyncFindSolution(asyncAStarSearch);
+        return asyncFindSolution(pathfindingAlgos.asyncAStarSearch);
       default:
       // do nothing
     }
