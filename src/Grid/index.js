@@ -35,8 +35,8 @@ class Grid {
   };
 
   generateMaze(algo) {
-    const asyncGenerateMaze = async (mazeGenerationAlgo, arg) => {
-      await mazeGenerationAlgo(this.content, arg);
+    const asyncGenerateMaze = async (mazeAlgo, arg) => {
+      await mazeAlgo(this.content, arg);
       this.generateMazeEntryAndExit();
       return Promise.resolve();
     };
