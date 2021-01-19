@@ -7,7 +7,7 @@ import {
   asyncBinaryTree,
   asyncRandomizedKruskalsAlgo,
   asyncAldousBroderAlgo,
-} from './mazeGenerationAlgos';
+} from './mazeAlgos';
 import { asyncAStarSearch, asyncDijkstrasAlgo } from './pathfindingAlgos';
 import { getRandomIndex, getStartOrEndIndexOfArray } from '../utils';
 
