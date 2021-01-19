@@ -5,7 +5,7 @@ import { DEFAULT_GRID_SIZE } from '../constants/size';
 
 function setInitialGridSize(dispatch) {
   const device = checkDevice();
-  const localStorageKey = LOCAL_STORAGE_KEYS.gridSize(device);
+  const localStorageKey = LOCAL_STORAGE_KEYS.gridSize[device];
   const storedGridSize = JSON.parse(localStorage.getItem(localStorageKey));
 
   if (storedGridSize) {
