@@ -1,7 +1,12 @@
-import { applyDropShadow, getOppositeDir } from '../utils';
+import {
+  applyDropShadow,
+  getOppositeDir,
+  loadStartNodeSprites,
+} from '../utils';
+import { FOOTPRINT_COLORS } from '../constants/colors';
+import { SPRITE_SIZE, FOOTPRINT_RADIUS } from '../constants/size';
 
 const TO_RADIANS = Math.PI / 180;
-
 class StartNode {
   constructor(sprites, spriteSize, footprintRadius, footprintColors) {
     this.centerX = 0;
@@ -166,4 +171,11 @@ class StartNode {
   }
 }
 
-export default StartNode;
+const startNodeSprites = loadStartNodeSprites(10);
+const startNode = new StartNode(
+  startNodeSprites,
+  SPRITE_SIZE,
+  FOOTPRINT_RADIUS,
+  FOOTPRINT_COLORS
+);
+export default startNode;
