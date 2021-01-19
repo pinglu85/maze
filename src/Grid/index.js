@@ -2,6 +2,8 @@ import Cell from './Cell';
 import * as mazeAlgos from './mazeAlgos';
 import * as pathfindingAlgos from './pathfindingAlgos';
 import { getRandomIndex, getStartOrEndIndexOfArray } from '../utils';
+import { CELL_COLORS, GUIDES_COLOR } from '../constants/colors';
+import { CELL_SIZE, LINE_WIDTHS } from '../constants/size';
 
 class Grid {
   constructor(cellSize, cellColors, lineWidths, guidesColor) {
@@ -193,4 +195,5 @@ class Grid {
   }
 }
 
-export default Grid;
+const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTHS, GUIDES_COLOR);
+export default grid;

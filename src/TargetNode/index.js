@@ -1,3 +1,5 @@
+import { loadTargetNodeSprites } from './utils';
+import { SPRITE_SIZE } from './constants/size';
 class TargetNode {
   constructor(sprites, spriteSize) {
     this.centerX = 0;
@@ -45,4 +47,6 @@ class TargetNode {
   }
 }
 
-export default TargetNode;
+const targetNodeSprites = loadTargetNodeSprites('normal', 'white');
+const targetNode = new TargetNode(targetNodeSprites, SPRITE_SIZE);
+export default targetNode;
