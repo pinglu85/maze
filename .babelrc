@@ -1,18 +1,21 @@
 {
-  "presets": [
-    ["@babel/preset-env", {
-      "targets": {
-        "browsers": ["> 1%", "last 2 versions"] 
-      }
-    }]
-  ],
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions"] 
+      }
+    }]
+  ],
   "plugins": [
     "@babel/plugin-transform-runtime", 
-    "@babel/plugin-proposal-class-properties",  
+    "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-private-methods", 
     [
       "@babel/plugin-transform-react-jsx", 
-      { "pragma": "createElement" }
+      { 
+        "pragma": "createElement", 
+        "pragmaFrag": "'fragment'" 
+      }
     ]
   ]
 }
