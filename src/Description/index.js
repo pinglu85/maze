@@ -1,47 +1,71 @@
-import descriptionIcons from '../DescriptionIcons';
+import { createElement, render, useRef } from '../utils';
+import store from '../store';
+import MazeAlgoDescription from './MazeAlgoDescription';
+import PathfindingAlgoDescription from './PathfindingAlgoDescription';
 import algoDescriptions from './algoDescriptions';
 import styles from './style.module.css';
 
-class Description {
-  constructor() {
-    this.root = document.getElementById('description');
-    this.visualizeBtn = null;
-  }
+const Description = ({ mazeCanvasRef, solutionCanvasRef }) => {
+  const rootRef = useRef();
 
-  render = (algo, handleVisualize) => {
-    if (algo === '') {
-      this.root.innerHTML = `
-        <div class="${styles.encouragement}">
-          Pick a maze algorithm and visualize it!
-        </div>
-      `;
+  const renderContentOnAlgoSelect = (prevState, state) => {
+    const isAlgoTypeChanged = prevState.algoType !== state.algoType;
+    const isMazeAlgoChanged = prevState.mazeAlgo !== state.mazeAlgo;
+    const isPathfindingAlgoChanged =
+      prevState.pathfindingAlgo !== state.pathfindingAlgo;
+
+    if (!isAlgoTypeChanged && !isMazeAlgoChanged && !isPathfindingAlgoChanged) {
+      return;
+    }
+    if (!rootRef.current) {
       return;
     }
 
-    this.root.innerHTML = this._template(algo);
-    this.visualizeBtn = this.root.querySelector('#visualize-btn');
-    this.visualizeBtn.addEventListener('click', () => {
-      handleVisualize(algo);
-    });
+    const root = rootRef.current;
+    root.innerHTML = '';
+    const mazeCtx = mazeCanvasRef.current.ctx;
+    const solutionCtx = solutionCanvasRef.current.ctx;
+    const currentAlgoType = state.algoType;
+    const currentAlgo = state[currentAlgoType];
+    const description = algoDescriptions[currentAlgo];
+    let node;
+
+    if (currentAlgoType === 'mazeAlgo') {
+      node = render(
+        <MazeAlgoDescription
+          algo={currentAlgo}
+          description={description}
+          getState={store.getState}
+          dispatch={store.dispatch}
+          subscribe={store.subscribe}
+          mazeCtx={mazeCtx}
+          solutionCtx={solutionCtx}
+        />
+      );
+    } else {
+      node = render(
+        <PathfindingAlgoDescription
+          description={description}
+          getState={store.getState}
+          dispatch={store.dispatch}
+          subscribe={store.subscribe}
+          mazeCtx={mazeCtx}
+          solutionCtx={solutionCtx}
+        />
+      );
+    }
+
+    root.appendChild(node);
   };
+  store.subscribe(renderContentOnAlgoSelect);
 
-  _template(algo) {
-    const algoDescription = algoDescriptions[algo];
-    const btnLabel = algo === 'Open Grid' ? 'Open Grid' : 'Visualize';
-
-    return `
-      <div class="${styles.description}">
-        ${descriptionIcons.template(algoDescription.icons)}
-        <div class="${styles.text}">${algoDescription.text}</div>
-        <div class="${styles.actions}">
-          <button type="button" class="btn btn--primary" id="visualize-btn">
-            ${btnLabel}
-          </button>
-        </div>
+  return (
+    <div ref={rootRef} className={styles.Description}>
+      <div className={styles.encouragement}>
+        Pick a maze algorithm and visualize it!
       </div>
-    `;
-  }
-}
+    </div>
+  );
+};
 
-const description = new Description();
-export default description;
+export default Description;

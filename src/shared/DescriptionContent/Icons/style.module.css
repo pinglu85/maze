@@ -1,0 +1,49 @@
+.Icons {
+  width: 100%;
+  overflow-x: auto;
+  list-style: none;
+}
+
+.listItem {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+}
+
+@media (max-width: 576px) {
+  .Icons {
+    white-space: nowrap;
+  }
+
+  .listItem {
+    margin-left: 2rem;
+  }
+
+  .Icons > .listItem:first-child {
+    margin-left: 0;
+  }
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid;
+}
+
+.big {
+  width: 4.5rem;
+}
+
+.icon svg {
+  display: block;
+  width: 100%;
+}
+
+.label {
+  margin-left: 0.5rem;
+}

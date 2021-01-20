@@ -19,9 +19,9 @@ class Store {
     return this;
   };
 
-  getState() {
+  getState = () => {
     return this.#state;
-  }
+  };
 
   dispatch = (action) => {
     this.#prevState = deepCloneObj(this.#state);
@@ -29,9 +29,9 @@ class Store {
     this.#notifySubscribers();
   };
 
-  subscribe(fn) {
+  subscribe = (fn) => {
     this.#subscribers.push(fn);
-  }
+  };
 
   #notifySubscribers() {
     this.#subscribers.forEach((subscriber) => {

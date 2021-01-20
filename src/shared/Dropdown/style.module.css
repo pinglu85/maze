@@ -1,31 +1,5 @@
-.dropdown {
+.Dropdown {
   position: relative;
-}
-
-.btnDropdown {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.btnDropdown:focus {
-  color: var(--green);
-}
-
-.icon {
-  margin-left: 0.25rem;
-  width: 1.175rem;
-  transform: rotate(0deg);
-  transition: all 0.1s ease-out;
-}
-
-.icon svg {
-  width: 100%;
-  display: block;
-}
-
-.btnDropdown:focus > .icon {
-  transform: rotate(180deg);
 }
 
 .dropdownMenu {
@@ -46,22 +20,4 @@
     max-height: 58vh;
     overflow: auto;
   }
-}
-
-.dropdownItem {
-  padding: 0.25rem 0;
-}
-
-.dropdownItem a {
-  display: block;
-  padding: 0.5rem 1rem;
-}
-
-.dropdownItem a:hover {
-  background: var(--green);
-  color: #ffffff;
-}
-
-.withBorderTop {
-  border-top: 0.0625rem solid var(--grey);
 }

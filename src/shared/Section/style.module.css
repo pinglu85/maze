@@ -1,0 +1,7 @@
+.Section {
+  padding: 2.5rem 0;
+}
+
+.withBorderTop {
+  border-top: 0.0625rem solid var(--grey);
+}

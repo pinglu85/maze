@@ -1,5 +1,5 @@
-import { loadTargetNodeSprites } from './utils';
-import { SPRITE_SIZE } from './constants/size';
+import { loadTargetNodeSprites } from '../utils';
+import { SPRITE_SIZE } from '../constants/size';
 class TargetNode {
   constructor(sprites, spriteSize) {
     this.centerX = 0;
