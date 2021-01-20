@@ -1,8 +1,6 @@
-.description,
-.encouragement {
+.Description {
   max-width: calc(1288px + 4rem);
   width: 100%;
-  min-height: 227px;
   margin: 0 auto;
   padding: 1rem 0 1.5rem;
 }
@@ -11,30 +9,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.text,
-.actions {
   width: 100%;
-  text-align: center;
-}
-
-.text {
-  margin-top: 4.5rem;
-}
-
-.actions {
-  margin-top: 1rem;
+  height: 187px;
 }
 
 @media (max-width: 576px) {
-  .description,
-  .encouragement {
+  .Description {
     padding: 0.25rem 0.75rem 1rem;
-    min-height: 197px;
   }
 
-  .text {
-    margin-top: 1.5rem;
+  .encouragement {
+    height: 197px;
   }
 }

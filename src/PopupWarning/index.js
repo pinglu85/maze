@@ -1,38 +1,46 @@
-import warning from '../shared/Warning';
-import dismissIcon from '../assets/x.svg';
+import { createElement, render, useRef } from '../utils';
+import store from '../store';
+import WarningWithDismiss from './WarningWithDismiss';
+import { togglePopupWarning } from '../store/actions';
 import styles from './style.module.css';
 
-class PopupWarning {
-  constructor() {
-    this.root = document.getElementById('popup-warning');
-    this.dismissBtn = null;
-  }
+const PopupWarning = () => {
+  const rootRef = useRef();
 
-  show(message) {
-    this.root.classList.add('is-active');
-    this.root.innerHTML = this._template(message);
-
-    this.dismissBtn = document.getElementById('popup-warning-dismiss-btn');
-    this.dismissBtn.addEventListener('click', this._hide);
-  }
-
-  _hide = () => {
-    this.root.classList.remove('is-active');
-    this.dismissBtn.removeEventListener('click', this._hide);
-    this.root.innerHTML = '';
+  const handleDismiss = function () {
+    store.dispatch(togglePopupWarning());
+    this.removeEventListener('click', handleDismiss);
   };
 
-  _template(message) {
-    const dismissBtn = ` 
-      <button type="button" id="popup-warning-dismiss-btn" class="${styles.dismiss}">
-        ${dismissIcon}
-        <span class="sr-only">Dismiss Warning</span>
-      </button>
-    `;
-    return warning.template(message, dismissBtn);
-  }
-}
+  const toggleWarning = (prevState, state) => {
+    if (prevState.popupWarning.isShown === state.popupWarning.isShown) {
+      return;
+    }
 
-const popupWarning = new PopupWarning();
+    if (!rootRef.current) {
+      return;
+    }
 
-export default popupWarning;
+    const {
+      popupWarning: { isShown, message },
+    } = state;
+    const root = rootRef.current;
+
+    if (!isShown) {
+      root.classList.remove('is-active');
+      root.innerHTML = '';
+      return;
+    }
+
+    const node = render(
+      <WarningWithDismiss message={message} handleDismiss={handleDismiss} />
+    );
+    root.appendChild(node);
+    root.classList.add('is-active');
+  };
+  store.subscribe(toggleWarning);
+
+  return <div ref={rootRef} className={styles.PopupWarning}></div>;
+};
+
+export default PopupWarning;

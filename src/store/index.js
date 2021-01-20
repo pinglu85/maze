@@ -13,6 +13,11 @@ const initialAppState = {
   algoType: '',
   mazeAlgo: '',
   pathfindingAlgo: '',
+  isSettingsDrawerOpen: false,
+  popupWarning: {
+    isShown: false,
+    message: '',
+  },
   isMazeGenerating: false,
   isMazeGenerated: false,
   isSearchingSolution: false,

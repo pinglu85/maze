@@ -1,33 +1,43 @@
-import siteLogo from './SiteLogo';
-import navItemsWrapper from './NavItemsWrapper';
-import mazeAlgoDropdown from './DropdownsWrapper/MazeAlgoDropdown';
-import pathfindingDropdown from './DropdownsWrapper/PathfindingAlgoDropdown';
-import { createDOMElement } from '../utils';
+import { createElement } from '../utils';
+import store from '../store';
+import { toggleSettingsDrawer } from '../store/actions';
+import MazeAlgosDropdown from './MazeAlgosDropdown';
+import PathfindingAlgosDropdown from './PathfindingAlgosDropdown';
+import Button from '../shared/Button';
+import logo from '../assets/logo.svg';
+import settingsIcon from '../assets/settings.svg';
 import styles from './style.module.css';
 
-class Navbar {
-  constructor(root, mazeAlgoDropdown, pathfindingDropdown) {
-    this._root = root;
-    this.mazeAlgoMenu = mazeAlgoDropdown;
-    this.pathfindingAlgoMenu = pathfindingDropdown;
-  }
+const Navbar = () => {
+  const handleSettingsBtnClick = () => {
+    store.dispatch(toggleSettingsDrawer());
+  };
 
-  appendToRoot(...children) {
-    const navbar = createDOMElement({
-      el: 'nav',
-      classes: [styles.navbar],
-      children,
-    });
-    this._root.appendChild(navbar);
-  }
-}
+  return (
+    <nav className={styles.Navbar}>
+      <a href="/" className={styles.siteLogo}>
+        {logo}
+      </a>
+      <div className={styles.navItems}>
+        <div className={styles.dropdowns}>
+          <MazeAlgosDropdown
+            getState={store.getState}
+            dispatch={store.dispatch}
+            subscribe={store.subscribe}
+          />
+          <PathfindingAlgosDropdown
+            getState={store.getState}
+            dispatch={store.dispatch}
+            subscribe={store.subscribe}
+          />
+        </div>
+        <Button style="settings" handleClick={handleSettingsBtnClick}>
+          <span>{settingsIcon}</span>
+          <span className="sr-only">Settings</span>
+        </Button>
+      </div>
+    </nav>
+  );
+};
 
-const root = document.getElementById('header');
-const navbar = new Navbar(
-  root,
-  mazeAlgoDropdown.menu,
-  pathfindingDropdown.menu
-);
-navbar.appendToRoot(siteLogo, navItemsWrapper);
-
-export default navbar;
+export default Navbar;

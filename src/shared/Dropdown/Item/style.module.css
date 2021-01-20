@@ -1,0 +1,17 @@
+.Item {
+  padding: 0.25rem 0;
+}
+
+.Item a {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.Item a:hover {
+  background: var(--green);
+  color: #ffffff;
+}
+
+.withBorderTop {
+  border-top: 0.0625rem solid var(--grey);
+}

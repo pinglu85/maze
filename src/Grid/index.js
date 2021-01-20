@@ -60,7 +60,7 @@ class Grid {
       case 'Binary Tree':
         return asyncGenerateMaze(mazeAlgos.asyncBinaryTree);
       case "Randomized Kruskal's Algorithm":
-        return asyncGenerateMaze(mazeAlogs.asyncRandomizedKruskalsAlgo);
+        return asyncGenerateMaze(mazeAlgos.asyncRandomizedKruskalsAlgo);
       case 'Aldous-Broder Algorithm':
         return asyncGenerateMaze(mazeAlgos.asyncAldousBroderAlgo);
       case 'Open Grid':

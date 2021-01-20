@@ -16,6 +16,7 @@ function doUpdateGridAndCanvasSize(state, gridSize) {
     },
     isMazeGenerated: false,
     isSolutionFound: false,
+    isSettingsDrawerOpen: false,
   };
 }
 

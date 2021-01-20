@@ -1,0 +1,85 @@
+.Btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--black);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.Btn:hover,
+.Btn:active {
+  color: var(--green);
+}
+
+.Btn:focus {
+  outline: none;
+}
+
+.primary {
+  padding: 0.8rem 1rem;
+  color: #ffffff;
+  border: 0.0625rem solid var(--green);
+  border-radius: 0.5rem;
+  background: var(--green);
+}
+
+.primary:hover,
+.primary:active {
+  color: #ffffff;
+  border-color: var(--dark-green);
+  background: var(--dark-green);
+}
+
+.primary:disabled {
+  color: #ffffff;
+  border-color: var(--light-grey);
+  background: var(--light-grey);
+}
+
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown:focus {
+  color: var(--green);
+}
+
+.dropdown > span {
+  margin-left: 0.25rem;
+  width: 1.175rem;
+  transform: rotate(0deg);
+  transition: all 0.1s ease-out;
+}
+
+.dropdown:focus > span {
+  transform: rotate(180deg);
+}
+
+.settings,
+.smallIcon {
+  width: 1.25rem;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.opacityChangeOnHover {
+  opacity: 0.5;
+}
+
+.opacityChangeOnHover:hover,
+.opacityChangeOnHover:active {
+  color: var(--black);
+  opacity: 1;
+}
+
+.Btn svg {
+  width: 100%;
+  display: block;
+}

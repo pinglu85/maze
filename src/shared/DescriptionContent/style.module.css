@@ -1,0 +1,24 @@
+.text,
+.actions {
+  width: 100%;
+  text-align: center;
+}
+
+.text {
+  margin-top: 4.5rem;
+}
+
+.actions {
+  margin-top: 1rem;
+}
+
+@media (max-width: 576px) {
+  .Description {
+    padding: 0.25rem 0.75rem 1rem;
+    min-height: 197px;
+  }
+
+  .text {
+    margin-top: 1.5rem;
+  }
+}

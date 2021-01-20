@@ -1,71 +1,77 @@
-import { createDOMElement } from '../../utils';
+import { createElement, useRef, toggleElementDisable } from '../../utils';
+import Button from '../Button';
+import Item from './Item';
 import chevronDownIcon from '../../assets/chevron-down.svg';
 import styles from './style.module.css';
 
-class Dropdown {
-  constructor(btnLabel, items, handleClickItem) {
-    this._btnLabel = btnLabel;
-    this._items = items;
-    this._handleClickItem = handleClickItem;
+const Dropdown = ({ btnLabel, items, handleClickItem, subscribe }) => {
+  const dropdownRef = useRef();
+  const dropdownMenuRef = useRef();
 
-    this.root = createDOMElement({
-      el: 'div',
-      classes: [styles.dropdown],
-      innerHTML: this._template(),
-      eventListener: { type: 'click', handler: this._handleClickInside },
-    });
-    this.menu = this.root.querySelector('ul');
-  }
-
-  _handleClickInside = (e) => {
+  const handleClickInside = (e) => {
     if (e.target && e.target.nodeName !== 'A') {
-      this._openMenu();
+      openMenu();
       return;
     }
 
-    this._handleClickItem(e);
-    this._closeMenu();
+    handleClickItem(e);
+    closeMenu();
   };
 
-  _handleClickOutside = (e) => {
-    const dropDownMenuIsShown = this.menu.classList.contains('is-active');
-    const dropDownWrapperIsClicked = this.root.contains(e.target);
+  const handleClickOutside = (e) => {
+    if (!dropdownRef.current || !dropdownMenuRef.current) {
+      return;
+    }
+
+    const dropdownMenu = dropdownMenuRef.current;
+    const dropDownMenuIsShown = dropdownMenu.classList.contains('is-active');
+    const dropdown = dropdownRef.current;
+    const dropDownWrapperIsClicked = dropdown.contains(e.target);
+
     if (dropDownMenuIsShown && !dropDownWrapperIsClicked) {
-      this._closeMenu();
+      closeMenu();
     }
   };
 
-  _openMenu() {
-    this.menu.classList.add('is-active');
-    document.addEventListener('click', this._handleClickOutside);
-  }
+  const openMenu = () => {
+    if (!dropdownMenuRef.current) {
+      return;
+    }
 
-  _closeMenu() {
-    this.menu.classList.remove('is-active');
-    document.removeEventListener('click', this._handleClickOutside);
-  }
+    dropdownMenuRef.current.classList.add('is-active');
+    document.addEventListener('click', handleClickOutside);
+  };
 
-  _template() {
-    const items = this._items
-      .map(({ text, style = '' }) => {
-        return `
-          <li class="${styles.dropdownItem} ${style ? styles[style] : ''}">
-            <a href="#">${text}</a>
-          </li>
-        `;
-      })
-      .join('');
+  const closeMenu = () => {
+    if (!dropdownMenuRef.current) {
+      return;
+    }
 
-    return `
-      <button type="button" class="btn ${styles.btnDropdown}">
-        ${this._btnLabel}
-        <span class="${styles.icon}">${chevronDownIcon}</span>       
-      </button>
-      <ul class="${styles.dropdownMenu}">
-        ${items}
+    dropdownMenuRef.current.classList.remove('is-active');
+    document.removeEventListener('click', handleClickOutside);
+  };
+
+  subscribe((prevState, state) => {
+    toggleElementDisable(prevState, state, dropdownMenuRef);
+  });
+
+  return (
+    <div
+      ref={dropdownRef}
+      className={styles.Dropdown}
+      onClick={handleClickInside}
+    >
+      <Button style="dropdown">
+        {btnLabel}
+        <span>{chevronDownIcon}</span>
+      </Button>
+      <ul ref={dropdownMenuRef} className={styles.dropdownMenu}>
+        {items.map((item) => (
+          <Item item={item} />
+        ))}
       </ul>
-    `;
-  }
-}
+    </div>
+  );
+};
 
 export default Dropdown;

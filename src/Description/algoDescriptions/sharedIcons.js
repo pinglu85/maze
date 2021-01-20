@@ -1,20 +1,20 @@
-import startNodeIconSrc from '../../assets/start-node.svg';
-import targetNodeIconSrc from '../../assets/target-node.svg';
-import shortestPathIconSrc from '../../assets/shortest-path.svg';
+import startNodeSvg from '../../assets/start-node.svg';
+import targetNodeSvg from '../../assets/target-node.svg';
+import shortestPathSvg from '../../assets/shortest-path.svg';
 import { CELL_COLORS } from '../../constants/colors';
 
 export const startNodeIcon = {
   label: 'Start Node',
   bgColor: 'transparent',
   borderColor: 'transparent',
-  icon: startNodeIconSrc,
+  svg: startNodeSvg,
 };
 
 export const targetNodeIcon = {
   label: 'Target Node',
   bgColor: 'transparent',
   borderColor: 'transparent',
-  icon: targetNodeIconSrc,
+  svg: targetNodeSvg,
 };
 
 export const mazeAlgoSharedIcons = [
@@ -55,7 +55,7 @@ export const pathfindingAlgoSharedIcons = [
     label: 'Shortest Path',
     bgColor: 'transparent',
     borderColor: 'transparent',
-    icon: shortestPathIconSrc,
+    svg: shortestPathSvg,
     iconSize: 'big',
   },
 ];

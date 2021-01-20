@@ -17,6 +17,19 @@ function appStateReducer(state, action) {
         algoType: 'pathfindingAlgo',
         pathfindingAlgo: action.payload,
       };
+    case actionTypes.TOGGLE_SETTINGS_DRAWER:
+      return {
+        ...state,
+        isSettingsDrawerOpen: !state.isSettingsDrawerOpen,
+      };
+    case actionTypes.TOGGLE_POPUP_WARNING:
+      return {
+        ...state,
+        popupWarning: {
+          isShown: !state.popupWarning.isShown,
+          message: action.payload,
+        },
+      };
     case actionTypes.GENERATING_NEW_MAZE:
       return {
         ...state,

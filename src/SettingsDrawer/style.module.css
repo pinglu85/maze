@@ -1,54 +1,45 @@
-button svg {
-  display: block;
+.SettingsDrawer {
+  position: fixed;
+  top: 0;
+  right: -30%;
+  width: 30%;
+  height: 100%;
+  overflow: auto;
+  padding: 1rem 2rem;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 120;
+  background: #ffffff;
+  transition: all 0.3s ease-out;
 }
 
-.drawerTitle {
+@media (max-width: 1024px) and (min-width: 577px) {
+  .SettingsDrawer {
+    right: -45%;
+    width: 45%;
+  }
+}
+
+@media (max-width: 576px) {
+  .SettingsDrawer {
+    right: -80%;
+    width: 90%;
+    padding: 1rem 1.5rem;
+  }
+}
+
+.title {
   margin-top: 1.5rem;
 }
 
-.setting {
-  padding: 2.5rem 0;
-}
-
-.settingWithBorderTop {
-  border-top: 0.0625rem solid var(--grey);
-}
-
-.settingLabel {
-  display: block;
-  margin-top: 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.settingLabel input {
-  display: block;
+.backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.7rem 1rem;
-  font-size: 1rem;
-  border: 1px solid var(--grey);
-  border-radius: 0.25rem;
-  appearance: none;
-}
-
-.settingLabel input:focus {
-  outline: none;
-  border: 2px solid var(--green);
-}
-
-.clue {
-  display: block;
-  margin-top: 0.5rem;
-  font-weight: 400;
-  font-size: 0.8rem;
-  color: var(--light-black);
-}
-
-.drawerBtn {
-  width: 100%;
-}
-
-.warning {
-  margin-top: 1.5rem;
+  height: 100%;
+  z-index: 119;
+  background: var(--grey-alpha);
+  transition: opacity 0.3s ease-out;
 }
