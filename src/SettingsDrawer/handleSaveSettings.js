@@ -4,7 +4,7 @@ import { checkDevice } from '../utils';
 import { MIN_GRID_SIZE, MAX_GRID_SIZE } from '../constants/size';
 import LOCAL_STORAGE_KEYS from '../constants/localStorageKeys';
 
-function handleSaveSettings(warningRef, inputValues, store) {
+function handleSaveSettings(store, warningRef, inputValues) {
   const state = store.getState();
   if (state.isMazeGenerating || state.isSearchingSolution) {
     store.dispatch(toggleSettingsDrawer());

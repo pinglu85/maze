@@ -1,10 +1,9 @@
 import { createElement, render, useRef } from '../utils';
-import store from '../store';
 import WarningWithDismiss from './WarningWithDismiss';
 import { togglePopupWarning } from '../store/actions';
 import styles from './style.module.css';
 
-const PopupWarning = () => {
+const PopupWarning = ({ store }) => {
   const rootRef = useRef();
 
   const handleDismiss = function () {

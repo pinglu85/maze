@@ -1,5 +1,4 @@
 import { createElement, useRef, toggleElementDisable } from '../utils';
-import store from '../store';
 import { toggleSettingsDrawer } from '../store/actions';
 import GridSizeSetting from './GridSizeSetting';
 import Button from '../shared/Button';
@@ -12,7 +11,7 @@ const inputValues = {
   cols: '',
 };
 
-const SettingsDrawer = () => {
+const SettingsDrawer = ({ store }) => {
   const drawerRef = useRef();
   const backdropRef = useRef();
   const inputRowsRef = useRef();
@@ -83,7 +82,7 @@ const SettingsDrawer = () => {
             btnRef={saveBtnRef}
             style="primary fullWidth"
             handleClick={() => {
-              handleSaveSettings(warningRef, inputValues, store);
+              handleSaveSettings(store, warningRef, inputValues);
             }}
           >
             Save

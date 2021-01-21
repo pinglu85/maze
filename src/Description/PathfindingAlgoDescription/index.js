@@ -4,21 +4,14 @@ import Button from '../../shared/Button';
 import handleVisualize from './handleVisualize';
 
 const PathfindingAlgoDescription = (props) => {
+  const { description, store, mazeCtx, solutionCtx } = props;
   const visualizeBtnRef = useRef();
-  const {
-    description,
-    getState,
-    dispatch,
-    subscribe,
-    mazeCtx,
-    solutionCtx,
-  } = props;
 
   const handleClick = () => {
-    handleVisualize(getState, dispatch, mazeCtx, solutionCtx);
+    handleVisualize(store, mazeCtx, solutionCtx);
   };
 
-  subscribe((prevState, state) => {
+  store.subscribe((prevState, state) => {
     toggleElementDisable(prevState, state, visualizeBtnRef);
   });
 

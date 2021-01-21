@@ -6,7 +6,7 @@ import SettingsDrawer from './SettingsDrawer';
 import PopupWarning from './PopupWarning';
 import styles from './App.module.css';
 
-const App = () => {
+const App = ({ store }) => {
   const mazeCanvasRef = useRef({
     node: null,
     ctx: null,
@@ -19,20 +19,22 @@ const App = () => {
   return (
     <>
       <header className={styles.header}>
-        <Navbar />
+        <Navbar store={store} />
       </header>
       <main className={styles.main}>
         <Description
           mazeCanvasRef={mazeCanvasRef}
           solutionCanvasRef={solutionCanvasRef}
+          store={store}
         />
         <Canvases
           mazeCanvasRef={mazeCanvasRef}
           solutionCanvasRef={solutionCanvasRef}
+          subscribe={store.subscribe}
         />
       </main>
-      <PopupWarning />
-      <SettingsDrawer />
+      <PopupWarning store={store} />
+      <SettingsDrawer store={store} />
     </>
   );
 };

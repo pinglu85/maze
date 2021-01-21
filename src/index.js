@@ -4,7 +4,7 @@ import App from './App';
 import './index.css';
 
 const rootElement = document.getElementById('root');
-const node = render(<App />);
+const node = render(<App store={store} />);
 rootElement.appendChild(node);
 
 setInitialGridSize(store.dispatch);
