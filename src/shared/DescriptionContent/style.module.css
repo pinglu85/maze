@@ -6,6 +6,7 @@
 
 .text {
   margin-top: 4.5rem;
+  min-height: 1.188rem;
 }
 
 .actions {
@@ -20,5 +21,6 @@
 
   .text {
     margin-top: 1.5rem;
+    min-height: 76px;
   }
 }
