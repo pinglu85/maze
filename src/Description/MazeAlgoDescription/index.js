@@ -4,22 +4,14 @@ import Button from '../../shared/Button';
 import handleVisualize from './handleVisualize';
 
 const MazeAlgoDescription = (props) => {
+  const { algo, description, store, mazeCtx, solutionCtx } = props;
   const visualizeBtnRef = useRef();
-  const {
-    algo,
-    description,
-    getState,
-    dispatch,
-    subscribe,
-    mazeCtx,
-    solutionCtx,
-  } = props;
 
   const handleClick = () => {
-    handleVisualize(getState, dispatch, mazeCtx, solutionCtx);
+    handleVisualize(store, mazeCtx, solutionCtx);
   };
 
-  subscribe((preState, state) => {
+  store.subscribe((preState, state) => {
     toggleElementDisable(preState, state, visualizeBtnRef);
   });
 

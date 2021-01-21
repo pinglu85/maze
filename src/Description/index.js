@@ -1,11 +1,10 @@
 import { createElement, render, useRef } from '../utils';
-import store from '../store';
 import MazeAlgoDescription from './MazeAlgoDescription';
 import PathfindingAlgoDescription from './PathfindingAlgoDescription';
 import algoDescriptions from './algoDescriptions';
 import styles from './style.module.css';
 
-const Description = ({ mazeCanvasRef, solutionCanvasRef }) => {
+const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   const rootRef = useRef();
 
   const renderContentOnAlgoSelect = (prevState, state) => {
@@ -35,9 +34,7 @@ const Description = ({ mazeCanvasRef, solutionCanvasRef }) => {
         <MazeAlgoDescription
           algo={currentAlgo}
           description={description}
-          getState={store.getState}
-          dispatch={store.dispatch}
-          subscribe={store.subscribe}
+          store={store}
           mazeCtx={mazeCtx}
           solutionCtx={solutionCtx}
         />
@@ -46,9 +43,7 @@ const Description = ({ mazeCanvasRef, solutionCanvasRef }) => {
       node = render(
         <PathfindingAlgoDescription
           description={description}
-          getState={store.getState}
-          dispatch={store.dispatch}
-          subscribe={store.subscribe}
+          store={store}
           mazeCtx={mazeCtx}
           solutionCtx={solutionCtx}
         />

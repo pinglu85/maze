@@ -3,8 +3,8 @@ import grid from '../../Grid';
 import startNode from '../../StartNode';
 import targetNode from '../../TargetNode';
 
-async function handleVisualize(getState, dispatch, mazeCtx, solutionCtx) {
-  const state = getState();
+async function handleVisualize(store, mazeCtx, solutionCtx) {
+  const state = store.getState();
   if (state.isMazeGenerating || state.isSearchingSolution) {
     return;
   }
@@ -15,11 +15,11 @@ async function handleVisualize(getState, dispatch, mazeCtx, solutionCtx) {
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   }
 
-  dispatch(generatingNewMaze());
+  store.dispatch(generatingNewMaze());
 
-  drawMaze(getState, mazeCtx, solutionCtx);
+  drawMaze(store.getState, mazeCtx, solutionCtx);
   await grid.generateMaze(mazeAlgo);
-  dispatch(mazeGenerated());
+  store.dispatch(mazeGenerated());
 }
 
 function drawMaze(getState, mazeCtx, solutionCtx) {

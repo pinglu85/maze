@@ -1,11 +1,10 @@
 import { createElement, useRef } from '../utils';
-import store from '../store';
 import Canvas from '../shared/Canvas';
 import grid from '../Grid';
 import setCanvasesSize from './setCanvasesSize';
 import styles from './style.module.css';
 
-const Canvases = ({ mazeCanvasRef, solutionCanvasRef }) => {
+const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
   const canvasesRef = useRef();
 
   const handleCanvasSizeChange = (prevState, state) => {
@@ -32,7 +31,7 @@ const Canvases = ({ mazeCanvasRef, solutionCanvasRef }) => {
     grid.setContent(gridSize);
     grid.draw(mazeCtx);
   };
-  store.subscribe(handleCanvasSizeChange);
+  subscribe(handleCanvasSizeChange);
 
   return (
     <div ref={canvasesRef} className={styles.Canvases}>

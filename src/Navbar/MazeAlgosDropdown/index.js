@@ -15,15 +15,15 @@ const items = [
   { text: 'Open Grid', style: 'withBorderTop' },
 ];
 
-const MazeAlgosDropdown = ({ getState, dispatch, subscribe }) => {
+const MazeAlgosDropdown = ({ store }) => {
   const handleClickItem = (e) => {
-    const { isMazeGenerating, isSearchingSolution } = getState();
+    const { isMazeGenerating, isSearchingSolution } = store.getState();
     if (isMazeGenerating || isSearchingSolution) {
       return;
     }
 
     const algo = e.target.textContent;
-    dispatch(selectNewMazeAlgo(algo));
+    store.dispatch(selectNewMazeAlgo(algo));
   };
 
   return (
@@ -31,7 +31,7 @@ const MazeAlgosDropdown = ({ getState, dispatch, subscribe }) => {
       btnLabel="Maze Algorithms"
       items={items}
       handleClickItem={handleClickItem}
-      subscribe={subscribe}
+      subscribe={store.subscribe}
     />
   );
 };

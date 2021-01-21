@@ -4,15 +4,15 @@ import { selectNewPathfindingAlgo } from '../../store/actions';
 
 const items = [{ text: "Dijkstra's Algorithm" }, { text: 'A* Search' }];
 
-const PathfindingAlgosDropdown = ({ getState, dispatch, subscribe }) => {
+const PathfindingAlgosDropdown = ({ store }) => {
   const handleClickItem = (e) => {
-    const { isMazeGenerating, isSearchingSolution } = getState();
+    const { isMazeGenerating, isSearchingSolution } = store.getState();
     if (isMazeGenerating || isSearchingSolution) {
       return;
     }
 
     const algo = e.target.textContent;
-    dispatch(selectNewPathfindingAlgo(algo));
+    store.dispatch(selectNewPathfindingAlgo(algo));
   };
 
   return (
@@ -20,7 +20,7 @@ const PathfindingAlgosDropdown = ({ getState, dispatch, subscribe }) => {
       btnLabel="Solution"
       items={items}
       handleClickItem={handleClickItem}
-      subscribe={subscribe}
+      subscribe={store.subscribe}
     />
   );
 };
