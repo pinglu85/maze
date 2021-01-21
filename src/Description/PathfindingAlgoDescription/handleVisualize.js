@@ -43,7 +43,7 @@ async function findSolution(store, mazeCtx, solutionCtx) {
   visualizePathfindingAlgo(mazeAlgo, mazeCtx);
   startNode.pathCoordinates = await grid.findSolution(pathfindingAlgo);
   if (!startNode.pathCoordinates.length) {
-    store.dispatch(solutionFound(store.dispatch, canvasSize, solutionCtx));
+    store.dispatch(solutionFound());
     return;
   }
 
