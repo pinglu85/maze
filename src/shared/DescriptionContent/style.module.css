@@ -14,11 +14,6 @@
 }
 
 @media (max-width: 576px) {
-  .Description {
-    padding: 0.25rem 0.75rem 1rem;
-    min-height: 197px;
-  }
-
   .text {
     margin-top: 1.5rem;
     min-height: 76px;
