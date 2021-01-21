@@ -285,6 +285,7 @@
 
 ._1RNShCi-zA1pvOIEKDBtmt {
   margin-top: 4.5rem;
+  min-height: 1.188rem;
 }
 
 ._2RrxcsHFp5SumohCKSbSY_ {
@@ -292,13 +293,9 @@
 }
 
 @media (max-width: 576px) {
-  .NDh8KPkLFkLXjIOvkGhW2 {
-    padding: 0.25rem 0.75rem 1rem;
-    min-height: 197px;
-  }
-
   ._1RNShCi-zA1pvOIEKDBtmt {
     margin-top: 1.5rem;
+    min-height: 76px;
   }
 }
 
