@@ -14,9 +14,9 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      template: __dirname + '/src/index.html',
+      template: __dirname + '/public/index.html',
       filename: 'index.html',
-      favicon: __dirname + '/src/assets/favicon.svg',
+      favicon: __dirname + '/public/favicon.svg',
       inject: 'body',
     }),
   ],
