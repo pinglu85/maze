@@ -7,6 +7,4 @@ const rootElement = document.getElementById('root');
 const node = render(<App />);
 rootElement.appendChild(node);
 
-window.addEventListener('DOMContentLoaded', () => {
-  setInitialGridSize(store.dispatch);
-});
+setInitialGridSize(store.dispatch);
