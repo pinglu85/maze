@@ -10,10 +10,6 @@ export const selectNewAlgo = (payload) => ({
   payload: payload,
 });
 
-export const toggleSettingsDrawer = () => ({
-  type: actionTypes.TOGGLE_SETTINGS_DRAWER,
-});
-
 export const togglePopupWarning = (payload = '') => ({
   type: actionTypes.TOGGLE_POPUP_WARNING,
   payload: payload,

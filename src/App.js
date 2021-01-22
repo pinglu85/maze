@@ -2,7 +2,6 @@ import { createElement, useRef } from './utils';
 import Navbar from './Navbar';
 import Description from './Description';
 import Canvases from './Canvases';
-import SettingsDrawer from './SettingsDrawer';
 import PopupWarning from './PopupWarning';
 import styles from './App.module.css';
 
@@ -34,7 +33,6 @@ const App = ({ store }) => {
         />
       </main>
       <PopupWarning store={store} />
-      <SettingsDrawer store={store} />
     </>
   );
 };

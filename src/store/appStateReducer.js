@@ -13,11 +13,6 @@ function appStateReducer(state, action) {
           name: action.payload.name,
         },
       };
-    case actionTypes.TOGGLE_SETTINGS_DRAWER:
-      return {
-        ...state,
-        isSettingsDrawerOpen: !state.isSettingsDrawerOpen,
-      };
     case actionTypes.TOGGLE_POPUP_WARNING:
       return {
         ...state,

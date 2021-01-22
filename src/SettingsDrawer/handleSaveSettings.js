@@ -1,13 +1,13 @@
-import { updateGridSize, toggleSettingsDrawer } from '../store/actions';
+import { updateGridSize } from '../store/actions';
 import showWarning from './showWarning';
 import { checkDevice } from '../utils';
 import { MIN_GRID_SIZE, MAX_GRID_SIZE } from '../constants/size';
 import LOCAL_STORAGE_KEYS from '../constants/localStorageKeys';
 
-function handleSaveSettings(store, warningRef, inputValues) {
+function handleSaveSettings(store, warningRef, inputValues, handleDrawerClose) {
   const state = store.getState();
   if (state.isMazeGenerating || state.isSearchingSolution) {
-    store.dispatch(toggleSettingsDrawer());
+    handleDrawerClose();
     return;
   }
 
@@ -30,7 +30,7 @@ function handleSaveSettings(store, warningRef, inputValues) {
   const isGridSizeChanged =
     prevNumOfRows !== updatedNumOfRows || prevNumOfCols !== updatedNumOfCols;
   if (!isGridSizeChanged) {
-    store.dispatch(toggleSettingsDrawer());
+    handleDrawerClose();
     return;
   }
 
@@ -41,6 +41,7 @@ function handleSaveSettings(store, warningRef, inputValues) {
 
   saveGridSizeToLocalStorage(updatedGridSize);
   store.dispatch(updateGridSize(updatedGridSize));
+  handleDrawerClose();
 }
 
 function parseInputValue(inputValue) {
