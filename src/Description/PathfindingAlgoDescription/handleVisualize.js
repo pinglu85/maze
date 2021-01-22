@@ -22,12 +22,7 @@ function handleVisualize(store, mazeCtx, solutionCtx) {
 }
 
 async function findSolution(store, mazeCtx, solutionCtx) {
-  const {
-    mazeAlgo,
-    pathfindingAlgo,
-    canvasSize,
-    isSolutionFound,
-  } = store.getState();
+  const { pathfindingAlgo, canvasSize, isSolutionFound } = store.getState();
 
   if (isSolutionFound) {
     grid.clearSolution();
@@ -40,7 +35,7 @@ async function findSolution(store, mazeCtx, solutionCtx) {
 
   store.dispatch(searchingSolution());
 
-  visualizePathfindingAlgo(mazeAlgo, mazeCtx);
+  visualizePathfindingAlgo(mazeCtx);
   startNode.pathCoordinates = await grid.findSolution(pathfindingAlgo);
   if (!startNode.pathCoordinates.length) {
     store.dispatch(solutionFound());
@@ -50,10 +45,7 @@ async function findSolution(store, mazeCtx, solutionCtx) {
   drawSolution(store.dispatch, canvasSize, solutionCtx);
 }
 
-function visualizePathfindingAlgo(mazeAlgo, mazeCtx) {
-  if (mazeAlgo === 'Open Grid') {
-    grid.drawGuides(mazeCtx);
-  }
+function visualizePathfindingAlgo(mazeCtx) {
   grid.draw(mazeCtx);
 
   const isPathFound = startNode.pathCoordinates.length > 0;
@@ -62,7 +54,7 @@ function visualizePathfindingAlgo(mazeAlgo, mazeCtx) {
   }
 
   requestAnimationFrame(() => {
-    visualizePathfindingAlgo(mazeAlgo, mazeCtx);
+    visualizePathfindingAlgo(mazeCtx);
   });
 }
 
