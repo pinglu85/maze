@@ -1,4 +1,4 @@
-.PopupWarning {
+.popupWarning {
   display: none;
   position: fixed;
   top: 0;
@@ -10,7 +10,7 @@
 }
 
 @media (max-width: 576px) {
-  .PopupWarning {
+  .popupWarning {
     left: 0;
   }
 }

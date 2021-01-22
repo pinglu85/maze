@@ -13,14 +13,6 @@ function appStateReducer(state, action) {
           name: action.payload.name,
         },
       };
-    case actionTypes.TOGGLE_POPUP_WARNING:
-      return {
-        ...state,
-        popupWarning: {
-          isShown: !state.popupWarning.isShown,
-          message: action.payload,
-        },
-      };
     case actionTypes.GENERATING_NEW_MAZE:
       return {
         ...state,

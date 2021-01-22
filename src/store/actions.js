@@ -10,11 +10,6 @@ export const selectNewAlgo = (payload) => ({
   payload: payload,
 });
 
-export const togglePopupWarning = (payload = '') => ({
-  type: actionTypes.TOGGLE_POPUP_WARNING,
-  payload: payload,
-});
-
 export const generatingNewMaze = () => ({
   type: actionTypes.GENERATING_NEW_MAZE,
 });

@@ -21,10 +21,6 @@ const initialAppState = {
     type: '',
     name: '',
   },
-  popupWarning: {
-    isShown: false,
-    message: '',
-  },
   isMazeGenerating: false,
   isMazeGenerated: false,
   isSearchingSolution: false,
