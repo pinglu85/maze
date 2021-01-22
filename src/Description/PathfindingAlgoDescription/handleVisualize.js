@@ -22,7 +22,7 @@ function handleVisualize(store, mazeCtx, solutionCtx) {
 }
 
 async function findSolution(store, mazeCtx, solutionCtx) {
-  const { pathfindingAlgo, canvasSize, isSolutionFound } = store.getState();
+  const { canvasSize, algo, isSolutionFound } = store.getState();
 
   if (isSolutionFound) {
     grid.clearSolution();
@@ -36,7 +36,7 @@ async function findSolution(store, mazeCtx, solutionCtx) {
   store.dispatch(searchingSolution());
 
   visualizePathfindingAlgo(mazeCtx);
-  startNode.pathCoordinates = await grid.findSolution(pathfindingAlgo);
+  startNode.pathCoordinates = await grid.findSolution(algo.name);
   if (!startNode.pathCoordinates.length) {
     store.dispatch(solutionFound());
     return;

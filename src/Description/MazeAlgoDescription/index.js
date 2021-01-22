@@ -4,7 +4,7 @@ import Button from '../../shared/Button';
 import handleVisualize from './handleVisualize';
 
 const MazeAlgoDescription = (props) => {
-  const { algo, description, store, mazeCtx, solutionCtx } = props;
+  const { algoName, description, store, mazeCtx, solutionCtx } = props;
   const visualizeBtnRef = useRef();
 
   const handleClick = () => {
@@ -22,7 +22,7 @@ const MazeAlgoDescription = (props) => {
         style="primary"
         handleClick={handleClick}
       >
-        {algo === 'Open Grid' ? 'Open Grid' : 'Visualize'}
+        {algoName === 'Open Grid' ? 'Open Grid' : 'Visualize'}
       </Button>
     </DescriptionContent>
   );

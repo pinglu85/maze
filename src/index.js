@@ -17,9 +17,10 @@ const initialAppState = {
     width: 0,
     height: 0,
   },
-  algoType: '',
-  mazeAlgo: '',
-  pathfindingAlgo: '',
+  algo: {
+    type: '',
+    name: '',
+  },
   isSettingsDrawerOpen: false,
   popupWarning: {
     isShown: false,

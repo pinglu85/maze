@@ -1,6 +1,6 @@
 import { createElement } from '../../utils';
 import Dropdown from '../../shared/Dropdown';
-import { selectNewMazeAlgo } from '../../store/actions';
+import { selectNewAlgo } from '../../store/actions';
 
 const items = [
   { text: 'Hunt-and-Kill' },
@@ -22,8 +22,9 @@ const MazeAlgosDropdown = ({ store }) => {
       return;
     }
 
-    const algo = e.target.textContent;
-    store.dispatch(selectNewMazeAlgo(algo));
+    store.dispatch(
+      selectNewAlgo({ type: 'mazeAlgo', name: e.target.textContent })
+    );
   };
 
   return (

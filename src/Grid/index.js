@@ -37,7 +37,7 @@ class Grid {
     );
   };
 
-  generateMaze(algo) {
+  generateMaze(algoName) {
     const asyncGenerateMaze = async (mazeAlgo, arg) => {
       this.isOpenGrid = false;
       await mazeAlgo(this.content, arg);
@@ -45,7 +45,7 @@ class Grid {
       return Promise.resolve();
     };
 
-    switch (algo) {
+    switch (algoName) {
       case 'Hunt-and-Kill':
         return asyncGenerateMaze(mazeAlgos.asyncHuntAndKill);
       case 'Recursive Backtracker':
@@ -75,7 +75,7 @@ class Grid {
     }
   }
 
-  findSolution(algo) {
+  findSolution(algoName) {
     const asyncFindSolution = async (pathfindingAlgo) => {
       const pathCoordinates = await pathfindingAlgo(
         this.content,
@@ -85,7 +85,7 @@ class Grid {
       return Promise.resolve(pathCoordinates);
     };
 
-    switch (algo) {
+    switch (algoName) {
       case "Dijkstra's Algorithm":
         return asyncFindSolution(pathfindingAlgos.asyncDijkstrasAlgo);
       case 'A* Search':
