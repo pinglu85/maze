@@ -10,15 +10,16 @@ class Grid {
     this.content = [];
     this.cellSize = cellSize;
     this.cellColors = cellColors;
+    this.guidesColor = guidesColor;
     this.lineWidths = lineWidths;
     this.cellPosOffSet =
       Math.floor(this.lineWidths.outerWall / 2) +
       this.lineWidths.halfOuterInteriorWallDiff;
-    this.guidesColor = guidesColor;
     this.entranceCell = null;
     this.entranceDir = '';
     this.exitCell = null;
     this.exitDir = '';
+    this.isOpenGrid = false;
   }
 
   setContent = ({ numOfRows, numOfCols }) => {
@@ -38,6 +39,7 @@ class Grid {
 
   generateMaze(algo) {
     const asyncGenerateMaze = async (mazeAlgo, arg) => {
+      this.isOpenGrid = false;
       await mazeAlgo(this.content, arg);
       this.generateMazeEntryAndExit();
       return Promise.resolve();
@@ -64,6 +66,7 @@ class Grid {
       case 'Aldous-Broder Algorithm':
         return asyncGenerateMaze(mazeAlgos.asyncAldousBroderAlgo);
       case 'Open Grid':
+        this.isOpenGrid = true;
         this.dropInteriorWalls();
         this.generateMazeEntryAndExit();
         return Promise.resolve();
@@ -159,6 +162,10 @@ class Grid {
   }
 
   draw = (ctx) => {
+    if (this.isOpenGrid) {
+      this.drawGuides(ctx);
+    }
+
     for (const row of this.content) {
       for (const cell of row) {
         cell.draw(ctx, this.cellSize, this.cellColors, this.lineWidths);

@@ -23,11 +23,9 @@ async function handleVisualize(store, mazeCtx, solutionCtx) {
 }
 
 function drawMaze(getState, mazeCtx, solutionCtx) {
-  const { canvasSize, mazeAlgo, isMazeGenerating } = getState();
+  const { canvasSize, isMazeGenerating } = getState();
+
   mazeCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
-  if (mazeAlgo === 'Open Grid') {
-    grid.drawGuides(mazeCtx);
-  }
   grid.draw(mazeCtx);
 
   if (!isMazeGenerating) {
