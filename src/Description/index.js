@@ -8,12 +8,8 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   const rootRef = useRef();
 
   const renderContentOnAlgoSelect = (prevState, state) => {
-    const isAlgoTypeChanged = prevState.algoType !== state.algoType;
-    const isMazeAlgoChanged = prevState.mazeAlgo !== state.mazeAlgo;
-    const isPathfindingAlgoChanged =
-      prevState.pathfindingAlgo !== state.pathfindingAlgo;
-
-    if (!isAlgoTypeChanged && !isMazeAlgoChanged && !isPathfindingAlgoChanged) {
+    const isAlgoNameChanged = prevState.algo.name !== state.algo.name;
+    if (!isAlgoNameChanged) {
       return;
     }
     if (!rootRef.current) {
@@ -24,15 +20,15 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
     root.innerHTML = '';
     const mazeCtx = mazeCanvasRef.current.ctx;
     const solutionCtx = solutionCanvasRef.current.ctx;
-    const currentAlgoType = state.algoType;
-    const currentAlgo = state[currentAlgoType];
-    const description = algoDescriptions[currentAlgo];
+    const algoType = state.algo.type;
+    const algoName = state.algo.name;
+    const description = algoDescriptions[algoName];
     let node;
 
-    if (currentAlgoType === 'mazeAlgo') {
+    if (algoType === 'mazeAlgo') {
       node = render(
         <MazeAlgoDescription
-          algo={currentAlgo}
+          algo={algoName}
           description={description}
           store={store}
           mazeCtx={mazeCtx}

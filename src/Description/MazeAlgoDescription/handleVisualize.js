@@ -9,7 +9,7 @@ async function handleVisualize(store, mazeCtx, solutionCtx) {
     return;
   }
 
-  const { gridSize, canvasSize, mazeAlgo } = state;
+  const { gridSize, canvasSize, algo } = state;
   if (state.isMazeGenerated) {
     grid.setContent(gridSize);
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
@@ -18,7 +18,7 @@ async function handleVisualize(store, mazeCtx, solutionCtx) {
   store.dispatch(generatingNewMaze());
 
   drawMaze(store.getState, mazeCtx, solutionCtx);
-  await grid.generateMaze(mazeAlgo);
+  await grid.generateMaze(algo.name);
   store.dispatch(mazeGenerated());
 }
 

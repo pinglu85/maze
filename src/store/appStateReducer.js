@@ -5,17 +5,13 @@ function appStateReducer(state, action) {
   switch (action.type) {
     case actionTypes.UPDATE_GRID_SIZE:
       return doUpdateGridAndCanvasSize(state, action.payload);
-    case actionTypes.SELECT_NEW_MAZE_ALGO:
+    case actionTypes.SELECT_NEW_ALGO:
       return {
         ...state,
-        algoType: 'mazeAlgo',
-        mazeAlgo: action.payload,
-      };
-    case actionTypes.SELECT_NEW_PATHFINDING_ALGO:
-      return {
-        ...state,
-        algoType: 'pathfindingAlgo',
-        pathfindingAlgo: action.payload,
+        algo: {
+          type: action.payload.type,
+          name: action.payload.name,
+        },
       };
     case actionTypes.TOGGLE_SETTINGS_DRAWER:
       return {
