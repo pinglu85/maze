@@ -21,7 +21,6 @@ const initialAppState = {
     type: '',
     name: '',
   },
-  isSettingsDrawerOpen: false,
   popupWarning: {
     isShown: false,
     message: '',
