@@ -1,20 +1,16 @@
-import {
-  togglePopupWarning,
-  searchingSolution,
-  solutionFound,
-} from '../../store/actions';
+import { searchingSolution, solutionFound } from '../../store/actions';
 import grid from '../../Grid';
 import startNode from '../../StartNode';
 import targetNode from '../../TargetNode';
 
-function handleVisualize(store, mazeCtx, solutionCtx) {
+function handleVisualize(store, mazeCtx, solutionCtx, showWarning) {
   const state = store.getState();
   if (state.isMazeGenerating || state.isSearchingSolution) {
     return;
   }
 
   if (!state.isMazeGenerated) {
-    store.dispatch(togglePopupWarning('generate a maze'));
+    showWarning('generate a maze');
     return;
   }
 
