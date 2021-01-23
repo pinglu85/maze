@@ -5,8 +5,8 @@ export const updateGridSize = (payload) => ({
   payload: payload,
 });
 
-export const selectNewAlgo = (payload) => ({
-  type: actionTypes.SELECT_NEW_ALGO,
+export const selectAlgo = (payload) => ({
+  type: actionTypes.SELECT_ALGO,
   payload: payload,
 });
 

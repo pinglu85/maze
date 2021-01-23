@@ -5,7 +5,7 @@ function appStateReducer(state, action) {
   switch (action.type) {
     case actionTypes.UPDATE_GRID_SIZE:
       return applyUpdateGridAndCanvasSize(state, action.payload);
-    case actionTypes.SELECT_NEW_ALGO:
+    case actionTypes.SELECT_ALGO:
       return {
         ...state,
         algo: {

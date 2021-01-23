@@ -1,6 +1,6 @@
 import { createElement } from '../../utils';
 import Dropdown from '../../shared/Dropdown';
-import { selectNewAlgo } from '../../store/actions';
+import { selectAlgo } from '../../store/actions';
 
 const items = [{ text: "Dijkstra's Algorithm" }, { text: 'A* Search' }];
 
@@ -12,7 +12,7 @@ const PathfindingAlgosDropdown = ({ store }) => {
     }
 
     store.dispatch(
-      selectNewAlgo({ algoType: 'pathfindingAlgo', name: e.target.textContent })
+      selectAlgo({ algoType: 'pathfindingAlgo', name: e.target.textContent })
     );
   };
 
