@@ -1,4 +1,4 @@
-import applyUpdateGridAndCanvasSize from './utils/applyUpdateGridAndCanvasSize';
+import applyUpdateGridAndCanvasSize from './utils/applySetGridSize';
 import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
