@@ -1,4 +1,9 @@
 import applySetGridSize from './utils/applySetGridSize';
+import applySelectAlgo from './utils/applySelectAlgo';
+import applyMazeGenerationInit from './utils/applyMazeGenerationInit';
+import applyMazeGenerationSuccess from './utils/applyMazeGenerationSuccess';
+import applySolutionSearchInit from './utils/applySolutionSearchInit';
+import applySolutionSearchSuccess from './utils/applySolutionSearchSuccess';
 import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
@@ -6,39 +11,15 @@ function appStateReducer(state, action) {
     case actionTypes.SET_GRID_SIZE:
       return applySetGridSize(state, action.payload);
     case actionTypes.SELECT_ALGO:
-      return {
-        ...state,
-        algo: {
-          type: action.payload.type,
-          name: action.payload.name,
-        },
-      };
+      return applySelectAlgo(state, action.payload);
     case actionTypes.MAZE_GENERATION_INIT:
-      return {
-        ...state,
-        isMazeGenerating: true,
-        isMazeGenerated: false,
-        isSearchingForSolution: false,
-        isSolutionFound: false,
-      };
+      return applyMazeGenerationInit(state);
     case actionTypes.MAZE_GENERATION_SUCCESS:
-      return {
-        ...state,
-        isMazeGenerating: false,
-        isMazeGenerated: true,
-      };
+      return applyMazeGenerationSuccess(state);
     case actionTypes.SOLUTION_SEARCH_INIT:
-      return {
-        ...state,
-        isSearchingForSolution: true,
-        isSolutionFound: false,
-      };
+      return applySolutionSearchInit(state);
     case actionTypes.SOLUTION_SEARCH_SUCCESS:
-      return {
-        ...state,
-        isSearchingForSolution: false,
-        isSolutionFound: true,
-      };
+      return applySolutionSearchSuccess(state);
     default:
       throw new Error('Should not reach here!');
   }
