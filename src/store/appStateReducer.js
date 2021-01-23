@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
   switch (action.type) {
-    case actionTypes.UPDATE_GRID_SIZE:
+    case actionTypes.SET_GRID_SIZE:
       return applyUpdateGridAndCanvasSize(state, action.payload);
     case actionTypes.SELECT_ALGO:
       return {
@@ -13,7 +13,7 @@ function appStateReducer(state, action) {
           name: action.payload.name,
         },
       };
-    case actionTypes.GENERATING_NEW_MAZE:
+    case actionTypes.MAZE_GENERATION_INIT:
       return {
         ...state,
         isMazeGenerating: true,
@@ -21,19 +21,19 @@ function appStateReducer(state, action) {
         isSearchingSolution: false,
         isSolutionFound: false,
       };
-    case actionTypes.MAZE_GENERATED:
+    case actionTypes.MAZE_GENERATION_SUCCESS:
       return {
         ...state,
         isMazeGenerating: false,
         isMazeGenerated: true,
       };
-    case actionTypes.SEARCHING_SOLUTION:
+    case actionTypes.SOLUTION_SEARCH_INIT:
       return {
         ...state,
         isSearchingSolution: true,
         isSolutionFound: false,
       };
-    case actionTypes.SOLUTION_FOUND:
+    case actionTypes.SOLUTION_SEARCH_SUCCESS:
       return {
         ...state,
         isSearchingSolution: false,

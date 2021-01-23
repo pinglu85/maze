@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
-export const updateGridSize = (payload) => ({
-  type: actionTypes.UPDATE_GRID_SIZE,
+export const setGridSize = (payload) => ({
+  type: actionTypes.SET_GRID_SIZE,
   payload: payload,
 });
 
@@ -10,18 +10,18 @@ export const selectAlgo = (payload) => ({
   payload: payload,
 });
 
-export const generatingNewMaze = () => ({
-  type: actionTypes.GENERATING_NEW_MAZE,
+export const mazeGenerationInit = () => ({
+  type: actionTypes.MAZE_GENERATION_INIT,
 });
 
-export const mazeGenerated = () => ({
-  type: actionTypes.MAZE_GENERATED,
+export const mazeGenerationSuccess = () => ({
+  type: actionTypes.MAZE_GENERATION_SUCCESS,
 });
 
-export const searchingSolution = () => ({
-  type: actionTypes.SEARCHING_SOLUTION,
+export const solutionSearchInit = () => ({
+  type: actionTypes.SOLUTION_SEARCH_INIT,
 });
 
-export const solutionFound = () => ({
-  type: actionTypes.SOLUTION_FOUND,
+export const solutionSearchSuccess = () => ({
+  type: actionTypes.SOLUTION_SEARCH_SUCCESS,
 });
