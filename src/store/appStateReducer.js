@@ -1,10 +1,10 @@
-import doUpdateGridAndCanvasSize from './utils/doUpdateGridAndCanvasSize';
+import applyUpdateGridAndCanvasSize from './utils/applyUpdateGridAndCanvasSize';
 import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
   switch (action.type) {
     case actionTypes.UPDATE_GRID_SIZE:
-      return doUpdateGridAndCanvasSize(state, action.payload);
+      return applyUpdateGridAndCanvasSize(state, action.payload);
     case actionTypes.SELECT_NEW_ALGO:
       return {
         ...state,
