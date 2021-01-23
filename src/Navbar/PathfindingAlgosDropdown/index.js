@@ -6,8 +6,8 @@ const items = [{ text: "Dijkstra's Algorithm" }, { text: 'A* Search' }];
 
 const PathfindingAlgosDropdown = ({ store }) => {
   const handleClickItem = (e) => {
-    const { isMazeGenerating, isSearchingSolution } = store.getState();
-    if (isMazeGenerating || isSearchingSolution) {
+    const { isMazeGenerating, isSearchingForSolution } = store.getState();
+    if (isMazeGenerating || isSearchingForSolution) {
       return;
     }
 

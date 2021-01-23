@@ -18,7 +18,7 @@ function appStateReducer(state, action) {
         ...state,
         isMazeGenerating: true,
         isMazeGenerated: false,
-        isSearchingSolution: false,
+        isSearchingForSolution: false,
         isSolutionFound: false,
       };
     case actionTypes.MAZE_GENERATION_SUCCESS:
@@ -30,13 +30,13 @@ function appStateReducer(state, action) {
     case actionTypes.SOLUTION_SEARCH_INIT:
       return {
         ...state,
-        isSearchingSolution: true,
+        isSearchingForSolution: true,
         isSolutionFound: false,
       };
     case actionTypes.SOLUTION_SEARCH_SUCCESS:
       return {
         ...state,
-        isSearchingSolution: false,
+        isSearchingForSolution: false,
         isSolutionFound: true,
       };
     default:

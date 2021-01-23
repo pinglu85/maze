@@ -17,8 +17,8 @@ const items = [
 
 const MazeAlgosDropdown = ({ store }) => {
   const handleClickItem = (e) => {
-    const { isMazeGenerating, isSearchingSolution } = store.getState();
-    if (isMazeGenerating || isSearchingSolution) {
+    const { isMazeGenerating, isSearchingForSolution } = store.getState();
+    if (isMazeGenerating || isSearchingForSolution) {
       return;
     }
 

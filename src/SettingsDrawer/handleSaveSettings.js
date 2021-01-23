@@ -6,7 +6,7 @@ import LOCAL_STORAGE_KEYS from '../constants/localStorageKeys';
 
 function handleSaveSettings(store, warningRef, inputValues, handleDrawerClose) {
   const state = store.getState();
-  if (state.isMazeGenerating || state.isSearchingSolution) {
+  if (state.isMazeGenerating || state.isSearchingForSolution) {
     handleDrawerClose();
     return;
   }

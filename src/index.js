@@ -23,7 +23,7 @@ const initialAppState = {
   },
   isMazeGenerating: false,
   isMazeGenerated: false,
-  isSearchingSolution: false,
+  isSearchingForSolution: false,
   isSolutionFound: false,
 };
 

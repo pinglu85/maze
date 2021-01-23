@@ -5,7 +5,7 @@ import targetNode from '../../TargetNode';
 
 async function handleVisualize(store, mazeCtx, solutionCtx) {
   const state = store.getState();
-  if (state.isMazeGenerating || state.isSearchingSolution) {
+  if (state.isMazeGenerating || state.isSearchingForSolution) {
     return;
   }
 
