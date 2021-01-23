@@ -1,4 +1,4 @@
-export default function checkDevice() {
+function checkDevice() {
   if (window.matchMedia('(max-width: 576px)').matches) {
     return 'mobile';
   }
@@ -13,3 +13,5 @@ export default function checkDevice() {
 
   return 'desktop';
 }
+
+export default checkDevice;

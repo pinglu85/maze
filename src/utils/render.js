@@ -1,4 +1,4 @@
-export default function render(element) {
+function render(element) {
   if (typeof element === 'string') {
     return document.createTextNode(element);
   }
@@ -67,3 +67,5 @@ export default function render(element) {
 
   return node;
 }
+
+export default render;

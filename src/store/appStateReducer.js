@@ -1,44 +1,25 @@
-import doUpdateGridAndCanvasSize from './storeUtils/doUpdateGridAndCanvasSize';
+import applySetGridSize from './utils/applySetGridSize';
+import applySelectAlgo from './utils/applySelectAlgo';
+import applyMazeGenerationInit from './utils/applyMazeGenerationInit';
+import applyMazeGenerationSuccess from './utils/applyMazeGenerationSuccess';
+import applySolutionSearchInit from './utils/applySolutionSearchInit';
+import applySolutionSearchSuccess from './utils/applySolutionSearchSuccess';
 import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
   switch (action.type) {
-    case actionTypes.UPDATE_GRID_SIZE:
-      return doUpdateGridAndCanvasSize(state, action.payload);
-    case actionTypes.SELECT_NEW_ALGO:
-      return {
-        ...state,
-        algo: {
-          type: action.payload.type,
-          name: action.payload.name,
-        },
-      };
-    case actionTypes.GENERATING_NEW_MAZE:
-      return {
-        ...state,
-        isMazeGenerating: true,
-        isMazeGenerated: false,
-        isSearchingSolution: false,
-        isSolutionFound: false,
-      };
-    case actionTypes.MAZE_GENERATED:
-      return {
-        ...state,
-        isMazeGenerating: false,
-        isMazeGenerated: true,
-      };
-    case actionTypes.SEARCHING_SOLUTION:
-      return {
-        ...state,
-        isSearchingSolution: true,
-        isSolutionFound: false,
-      };
-    case actionTypes.SOLUTION_FOUND:
-      return {
-        ...state,
-        isSearchingSolution: false,
-        isSolutionFound: true,
-      };
+    case actionTypes.SET_GRID_SIZE:
+      return applySetGridSize(state, action.payload);
+    case actionTypes.SELECT_ALGO:
+      return applySelectAlgo(state, action.payload);
+    case actionTypes.MAZE_GENERATION_INIT:
+      return applyMazeGenerationInit(state);
+    case actionTypes.MAZE_GENERATION_SUCCESS:
+      return applyMazeGenerationSuccess(state);
+    case actionTypes.SOLUTION_SEARCH_INIT:
+      return applySolutionSearchInit(state);
+    case actionTypes.SOLUTION_SEARCH_SUCCESS:
+      return applySolutionSearchSuccess(state);
     default:
       throw new Error('Should not reach here!');
   }

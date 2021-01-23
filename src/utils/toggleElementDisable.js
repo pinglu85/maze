@@ -1,7 +1,7 @@
 function toggleElementDisable(prevState, state, nodeRef) {
   const isAppStateChanged =
     prevState.isMazeGenerating !== state.isMazeGenerating ||
-    prevState.isSearchingSolution !== state.isSearchingSolution;
+    prevState.isSearchingForSolution !== state.isSearchingForSolution;
 
   if (!isAppStateChanged || !nodeRef.current) {
     return;

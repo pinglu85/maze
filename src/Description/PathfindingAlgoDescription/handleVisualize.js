@@ -1,11 +1,11 @@
-import { searchingSolution, solutionFound } from '../../store/actions';
+import { solutionSearchInit, solutionSearchSuccess } from '../../store/actions';
 import grid from '../../Grid';
 import startNode from '../../StartNode';
 import targetNode from '../../TargetNode';
 
 function handleVisualize(store, mazeCtx, solutionCtx, showWarning) {
   const state = store.getState();
-  if (state.isMazeGenerating || state.isSearchingSolution) {
+  if (state.isMazeGenerating || state.isSearchingForSolution) {
     return;
   }
 
@@ -29,12 +29,12 @@ async function findSolution(store, mazeCtx, solutionCtx) {
     targetNode.draw(solutionCtx, 'spriteNormal');
   }
 
-  store.dispatch(searchingSolution());
+  store.dispatch(solutionSearchInit());
 
   visualizePathfindingAlgo(mazeCtx);
   startNode.pathCoordinates = await grid.findSolution(algo.name);
   if (!startNode.pathCoordinates.length) {
-    store.dispatch(solutionFound());
+    store.dispatch(solutionSearchSuccess());
     return;
   }
 
@@ -65,7 +65,7 @@ function drawSolution(dispatch, canvasSize, solutionCtx) {
   if (startNode.atExit) {
     drawStartNodeAndFootprints();
     targetNode.resetScale();
-    dispatch(solutionFound());
+    dispatch(solutionSearchSuccess());
     return;
   }
 

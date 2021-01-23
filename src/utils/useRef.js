@@ -1,3 +1,5 @@
-export default function useRef(initialVal = null) {
+function useRef(initialVal = null) {
   return { current: initialVal };
 }
+
+export default useRef;

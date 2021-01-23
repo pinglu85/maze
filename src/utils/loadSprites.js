@@ -1,18 +1,18 @@
 const sprites = importAll(require.context('../assets', false, /\.png$/));
 
-export const loadStartNodeSprites = (numOfSprites) => {
+function loadStartNodeSprites(numOfSprites) {
   return Array.from(new Array(numOfSprites), (_, i) => {
     const sprite = sprites[`start-node-${i}`];
     return loadSprite(sprite);
   });
-};
+}
 
-export const loadTargetNodeSprites = (...options) => {
+function loadTargetNodeSprites(...options) {
   return options.map((option) => {
     const sprite = sprites[`target-node-${option}`];
     return loadSprite(sprite);
   });
-};
+}
 
 function loadSprite(src) {
   const img = new Image();
@@ -29,3 +29,5 @@ function importAll(r) {
   });
   return sprites;
 }
+
+export { loadStartNodeSprites, loadTargetNodeSprites };

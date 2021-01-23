@@ -1,15 +1,15 @@
 import { getRandomIndex, swapItemsInArray } from '.';
 
 // Fisher-Yates shuffle
-export const shuffleArr = (arr) => {
+function shuffleArr(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = getRandomIndex(i + 1);
     swapItemsInArray(arr, i, j);
   }
   return arr;
-};
+}
 
-export const shuffleArrIndices = (arrLen) => {
+function shuffleArrIndices(arrLen) {
   const createArr = (len) => Array.from(new Array(len), (_, i) => i);
 
   const iterable = {
@@ -28,4 +28,6 @@ export const shuffleArrIndices = (arrLen) => {
       return iterable;
     },
   };
-};
+}
+
+export { shuffleArr, shuffleArrIndices };
