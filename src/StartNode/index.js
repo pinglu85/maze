@@ -7,6 +7,7 @@ import { FOOTPRINT_COLORS } from '../constants/colors';
 import { SPRITE_SIZE, FOOTPRINT_RADIUS } from '../constants/size';
 
 const TO_RADIANS = Math.PI / 180;
+
 class StartNode {
   constructor(sprites, spriteSize, footprintRadius, footprintColors) {
     this.centerX = 0;
