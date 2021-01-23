@@ -1,4 +1,4 @@
-export default function getRandomIndex(range) {
+function getRandomIndex(range) {
   if (range === 0) {
     return null;
   }
@@ -7,3 +7,5 @@ export default function getRandomIndex(range) {
   }
   return Math.floor(Math.random() * range);
 }
+
+export default getRandomIndex;

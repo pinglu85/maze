@@ -1,4 +1,4 @@
-export default function createElement(type, props, ...children) {
+function createElement(type, props, ...children) {
   if (children.some((child) => Array.isArray(child))) {
     children = children.flat();
   }
@@ -15,3 +15,5 @@ export default function createElement(type, props, ...children) {
     },
   };
 }
+
+export default createElement;

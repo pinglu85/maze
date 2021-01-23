@@ -1,4 +1,4 @@
-export default function deepCloneObj(obj) {
+function deepCloneObj(obj) {
   const clonedObj = {};
 
   for (const key in obj) {
@@ -11,3 +11,5 @@ export default function deepCloneObj(obj) {
 
   return clonedObj;
 }
+
+export default deepCloneObj;

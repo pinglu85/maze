@@ -1,4 +1,4 @@
-export default function getStartOrEndIndexOfArray(index, arrLen) {
+function getStartOrEndIndexOfArray(index, arrLen) {
   switch (index) {
     case 0:
       return arrLen - 1;
@@ -8,3 +8,5 @@ export default function getStartOrEndIndexOfArray(index, arrLen) {
       return null;
   }
 }
+
+export default getStartOrEndIndexOfArray;
