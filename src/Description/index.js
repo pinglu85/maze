@@ -7,7 +7,7 @@ import styles from './style.module.css';
 const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   const rootRef = useRef();
 
-  const renderContentOnAlgoSelect = (prevState, state) => {
+  const renderDescriptionOnAlgoSelect = (prevState, state) => {
     const isAlgoNameChanged = prevState.algo.name !== state.algo.name;
     if (!isAlgoNameChanged) {
       return;
@@ -48,7 +48,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
 
     root.appendChild(node);
   };
-  store.subscribe(renderContentOnAlgoSelect);
+  store.subscribe(renderDescriptionOnAlgoSelect);
 
   return (
     <div ref={rootRef} className={styles.Description}>
