@@ -17,14 +17,17 @@ const items = [
 
 const MazeAlgosDropdown = ({ store }) => {
   const handleClickItem = (e) => {
-    const { isMazeGenerating, isSearchingForSolution } = store.getState();
+    const { isMazeGenerating, isSearchingForSolution, algo } = store.getState();
     if (isMazeGenerating || isSearchingForSolution) {
       return;
     }
 
-    store.dispatch(
-      selectAlgo({ type: 'mazeAlgo', name: e.target.textContent })
-    );
+    const newAlgo = e.target.textContent;
+    if (newAlgo === algo.name) {
+      return;
+    }
+
+    store.dispatch(selectAlgo({ type: 'mazeAlgo', name: newAlgo }));
   };
 
   return (
