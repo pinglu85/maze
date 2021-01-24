@@ -10,7 +10,7 @@ class Store {
     this.#prevState = {};
     this.#state = {};
     this.#reduce = () => {};
-    this.#subscribers = [];
+    this.#subscribers = new Map();
   }
 
   createStore = (reducer, initialState) => {
@@ -26,17 +26,33 @@ class Store {
   dispatch = (action) => {
     this.#prevState = deepCloneObj(this.#state);
     this.#state = this.#reduce(this.#state, action);
-    this.#notifySubscribers();
+    this.#notifySubscribers(action.type);
   };
 
-  subscribe = (fn) => {
-    this.#subscribers.push(fn);
+  subscribe = ({ actionTypes, subscriber }) => {
+    const subscribers = this.#subscribers;
+
+    for (const actionType of actionTypes) {
+      if (!subscribers.has(actionType)) {
+        subscribers.set(actionType, [subscriber]);
+        continue;
+      }
+
+      const actionSubscribers = subscribers.get(actionType).concat(subscriber);
+      subscribers.set(actionType, actionSubscribers);
+    }
   };
 
-  #notifySubscribers() {
-    this.#subscribers.forEach((subscriber) => {
+  #notifySubscribers(actionType) {
+    const subscribers = this.#subscribers;
+    if (!subscribers.has(actionType)) {
+      return;
+    }
+
+    const actionSubscribers = subscribers.get(actionType);
+    for (const subscriber of actionSubscribers) {
       subscriber(this.#prevState, this.#state);
-    });
+    }
   }
 }
 

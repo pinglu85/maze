@@ -11,9 +11,7 @@ const MazeAlgoDescription = (props) => {
     handleVisualize(store, mazeCtx, solutionCtx);
   };
 
-  store.subscribe((preState, state) => {
-    toggleElementDisable(preState, state, visualizeBtnRef);
-  });
+  store.subscribe(toggleElementDisable(visualizeBtnRef));
 
   return (
     <DescriptionContent description={description}>

@@ -1,4 +1,5 @@
 import { createElement, render, useRef } from '../utils';
+import { SELECT_ALGO } from '../store/actionTypes';
 import MazeAlgoDescription from './MazeAlgoDescription';
 import PathfindingAlgoDescription from './PathfindingAlgoDescription';
 import algoDescriptions from './algoDescriptions';
@@ -7,11 +8,7 @@ import styles from './style.module.css';
 const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   const rootRef = useRef();
 
-  const renderDescriptionOnAlgoSelect = (prevState, state) => {
-    const isAlgoNameChanged = prevState.algo.name !== state.algo.name;
-    if (!isAlgoNameChanged) {
-      return;
-    }
+  const renderDescriptionOnAlgoSelect = (_, state) => {
     if (!rootRef.current) {
       return;
     }
@@ -48,7 +45,10 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
 
     root.appendChild(node);
   };
-  store.subscribe(renderDescriptionOnAlgoSelect);
+  store.subscribe({
+    actionTypes: [SELECT_ALGO],
+    subscriber: renderDescriptionOnAlgoSelect,
+  });
 
   return (
     <div ref={rootRef} className={styles.Description}>

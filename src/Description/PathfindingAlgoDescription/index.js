@@ -32,9 +32,7 @@ const PathfindingAlgoDescription = (props) => {
     handleVisualize(store, mazeCtx, solutionCtx, showWarning);
   };
 
-  store.subscribe((prevState, state) => {
-    toggleElementDisable(prevState, state, visualizeBtnRef);
-  });
+  store.subscribe(toggleElementDisable(visualizeBtnRef));
 
   return (
     <DescriptionContent description={description}>

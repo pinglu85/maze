@@ -51,9 +51,7 @@ const Dropdown = ({ btnLabel, items, handleClickItem, subscribe }) => {
     document.removeEventListener('click', handleClickOutside);
   };
 
-  subscribe((prevState, state) => {
-    toggleElementDisable(prevState, state, dropdownMenuRef);
-  });
+  subscribe(toggleElementDisable(dropdownMenuRef));
 
   return (
     <div

@@ -1,4 +1,5 @@
 import { createElement, useRef } from '../utils';
+import { SET_GRID_SIZE } from '../store/actionTypes';
 import Canvas from '../shared/Canvas';
 import grid from '../Grid';
 import setCanvasesSize from './setCanvasesSize';
@@ -7,16 +8,8 @@ import styles from './style.module.css';
 const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
   const canvasesRef = useRef();
 
-  const handleCanvasSizeChange = (prevState, state) => {
-    const { gridSize: prevGridSize } = prevState;
+  const handleCanvasSizeChange = (_, state) => {
     const { gridSize } = state;
-    const isGridSizeUpdated =
-      prevGridSize.numOfRows !== gridSize.numOfRows ||
-      prevGridSize.numOfCols !== gridSize.numOfCols;
-
-    if (!isGridSizeUpdated) {
-      return;
-    }
 
     if (!canvasesRef.current) {
       return;
@@ -31,7 +24,10 @@ const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
     grid.setContent(gridSize);
     grid.draw(mazeCtx);
   };
-  subscribe(handleCanvasSizeChange);
+  subscribe({
+    actionTypes: [SET_GRID_SIZE],
+    subscriber: handleCanvasSizeChange,
+  });
 
   return (
     <div ref={canvasesRef} className={styles.Canvases}>

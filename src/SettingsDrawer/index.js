@@ -36,9 +36,7 @@ const SettingsDrawer = (props) => {
     handleSaveSettings(store, warningRef, inputValues, handleDrawerClose);
   };
 
-  store.subscribe((prevState, state) => {
-    toggleElementDisable(prevState, state, saveBtnRef);
-  });
+  store.subscribe(toggleElementDisable(saveBtnRef));
 
   return (
     <>
