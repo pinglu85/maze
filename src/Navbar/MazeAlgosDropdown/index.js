@@ -2,7 +2,7 @@ import { createElement } from '../../utils';
 import Dropdown from '../../shared/Dropdown';
 import { MAZE_ALGO_IDS } from '../../constants/algoIds';
 
-const items = [
+const algoNames = [
   { id: MAZE_ALGO_IDS.huntAndKill, text: 'Hunt-and-Kill' },
   { id: MAZE_ALGO_IDS.recursiveBacktracker, text: 'Recursive Backtracker' },
   { id: MAZE_ALGO_IDS.recursiveDivision, text: 'Recursive Division' },
@@ -19,7 +19,9 @@ const items = [
 ];
 
 const MazeAlgosDropdown = ({ store }) => {
-  return <Dropdown store={store} btnLabel="Maze Algorithms" items={items} />;
+  return (
+    <Dropdown store={store} btnLabel="Maze Algorithms" items={algoNames} />
+  );
 };
 
 export default MazeAlgosDropdown;
