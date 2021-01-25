@@ -6,14 +6,14 @@ import { GRID_COLORS } from '../constants/colors';
 import { CELL_SIZE, LINE_WIDTHS } from '../constants/size';
 
 class Grid {
-  constructor(cellSize, gridColors, lineWidths) {
+  constructor(cellSize, lineWidths, gridColors) {
     this.content = [];
     this.cellSize = cellSize;
-    this.gridColors = gridColors;
     this.lineWidths = lineWidths;
     this.cellPosOffSet =
       Math.floor(this.lineWidths.outerWall / 2) +
       this.lineWidths.halfOuterInteriorWallDiff;
+    this.gridColors = gridColors;
     this.entranceCell = null;
     this.entranceDir = '';
     this.exitCell = null;
@@ -201,5 +201,5 @@ class Grid {
   }
 }
 
-const grid = new Grid(CELL_SIZE, GRID_COLORS, LINE_WIDTHS);
+const grid = new Grid(CELL_SIZE, LINE_WIDTHS, GRID_COLORS);
 export default grid;

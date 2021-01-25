@@ -1,6 +1,4 @@
 export const CELL_SIZE = 32;
-export const SPRITE_SIZE = 28;
-export const FOOTPRINT_RADIUS = 5;
 export const LINE_WIDTHS = {
   outerWall: 6,
   interiorWall: 4,
@@ -16,3 +14,6 @@ export const DEFAULT_GRID_SIZE = {
   bigTablet: { numOfRows: 15, numOfCols: 30 },
   desktop: { numOfRows: 13, numOfCols: 40 },
 };
+
+export const SPRITE_SIZE = 28;
+export const FOOTPRINT_RADIUS = 5;
