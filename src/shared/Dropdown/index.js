@@ -20,7 +20,7 @@ const Dropdown = ({ store, btnLabel, items }) => {
       return;
     }
 
-    const newAlgo = e.target.textContent;
+    const newAlgo = e.target.id;
     if (newAlgo === algo.name) {
       return;
     }

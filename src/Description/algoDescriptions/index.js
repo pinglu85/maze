@@ -1,3 +1,4 @@
+import { MAZE_ALGO_IDS, PATHFINDING_ALGO_IDS } from '../../constants/algoIds';
 import huntAndKill from './huntAndKill';
 import recursiveBacktracker from './recursiveBacktracker';
 import recursiveDivision from './recursiveDivision';
@@ -9,23 +10,22 @@ import openGrid from './openGrid';
 import dijkstrasAlgo from './dijkstrasAlgo';
 import aStarSearch from './aStarSearch';
 
-const algosDescriptions = {
+const algosDescriptions = new Map([
   // Maze algorithms
-  'Hunt-and-Kill': huntAndKill,
-  'Recursive Backtracker': recursiveBacktracker,
-  'Recursive Division': recursiveDivision,
-  'Growing Tree (random)': growingTree,
-  'Growing Tree (last)': growingTree,
-  'Growing Tree (mix)': growingTree,
-  'Binary Tree': binaryTree,
-  "Randomized Kruskal's Algorithm": randomizedKruskalsAlgo,
-  'Aldous-Broder Algorithm': aldousBroderAlgo,
-
-  'Open Grid': openGrid,
+  [MAZE_ALGO_IDS.huntAndKill, huntAndKill],
+  [MAZE_ALGO_IDS.recursiveBacktracker, recursiveBacktracker],
+  [MAZE_ALGO_IDS.recursiveDivision, recursiveDivision],
+  [MAZE_ALGO_IDS.growingTreeRandom, growingTree],
+  [MAZE_ALGO_IDS.growingTreeLast, growingTree],
+  [MAZE_ALGO_IDS.growingTreeMix, growingTree],
+  [MAZE_ALGO_IDS.binaryTree, binaryTree],
+  [MAZE_ALGO_IDS.randomizedKruskalsAlgo, randomizedKruskalsAlgo],
+  [MAZE_ALGO_IDS.aldousBroderAlgo, aldousBroderAlgo],
+  [MAZE_ALGO_IDS.openGrid, openGrid],
 
   // Pathfinding algorithms
-  "Dijkstra's Algorithm": dijkstrasAlgo,
-  'A* Search': aStarSearch,
-};
+  [PATHFINDING_ALGO_IDS.dijkstrasAlgo, dijkstrasAlgo],
+  [PATHFINDING_ALGO_IDS.aStarSearch, aStarSearch],
+]);
 
 export default algosDescriptions;

@@ -36,62 +36,38 @@ class Grid {
     );
   };
 
-  generateMaze(algoName) {
-    const asyncGenerateMaze = async (mazeAlgo, arg) => {
-      this.isOpenGrid = false;
-      await mazeAlgo(this.content, arg);
+  async generateMaze(algoName) {
+    if (algoName === 'OpenGrid') {
+      this.isOpenGrid = true;
+      this.dropInteriorWalls();
       this.generateMazeEntryAndExit();
       return Promise.resolve();
-    };
-
-    switch (algoName) {
-      case 'Hunt-and-Kill':
-        return asyncGenerateMaze(mazeAlgos.asyncHuntAndKill);
-      case 'Recursive Backtracker':
-        return asyncGenerateMaze(mazeAlgos.asyncRecursiveBacktracker);
-      case 'Recursive Division':
-        this.dropInteriorWalls();
-        return asyncGenerateMaze(mazeAlgos.asyncRecursiveDivision);
-      case 'Growing Tree (random)':
-        return asyncGenerateMaze(mazeAlgos.asyncGrowingTree, 'random');
-      case 'Growing Tree (last)':
-        return asyncGenerateMaze(mazeAlgos.asyncGrowingTree, 'last');
-      case 'Growing Tree (mix)':
-        return asyncGenerateMaze(mazeAlgos.asyncGrowingTree, 'mix');
-      case 'Binary Tree':
-        return asyncGenerateMaze(mazeAlgos.asyncBinaryTree);
-      case "Randomized Kruskal's Algorithm":
-        return asyncGenerateMaze(mazeAlgos.asyncRandomizedKruskalsAlgo);
-      case 'Aldous-Broder Algorithm':
-        return asyncGenerateMaze(mazeAlgos.asyncAldousBroderAlgo);
-      case 'Open Grid':
-        this.isOpenGrid = true;
-        this.dropInteriorWalls();
-        this.generateMazeEntryAndExit();
-        return Promise.resolve();
-      default:
-      // do nothing
     }
+
+    this.isOpenGrid = false;
+    const grid = this.content;
+
+    if (algoName.startsWith('GrowingTree-')) {
+      const optionStartIndex = 'GrowingTree-'.length;
+      const option = algoName.slice(optionStartIndex);
+      await mazeAlgos.asyncGrowingTree(grid, option);
+    } else {
+      const mazeAlgo = mazeAlgos[`async${algoName}`];
+      await mazeAlgo(grid);
+    }
+
+    this.generateMazeEntryAndExit();
+    return Promise.resolve();
   }
 
-  findSolution(algoName) {
-    const asyncFindSolution = async (pathfindingAlgo) => {
-      const pathCoordinates = await pathfindingAlgo(
-        this.content,
-        this.entranceCell,
-        this.exitCell
-      );
-      return Promise.resolve(pathCoordinates);
-    };
-
-    switch (algoName) {
-      case "Dijkstra's Algorithm":
-        return asyncFindSolution(pathfindingAlgos.asyncDijkstrasAlgo);
-      case 'A* Search':
-        return asyncFindSolution(pathfindingAlgos.asyncAStarSearch);
-      default:
-      // do nothing
-    }
+  async findSolution(algoName) {
+    const pathfindingAlgo = pathfindingAlgos[`async${algoName}`];
+    const pathCoordinates = await pathfindingAlgo(
+      this.content,
+      this.entranceCell,
+      this.exitCell
+    );
+    return Promise.resolve(pathCoordinates);
   }
 
   generateMazeEntryAndExit() {
