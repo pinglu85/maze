@@ -19,13 +19,13 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
     const solutionCtx = solutionCanvasRef.current.ctx;
     const algoType = state.algo.type;
     const algoName = state.algo.name;
-    const description = algoDescriptions[algoName];
+    const description = algoDescriptions.get(algoName);
     let node;
 
     if (algoType === 'mazeAlgo') {
       node = render(
         <MazeAlgoDescription
-          algo={algoName}
+          algoName={algoName}
           description={description}
           store={store}
           mazeCtx={mazeCtx}
