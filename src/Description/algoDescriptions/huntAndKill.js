@@ -1,13 +1,13 @@
 import { mazeAlgoSharedIcons } from './sharedIcons';
-import { CELL_COLORS } from '../../constants/colors';
+import { GRID_COLORS } from '../../constants/colors';
 
 const huntAndKill = {
   icons: [
     ...mazeAlgoSharedIcons,
     {
       label: 'Scanned Cell',
-      bgColor: CELL_COLORS.scanned,
-      borderColor: CELL_COLORS.border,
+      bgColor: GRID_COLORS.cell.scanned,
+      borderColor: GRID_COLORS.cell.border,
     },
   ],
   text:

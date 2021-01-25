@@ -2,15 +2,14 @@ import Cell from './Cell';
 import * as mazeAlgos from './mazeAlgos';
 import * as pathfindingAlgos from './pathfindingAlgos';
 import { getRandomIndex, getStartOrEndIndexOfArray } from '../utils';
-import { CELL_COLORS, GUIDES_COLOR } from '../constants/colors';
+import { GRID_COLORS } from '../constants/colors';
 import { CELL_SIZE, LINE_WIDTHS } from '../constants/size';
 
 class Grid {
-  constructor(cellSize, cellColors, lineWidths, guidesColor) {
+  constructor(cellSize, gridColors, lineWidths) {
     this.content = [];
     this.cellSize = cellSize;
-    this.cellColors = cellColors;
-    this.guidesColor = guidesColor;
+    this.gridColors = gridColors;
     this.lineWidths = lineWidths;
     this.cellPosOffSet =
       Math.floor(this.lineWidths.outerWall / 2) +
@@ -168,7 +167,7 @@ class Grid {
 
     for (const row of this.content) {
       for (const cell of row) {
-        cell.draw(ctx, this.cellSize, this.cellColors, this.lineWidths);
+        cell.draw(ctx, this.cellSize, this.gridColors.cell, this.lineWidths);
       }
     }
   };
@@ -180,7 +179,7 @@ class Grid {
     const height = numOfRows * this.cellSize + this.cellPosOffSet;
 
     ctx.lineWidth = this.lineWidths.interiorWall;
-    ctx.strokeStyle = this.guidesColor;
+    ctx.strokeStyle = this.gridColors.guides;
 
     // Draw horizontal lines
     for (let i = 1; i < numOfRows; i++) {
@@ -202,5 +201,5 @@ class Grid {
   }
 }
 
-const grid = new Grid(CELL_SIZE, CELL_COLORS, LINE_WIDTHS, GUIDES_COLOR);
+const grid = new Grid(CELL_SIZE, GRID_COLORS, LINE_WIDTHS);
 export default grid;

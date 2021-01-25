@@ -1,7 +1,9 @@
 import startNodeSvg from '../../assets/start-node.svg';
 import targetNodeSvg from '../../assets/target-node.svg';
 import shortestPathSvg from '../../assets/shortest-path.svg';
-import { CELL_COLORS } from '../../constants/colors';
+import { GRID_COLORS } from '../../constants/colors';
+
+const { cell: cellColors } = GRID_COLORS;
 
 export const startNodeIcon = {
   label: 'Start Node',
@@ -22,19 +24,19 @@ export const mazeAlgoSharedIcons = [
   targetNodeIcon,
   {
     label: 'Visited Cell',
-    bgColor: CELL_COLORS.visited,
-    borderColor: CELL_COLORS.border,
+    bgColor: cellColors.visited,
+    borderColor: cellColors.border,
   },
   {
     label: 'Unvisited Cell',
-    bgColor: CELL_COLORS.unvisited,
-    borderColor: CELL_COLORS.border,
+    bgColor: cellColors.unvisited,
+    borderColor: cellColors.border,
   },
 
   {
     label: 'Current Starting Cell',
-    bgColor: CELL_COLORS.starting,
-    borderColor: CELL_COLORS.border,
+    bgColor: cellColors.starting,
+    borderColor: cellColors.border,
   },
 ];
 
@@ -43,13 +45,13 @@ export const pathfindingAlgoSharedIcons = [
   targetNodeIcon,
   {
     label: 'Visited Cell',
-    bgColor: CELL_COLORS.pathfinding.visited,
-    borderColor: CELL_COLORS.border,
+    bgColor: cellColors.pathfinding.visited,
+    borderColor: cellColors.border,
   },
   {
     label: 'Cell to Be Explored',
-    bgColor: CELL_COLORS.pathfinding.toBeExplored,
-    borderColor: CELL_COLORS.border,
+    bgColor: cellColors.pathfinding.toBeExplored,
+    borderColor: cellColors.border,
   },
   {
     label: 'Shortest Path',
