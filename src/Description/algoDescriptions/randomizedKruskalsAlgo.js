@@ -1,23 +1,25 @@
 import { mazeAlgoSharedIcons } from './sharedIcons';
-import { CELL_COLORS } from '../../constants/colors';
+import { GRID_COLORS } from '../../constants/colors';
+
+const { cell: cellColors } = GRID_COLORS;
 
 const randomizedKruskalsAlgo = {
   icons: [
     ...mazeAlgoSharedIcons,
     {
       label: 'Selected Neighbor',
-      bgColor: CELL_COLORS.neighbor,
-      borderColor: CELL_COLORS.border,
+      bgColor: cellColors.neighbor,
+      borderColor: cellColors.border,
     },
     {
       label: 'unmergeable Neighbor',
-      bgColor: CELL_COLORS.sameSet,
-      borderColor: CELL_COLORS.border,
+      bgColor: cellColors.sameSet,
+      borderColor: cellColors.border,
     },
     {
       label: 'mergeable Neighbor',
-      bgColor: CELL_COLORS.differentSet,
-      borderColor: CELL_COLORS.border,
+      bgColor: cellColors.differentSet,
+      borderColor: cellColors.border,
     },
   ],
   text:

@@ -25,10 +25,11 @@ function handleSaveSettings(store, warningRef, inputValues, handleDrawerClose) {
     return;
   }
 
-  const { gridSize } = state;
-  const { numOfRows: prevNumOfRows, numOfCols: prevNumOfCols } = gridSize;
+  const {
+    gridSize: { numOfRows, numOfCols },
+  } = state;
   const isGridSizeChanged =
-    prevNumOfRows !== updatedNumOfRows || prevNumOfCols !== updatedNumOfCols;
+    numOfRows !== updatedNumOfRows || numOfCols !== updatedNumOfCols;
   if (!isGridSizeChanged) {
     handleDrawerClose();
     return;

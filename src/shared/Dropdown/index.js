@@ -1,10 +1,11 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
+import { selectAlgo } from '../../store/actions';
 import Button from '../Button';
 import Item from './Item';
 import chevronDownIcon from '../../assets/chevron-down.svg';
 import styles from './style.module.css';
 
-const Dropdown = ({ btnLabel, items, handleClickItem, subscribe }) => {
+const Dropdown = ({ store, btnLabel, items }) => {
   const dropdownRef = useRef();
   const dropdownMenuRef = useRef();
 
@@ -14,7 +15,22 @@ const Dropdown = ({ btnLabel, items, handleClickItem, subscribe }) => {
       return;
     }
 
-    handleClickItem(e);
+    const { isMazeGenerating, isSearchingForSolution, algo } = store.getState();
+    if (isMazeGenerating || isSearchingForSolution) {
+      return;
+    }
+
+    const newAlgo = e.target.textContent;
+    if (newAlgo === algo.name) {
+      return;
+    }
+
+    store.dispatch(
+      selectAlgo({
+        type: btnLabel === 'Maze Algorithms' ? 'mazeAlgo' : 'pathfindingAlgo',
+        name: newAlgo,
+      })
+    );
     closeMenu();
   };
 
@@ -51,7 +67,7 @@ const Dropdown = ({ btnLabel, items, handleClickItem, subscribe }) => {
     document.removeEventListener('click', handleClickOutside);
   };
 
-  subscribe(toggleElementDisable(dropdownMenuRef));
+  store.subscribe(toggleElementDisable(dropdownMenuRef));
 
   return (
     <div
