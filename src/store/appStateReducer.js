@@ -1,4 +1,4 @@
-import applySetGridSize from './utils/applySetGridSize';
+import applyUpdateGridSize from './utils/applyUpdateGridSize';
 import applySelectAlgo from './utils/applySelectAlgo';
 import applyMazeGenerationInit from './utils/applyMazeGenerationInit';
 import applyMazeGenerationSuccess from './utils/applyMazeGenerationSuccess';
@@ -8,17 +8,17 @@ import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
   switch (action.type) {
-    case actionTypes.GRID_SIZE_SET:
-      return applySetGridSize(state, action.payload);
-    case actionTypes.ALGO_SELECT:
+    case actionTypes.gridSizeUpdated:
+      return applyUpdateGridSize(state, action.payload);
+    case actionTypes.algoSelected:
       return applySelectAlgo(state, action.payload);
-    case actionTypes.MAZE_GENERATION_INIT:
+    case actionTypes.mazeGenerationInit:
       return applyMazeGenerationInit(state);
-    case actionTypes.MAZE_GENERATION_SUCCESS:
+    case actionTypes.mazeGenerationSuccess:
       return applyMazeGenerationSuccess(state);
-    case actionTypes.SOLUTION_SEARCH_INIT:
+    case actionTypes.solutionSearchInit:
       return applySolutionSearchInit(state);
-    case actionTypes.SOLUTION_SEARCH_SUCCESS:
+    case actionTypes.solutionSearchSuccess:
       return applySolutionSearchSuccess(state);
     default:
       throw new Error('Should not reach here!');

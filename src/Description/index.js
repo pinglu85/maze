@@ -1,5 +1,5 @@
 import { createElement, render, useRef } from '../utils';
-import { ALGO_SELECT } from '../store/actionTypes';
+import { algoSelected } from '../store/actionTypes';
 import MazeAlgoDescription from './MazeAlgoDescription';
 import PathfindingAlgoDescription from './PathfindingAlgoDescription';
 import algoDescriptions from './algoDescriptions';
@@ -46,7 +46,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
     root.appendChild(node);
   };
   store.subscribe({
-    actionTypes: [ALGO_SELECT],
+    actionTypes: [algoSelected],
     subscriber: renderDescriptionOnAlgoSelect,
   });
 
