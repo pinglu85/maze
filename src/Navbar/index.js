@@ -42,7 +42,7 @@ const Navbar = ({ store }) => {
 
   return (
     <nav className={styles.Navbar}>
-      <a href="/" className={styles.siteLogo}>
+      <a href="./" className={styles.siteLogo}>
         {logo}
       </a>
       <div className={styles.navItems}>
