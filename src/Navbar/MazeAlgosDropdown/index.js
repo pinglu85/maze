@@ -1,6 +1,5 @@
 import { createElement } from '../../utils';
 import Dropdown from '../../shared/Dropdown';
-import { selectAlgo } from '../../store/actions';
 
 const items = [
   { text: 'Hunt-and-Kill' },
@@ -16,28 +15,7 @@ const items = [
 ];
 
 const MazeAlgosDropdown = ({ store }) => {
-  const handleClickItem = (e) => {
-    const { isMazeGenerating, isSearchingForSolution, algo } = store.getState();
-    if (isMazeGenerating || isSearchingForSolution) {
-      return;
-    }
-
-    const newAlgo = e.target.textContent;
-    if (newAlgo === algo.name) {
-      return;
-    }
-
-    store.dispatch(selectAlgo({ type: 'mazeAlgo', name: newAlgo }));
-  };
-
-  return (
-    <Dropdown
-      btnLabel="Maze Algorithms"
-      items={items}
-      handleClickItem={handleClickItem}
-      subscribe={store.subscribe}
-    />
-  );
+  return <Dropdown store={store} btnLabel="Maze Algorithms" items={items} />;
 };
 
 export default MazeAlgosDropdown;
