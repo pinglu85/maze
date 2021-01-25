@@ -8,9 +8,9 @@ import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
   switch (action.type) {
-    case actionTypes.SET_GRID_SIZE:
+    case actionTypes.GRID_SIZE_SET:
       return applySetGridSize(state, action.payload);
-    case actionTypes.SELECT_ALGO:
+    case actionTypes.ALGO_SELECT:
       return applySelectAlgo(state, action.payload);
     case actionTypes.MAZE_GENERATION_INIT:
       return applyMazeGenerationInit(state);

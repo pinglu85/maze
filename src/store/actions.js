@@ -1,12 +1,12 @@
 import * as actionTypes from './actionTypes';
 
 export const setGridSize = (payload) => ({
-  type: actionTypes.SET_GRID_SIZE,
+  type: actionTypes.GRID_SIZE_SET,
   payload: payload,
 });
 
 export const selectAlgo = (payload) => ({
-  type: actionTypes.SELECT_ALGO,
+  type: actionTypes.ALGO_SELECT,
   payload: payload,
 });
 
