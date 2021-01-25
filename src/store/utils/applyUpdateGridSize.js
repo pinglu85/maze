@@ -1,6 +1,6 @@
 import { CELL_SIZE, LINE_WIDTHS } from '../../constants/size';
 
-function applySetGridSize(state, gridSize) {
+function applyUpdateGridSize(state, gridSize) {
   const { numOfRows, numOfCols } = gridSize;
   const offset =
     LINE_WIDTHS.outerWall + LINE_WIDTHS.halfOuterInteriorWallDiff * 2;
@@ -19,4 +19,4 @@ function applySetGridSize(state, gridSize) {
   };
 }
 
-export default applySetGridSize;
+export default applyUpdateGridSize;

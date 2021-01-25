@@ -1,6 +1,6 @@
-export const GRID_SIZE_SET = 'GRID_SIZE_SET';
-export const ALGO_SELECT = 'ALGO_SELECT';
-export const MAZE_GENERATION_INIT = 'MAZE_GENERATION_INIT';
-export const MAZE_GENERATION_SUCCESS = 'MAZE_GENERATION_SUCCESS';
-export const SOLUTION_SEARCH_INIT = 'SOLUTION_SEARCH_INIT';
-export const SOLUTION_SEARCH_SUCCESS = 'SOLUTION_SEARCH_SUCCESS';
+export const gridSizeUpdated = 'grid/gridSizeUpdated';
+export const algoSelected = 'algo/selected';
+export const mazeGenerationInit = 'maze/generationInit';
+export const mazeGenerationSuccess = 'maze/generationSuccess';
+export const solutionSearchInit = 'solution/searchInit';
+export const solutionSearchSuccess = 'solution/searchSuccess';

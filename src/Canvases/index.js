@@ -1,5 +1,5 @@
 import { createElement, useRef } from '../utils';
-import { GRID_SIZE_SET } from '../store/actionTypes';
+import { gridSizeUpdated } from '../store/actionTypes';
 import Canvas from '../shared/Canvas';
 import grid from '../Grid';
 import setCanvasesSize from './setCanvasesSize';
@@ -25,7 +25,7 @@ const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
     grid.draw(mazeCtx);
   };
   subscribe({
-    actionTypes: [GRID_SIZE_SET],
+    actionTypes: [gridSizeUpdated],
     subscriber: handleCanvasSizeChange,
   });
 

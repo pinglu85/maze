@@ -1,4 +1,4 @@
-import { setGridSize } from '../store/actions';
+import { updateGridSize } from '../store/actions';
 import showWarning from './showWarning';
 import { checkDevice } from '../utils';
 import { MIN_GRID_SIZE, MAX_GRID_SIZE } from '../constants/size';
@@ -40,7 +40,7 @@ function handleSaveSettings(store, warningRef, inputValues, handleDrawerClose) {
   };
 
   saveGridSizeToLocalStorage(updatedGridSize);
-  store.dispatch(setGridSize(updatedGridSize));
+  store.dispatch(updateGridSize(updatedGridSize));
   handleDrawerClose();
 }
 
