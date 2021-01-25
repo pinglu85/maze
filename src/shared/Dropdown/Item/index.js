@@ -4,7 +4,7 @@ import styles from './style.module.css';
 const Item = ({ item }) => (
   <li className={`${styles.Item} ${item.style ? styles[item.style] : ''}`}>
     <a id={item.id} href="#">
-      {item.text}
+      {item.textContent}
     </a>
   </li>
 );
