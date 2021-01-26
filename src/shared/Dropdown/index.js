@@ -1,5 +1,5 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
-import { selectAlgo } from '../../store/actions';
+import { doSelectAlgo } from '../../store/actions';
 import Button from '../Button';
 import Item from './Item';
 import chevronDownIcon from '../../assets/chevron-down.svg';
@@ -26,7 +26,7 @@ const Dropdown = ({ store, btnLabel, items }) => {
     }
 
     store.dispatch(
-      selectAlgo({
+      doSelectAlgo({
         type: btnLabel === 'Maze Algorithms' ? 'mazeAlgo' : 'pathfindingAlgo',
         name: newAlgo,
       })

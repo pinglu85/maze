@@ -3,7 +3,7 @@ import Section from '../../shared/Section';
 import InputWithLabel from '../../shared/InputWithLabel';
 import styles from './styles.module.css';
 
-const GridSizeSetting = (props) => (
+const GridSizeSettings = (props) => (
   <Section title="Grid Size">
     <div ref={props.warningRef} className={styles.warning}></div>
     <InputWithLabel
@@ -21,4 +21,4 @@ const GridSizeSetting = (props) => (
   </Section>
 );
 
-export default GridSizeSetting;
+export default GridSizeSettings;

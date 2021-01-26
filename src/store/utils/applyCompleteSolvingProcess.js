@@ -1,4 +1,4 @@
-function applySolutionSearchSuccess(state) {
+function applyCompleteSolvingProcess(state) {
   return {
     ...state,
     isSearchingForSolution: false,
@@ -6,4 +6,4 @@ function applySolutionSearchSuccess(state) {
   };
 }
 
-export default applySolutionSearchSuccess;
+export default applyCompleteSolvingProcess;

@@ -1,5 +1,5 @@
 import { createElement, useRef, toggleElementDisable } from '../utils';
-import GridSizeSetting from './GridSizeSetting';
+import GridSizeSettings from './GridSizeSettings';
 import Button from '../shared/Button';
 import handleSaveSettings from './handleSaveSettings';
 import dismissIcon from '../assets/x.svg';
@@ -43,7 +43,7 @@ const SettingsDrawer = (props) => {
       <div ref={drawerRef} className={styles.SettingsDrawer}>
         <Button handleClick={handleDrawerClose}>{dismissIcon}</Button>
         <h2 className={styles.title}>Settings</h2>
-        <GridSizeSetting
+        <GridSizeSettings
           warningRef={warningRef}
           inputRowsRef={inputRowsRef}
           inputColsRef={inputColsRef}

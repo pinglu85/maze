@@ -1,9 +1,9 @@
 import applyUpdateGridSize from './utils/applyUpdateGridSize';
 import applySelectAlgo from './utils/applySelectAlgo';
-import applyMazeGenerationInit from './utils/applyMazeGenerationInit';
-import applyMazeGenerationSuccess from './utils/applyMazeGenerationSuccess';
-import applySolutionSearchInit from './utils/applySolutionSearchInit';
-import applySolutionSearchSuccess from './utils/applySolutionSearchSuccess';
+import applyInitiateMazeGeneration from './utils/applyInitiateMazeGeneration';
+import applyCompleteMazeGeneration from './utils/applyCompleteMazeGeneration';
+import applyInitiateSolvingProcess from './utils/applyInitiateSolvingProcess';
+import applyCompleteSolvingProcess from './utils/applyCompleteSolvingProcess';
 import * as actionTypes from './actionTypes';
 
 function appStateReducer(state, action) {
@@ -12,14 +12,14 @@ function appStateReducer(state, action) {
       return applyUpdateGridSize(state, action.payload);
     case actionTypes.algoSelected:
       return applySelectAlgo(state, action.payload);
-    case actionTypes.mazeGenerationInit:
-      return applyMazeGenerationInit(state);
-    case actionTypes.mazeGenerationSuccess:
-      return applyMazeGenerationSuccess(state);
-    case actionTypes.solutionSearchInit:
-      return applySolutionSearchInit(state);
-    case actionTypes.solutionSearchSuccess:
-      return applySolutionSearchSuccess(state);
+    case actionTypes.mazeGenerationInitiated:
+      return applyInitiateMazeGeneration(state);
+    case actionTypes.mazeGenerationCompleted:
+      return applyCompleteMazeGeneration(state);
+    case actionTypes.solvingProcessInitiated:
+      return applyInitiateSolvingProcess(state);
+    case actionTypes.solvingProcessCompleted:
+      return applyCompleteSolvingProcess(state);
     default:
       throw new Error('Should not reach here!');
   }

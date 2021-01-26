@@ -1,4 +1,4 @@
-function applySolutionSearchInit(state) {
+function applyInitiateSolvingProcess(state) {
   return {
     ...state,
     isSearchingForSolution: true,
@@ -6,4 +6,4 @@ function applySolutionSearchInit(state) {
   };
 }
 
-export default applySolutionSearchInit;
+export default applyInitiateSolvingProcess;

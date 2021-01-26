@@ -1,5 +1,5 @@
 import { checkDevice } from '.';
-import { updateGridSize } from '../store/actions';
+import { doUpdateGridSize } from '../store/actions';
 import LOCAL_STORAGE_KEYS from '../constants/localStorageKeys';
 import { DEFAULT_GRID_SIZE } from '../constants/size';
 
@@ -9,12 +9,12 @@ function setInitialGridSize(dispatch) {
   const storedGridSize = JSON.parse(localStorage.getItem(localStorageKey));
 
   if (storedGridSize) {
-    dispatch(updateGridSize(storedGridSize));
+    dispatch(doUpdateGridSize(storedGridSize));
     return;
   }
 
   const defaultGridSize = DEFAULT_GRID_SIZE[device];
-  dispatch(updateGridSize(defaultGridSize));
+  dispatch(doUpdateGridSize(defaultGridSize));
 }
 
 export default setInitialGridSize;
