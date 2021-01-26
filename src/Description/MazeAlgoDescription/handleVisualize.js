@@ -1,6 +1,6 @@
 import {
-  initiateMazeGeneration,
-  completeMazeGeneration,
+  doInitiateMazeGeneration,
+  doCompleteMazeGeneration,
 } from '../../store/actions';
 import grid from '../../Grid';
 import startNode from '../../StartNode';
@@ -18,11 +18,11 @@ async function handleVisualize(store, mazeCtx, solutionCtx) {
     solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
   }
 
-  store.dispatch(initiateMazeGeneration());
+  store.dispatch(doInitiateMazeGeneration());
 
   drawMaze(store.getState, mazeCtx, solutionCtx);
   await grid.generateMaze(algo.name);
-  store.dispatch(completeMazeGeneration());
+  store.dispatch(doCompleteMazeGeneration());
 }
 
 function drawMaze(getState, mazeCtx, solutionCtx) {

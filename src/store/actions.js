@@ -1,27 +1,27 @@
 import * as actionTypes from './actionTypes';
 
-export const updateGridSize = (payload) => ({
+export const doUpdateGridSize = (payload) => ({
   type: actionTypes.gridSizeUpdated,
   payload: payload,
 });
 
-export const selectAlgo = (payload) => ({
+export const doSelectAlgo = (payload) => ({
   type: actionTypes.algoSelected,
   payload: payload,
 });
 
-export const initiateMazeGeneration = () => ({
+export const doInitiateMazeGeneration = () => ({
   type: actionTypes.mazeGenerationInitiated,
 });
 
-export const completeMazeGeneration = () => ({
+export const doCompleteMazeGeneration = () => ({
   type: actionTypes.mazeGenerationCompleted,
 });
 
-export const initiateSolvingProcess = () => ({
+export const doInitiateSolvingProcess = () => ({
   type: actionTypes.solvingProcessInitiated,
 });
 
-export const completeSolvingProcess = () => ({
+export const doCompleteSolvingProcess = () => ({
   type: actionTypes.solvingProcessCompleted,
 });
