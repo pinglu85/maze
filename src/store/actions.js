@@ -10,18 +10,18 @@ export const selectAlgo = (payload) => ({
   payload: payload,
 });
 
-export const mazeGenerationInit = () => ({
-  type: actionTypes.mazeGenerationInit,
+export const initiateMazeGeneration = () => ({
+  type: actionTypes.mazeGenerationInitiated,
 });
 
-export const mazeGenerationSuccess = () => ({
-  type: actionTypes.mazeGenerationSuccess,
+export const completeMazeGeneration = () => ({
+  type: actionTypes.mazeGenerationCompleted,
 });
 
-export const solutionSearchInit = () => ({
-  type: actionTypes.solutionSearchInit,
+export const initiateSolvingProcess = () => ({
+  type: actionTypes.solvingProcessInitiated,
 });
 
-export const solutionSearchSuccess = () => ({
-  type: actionTypes.solutionSearchSuccess,
+export const completeSolvingProcess = () => ({
+  type: actionTypes.solvingProcessCompleted,
 });

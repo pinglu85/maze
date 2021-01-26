@@ -1,6 +1,6 @@
 export const gridSizeUpdated = 'grid/gridSizeUpdated';
 export const algoSelected = 'algo/selected';
-export const mazeGenerationInit = 'maze/generationInit';
-export const mazeGenerationSuccess = 'maze/generationSuccess';
-export const solutionSearchInit = 'solution/searchInit';
-export const solutionSearchSuccess = 'solution/searchSuccess';
+export const mazeGenerationInitiated = 'maze/generationInitiated';
+export const mazeGenerationCompleted = 'maze/generationCompleted';
+export const solvingProcessInitiated = 'maze/solvingProcessInitiated';
+export const solvingProcessCompleted = 'maze/solvingProcessCompleted';

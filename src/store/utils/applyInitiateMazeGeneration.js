@@ -1,4 +1,4 @@
-function applyMazeGenerationInit(state) {
+function applyInitiateMazeGeneration(state) {
   return {
     ...state,
     isMazeGenerating: true,
@@ -8,4 +8,4 @@ function applyMazeGenerationInit(state) {
   };
 }
 
-export default applyMazeGenerationInit;
+export default applyInitiateMazeGeneration;

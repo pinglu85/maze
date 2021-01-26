@@ -17,10 +17,10 @@ function toggleElementDisable(nodeRef) {
 
   return {
     actionTypes: [
-      actionTypes.mazeGenerationInit,
-      actionTypes.mazeGenerationSuccess,
-      actionTypes.solutionSearchInit,
-      actionTypes.solutionSearchSuccess,
+      actionTypes.mazeGenerationInitiated,
+      actionTypes.mazeGenerationCompleted,
+      actionTypes.solvingProcessInitiated,
+      actionTypes.solvingProcessCompleted,
     ],
     subscriber,
   };
