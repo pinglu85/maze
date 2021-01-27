@@ -1,5 +1,5 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
-import { doSelectAlgo } from '../../store/actions';
+import { doSelectAlgo } from './actionCreators';
 import Button from '../Button';
 import Item from './Item';
 import chevronDownIcon from '../../assets/chevron-down.svg';

@@ -1,4 +1,4 @@
-import { doUpdateGridSize } from '../store/actions';
+import { doUpdateGridSize } from './actionCreators';
 import showWarning from './showWarning';
 import { checkDevice } from '../utils';
 import { MIN_GRID_SIZE, MAX_GRID_SIZE } from '../constants/size';

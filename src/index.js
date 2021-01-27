@@ -4,7 +4,7 @@ import {
   createStore,
   setInitialGridSize,
 } from './utils';
-import appStateReducer from './store/appStateReducer';
+import appReducer from './appReducer';
 import App from './App';
 import './index.css';
 
@@ -27,7 +27,7 @@ const initialAppState = {
   isSolutionFound: false,
 };
 
-const store = createStore(appStateReducer, initialAppState);
+const store = createStore(appReducer, initialAppState);
 
 const rootElement = document.getElementById('root');
 const node = render(<App store={store} />);

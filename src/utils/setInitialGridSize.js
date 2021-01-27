@@ -1,5 +1,5 @@
 import { checkDevice } from '.';
-import { doUpdateGridSize } from '../store/actions';
+import { doUpdateGridSize } from '../SettingsDrawer/actionCreators';
 import LOCAL_STORAGE_KEYS from '../constants/localStorageKeys';
 import { DEFAULT_GRID_SIZE } from '../constants/size';
 

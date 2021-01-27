@@ -1,5 +1,5 @@
 import { createElement, useRef } from '../utils';
-import { gridSizeUpdated } from '../store/actionTypes';
+import { gridSizeUpdated } from '../constants/actionTypes';
 import Canvas from '../shared/Canvas';
 import grid from '../Grid';
 import setCanvasesSize from './setCanvasesSize';
