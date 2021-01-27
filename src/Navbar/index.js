@@ -2,7 +2,7 @@ import { createElement, useRef } from '../utils';
 import MazeAlgosDropdown from './MazeAlgosDropdown';
 import PathfindingAlgosDropdown from './PathfindingAlgosDropdown';
 import SettingsDrawer from '../SettingsDrawer';
-import Button from '../shared/Button';
+import Button from '../sharedComponents/Button';
 import logo from '../assets/logo.svg';
 import settingsIcon from '../assets/settings.svg';
 import styles from './style.module.css';

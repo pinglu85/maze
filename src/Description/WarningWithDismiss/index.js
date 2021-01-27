@@ -1,6 +1,6 @@
 import { createElement } from '../../utils';
-import Warning from '../../shared/Warning';
-import Button from '../../shared/Button';
+import Warning from '../../sharedComponents/Warning';
+import Button from '../../sharedComponents/Button';
 import dismissIcon from '../../assets/x.svg';
 
 const WarningWithDismiss = ({ rootRef, message }) => {
