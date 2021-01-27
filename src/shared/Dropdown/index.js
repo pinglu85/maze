@@ -22,6 +22,7 @@ const Dropdown = ({ store, btnLabel, items }) => {
 
     const newAlgo = e.target.id;
     if (newAlgo === algo.name) {
+      closeMenu();
       return;
     }
 
