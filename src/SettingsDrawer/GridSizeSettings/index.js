@@ -1,6 +1,6 @@
 import { createElement } from '../../utils';
-import Section from '../../shared/Section';
-import InputWithLabel from '../../shared/InputWithLabel';
+import Section from '../../sharedComponents/Section';
+import InputWithLabel from '../../sharedComponents/InputWithLabel';
 import styles from './styles.module.css';
 
 const GridSizeSettings = (props) => (

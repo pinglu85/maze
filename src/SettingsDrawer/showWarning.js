@@ -1,5 +1,5 @@
 import { createElement, render } from '../utils';
-import Warning from '../shared/Warning';
+import Warning from '../sharedComponents/Warning';
 
 function showWarning(rootRef, message) {
   if (!rootRef.current) {

@@ -1,6 +1,6 @@
 import { createElement, useRef, toggleElementDisable } from '../utils';
 import GridSizeSettings from './GridSizeSettings';
-import Button from '../shared/Button';
+import Button from '../sharedComponents/Button';
 import handleSaveSettings from './handleSaveSettings';
 import dismissIcon from '../assets/x.svg';
 import styles from './style.module.css';

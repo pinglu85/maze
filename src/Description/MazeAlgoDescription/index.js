@@ -1,6 +1,6 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
-import DescriptionContent from '../../shared/DescriptionContent';
-import Button from '../../shared/Button';
+import DescriptionContent from '../../sharedComponents/DescriptionContent';
+import Button from '../../sharedComponents/Button';
 import handleVisualize from './handleVisualize';
 
 const MazeAlgoDescription = (props) => {
