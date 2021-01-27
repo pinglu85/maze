@@ -1,8 +1,8 @@
-import { createElement, useRef } from './utils';
-import Navbar from './Navbar';
-import Description from './Description';
-import Canvases from './Canvases';
-import styles from './App.module.css';
+import { createElement, useRef } from '../utils';
+import Navbar from '../Navbar';
+import Description from '../Description';
+import Canvases from '../Canvases';
+import styles from './style.module.css';
 
 const App = ({ store }) => {
   const mazeCanvasRef = useRef({
