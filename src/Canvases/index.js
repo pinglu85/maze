@@ -1,6 +1,6 @@
 import { createElement, useRef } from '../utils';
 import { gridSizeUpdated } from '../constants/actionTypes';
-import Canvas from '../sharedComponents/Canvas';
+import Canvas from './Canvas';
 import grid from '../Grid';
 import setCanvasesSize from './setCanvasesSize';
 import styles from './style.module.css';
