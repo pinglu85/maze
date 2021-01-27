@@ -1,4 +1,4 @@
-import * as actionTypes from '../store/actionTypes';
+import * as actionTypes from '../constants/actionTypes';
 
 function toggleElementDisable(nodeRef) {
   const subscriber = () => {

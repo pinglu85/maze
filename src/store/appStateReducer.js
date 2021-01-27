@@ -4,7 +4,7 @@ import applyInitiateMazeGeneration from './utils/applyInitiateMazeGeneration';
 import applyCompleteMazeGeneration from './utils/applyCompleteMazeGeneration';
 import applyInitiateSolvingProcess from './utils/applyInitiateSolvingProcess';
 import applyCompleteSolvingProcess from './utils/applyCompleteSolvingProcess';
-import * as actionTypes from './actionTypes';
+import * as actionTypes from '../constants/actionTypes';
 
 function appStateReducer(state, action) {
   switch (action.type) {

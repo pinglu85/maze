@@ -1,5 +1,5 @@
 import { createElement, render, useRef } from '../utils';
-import { algoSelected } from '../store/actionTypes';
+import { algoSelected } from '../constants/actionTypes';
 import MazeAlgoDescription from './MazeAlgoDescription';
 import PathfindingAlgoDescription from './PathfindingAlgoDescription';
 import algoDescriptions from './algoDescriptions';

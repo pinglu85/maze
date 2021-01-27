@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from '../constants/actionTypes';
 
 export const doUpdateGridSize = (payload) => ({
   type: actionTypes.gridSizeUpdated,
