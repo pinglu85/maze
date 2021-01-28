@@ -1,30 +1,10 @@
 import { delay, getOppositeDir, getRandomIndex } from '../../utils';
-
-function getNewStartCell(grid, prevStartCell, resolve) {
-  prevStartCell.isStartingCell = false;
-  prevStartCell.isVisited = true;
-
-  const randomAvailNeighbor = prevStartCell.getRandomAvailNeighbor(grid);
-  if (!randomAvailNeighbor) {
-    resolve();
-    return;
-  }
-
-  const [dir, neighbor] = randomAvailNeighbor;
-
-  prevStartCell.dropWall(dir);
-
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropWall(oppositeDir);
-  neighbor.isStartingCell = true;
-
-  resolve(neighbor);
-}
+import { walk } from './huntAndKill';
 
 function asyncGetNewStartCell(grid, prevStartCell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      getNewStartCell(grid, prevStartCell, resolve);
+      walk(grid, prevStartCell, resolve);
     }, wait);
   });
 }

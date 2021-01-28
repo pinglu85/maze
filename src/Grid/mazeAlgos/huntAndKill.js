@@ -98,4 +98,5 @@ async function asyncHuntAndKill(grid, wait = 50) {
   return Promise.resolve();
 }
 
+export { walk };
 export default asyncHuntAndKill;
