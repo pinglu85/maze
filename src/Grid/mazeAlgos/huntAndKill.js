@@ -1,9 +1,4 @@
-import {
-  delay,
-  getOppositeDir,
-  getRandomIndex,
-  shuffleArrIndices,
-} from '../../utils';
+import { delay, getRandomIndex, shuffleArrIndices } from '../../utils';
 
 function walk(grid, cell, resolve) {
   cell.isStartingCell = false;
@@ -16,13 +11,8 @@ function walk(grid, cell, resolve) {
   }
 
   const [dir, neighbor] = unvisitedNeighbor;
-
-  cell.dropWall(dir);
-
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropWall(oppositeDir);
+  cell.connectWithNeighbor(dir, neighbor);
   neighbor.isStartingCell = true;
-
   resolve(neighbor);
 }
 
@@ -48,13 +38,9 @@ async function hunt(grid, wait, resolve) {
       visitedNeighbor = cell.getRandomVisitedNeighbor(grid);
       if (visitedNeighbor) {
         const [dir, neighbor] = visitedNeighbor;
-
-        cell.dropWall(dir);
+        cell.connectWithNeighbor(dir, neighbor);
         cell.isVisited = true;
         cell.isStartingCell = true;
-
-        const oppositeDir = getOppositeDir(dir);
-        neighbor.dropWall(oppositeDir);
 
         grid[rowIndex].forEach((cell) => {
           cell.isScanned = false;

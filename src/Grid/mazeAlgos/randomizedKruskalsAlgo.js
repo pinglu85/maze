@@ -1,4 +1,4 @@
-import { delay, getOppositeDir, shuffleArr } from '../../utils';
+import { delay, shuffleArr } from '../../utils';
 
 async function merge(cell, dir, neighbor, cellSets, resolve) {
   if (cell.cellSetId === neighbor.cellSetId) {
@@ -20,11 +20,7 @@ async function merge(cell, dir, neighbor, cellSets, resolve) {
   });
 
   cellSets.delete(neighborSetId);
-
-  cell.dropWall(dir);
-
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropWall(oppositeDir);
+  cell.connectWithNeighbor(dir, neighbor);
   neighbor.isVisited = true;
   resolve();
 }

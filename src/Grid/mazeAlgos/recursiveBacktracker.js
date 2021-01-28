@@ -1,4 +1,4 @@
-import { delay, getOppositeDir, getRandomIndex } from '../../utils';
+import { delay, getRandomIndex } from '../../utils';
 import { walk } from './huntAndKill';
 
 function asyncGetNewStartCell(grid, prevStartCell, wait) {
@@ -36,13 +36,8 @@ async function backtracking(grid, stack, wait, resolve) {
     }
 
     const [dir, neighbor] = unvisitedNeighbor;
-
-    prevStartCell.dropWall(dir);
-
-    const oppositeDir = getOppositeDir(dir);
-    neighbor.dropWall(oppositeDir);
+    prevStartCell.connectWithNeighbor(dir, neighbor);
     neighbor.isStartingCell = true;
-
     stack.push(neighbor);
     resolve();
     return;

@@ -1,4 +1,4 @@
-import { getOppositeDir, getRandomIndex, swapItemsInArray } from '../../utils';
+import { getRandomIndex, swapItemsInArray } from '../../utils';
 
 function selectCellFromArr(arr, option) {
   const lastIndex = arr.length - 1;
@@ -22,11 +22,7 @@ async function updateActiveCells(grid, startingCell, activeCells, resolve) {
   }
 
   const [dir, neighbor] = unvisitedNeighbor;
-
-  startingCell.dropWall(dir);
-
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropWall(oppositeDir);
+  startingCell.connectWithNeighbor(dir, neighbor);
   neighbor.isVisited = true;
   activeCells.push(neighbor);
   resolve();

@@ -1,9 +1,4 @@
-import {
-  delay,
-  getOppositeDir,
-  getRandomIndex,
-  swapItemsInArray,
-} from '../../utils';
+import { delay, getRandomIndex, swapItemsInArray } from '../../utils';
 
 function walk(prevCell, cell, grid, resolve) {
   if (prevCell) {
@@ -26,11 +21,7 @@ function walk(prevCell, cell, grid, resolve) {
 
   const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
   const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
-
-  cell.dropWall(dir);
-
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropWall(oppositeDir);
+  cell.connectWithNeighbor(dir, neighbor);
   neighbor.isConnected = true;
   resolve();
 }

@@ -1,4 +1,4 @@
-import { getRandomIndex } from '../../utils';
+import { getOppositeDir, getRandomIndex } from '../../utils';
 
 class Cell {
   constructor(rowIndex, colIndex, cellSize, offset) {
@@ -129,6 +129,13 @@ class Cell {
       })
       .map((neighbor) => neighbor[1]);
     return connectedNeighbors;
+  }
+
+  connectWithNeighbor(dir, neighbor) {
+    this.dropWall(dir);
+
+    const oppositeDir = getOppositeDir(dir);
+    neighbor.dropWall(oppositeDir);
   }
 
   setOuterWalls(numOfRows, numOfCols) {
