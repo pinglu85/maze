@@ -102,13 +102,13 @@ class Cell {
     return neighbors[randomIndex];
   }
 
-  getRandomAvailNeighbor(grid) {
+  getRandomUnvisitedNeighbor(grid) {
     const neighbors = this.getNeighbors(grid);
-    const availNeighbors = neighbors.filter(
+    const unvisitedNeighbors = neighbors.filter(
       (neighbor) => neighbor[1] && !neighbor[1].isVisited
     );
-    const randomIndex = getRandomIndex(availNeighbors.length);
-    return randomIndex === null ? null : availNeighbors[randomIndex];
+    const randomIndex = getRandomIndex(unvisitedNeighbors.length);
+    return randomIndex === null ? null : unvisitedNeighbors[randomIndex];
   }
 
   getRandomVisitedNeighbor(grid) {
