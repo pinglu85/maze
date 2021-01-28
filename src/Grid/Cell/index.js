@@ -1,5 +1,11 @@
 import { getOppositeDir, getRandomIndex } from '../../utils';
 
+const neighborsFilters = {
+  unvisited: (neighbor) => !neighbor[1].isVisited,
+  visited: (neighbor) => neighbor[1].isVisited,
+  northAndEast: (neighbor) => neighbor[0] === 'north' || neighbor[0] === 'east',
+};
+
 class Cell {
   constructor(rowIndex, colIndex, cellSize, offset) {
     this.rowIndex = rowIndex;
@@ -76,56 +82,52 @@ class Cell {
   getNeighbors(grid) {
     const currRowIndex = this.rowIndex;
     const currColIndex = this.colIndex;
-    const north =
-      currRowIndex === 0 ? null : grid[currRowIndex - 1][currColIndex];
-    const east =
-      currColIndex === grid[0].length - 1
-        ? null
-        : grid[currRowIndex][currColIndex + 1];
-    const south =
-      currRowIndex === grid.length - 1
-        ? null
-        : grid[currRowIndex + 1][currColIndex];
-    const west =
-      currColIndex === 0 ? null : grid[currRowIndex][currColIndex - 1];
-    return [
-      ['north', north],
-      ['east', east],
-      ['south', south],
-      ['west', west],
-    ];
+    const neighbors = [];
+
+    if (currRowIndex > 0) {
+      const northNeighbor = grid[currRowIndex - 1][currColIndex];
+      neighbors.push(['north', northNeighbor]);
+    }
+
+    if (currColIndex < grid[0].length - 1) {
+      const eastNeighbor = grid[currRowIndex][currColIndex + 1];
+      neighbors.push(['east', eastNeighbor]);
+    }
+
+    if (currRowIndex < grid.length - 1) {
+      const southNeighbor = grid[currRowIndex + 1][currColIndex];
+      neighbors.push(['south', southNeighbor]);
+    }
+
+    if (currColIndex > 0) {
+      const westNeighbor = grid[currRowIndex][currColIndex - 1];
+      neighbors.push(['west', westNeighbor]);
+    }
+
+    return neighbors;
   }
 
-  getRandomNeighbor(grid) {
-    const neighbors = this.getNeighbors(grid).filter((neighbor) => neighbor[1]);
-    const randomIndex = getRandomIndex(neighbors.length);
-    return neighbors[randomIndex];
-  }
-
-  getRandomUnvisitedNeighbor(grid) {
+  getRandomNeighbor(grid, filterName = '') {
     const neighbors = this.getNeighbors(grid);
-    const unvisitedNeighbors = neighbors.filter(
-      (neighbor) => neighbor[1] && !neighbor[1].isVisited
-    );
-    const randomIndex = getRandomIndex(unvisitedNeighbors.length);
-    return randomIndex === null ? null : unvisitedNeighbors[randomIndex];
-  }
+    let filteredNeighbors;
+    if (filterName) {
+      const predicate = neighborsFilters[filterName];
+      filteredNeighbors = neighbors.filter(predicate);
+    } else {
+      filteredNeighbors = neighbors;
+    }
 
-  getRandomVisitedNeighbor(grid) {
-    const neighbors = this.getNeighbors(grid);
-    const visitedNeighbors = neighbors.filter(
-      (neighbor) => neighbor[1] && neighbor[1].isVisited
-    );
-    const randomIndex = getRandomIndex(visitedNeighbors.length);
-    return randomIndex === null ? null : visitedNeighbors[randomIndex];
+    const randomIndex = getRandomIndex(filteredNeighbors.length);
+    return randomIndex === null ? null : filteredNeighbors[randomIndex];
   }
 
   getConnectedNeighbors(grid) {
     const neighbors = this.getNeighbors(grid);
     const connectedNeighbors = neighbors
       .filter((neighbor) => {
-        const isConnected = !this[`${neighbor[0]}Wall`];
-        return neighbor[1] && isConnected;
+        const dir = neighbor[0];
+        const isConnected = !this[`${dir}Wall`];
+        return isConnected;
       })
       .map((neighbor) => neighbor[1]);
     return connectedNeighbors;

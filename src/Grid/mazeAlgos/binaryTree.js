@@ -7,20 +7,14 @@ function walk(prevCell, cell, grid, resolve) {
   }
   cell.isStartingCell = true;
 
-  const northernAndEasternNeighbors = cell
-    .getNeighbors(grid)
-    .filter(
-      (neighbor) =>
-        neighbor[1] && (neighbor[0] === 'north' || neighbor[0] === 'east')
-    );
+  const northOrEastNeighbor = cell.getRandomNeighbor(grid, 'northAndEast');
 
-  if (!northernAndEasternNeighbors.length) {
+  if (!northOrEastNeighbor) {
     resolve();
     return;
   }
 
-  const randomIndex = getRandomIndex(northernAndEasternNeighbors.length);
-  const [dir, neighbor] = northernAndEasternNeighbors[randomIndex];
+  const [dir, neighbor] = northOrEastNeighbor;
   cell.connectWithNeighbor(dir, neighbor);
   neighbor.isConnected = true;
   resolve();
