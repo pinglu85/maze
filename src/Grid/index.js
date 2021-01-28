@@ -37,15 +37,18 @@ class Grid {
   };
 
   async generateMaze(algoName) {
+    if (algoName === 'OpenGrid' || algoName === 'RecursiveDivision') {
+      this.dropInteriorWalls();
+    }
+
     if (algoName === 'OpenGrid') {
       this.isOpenGrid = true;
-      this.dropInteriorWalls();
       this.generateMazeEntryAndExit();
       return Promise.resolve();
     }
 
-    this.isOpenGrid = false;
     const grid = this.content;
+    this.isOpenGrid = false;
 
     if (algoName.startsWith('GrowingTree-')) {
       const optionStartIndex = 'GrowingTree-'.length;
