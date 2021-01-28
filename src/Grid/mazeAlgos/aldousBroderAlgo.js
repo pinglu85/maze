@@ -1,4 +1,4 @@
-import { getOppositeDir, getRandomIndex } from '../../utils';
+import { getRandomIndex } from '../../utils';
 
 function walk(grid, cell, resolve) {
   cell.isStartingCell = false;
@@ -12,11 +12,7 @@ function walk(grid, cell, resolve) {
     return;
   }
 
-  cell.dropWall(dir);
-
-  const oppositeDir = getOppositeDir(dir);
-  neighbor.dropWall(oppositeDir);
-
+  cell.connectWithNeighbor(dir, neighbor);
   resolve(neighbor);
 }
 
