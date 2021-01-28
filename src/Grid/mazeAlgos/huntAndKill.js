@@ -35,7 +35,7 @@ function asyncWalk(grid, cell, wait) {
 }
 
 async function hunt(grid, wait, resolve) {
-  let randomVisitedNeighbor;
+  let visitedNeighbor;
   for (const rowIndex of shuffleArrIndices(grid.length)) {
     for (const colIndex of shuffleArrIndices(grid[rowIndex].length)) {
       const cell = grid[rowIndex][colIndex];
@@ -45,9 +45,9 @@ async function hunt(grid, wait, resolve) {
         continue;
       }
 
-      randomVisitedNeighbor = cell.getRandomVisitedNeighbor(grid);
-      if (randomVisitedNeighbor) {
-        const [dir, neighbor] = randomVisitedNeighbor;
+      visitedNeighbor = cell.getRandomVisitedNeighbor(grid);
+      if (visitedNeighbor) {
+        const [dir, neighbor] = visitedNeighbor;
 
         cell.dropWall(dir);
         cell.isVisited = true;
@@ -68,7 +68,7 @@ async function hunt(grid, wait, resolve) {
     });
   }
 
-  if (!randomVisitedNeighbor) {
+  if (!visitedNeighbor) {
     resolve();
   }
 }
