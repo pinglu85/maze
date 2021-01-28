@@ -42,12 +42,9 @@ async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
       cell.cellSetId = `row${cell.rowIndex}col${cell.colIndex}`;
       cellSets.set(cell.cellSetId, [cell]);
 
-      cell
-        .getNeighbors(grid)
-        .filter((neighbor) => neighbor[1])
-        .forEach((neighbor) => {
-          cellPairs.push([cell, neighbor]);
-        });
+      cell.getNeighbors(grid).forEach((neighbor) => {
+        cellPairs.push([cell, neighbor]);
+      });
     }
   }
 

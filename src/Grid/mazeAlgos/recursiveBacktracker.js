@@ -27,7 +27,10 @@ async function backtracking(grid, stack, wait, resolve) {
 
     await delay(wait);
 
-    const unvisitedNeighbor = prevStartCell.getRandomUnvisitedNeighbor(grid);
+    const unvisitedNeighbor = prevStartCell.getRandomNeighbor(
+      grid,
+      'unvisited'
+    );
     prevStartCell.isScanned = false;
 
     if (!unvisitedNeighbor) {

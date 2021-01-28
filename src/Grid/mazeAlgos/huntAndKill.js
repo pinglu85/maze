@@ -4,7 +4,7 @@ function walk(grid, cell, resolve) {
   cell.isStartingCell = false;
   cell.isVisited = true;
 
-  const unvisitedNeighbor = cell.getRandomUnvisitedNeighbor(grid);
+  const unvisitedNeighbor = cell.getRandomNeighbor(grid, 'unvisited');
   if (!unvisitedNeighbor) {
     resolve();
     return;
@@ -35,7 +35,7 @@ async function hunt(grid, wait, resolve) {
         continue;
       }
 
-      visitedNeighbor = cell.getRandomVisitedNeighbor(grid);
+      visitedNeighbor = cell.getRandomNeighbor(grid, 'visited');
       if (visitedNeighbor) {
         const [dir, neighbor] = visitedNeighbor;
         cell.connectWithNeighbor(dir, neighbor);
