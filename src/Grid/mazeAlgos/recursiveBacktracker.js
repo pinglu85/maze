@@ -27,15 +27,15 @@ async function backtracking(grid, stack, wait, resolve) {
 
     await delay(wait);
 
-    const randomAvailNeighbor = prevStartCell.getRandomUnvisitedNeighbor(grid);
+    const unvisitedNeighbor = prevStartCell.getRandomUnvisitedNeighbor(grid);
     prevStartCell.isScanned = false;
 
-    if (!randomAvailNeighbor) {
+    if (!unvisitedNeighbor) {
       stack.pop();
       continue;
     }
 
-    const [dir, neighbor] = randomAvailNeighbor;
+    const [dir, neighbor] = unvisitedNeighbor;
 
     prevStartCell.dropWall(dir);
 

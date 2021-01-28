@@ -9,13 +9,13 @@ function walk(grid, cell, resolve) {
   cell.isStartingCell = false;
   cell.isVisited = true;
 
-  const randomAvailNeighbor = cell.getRandomUnvisitedNeighbor(grid);
-  if (!randomAvailNeighbor) {
+  const unvisitedNeighbor = cell.getRandomUnvisitedNeighbor(grid);
+  if (!unvisitedNeighbor) {
     resolve();
     return;
   }
 
-  const [dir, neighbor] = randomAvailNeighbor;
+  const [dir, neighbor] = unvisitedNeighbor;
 
   cell.dropWall(dir);
 

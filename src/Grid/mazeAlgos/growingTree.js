@@ -14,14 +14,14 @@ function selectCellFromArr(arr, option) {
 }
 
 async function updateActiveCells(grid, startingCell, activeCells, resolve) {
-  const randomAvailNeighbor = startingCell.getRandomUnvisitedNeighbor(grid);
-  if (!randomAvailNeighbor) {
+  const unvisitedNeighbor = startingCell.getRandomUnvisitedNeighbor(grid);
+  if (!unvisitedNeighbor) {
     activeCells.pop();
     resolve();
     return;
   }
 
-  const [dir, neighbor] = randomAvailNeighbor;
+  const [dir, neighbor] = unvisitedNeighbor;
 
   startingCell.dropWall(dir);
 
