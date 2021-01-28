@@ -14,7 +14,7 @@ function selectCellFromArr(arr, option) {
 }
 
 async function updateActiveCells(grid, startingCell, activeCells, resolve) {
-  const randomAvailNeighbor = startingCell.getRandomAvailNeighbor(grid);
+  const randomAvailNeighbor = startingCell.getRandomUnvisitedNeighbor(grid);
   if (!randomAvailNeighbor) {
     activeCells.pop();
     resolve();

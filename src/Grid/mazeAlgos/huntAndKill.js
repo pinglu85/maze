@@ -9,7 +9,7 @@ function walk(grid, cell, resolve) {
   cell.isStartingCell = false;
   cell.isVisited = true;
 
-  const randomAvailNeighbor = cell.getRandomAvailNeighbor(grid);
+  const randomAvailNeighbor = cell.getRandomUnvisitedNeighbor(grid);
   if (!randomAvailNeighbor) {
     resolve();
     return;
