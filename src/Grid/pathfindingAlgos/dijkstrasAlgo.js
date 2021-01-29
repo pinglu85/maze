@@ -1,19 +1,23 @@
 import reconstructPath from './reconstructPath';
+import PriorityQueue from './PriorityQueue';
 import { delay } from '../../utils';
 
 async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
-  await asyncDistance(grid, entranceCell, wait);
+  await asyncDistance(grid, entranceCell, exitCell, wait);
   const pathCoordinates = reconstructPath(exitCell);
 
   return Promise.resolve(pathCoordinates);
 }
 
-async function asyncDistance(grid, entranceCell, wait) {
-  let frontiers = [entranceCell];
+async function asyncDistance(grid, entranceCell, exitCell, wait) {
+  const frontiers = new PriorityQueue(
+    (cellA, cellB) => cellA.distanceToEntrance - cellB.distanceToEntrance
+  );
+  frontiers.add(entranceCell);
   entranceCell.distanceToEntrance = 0;
 
-  while (frontiers.length) {
-    frontiers = await asyncGetNewFrontiers(grid, frontiers, wait);
+  while (exitCell.distanceToEntrance === Infinity) {
+    await asyncGetNewFrontiers(grid, frontiers, wait);
     await delay(wait);
   }
 
@@ -33,31 +37,27 @@ function asyncGetNewFrontiers(grid, frontiers, wait) {
 }
 
 function getNewFrontiers(grid, frontiers, resolve) {
-  const newFrontiers = [];
+  const cell = frontiers.poll();
+  cell.isToBeExplored = false;
+  cell.opacity = 0.01;
 
-  for (const cell of frontiers) {
-    cell.isToBeExplored = false;
-    cell.opacity = 0.01;
+  const unvisitedConnectedNeighbors = cell
+    .getConnectedNeighbors(grid)
+    .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
 
-    const unvisitedConnectedNeighbors = cell
-      .getConnectedNeighbors(grid)
-      .filter((neighbor) => neighbor.distanceToEntrance === Infinity);
-
-    for (const neighbor of unvisitedConnectedNeighbors) {
-      neighbor.parent = cell;
-      neighbor.distanceToEntrance = cell.distanceToEntrance + 1;
-      if (neighbor.isExit) {
-        neighbor.isExitColor = true;
-        resolve([]);
-        return;
-      }
-      neighbor.isToBeExplored = true;
+  for (const neighbor of unvisitedConnectedNeighbors) {
+    neighbor.parent = cell;
+    neighbor.distanceToEntrance = cell.distanceToEntrance + 1;
+    if (neighbor.isExit) {
+      neighbor.isExitColor = true;
+      resolve();
+      return;
     }
-
-    newFrontiers.push(...unvisitedConnectedNeighbors);
+    frontiers.add(neighbor);
+    neighbor.isToBeExplored = true;
   }
 
-  resolve(newFrontiers);
+  resolve();
 }
 
 export default asyncDijkstrasAlgo;
