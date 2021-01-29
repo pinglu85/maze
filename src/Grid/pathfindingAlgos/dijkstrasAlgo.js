@@ -1,3 +1,4 @@
+import reconstructPath from './reconstructPath';
 import { delay } from '../../utils';
 
 function getNewFrontiers(grid, frontiers, distance, resolve) {
@@ -13,6 +14,7 @@ function getNewFrontiers(grid, frontiers, distance, resolve) {
 
     for (const neighbor of unvisitedConnectedNeighbors) {
       neighbor.distanceToEntrance = distance;
+      neighbor.parent = cell;
       if (neighbor.isExit) {
         neighbor.isExitColor = true;
         resolve([]);
@@ -53,32 +55,9 @@ async function asyncDistance(grid, entranceCell, wait) {
   });
 }
 
-function findPath(grid, exitCell) {
-  if (exitCell.distanceToEntrance === Infinity) {
-    return [];
-  }
-
-  let breadcrumb = exitCell;
-  let distance = exitCell.distanceToEntrance;
-  const pathCoordinates = [[breadcrumb.centerX, breadcrumb.centerY]];
-
-  while (distance > 0) {
-    distance--;
-
-    breadcrumb = breadcrumb
-      .getConnectedNeighbors(grid)
-      .find((neighbor) => neighbor.distanceToEntrance === distance);
-
-    if (breadcrumb) {
-      pathCoordinates.push([breadcrumb.centerX, breadcrumb.centerY]);
-    }
-  }
-  return pathCoordinates;
-}
-
 async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
   await asyncDistance(grid, entranceCell, wait);
-  const pathCoordinates = findPath(grid, exitCell);
+  const pathCoordinates = reconstructPath(exitCell);
 
   return Promise.resolve(pathCoordinates);
 }

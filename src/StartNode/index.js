@@ -1,8 +1,5 @@
-import {
-  applyDropShadow,
-  getOppositeDir,
-  loadStartNodeSprites,
-} from '../utils';
+import { getOppositeDir, loadStartNodeSprites } from '../utils';
+import applyDropShadow from './applyDropShadow';
 import { FOOTPRINT_COLORS } from '../constants/colors';
 import { SPRITE_SIZE, FOOTPRINT_RADIUS } from '../constants/size';
 

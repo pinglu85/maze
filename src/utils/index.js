@@ -1,4 +1,3 @@
-export { default as applyDropShadow } from './applyDropShadow';
 export { default as checkDevice } from './checkDevice';
 export { default as createElement } from './createElement';
 export { default as deepCloneObj } from './deepCloneObj';
