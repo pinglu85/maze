@@ -1,3 +1,5 @@
+import reconstructPath from './reconstructPath';
+
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const openList = [entranceCell];
   const closedList = [];
@@ -66,22 +68,6 @@ function computeManhattanDistance(currCell, goal) {
     Math.abs(currCell.colIndex - goal.colIndex) +
     Math.abs(currCell.rowIndex - goal.rowIndex)
   );
-}
-
-function reconstructPath(exitCell) {
-  if (!exitCell.parent) {
-    return [];
-  }
-
-  let breadcrumb = exitCell;
-  const pathCoordinates = [];
-
-  while (breadcrumb) {
-    pathCoordinates.push([breadcrumb.centerX, breadcrumb.centerY]);
-    breadcrumb = breadcrumb.parent;
-  }
-
-  return pathCoordinates;
 }
 
 export default asyncAStarSearch;
