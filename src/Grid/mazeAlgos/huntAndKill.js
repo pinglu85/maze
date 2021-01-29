@@ -1,5 +1,38 @@
 import { delay, getRandomIndex, shuffleArrIndices } from '../../utils';
 
+async function asyncHuntAndKill(grid, wait = 50) {
+  const randomRow = getRandomIndex(grid.length);
+  const randomCol = getRandomIndex(grid[0].length);
+  let startingCell = grid[randomRow][randomCol];
+  startingCell.isStartingCell = true;
+
+  while (startingCell) {
+    let neighbor = await asyncWalk(grid, startingCell, wait);
+    while (neighbor) {
+      neighbor = await asyncWalk(grid, neighbor, wait);
+    }
+    startingCell = await asyncHunt(grid, wait);
+  }
+
+  return Promise.resolve();
+}
+
+function asyncWalk(grid, cell, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      walk(grid, cell, resolve);
+    }, wait);
+  });
+}
+
+function asyncHunt(grid, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      hunt(grid, wait, resolve);
+    }, wait);
+  });
+}
+
 function walk(grid, cell, resolve) {
   cell.isStartingCell = false;
   cell.isVisited = true;
@@ -14,14 +47,6 @@ function walk(grid, cell, resolve) {
   cell.connectWithNeighbor(dir, neighbor);
   neighbor.isStartingCell = true;
   resolve(neighbor);
-}
-
-function asyncWalk(grid, cell, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      walk(grid, cell, resolve);
-    }, wait);
-  });
 }
 
 async function hunt(grid, wait, resolve) {
@@ -57,31 +82,6 @@ async function hunt(grid, wait, resolve) {
   if (!visitedNeighbor) {
     resolve();
   }
-}
-
-function asyncHunt(grid, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      hunt(grid, wait, resolve);
-    }, wait);
-  });
-}
-
-async function asyncHuntAndKill(grid, wait = 50) {
-  const randomRow = getRandomIndex(grid.length);
-  const randomCol = getRandomIndex(grid[0].length);
-  let startingCell = grid[randomRow][randomCol];
-  startingCell.isStartingCell = true;
-
-  while (startingCell) {
-    let neighbor = await asyncWalk(grid, startingCell, wait);
-    while (neighbor) {
-      neighbor = await asyncWalk(grid, neighbor, wait);
-    }
-    startingCell = await asyncHunt(grid, wait);
-  }
-
-  return Promise.resolve();
 }
 
 export { walk };

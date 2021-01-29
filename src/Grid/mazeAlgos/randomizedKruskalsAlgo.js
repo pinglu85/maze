@@ -1,38 +1,5 @@
 import { delay, shuffleArr } from '../../utils';
 
-async function merge(cell, dir, neighbor, cellSets, resolve) {
-  if (cell.cellSetId === neighbor.cellSetId) {
-    neighbor.isInSameSet = true;
-    resolve();
-    return;
-  }
-
-  neighbor.isInDifferentSet = true;
-
-  const currCellSetId = cell.cellSetId;
-  const cellSet = cellSets.get(currCellSetId);
-  const neighborSetId = neighbor.cellSetId;
-  const neighborSet = cellSets.get(neighbor.cellSetId);
-
-  neighborSet.forEach((c) => {
-    c.cellSetId = currCellSetId;
-    cellSet.push(c);
-  });
-
-  cellSets.delete(neighborSetId);
-  cell.connectWithNeighbor(dir, neighbor);
-  neighbor.isVisited = true;
-  resolve();
-}
-
-function asyncMerge(cell, dir, neighbor, cellSets, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      merge(cell, dir, neighbor, cellSets, resolve);
-    }, wait);
-  });
-}
-
 async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
   const cellSets = new Map();
   let cellPairs = [];
@@ -69,6 +36,39 @@ async function asyncRandomizedKruskalsAlgo(grid, wait = 50) {
   }
 
   return Promise.resolve();
+}
+
+function asyncMerge(cell, dir, neighbor, cellSets, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      merge(cell, dir, neighbor, cellSets, resolve);
+    }, wait);
+  });
+}
+
+async function merge(cell, dir, neighbor, cellSets, resolve) {
+  if (cell.cellSetId === neighbor.cellSetId) {
+    neighbor.isInSameSet = true;
+    resolve();
+    return;
+  }
+
+  neighbor.isInDifferentSet = true;
+
+  const currCellSetId = cell.cellSetId;
+  const cellSet = cellSets.get(currCellSetId);
+  const neighborSetId = neighbor.cellSetId;
+  const neighborSet = cellSets.get(neighbor.cellSetId);
+
+  neighborSet.forEach((c) => {
+    c.cellSetId = currCellSetId;
+    cellSet.push(c);
+  });
+
+  cellSets.delete(neighborSetId);
+  cell.connectWithNeighbor(dir, neighbor);
+  neighbor.isVisited = true;
+  resolve();
 }
 
 export default asyncRandomizedKruskalsAlgo;

@@ -1,10 +1,27 @@
 import { delay, getRandomIndex } from '../../utils';
 
-function computeMid(start, end) {
-  if (end - start >= 2) {
-    return getRandomIndex(end - start) + start;
+async function asyncRecursiveDivision(grid, wait = 50) {
+  await asyncDivide(grid, 0, grid.length - 1, 0, grid[0].length - 1, wait);
+  return Promise.resolve();
+}
+
+async function asyncDivide(grid, startRow, endRow, startCol, endCol, wait) {
+  if (startRow === endRow || startCol === endCol) {
+    return;
   }
-  return Math.floor((start + end) / 2);
+
+  if (endRow - startRow + 1 > endCol - startCol + 1) {
+    await asyncDivideHorizontally(
+      grid,
+      startRow,
+      endRow,
+      startCol,
+      endCol,
+      wait
+    );
+  } else {
+    await asyncDivideVertically(grid, startRow, endRow, startCol, endCol, wait);
+  }
 }
 
 async function asyncDivideHorizontally(
@@ -61,28 +78,11 @@ async function asyncDivideVertically(
   await asyncDivide(grid, startRow, endRow, mid + 1, endCol, wait);
 }
 
-async function asyncDivide(grid, startRow, endRow, startCol, endCol, wait) {
-  if (startRow === endRow || startCol === endCol) {
-    return;
+function computeMid(start, end) {
+  if (end - start >= 2) {
+    return getRandomIndex(end - start) + start;
   }
-
-  if (endRow - startRow + 1 > endCol - startCol + 1) {
-    await asyncDivideHorizontally(
-      grid,
-      startRow,
-      endRow,
-      startCol,
-      endCol,
-      wait
-    );
-  } else {
-    await asyncDivideVertically(grid, startRow, endRow, startCol, endCol, wait);
-  }
-}
-
-async function asyncRecursiveDivision(grid, wait = 50) {
-  await asyncDivide(grid, 0, grid.length - 1, 0, grid[0].length - 1, wait);
-  return Promise.resolve();
+  return Math.floor((start + end) / 2);
 }
 
 export default asyncRecursiveDivision;
