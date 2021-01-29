@@ -22,16 +22,13 @@ async function asyncWalk(grid, stack, wait) {
 
 async function backtracking(grid, stack, wait, resolve) {
   while (stack.length > 0) {
-    const prevStartCell = stack[stack.length - 1];
-    prevStartCell.isScanned = true;
+    const visitedCell = stack[stack.length - 1];
+    visitedCell.isScanned = true;
 
     await delay(wait);
 
-    const unvisitedNeighbor = prevStartCell.getRandomNeighbor(
-      grid,
-      'unvisited'
-    );
-    prevStartCell.isScanned = false;
+    const unvisitedNeighbor = visitedCell.getRandomNeighbor(grid, 'unvisited');
+    visitedCell.isScanned = false;
 
     if (!unvisitedNeighbor) {
       stack.pop();
@@ -39,7 +36,7 @@ async function backtracking(grid, stack, wait, resolve) {
     }
 
     const [dir, neighbor] = unvisitedNeighbor;
-    prevStartCell.connectWithNeighbor(dir, neighbor);
+    visitedCell.connectWithNeighbor(dir, neighbor);
     neighbor.isStartingCell = true;
     stack.push(neighbor);
     resolve();
