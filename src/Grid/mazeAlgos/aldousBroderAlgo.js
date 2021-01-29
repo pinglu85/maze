@@ -1,29 +1,5 @@
 import { getRandomIndex } from '../../utils';
 
-function walk(grid, cell, resolve) {
-  cell.isStartingCell = false;
-  cell.isVisited = true;
-
-  const [dir, neighbor] = cell.getRandomNeighbor(grid);
-  neighbor.isStartingCell = true;
-
-  if (neighbor.isVisited) {
-    resolve(neighbor);
-    return;
-  }
-
-  cell.connectWithNeighbor(dir, neighbor);
-  resolve(neighbor);
-}
-
-function asyncWalk(grid, cell, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      walk(grid, cell, resolve);
-    }, wait);
-  });
-}
-
 async function asyncAldousBroderAlgo(grid, wait = 50) {
   const randomRow = getRandomIndex(grid.length);
   const randomCol = getRandomIndex(grid[0].length);
@@ -40,6 +16,30 @@ async function asyncAldousBroderAlgo(grid, wait = 50) {
 
   startingCell.isStartingCell = false;
   return Promise.resolve();
+}
+
+function asyncWalk(grid, cell, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      walk(grid, cell, resolve);
+    }, wait);
+  });
+}
+
+function walk(grid, cell, resolve) {
+  cell.isStartingCell = false;
+  cell.isVisited = true;
+
+  const [dir, neighbor] = cell.getRandomNeighbor(grid);
+  neighbor.isStartingCell = true;
+
+  if (neighbor.isVisited) {
+    resolve(neighbor);
+    return;
+  }
+
+  cell.connectWithNeighbor(dir, neighbor);
+  resolve(neighbor);
 }
 
 export default asyncAldousBroderAlgo;

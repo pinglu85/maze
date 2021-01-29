@@ -1,33 +1,5 @@
 import { delay, getRandomIndex, swapItemsInArray } from '../../utils';
 
-function walk(prevCell, cell, grid, resolve) {
-  if (prevCell) {
-    prevCell.isStartingCell = false;
-    prevCell.isVisited = true;
-  }
-  cell.isStartingCell = true;
-
-  const northOrEastNeighbor = cell.getRandomNeighbor(grid, 'northAndEast');
-
-  if (!northOrEastNeighbor) {
-    resolve();
-    return;
-  }
-
-  const [dir, neighbor] = northOrEastNeighbor;
-  cell.connectWithNeighbor(dir, neighbor);
-  neighbor.isConnected = true;
-  resolve();
-}
-
-function asyncWalk(prevCell, cell, grid, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      walk(prevCell, cell, grid, resolve);
-    }, wait);
-  });
-}
-
 async function asyncBinaryTree(grid, wait = 50) {
   const flattenedGrid = [];
 
@@ -54,6 +26,34 @@ async function asyncBinaryTree(grid, wait = 50) {
   startingCell.isStartingCell = false;
   startingCell.isVisited = true;
   return Promise.resolve();
+}
+
+function asyncWalk(prevCell, cell, grid, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      walk(prevCell, cell, grid, resolve);
+    }, wait);
+  });
+}
+
+function walk(prevCell, cell, grid, resolve) {
+  if (prevCell) {
+    prevCell.isStartingCell = false;
+    prevCell.isVisited = true;
+  }
+  cell.isStartingCell = true;
+
+  const northOrEastNeighbor = cell.getRandomNeighbor(grid, 'northAndEast');
+
+  if (!northOrEastNeighbor) {
+    resolve();
+    return;
+  }
+
+  const [dir, neighbor] = northOrEastNeighbor;
+  cell.connectWithNeighbor(dir, neighbor);
+  neighbor.isConnected = true;
+  resolve();
 }
 
 export default asyncBinaryTree;
