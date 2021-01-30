@@ -41,7 +41,7 @@ function asyncUpdateActiveCells(grid, startingCell, activeCells, wait) {
   });
 }
 
-async function updateActiveCells(grid, startingCell, activeCells, resolve) {
+function updateActiveCells(grid, startingCell, activeCells, resolve) {
   const unvisitedNeighbor = startingCell.getRandomNeighbor(grid, 'unvisited');
   if (!unvisitedNeighbor) {
     activeCells.pop();
