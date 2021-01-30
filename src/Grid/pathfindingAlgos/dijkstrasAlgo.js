@@ -1,6 +1,5 @@
 import reconstructPath from './utils/reconstructPath';
 import PriorityQueue from './utils/PriorityQueue';
-import { delay } from '../../utils';
 
 async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
   await asyncDistance(grid, entranceCell, exitCell, wait);
@@ -18,7 +17,6 @@ async function asyncDistance(grid, entranceCell, exitCell, wait) {
 
   while (exitCell.distanceToEntrance === Infinity) {
     await asyncGetNewFrontiers(grid, frontiers, wait);
-    await delay(wait);
   }
 
   return new Promise((resolve) => {
