@@ -1,4 +1,4 @@
-import { swapItemsInArray } from '../../utils';
+import { swapItemsInArray } from '../../../utils';
 
 class PriorityQueue {
   #heap;

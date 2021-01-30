@@ -1,5 +1,5 @@
-import reconstructPath from './reconstructPath';
-import PriorityQueue from './PriorityQueue';
+import reconstructPath from './utils/reconstructPath';
+import PriorityQueue from './utils/PriorityQueue';
 import { delay } from '../../utils';
 
 async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
