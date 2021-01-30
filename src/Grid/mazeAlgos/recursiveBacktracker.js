@@ -28,14 +28,6 @@ async function asyncWalk(grid, stack, wait) {
   return Promise.resolve();
 }
 
-function asyncBacktracking(grid, stack, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      backtracking(grid, stack, wait, resolve);
-    }, wait);
-  });
-}
-
 function asyncGetNewStartCell(grid, prevStartCell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -44,7 +36,7 @@ function asyncGetNewStartCell(grid, prevStartCell, wait) {
   });
 }
 
-async function backtracking(grid, stack, wait, resolve) {
+async function asyncBacktracking(grid, stack, wait) {
   while (stack.length > 0) {
     const visitedCell = stack[stack.length - 1];
     visitedCell.isScanned = true;
@@ -63,11 +55,15 @@ async function backtracking(grid, stack, wait, resolve) {
     visitedCell.connectWithNeighbor(dir, neighbor);
     neighbor.isStartingCell = true;
     stack.push(neighbor);
-    resolve();
-    return;
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, wait);
+    });
   }
 
-  resolve();
+  return Promise.resolve();
 }
 
 export default asyncRecursiveBacktracker;
