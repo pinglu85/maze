@@ -1,4 +1,4 @@
-import reconstructPath from './reconstructPath';
+import reconstructPath from './utils/reconstructPath';
 
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const openList = [entranceCell];
