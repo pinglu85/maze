@@ -1,3 +1,4 @@
+import { delay } from '../../utils';
 import reconstructPath from './utils/reconstructPath';
 import PriorityQueue from './utils/PriorityQueue';
 
@@ -14,10 +15,13 @@ async function asyncDistance(grid, entranceCell, wait) {
   );
   frontiers.add(entranceCell);
   entranceCell.distanceToEntrance = 0;
+  entranceCell.isToBeExplored = true;
 
   const visitedCells = new Set();
 
   while (frontiers.size() > 0) {
+    await delay(wait);
+
     const cell = frontiers.poll();
     cell.isToBeExplored = false;
 
@@ -33,39 +37,24 @@ async function asyncDistance(grid, entranceCell, wait) {
     visitedCells.add(cell);
     cell.opacity = 0.01;
 
-    await asyncGetNewFrontiers(cell, grid, frontiers, visitedCells, wait);
+    const connectedNeighbors = cell.getConnectedNeighbors(grid);
+
+    for (const neighbor of connectedNeighbors) {
+      if (visitedCells.has(neighbor)) {
+        continue;
+      }
+
+      const newDistanceToEntrance = cell.distanceToEntrance + 1;
+      if (newDistanceToEntrance < neighbor.distanceToEntrance) {
+        neighbor.parent = cell;
+        neighbor.distanceToEntrance = newDistanceToEntrance;
+        frontiers.add(neighbor);
+        neighbor.isToBeExplored = true;
+      }
+    }
   }
 
   return Promise.resolve();
-}
-
-function asyncGetNewFrontiers(cell, grid, frontiers, visitedCells, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      getNewFrontiers(cell, grid, frontiers, visitedCells, resolve);
-    }, wait);
-  });
-}
-
-function getNewFrontiers(cell, grid, frontiers, visitedCells, resolve) {
-  const connectedNeighbors = cell.getConnectedNeighbors(grid);
-
-  for (const neighbor of connectedNeighbors) {
-    if (visitedCells.has(neighbor)) {
-      continue;
-    }
-
-    const newDistanceToEntrance = cell.distanceToEntrance + 1;
-    if (newDistanceToEntrance < neighbor.distanceToEntrance) {
-      neighbor.parent = cell;
-      neighbor.distanceToEntrance = newDistanceToEntrance;
-      frontiers.add(neighbor);
-    }
-
-    neighbor.isToBeExplored = true;
-  }
-
-  resolve();
 }
 
 export default asyncDijkstrasAlgo;
