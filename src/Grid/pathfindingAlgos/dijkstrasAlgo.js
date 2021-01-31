@@ -3,13 +3,13 @@ import reconstructPath from './utils/reconstructPath';
 import PriorityQueue from './utils/PriorityQueue';
 
 async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
-  await asyncDistance(grid, entranceCell, wait);
+  await asyncComputeDistances(grid, entranceCell, wait);
   const pathCoordinates = reconstructPath(exitCell);
 
   return Promise.resolve(pathCoordinates);
 }
 
-async function asyncDistance(grid, entranceCell, wait) {
+async function asyncComputeDistances(grid, entranceCell, wait) {
   const frontiers = new PriorityQueue(
     (cellA, cellB) => cellA.distanceToEntrance - cellB.distanceToEntrance
   );
