@@ -38,25 +38,25 @@ function asyncGetNeighbors(cell, pq, visitedCells, grid, exitCell, wait) {
 }
 
 function getNeighbors(cell, pq, visitedCells, grid, exitCell, resolve) {
-  const successors = cell.getConnectedNeighbors(grid);
+  const connectedNeighbors = cell.getConnectedNeighbors(grid);
 
-  for (const successor of successors) {
-    if (visitedCells.has(successor)) {
+  for (const neighbor of connectedNeighbors) {
+    if (visitedCells.has(neighbor)) {
       continue;
     }
 
     const newDistanceToEntrance = cell.distanceToEntrance + 1;
-    const newH = computeManhattanDistance(successor, exitCell);
+    const newH = computeManhattanDistance(neighbor, exitCell);
     const newF = newDistanceToEntrance + newH;
 
-    if (newDistanceToEntrance < successor.distanceToEntrance) {
-      successor.distanceToEntrance = newDistanceToEntrance;
-      successor.h = newH;
-      successor.f = newF;
-      successor.parent = cell;
-      if (!successor.isToBeExplored) {
-        pq.add(successor);
-        successor.isToBeExplored = true;
+    if (newDistanceToEntrance < neighbor.distanceToEntrance) {
+      neighbor.distanceToEntrance = newDistanceToEntrance;
+      neighbor.h = newH;
+      neighbor.f = newF;
+      neighbor.parent = cell;
+      if (!neighbor.isToBeExplored) {
+        pq.add(neighbor);
+        neighbor.isToBeExplored = true;
       }
     }
   }
