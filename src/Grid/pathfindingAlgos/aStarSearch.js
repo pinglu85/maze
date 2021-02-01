@@ -23,21 +23,21 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
     visitedCells.add(cell);
     cell.opacity = 0.8;
 
-    await asyncGetSuccessors(cell, pq, visitedCells, grid, exitCell, wait);
+    await asyncGetNeighbors(cell, pq, visitedCells, grid, exitCell, wait);
   }
 
   return Promise.resolve([]);
 }
 
-function asyncGetSuccessors(cell, pq, visitedCells, grid, exitCell, wait) {
+function asyncGetNeighbors(cell, pq, visitedCells, grid, exitCell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      getSuccessors(cell, pq, visitedCells, grid, exitCell, resolve);
+      getNeighbors(cell, pq, visitedCells, grid, exitCell, resolve);
     }, wait);
   });
 }
 
-function getSuccessors(cell, pq, visitedCells, grid, exitCell, resolve) {
+function getNeighbors(cell, pq, visitedCells, grid, exitCell, resolve) {
   const successors = cell.getConnectedNeighbors(grid);
 
   for (const successor of successors) {
