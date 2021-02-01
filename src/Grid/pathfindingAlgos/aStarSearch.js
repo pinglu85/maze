@@ -8,7 +8,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   entranceCell.distanceToEntrance = 0;
   entranceCell.f = 0;
 
-  const closedList = [];
+  const visitedCells = [];
 
   while (pq.size() > 0) {
     const cell = pq.poll();
@@ -19,7 +19,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
       break;
     }
 
-    closedList.push(cell);
+    visitedCells.push(cell);
     cell.isInClosedList = true;
     cell.opacity = 0.8;
 
