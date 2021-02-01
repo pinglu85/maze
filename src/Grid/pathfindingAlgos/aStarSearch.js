@@ -48,7 +48,7 @@ function getSuccessors(cell, pq, visitedCells, grid, exitCell, resolve) {
     const newH = computeManhattanDistance(successor, exitCell);
     const newF = newDistanceToEntrance + newH;
 
-    if (newF < successor.f) {
+    if (newDistanceToEntrance < successor.distanceToEntrance) {
       successor.distanceToEntrance = newDistanceToEntrance;
       successor.h = newH;
       successor.f = newF;
