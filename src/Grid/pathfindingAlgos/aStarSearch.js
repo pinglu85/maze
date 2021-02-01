@@ -16,7 +16,8 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
 
     if (cell.isExit) {
       cell.isExitColor = true;
-      break;
+      const pathCoordinates = reconstructPath(exitCell);
+      return Promise.resolve(pathCoordinates);
     }
 
     visitedCells.add(cell);
@@ -25,7 +26,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
     await asyncGetSuccessors(cell, pq, visitedCells, grid, exitCell, wait);
   }
 
-  return reconstructPath(exitCell);
+  return Promise.resolve([]);
 }
 
 function asyncGetSuccessors(cell, pq, visitedCells, grid, exitCell, wait) {
