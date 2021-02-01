@@ -28,22 +28,15 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   return reconstructPath(exitCell);
 }
 
-function asyncGetSuccessors(
-  cell,
-  openList,
-  visitedCells,
-  grid,
-  exitCell,
-  wait
-) {
+function asyncGetSuccessors(cell, pq, visitedCells, grid, exitCell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      getSuccessors(cell, openList, visitedCells, grid, exitCell, resolve);
+      getSuccessors(cell, pq, visitedCells, grid, exitCell, resolve);
     }, wait);
   });
 }
 
-function getSuccessors(cell, openList, visitedCells, grid, exitCell, resolve) {
+function getSuccessors(cell, pq, visitedCells, grid, exitCell, resolve) {
   const successors = cell.getConnectedNeighbors(grid);
 
   for (const successor of successors) {
@@ -61,7 +54,7 @@ function getSuccessors(cell, openList, visitedCells, grid, exitCell, resolve) {
       successor.f = newF;
       successor.parent = cell;
       if (!successor.isToBeExplored) {
-        openList.add(successor);
+        pq.add(successor);
         successor.isToBeExplored = true;
       }
     }
