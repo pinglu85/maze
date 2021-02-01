@@ -10,19 +10,19 @@ async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
 }
 
 async function asyncComputeDistances(grid, entranceCell, wait) {
-  const frontiers = new PriorityQueue(
+  const pq = new PriorityQueue(
     (cellA, cellB) => cellA.distanceToEntrance - cellB.distanceToEntrance
   );
-  frontiers.add(entranceCell);
+  pq.add(entranceCell);
   entranceCell.distanceToEntrance = 0;
   entranceCell.isToBeExplored = true;
 
   const visitedCells = new Set();
 
-  while (frontiers.size() > 0) {
+  while (pq.size() > 0) {
     await delay(wait);
 
-    const cell = frontiers.poll();
+    const cell = pq.poll();
     cell.isToBeExplored = false;
 
     if (cell.isExit) {
@@ -48,7 +48,7 @@ async function asyncComputeDistances(grid, entranceCell, wait) {
       if (newDistanceToEntrance < neighbor.distanceToEntrance) {
         neighbor.parent = cell;
         neighbor.distanceToEntrance = newDistanceToEntrance;
-        frontiers.add(neighbor);
+        pq.add(neighbor);
         neighbor.isToBeExplored = true;
       }
     }
