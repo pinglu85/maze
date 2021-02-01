@@ -8,7 +8,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   entranceCell.distanceToEntrance = 0;
   entranceCell.f = 0;
 
-  const visitedCells = [];
+  const visitedCells = new Set();
 
   while (pq.size() > 0) {
     const cell = pq.poll();
@@ -19,29 +19,35 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
       break;
     }
 
-    visitedCells.push(cell);
-    cell.isInClosedList = true;
+    visitedCells.add(cell);
     cell.opacity = 0.8;
 
-    await asyncGetSuccessors(cell, grid, exitCell, pq, wait);
+    await asyncGetSuccessors(cell, pq, visitedCells, grid, exitCell, wait);
   }
 
   return reconstructPath(exitCell);
 }
 
-function asyncGetSuccessors(cell, grid, exitCell, openList, wait) {
+function asyncGetSuccessors(
+  cell,
+  openList,
+  visitedCells,
+  grid,
+  exitCell,
+  wait
+) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      getSuccessors(cell, grid, exitCell, openList, resolve);
+      getSuccessors(cell, openList, visitedCells, grid, exitCell, resolve);
     }, wait);
   });
 }
 
-function getSuccessors(cell, grid, exitCell, openList, resolve) {
+function getSuccessors(cell, openList, visitedCells, grid, exitCell, resolve) {
   const successors = cell.getConnectedNeighbors(grid);
 
   for (const successor of successors) {
-    if (successor.isInClosedList) {
+    if (visitedCells.has(successor)) {
       continue;
     }
 

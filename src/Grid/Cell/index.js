@@ -47,7 +47,6 @@ class Cell {
     this.isToBeExplored = false;
 
     // State for A* Searching algorithm
-    this.isInClosedList = false;
     this.h = Infinity;
     this.f = Infinity;
 
