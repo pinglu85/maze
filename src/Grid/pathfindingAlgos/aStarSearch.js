@@ -63,10 +63,10 @@ function getSuccessors(cell, pq, visitedCells, grid, exitCell, resolve) {
   resolve();
 }
 
-function computeManhattanDistance(currCell, goal) {
+function computeManhattanDistance(currCell, targetCell) {
   return (
-    Math.abs(currCell.centerX - goal.centerX) +
-    Math.abs(currCell.centerY - goal.centerY)
+    Math.abs(currCell.centerX - targetCell.centerX) +
+    Math.abs(currCell.centerY - targetCell.centerY)
   );
 }
 
