@@ -30,10 +30,6 @@ async function asyncComputeDistances(grid, entranceCell, wait) {
       return Promise.resolve();
     }
 
-    if (visitedCells.has(cell)) {
-      continue;
-    }
-
     visitedCells.add(cell);
     cell.opacity = 0.01;
 
@@ -48,8 +44,10 @@ async function asyncComputeDistances(grid, entranceCell, wait) {
       if (newDistanceToEntrance < neighbor.distanceToEntrance) {
         neighbor.parent = cell;
         neighbor.distanceToEntrance = newDistanceToEntrance;
-        pq.add(neighbor);
-        neighbor.isToBeExplored = true;
+        if (!neighbor.isToBeExplored) {
+          pq.add(neighbor);
+          neighbor.isToBeExplored = true;
+        }
       }
     }
   }
