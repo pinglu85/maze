@@ -1,72 +1,73 @@
 import reconstructPath from './utils/reconstructPath';
+import PriorityQueue from './utils/PriorityQueue';
 
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
-  const openList = [entranceCell];
-  const closedList = [];
-  entranceCell.isInOpenList = true;
-  entranceCell.g = 0;
+  const pq = new PriorityQueue((cellA, cellB) => cellA.f - cellB.f);
+  pq.add(entranceCell);
+  entranceCell.isToBeExplored = true;
+  entranceCell.distanceToEntrance = 0;
   entranceCell.f = 0;
 
-  while (openList.length > 0) {
-    await asyncGetSuccessors(grid, exitCell, openList, closedList, wait);
+  const visitedCells = new Set();
+
+  while (pq.size() > 0) {
+    const cell = pq.poll();
+    cell.isToBeExplored = false;
+
+    if (cell.isExit) {
+      cell.isExitColor = true;
+      const pathCoordinates = reconstructPath(exitCell);
+      return Promise.resolve(pathCoordinates);
+    }
+
+    visitedCells.add(cell);
+    cell.opacity = 0.8;
+
+    await asyncGetNeighbors(cell, pq, visitedCells, grid, exitCell, wait);
   }
 
-  return reconstructPath(exitCell);
+  return Promise.resolve([]);
 }
 
-function asyncGetSuccessors(grid, exitCell, openList, closedList, wait) {
+function asyncGetNeighbors(cell, pq, visitedCells, grid, exitCell, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      getSuccessors(grid, exitCell, openList, closedList, resolve);
+      getNeighbors(cell, pq, visitedCells, grid, exitCell, resolve);
     }, wait);
   });
 }
 
-function getSuccessors(grid, exitCell, openList, closedList, resolve) {
-  const q = openList.sort((cellA, cellB) => cellB.f - cellA.f).pop();
-  q.isInOpenList = false;
-  closedList.push(q);
-  q.isInClosedList = true;
-  q.opacity = 0.8;
+function getNeighbors(cell, pq, visitedCells, grid, exitCell, resolve) {
+  const connectedNeighbors = cell.getConnectedNeighbors(grid);
 
-  const successors = q.getConnectedNeighbors(grid);
-
-  for (const successor of successors) {
-    if (successor.isInClosedList) {
+  for (const neighbor of connectedNeighbors) {
+    if (visitedCells.has(neighbor)) {
       continue;
     }
 
-    successor.parent = q;
+    const newDistanceToEntrance = cell.distanceToEntrance + 1;
+    const newH = computeManhattanDistance(neighbor, exitCell);
+    const newF = newDistanceToEntrance + newH;
 
-    if (successor.isExit) {
-      successor.isExitColor = true;
-      openList.length = 0;
-      resolve();
-      return;
-    }
-
-    const newG = q.g + 1;
-    const newH = computeManhattanDistance(successor, exitCell);
-    const newF = newG + newH;
-
-    if (successor.f > newF) {
-      if (!successor.isInOpenList) {
-        openList.push(successor);
-        successor.isInOpenList = true;
+    if (newDistanceToEntrance < neighbor.distanceToEntrance) {
+      neighbor.distanceToEntrance = newDistanceToEntrance;
+      neighbor.h = newH;
+      neighbor.f = newF;
+      neighbor.parent = cell;
+      if (!neighbor.isToBeExplored) {
+        pq.add(neighbor);
+        neighbor.isToBeExplored = true;
       }
-      successor.g = newG;
-      successor.h = newH;
-      successor.f = newF;
     }
   }
 
   resolve();
 }
 
-function computeManhattanDistance(currCell, goal) {
+function computeManhattanDistance(currCell, targetCell) {
   return (
-    Math.abs(currCell.colIndex - goal.colIndex) +
-    Math.abs(currCell.rowIndex - goal.rowIndex)
+    Math.abs(currCell.centerX - targetCell.centerX) +
+    Math.abs(currCell.centerY - targetCell.centerY)
   );
 }
 
