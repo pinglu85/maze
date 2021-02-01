@@ -43,15 +43,11 @@ class Cell {
 
     // State for pathfinding algorithms
     this.parent = null;
-
-    // State for Dijkstra's algorithm
     this.distanceToEntrance = Infinity;
     this.isToBeExplored = false;
 
     // State for A* Searching algorithm
-    this.isInOpenList = false;
     this.isInClosedList = false;
-    this.g = Infinity;
     this.h = Infinity;
     this.f = Infinity;
 

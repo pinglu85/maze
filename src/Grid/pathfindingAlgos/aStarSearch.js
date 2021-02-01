@@ -4,15 +4,15 @@ import PriorityQueue from './utils/PriorityQueue';
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const pq = new PriorityQueue((cellA, cellB) => cellA.f - cellB.f);
   pq.add(entranceCell);
-  entranceCell.isInOpenList = true;
-  entranceCell.g = 0;
+  entranceCell.isToBeExplored = true;
+  entranceCell.distanceToEntrance = 0;
   entranceCell.f = 0;
 
   const closedList = [];
 
   while (pq.size() > 0) {
     const cell = pq.poll();
-    cell.isInOpenList = false;
+    cell.isToBeExplored = false;
 
     if (cell.isExit) {
       cell.isExitColor = true;
@@ -45,18 +45,18 @@ function getSuccessors(cell, grid, exitCell, openList, resolve) {
       continue;
     }
 
-    const newG = cell.g + 1;
+    const newDistanceToEntrance = cell.distanceToEntrance + 1;
     const newH = computeManhattanDistance(successor, exitCell);
-    const newF = newG + newH;
+    const newF = newDistanceToEntrance + newH;
 
     if (newF < successor.f) {
-      successor.g = newG;
+      successor.distanceToEntrance = newDistanceToEntrance;
       successor.h = newH;
       successor.f = newF;
       successor.parent = cell;
-      if (!successor.isInOpenList) {
+      if (!successor.isToBeExplored) {
         openList.add(successor);
-        successor.isInOpenList = true;
+        successor.isToBeExplored = true;
       }
     }
   }
