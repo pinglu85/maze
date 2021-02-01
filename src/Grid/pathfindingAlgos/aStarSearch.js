@@ -11,41 +11,41 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const closedList = [];
 
   while (pq.size() > 0) {
-    const q = pq.poll();
-    q.isInOpenList = false;
+    const cell = pq.poll();
+    cell.isInOpenList = false;
 
-    if (q.isExit) {
-      q.isExitColor = true;
+    if (cell.isExit) {
+      cell.isExitColor = true;
       break;
     }
 
-    closedList.push(q);
-    q.isInClosedList = true;
-    q.opacity = 0.8;
+    closedList.push(cell);
+    cell.isInClosedList = true;
+    cell.opacity = 0.8;
 
-    await asyncGetSuccessors(q, grid, exitCell, pq, wait);
+    await asyncGetSuccessors(cell, grid, exitCell, pq, wait);
   }
 
   return reconstructPath(exitCell);
 }
 
-function asyncGetSuccessors(q, grid, exitCell, openList, wait) {
+function asyncGetSuccessors(cell, grid, exitCell, openList, wait) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      getSuccessors(q, grid, exitCell, openList, resolve);
+      getSuccessors(cell, grid, exitCell, openList, resolve);
     }, wait);
   });
 }
 
-function getSuccessors(q, grid, exitCell, openList, resolve) {
-  const successors = q.getConnectedNeighbors(grid);
+function getSuccessors(cell, grid, exitCell, openList, resolve) {
+  const successors = cell.getConnectedNeighbors(grid);
 
   for (const successor of successors) {
     if (successor.isInClosedList) {
       continue;
     }
 
-    const newG = q.g + 1;
+    const newG = cell.g + 1;
     const newH = computeManhattanDistance(successor, exitCell);
     const newF = newG + newH;
 
@@ -53,7 +53,7 @@ function getSuccessors(q, grid, exitCell, openList, resolve) {
       successor.g = newG;
       successor.h = newH;
       successor.f = newF;
-      successor.parent = q;
+      successor.parent = cell;
       if (!successor.isInOpenList) {
         openList.add(successor);
         successor.isInOpenList = true;
