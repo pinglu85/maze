@@ -279,16 +279,12 @@ class Cell {
       return colors.neighbor;
     }
 
-    if (this.isToBeExplored || this.isInOpenList) {
+    if (this.isToBeExplored) {
       return colors.pathfinding.toBeExplored;
     }
 
     if (this.isExitColor) {
       return colors.pathfinding.exitColor;
-    }
-
-    if (this.isInClosedList) {
-      return colors.pathfinding.visited;
     }
 
     if (this.distanceToEntrance !== Infinity) {
