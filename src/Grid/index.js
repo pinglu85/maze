@@ -38,12 +38,12 @@ class Grid {
 
   async generateMaze(algoName) {
     if (algoName === 'OpenGrid' || algoName === 'RecursiveDivision') {
-      this.dropInteriorWalls();
+      this.#dropInteriorWalls();
     }
 
     if (algoName === 'OpenGrid') {
       this.isOpenGrid = true;
-      this.generateMazeEntryAndExit();
+      this.#generateMazeEntryAndExit();
       return Promise.resolve();
     }
 
@@ -59,7 +59,7 @@ class Grid {
       await mazeAlgo(grid);
     }
 
-    this.generateMazeEntryAndExit();
+    this.#generateMazeEntryAndExit();
     return Promise.resolve();
   }
 
@@ -73,7 +73,27 @@ class Grid {
     return Promise.resolve(pathCoordinates);
   }
 
-  generateMazeEntryAndExit() {
+  clearSolution() {
+    for (const row of this.content) {
+      for (const cell of row) {
+        cell.resetStateForPathfinding();
+      }
+    }
+  }
+
+  draw = (ctx) => {
+    if (this.isOpenGrid) {
+      this.#drawGuides(ctx);
+    }
+
+    for (const row of this.content) {
+      for (const cell of row) {
+        cell.draw(ctx, this.cellSize, this.gridColors.cell, this.lineWidths);
+      }
+    }
+  };
+
+  #generateMazeEntryAndExit() {
     const numOfRows = this.content.length;
     const numOfCols = this.content[0].length;
     const entrance = {
@@ -109,7 +129,7 @@ class Grid {
     this.exitDir = this.exitCell.dropRandomOuterWall();
   }
 
-  dropInteriorWalls() {
+  #dropInteriorWalls() {
     for (const row of this.content) {
       for (const cell of row) {
         cell.isVisited = true;
@@ -131,27 +151,7 @@ class Grid {
     }
   }
 
-  clearSolution() {
-    for (const row of this.content) {
-      for (const cell of row) {
-        cell.resetStateForPathfinding();
-      }
-    }
-  }
-
-  draw = (ctx) => {
-    if (this.isOpenGrid) {
-      this.drawGuides(ctx);
-    }
-
-    for (const row of this.content) {
-      for (const cell of row) {
-        cell.draw(ctx, this.cellSize, this.gridColors.cell, this.lineWidths);
-      }
-    }
-  };
-
-  drawGuides(ctx) {
+  #drawGuides(ctx) {
     const numOfRows = this.content.length;
     const numOfCols = this.content[0].length;
     const width = numOfCols * this.cellSize + this.cellPosOffSet;

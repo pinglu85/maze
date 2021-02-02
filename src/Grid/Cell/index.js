@@ -169,7 +169,7 @@ class Cell {
     const fillRectStartY = this.startY + halfInteriorWallLineWidth;
     const fillRectSize = cellSize - lineWidths.interiorWall;
 
-    ctx.fillStyle = this._getCtxFillStyle(colors);
+    ctx.fillStyle = this.#getCtxFillStyle(colors);
     ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
 
     if (this.opacity) {
@@ -258,7 +258,7 @@ class Cell {
     }
   }
 
-  _getCtxFillStyle(colors) {
+  #getCtxFillStyle(colors) {
     if (this.isStartingCell) {
       return colors.starting;
     }
