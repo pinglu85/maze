@@ -169,7 +169,7 @@ class Cell {
     const fillRectStartY = this.startY + halfInteriorWallLineWidth;
     const fillRectSize = cellSize - lineWidths.interiorWall;
 
-    ctx.fillStyle = this._getCtxFillStyle(colors);
+    ctx.fillStyle = this.#getCtxFillStyle(colors);
     ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
 
     if (this.opacity) {
@@ -258,7 +258,7 @@ class Cell {
     }
   }
 
-  _getCtxFillStyle(colors) {
+  #getCtxFillStyle(colors) {
     if (this.isStartingCell) {
       return colors.starting;
     }
@@ -279,16 +279,12 @@ class Cell {
       return colors.neighbor;
     }
 
-    if (this.isToBeExplored || this.isInOpenList) {
+    if (this.isToBeExplored) {
       return colors.pathfinding.toBeExplored;
     }
 
     if (this.isExitColor) {
       return colors.pathfinding.exitColor;
-    }
-
-    if (this.isInClosedList) {
-      return colors.pathfinding.visited;
     }
 
     if (this.distanceToEntrance !== Infinity) {
