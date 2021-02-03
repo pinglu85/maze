@@ -3,11 +3,11 @@ import PriorityQueue from './utils/PriorityQueue';
 import { delay } from '../../utils';
 
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
-  const pq = new PriorityQueue((cellA, cellB) => cellA.f - cellB.f);
+  const pq = new PriorityQueue((cellA, cellB) => cellA.fScore - cellB.fScore);
   pq.add(entranceCell);
   entranceCell.isToBeExplored = true;
   entranceCell.distanceToEntrance = 0;
-  entranceCell.f = 0;
+  entranceCell.fScore = 0;
 
   const visitedCells = new Set();
 
@@ -32,13 +32,13 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
       }
 
       const newDistanceToEntrance = cell.distanceToEntrance + 1;
-      const newH = computeManhattanDistance(neighbor, exitCell);
-      const newF = newDistanceToEntrance + newH;
+      const newHScore = computeManhattanDistance(neighbor, exitCell);
+      const newFScore = newDistanceToEntrance + newHScore;
 
       if (newDistanceToEntrance < neighbor.distanceToEntrance) {
         neighbor.distanceToEntrance = newDistanceToEntrance;
-        neighbor.h = newH;
-        neighbor.f = newF;
+        neighbor.hScore = newHScore;
+        neighbor.fScore = newFScore;
         neighbor.parent = cell;
         if (!neighbor.isToBeExplored) {
           pq.add(neighbor);
