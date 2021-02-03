@@ -10,8 +10,8 @@ export const GRID_COLORS = {
     sameSet: '#fcccd9',
     differentSet: '#c8ffc4',
     pathfinding: {
-      visited: '#81afde',
-      toBeExplored: '#b0d3f4',
+      visited: '#d6e6f5',
+      toBeExplored: '#aeeac4',
       exitColor: '#3c4699',
     },
   },

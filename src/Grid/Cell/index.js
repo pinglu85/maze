@@ -52,7 +52,6 @@ class Cell {
 
     // State for visualization of pathfinding algorithm.
     this.isExitColor = false;
-    this.opacity = 0;
   }
 
   resetStateForPathfinding() {
@@ -171,12 +170,6 @@ class Cell {
 
     ctx.fillStyle = this.#getCtxFillStyle(colors);
     ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
-
-    if (this.opacity) {
-      ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-      ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
-      this.opacity = this.opacity < 0.8 ? this.opacity + 0.2 : this.opacity;
-    }
 
     ctx.strokeStyle = colors.border;
 

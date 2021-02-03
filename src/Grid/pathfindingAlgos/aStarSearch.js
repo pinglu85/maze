@@ -1,5 +1,6 @@
 import reconstructPath from './utils/reconstructPath';
 import PriorityQueue from './utils/PriorityQueue';
+import { delay } from '../../utils';
 
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const pq = new PriorityQueue((cellA, cellB) => cellA.f - cellB.f);
@@ -12,6 +13,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
 
   while (pq.size() > 0) {
     const cell = pq.poll();
+    await delay(wait);
     cell.isToBeExplored = false;
 
     if (cell.isExit) {
@@ -21,47 +23,32 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
     }
 
     visitedCells.add(cell);
-    cell.opacity = 0.8;
 
-    await asyncGetNeighbors(cell, pq, visitedCells, grid, exitCell, wait);
-  }
+    const connectedNeighbors = cell.getConnectedNeighbors(grid);
 
-  return Promise.resolve([]);
-}
+    for (const neighbor of connectedNeighbors) {
+      if (visitedCells.has(neighbor)) {
+        continue;
+      }
 
-function asyncGetNeighbors(cell, pq, visitedCells, grid, exitCell, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      getNeighbors(cell, pq, visitedCells, grid, exitCell, resolve);
-    }, wait);
-  });
-}
+      const newDistanceToEntrance = cell.distanceToEntrance + 1;
+      const newH = computeManhattanDistance(neighbor, exitCell);
+      const newF = newDistanceToEntrance + newH;
 
-function getNeighbors(cell, pq, visitedCells, grid, exitCell, resolve) {
-  const connectedNeighbors = cell.getConnectedNeighbors(grid);
-
-  for (const neighbor of connectedNeighbors) {
-    if (visitedCells.has(neighbor)) {
-      continue;
-    }
-
-    const newDistanceToEntrance = cell.distanceToEntrance + 1;
-    const newH = computeManhattanDistance(neighbor, exitCell);
-    const newF = newDistanceToEntrance + newH;
-
-    if (newDistanceToEntrance < neighbor.distanceToEntrance) {
-      neighbor.distanceToEntrance = newDistanceToEntrance;
-      neighbor.h = newH;
-      neighbor.f = newF;
-      neighbor.parent = cell;
-      if (!neighbor.isToBeExplored) {
-        pq.add(neighbor);
-        neighbor.isToBeExplored = true;
+      if (newDistanceToEntrance < neighbor.distanceToEntrance) {
+        neighbor.distanceToEntrance = newDistanceToEntrance;
+        neighbor.h = newH;
+        neighbor.f = newF;
+        neighbor.parent = cell;
+        if (!neighbor.isToBeExplored) {
+          pq.add(neighbor);
+          neighbor.isToBeExplored = true;
+        }
       }
     }
   }
 
-  resolve();
+  return Promise.resolve([]);
 }
 
 function computeManhattanDistance(currCell, targetCell) {
