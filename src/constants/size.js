@@ -12,7 +12,7 @@ export const DEFAULT_GRID_SIZE = {
   mobile: { numOfRows: 8, numOfCols: 9 },
   tablet: { numOfRows: 15, numOfCols: 20 },
   bigTablet: { numOfRows: 15, numOfCols: 25 },
-  desktop: { numOfRows: 13, numOfCols: 40 },
+  desktop: { numOfRows: 13, numOfCols: 35 },
 };
 
 export const SPRITE_SIZE = 28;
