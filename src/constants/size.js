@@ -11,7 +11,7 @@ export const MAX_GRID_SIZE = 40;
 export const DEFAULT_GRID_SIZE = {
   mobile: { numOfRows: 8, numOfCols: 9 },
   tablet: { numOfRows: 15, numOfCols: 20 },
-  bigTablet: { numOfRows: 15, numOfCols: 30 },
+  bigTablet: { numOfRows: 15, numOfCols: 25 },
   desktop: { numOfRows: 13, numOfCols: 40 },
 };
 
