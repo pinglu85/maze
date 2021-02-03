@@ -1,5 +1,6 @@
 import reconstructPath from './utils/reconstructPath';
 import PriorityQueue from './utils/PriorityQueue';
+import { delay } from '../../utils';
 
 async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
   const pq = new PriorityQueue(
@@ -13,6 +14,7 @@ async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
 
   while (pq.size() > 0) {
     const cell = pq.poll();
+    await delay(wait);
     cell.isToBeExplored = false;
 
     if (cell.isExit) {
@@ -22,42 +24,27 @@ async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
     }
 
     visitedCells.add(cell);
-    cell.opacity = 0.01;
 
-    await asyncGetNeighbors(cell, pq, visitedCells, grid, wait);
-  }
+    const connectedNeighbors = cell.getConnectedNeighbors(grid);
 
-  return Promise.resolve([]);
-}
+    for (const neighbor of connectedNeighbors) {
+      if (visitedCells.has(neighbor)) {
+        continue;
+      }
 
-function asyncGetNeighbors(cell, pq, visitedCells, grid, wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      getNeighbors(cell, pq, visitedCells, grid, resolve);
-    }, wait);
-  });
-}
-
-function getNeighbors(cell, pq, visitedCells, grid, resolve) {
-  const connectedNeighbors = cell.getConnectedNeighbors(grid);
-
-  for (const neighbor of connectedNeighbors) {
-    if (visitedCells.has(neighbor)) {
-      continue;
-    }
-
-    const newDistanceToEntrance = cell.distanceToEntrance + 1;
-    if (newDistanceToEntrance < neighbor.distanceToEntrance) {
-      neighbor.parent = cell;
-      neighbor.distanceToEntrance = newDistanceToEntrance;
-      if (!neighbor.isToBeExplored) {
-        pq.add(neighbor);
-        neighbor.isToBeExplored = true;
+      const newDistanceToEntrance = cell.distanceToEntrance + 1;
+      if (newDistanceToEntrance < neighbor.distanceToEntrance) {
+        neighbor.parent = cell;
+        neighbor.distanceToEntrance = newDistanceToEntrance;
+        if (!neighbor.isToBeExplored) {
+          pq.add(neighbor);
+          neighbor.isToBeExplored = true;
+        }
       }
     }
   }
 
-  resolve();
+  return Promise.resolve([]);
 }
 
 export default asyncDijkstrasAlgo;
