@@ -47,8 +47,8 @@ class Cell {
     this.isToBeExplored = false;
 
     // State for A* Searching algorithm
-    this.h = Infinity;
-    this.f = Infinity;
+    this.hScore = Infinity;
+    this.fScore = Infinity;
 
     // State for visualization of pathfinding algorithm.
     this.isExitColor = false;
