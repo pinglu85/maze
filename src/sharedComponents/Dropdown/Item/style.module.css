@@ -8,7 +8,7 @@
 }
 
 .Item a:hover {
-  background: var(--green);
+  background: var(--link-color);
   color: #ffffff;
 }
 
