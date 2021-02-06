@@ -21,9 +21,14 @@
 }
 
 .main {
-  margin-top: 72px;
   width: 100%;
-  overflow: auto;
+  margin-top: 72px;
+  padding-bottom: 1.5rem;
+}
+
+.canvasesWrapper {
+  width: 100%;
+  overflow-x: auto;
 }
 
 @media (max-width: 576px) {
