@@ -25,11 +25,13 @@ const App = ({ store }) => {
           solutionCanvasRef={solutionCanvasRef}
           store={store}
         />
-        <Canvases
-          mazeCanvasRef={mazeCanvasRef}
-          solutionCanvasRef={solutionCanvasRef}
-          subscribe={store.subscribe}
-        />
+        <div className={styles.canvasesWrapper}>
+          <Canvases
+            mazeCanvasRef={mazeCanvasRef}
+            solutionCanvasRef={solutionCanvasRef}
+            subscribe={store.subscribe}
+          />
+        </div>
       </main>
     </>
   );
