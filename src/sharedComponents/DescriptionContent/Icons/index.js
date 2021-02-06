@@ -1,6 +1,16 @@
 import { createElement } from '../../../utils';
 import styles from './style.module.css';
 
+const Icons = ({ icons }) => (
+  <ul className={styles.Icons}>
+    {icons.map((icon) => (
+      <li className={styles.listItem}>
+        <Icon icon={icon} />
+      </li>
+    ))}
+  </ul>
+);
+
 const Icon = ({ icon }) => {
   const className = `${icon.iconSize ? styles[icon.iconSize] : ''}`;
   const style = {
@@ -18,15 +28,5 @@ const Icon = ({ icon }) => {
     </div>
   );
 };
-
-const Icons = ({ icons }) => (
-  <ul className={styles.Icons}>
-    {icons.map((icon) => (
-      <li className={styles.listItem}>
-        <Icon icon={icon} />
-      </li>
-    ))}
-  </ul>
-);
 
 export default Icons;
