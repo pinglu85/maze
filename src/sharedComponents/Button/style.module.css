@@ -11,7 +11,7 @@
 
 .Btn:hover,
 .Btn:active {
-  color: var(--green);
+  color: var(--link-color);
 }
 
 .Btn:focus {
@@ -21,16 +21,16 @@
 .primary {
   padding: 0.8rem 1rem;
   color: #ffffff;
-  border: 0.0625rem solid var(--green);
+  border: 0.0625rem solid var(--link-color);
   border-radius: 0.5rem;
-  background: var(--green);
+  background: var(--link-color);
 }
 
 .primary:hover,
 .primary:active {
   color: #ffffff;
-  border-color: var(--dark-green);
-  background: var(--dark-green);
+  border-color: var(--link-color-hover);
+  background: var(--link-color-hover);
 }
 
 .primary:disabled {
@@ -46,7 +46,7 @@
 }
 
 .dropdown:focus {
-  color: var(--green);
+  color: var(--link-color);
 }
 
 .dropdown > span {
