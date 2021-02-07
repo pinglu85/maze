@@ -8,7 +8,7 @@ class PriorityQueue {
     this.#heap = [];
   }
 
-  add(element) {
+  insert(element) {
     this.#heap.push(element);
 
     const heapSize = this.size();
