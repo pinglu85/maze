@@ -6,14 +6,14 @@ async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
   const pq = new PriorityQueue(
     (cellA, cellB) => cellA.distanceToEntrance - cellB.distanceToEntrance
   );
-  pq.add(entranceCell);
+  pq.insert(entranceCell);
   entranceCell.isToBeExplored = true;
   entranceCell.distanceToEntrance = 0;
 
   const visitedCells = new Set();
 
   while (pq.size() > 0) {
-    const cell = pq.poll();
+    const cell = pq.pull();
     await delay(wait);
     cell.isToBeExplored = false;
 
@@ -37,7 +37,7 @@ async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
         neighbor.parent = cell;
         neighbor.distanceToEntrance = newDistanceToEntrance;
         if (!neighbor.isToBeExplored) {
-          pq.add(neighbor);
+          pq.insert(neighbor);
           neighbor.isToBeExplored = true;
         }
       }

@@ -4,7 +4,7 @@ import { delay } from '../../utils';
 
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const pq = new PriorityQueue((cellA, cellB) => cellA.fScore - cellB.fScore);
-  pq.add(entranceCell);
+  pq.insert(entranceCell);
   entranceCell.isToBeExplored = true;
   entranceCell.distanceToEntrance = 0;
   entranceCell.fScore = 0;
@@ -12,7 +12,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const visitedCells = new Set();
 
   while (pq.size() > 0) {
-    const cell = pq.poll();
+    const cell = pq.pull();
     await delay(wait);
     cell.isToBeExplored = false;
 
@@ -41,7 +41,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
         neighbor.fScore = newFScore;
         neighbor.parent = cell;
         if (!neighbor.isToBeExplored) {
-          pq.add(neighbor);
+          pq.insert(neighbor);
           neighbor.isToBeExplored = true;
         }
       }

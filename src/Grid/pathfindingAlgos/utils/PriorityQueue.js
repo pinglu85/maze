@@ -8,7 +8,7 @@ class PriorityQueue {
     this.#heap = [];
   }
 
-  add(element) {
+  insert(element) {
     this.#heap.push(element);
 
     const heapSize = this.size();
@@ -19,7 +19,7 @@ class PriorityQueue {
     this.#heapifyUp(heapSize - 1);
   }
 
-  poll() {
+  pull() {
     const heapSize = this.size();
     if (heapSize <= 1) {
       return this.#heap.pop();
