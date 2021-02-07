@@ -13,7 +13,7 @@ async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
   const visitedCells = new Set();
 
   while (pq.size() > 0) {
-    const cell = pq.poll();
+    const cell = pq.pull();
     await delay(wait);
     cell.isToBeExplored = false;
 
