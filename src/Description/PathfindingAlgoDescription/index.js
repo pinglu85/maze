@@ -41,7 +41,7 @@ const PathfindingAlgoDescription = (props) => {
         style="primary"
         handleClick={handleClick}
       >
-        Visualize
+        Solve
       </Button>
       <div ref={popupWarningRef} className={styles.popupWarning}></div>
     </DescriptionContent>
