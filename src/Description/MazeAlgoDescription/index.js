@@ -20,7 +20,7 @@ const MazeAlgoDescription = (props) => {
         style="primary"
         handleClick={handleClick}
       >
-        {algoName === 'OpenGrid' ? 'Open Grid' : 'Visualize'}
+        {algoName === 'OpenGrid' ? 'Create Open Grid' : 'Generate Maze'}
       </Button>
     </DescriptionContent>
   );
