@@ -12,7 +12,7 @@ import styles from './style.module.css';
 
 const PathfindingAlgoDescription = (props) => {
   const { description, store, mazeCtx, solutionCtx } = props;
-  const visualizeBtnRef = useRef();
+  const solveBtnRef = useRef();
   const popupWarningRef = useRef();
 
   const showWarning = (message) => {
@@ -32,15 +32,11 @@ const PathfindingAlgoDescription = (props) => {
     handleSolveMaze(store, mazeCtx, solutionCtx, showWarning);
   };
 
-  store.subscribe(toggleElementDisable(visualizeBtnRef));
+  store.subscribe(toggleElementDisable(solveBtnRef));
 
   return (
     <DescriptionContent description={description}>
-      <Button
-        btnRef={visualizeBtnRef}
-        style="primary"
-        handleClick={handleClick}
-      >
+      <Button btnRef={solveBtnRef} style="primary" handleClick={handleClick}>
         Solve
       </Button>
       <div ref={popupWarningRef} className={styles.popupWarning}></div>
