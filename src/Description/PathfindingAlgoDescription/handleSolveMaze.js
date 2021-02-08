@@ -6,7 +6,7 @@ import grid from '../../Grid';
 import startNode from '../../StartNode';
 import targetNode from '../../TargetNode';
 
-function handleVisualize(store, mazeCtx, solutionCtx, showWarning) {
+function handleSolveMaze(store, mazeCtx, solutionCtx, showWarning) {
   const state = store.getState();
   if (state.isMazeGenerating || state.isSearchingForSolution) {
     return;
@@ -82,4 +82,4 @@ function drawSolution(dispatch, canvasSize, solutionCtx) {
   });
 }
 
-export default handleVisualize;
+export default handleSolveMaze;

@@ -7,7 +7,7 @@ import {
 import DescriptionContent from '../../sharedComponents/DescriptionContent';
 import Button from '../../sharedComponents/Button';
 import WarningWithDismiss from '../WarningWithDismiss';
-import handleVisualize from './handleVisualize';
+import handleSolveMaze from './handleSolveMaze';
 import styles from './style.module.css';
 
 const PathfindingAlgoDescription = (props) => {
@@ -29,7 +29,7 @@ const PathfindingAlgoDescription = (props) => {
   };
 
   const handleClick = () => {
-    handleVisualize(store, mazeCtx, solutionCtx, showWarning);
+    handleSolveMaze(store, mazeCtx, solutionCtx, showWarning);
   };
 
   store.subscribe(toggleElementDisable(visualizeBtnRef));
