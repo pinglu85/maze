@@ -5,18 +5,18 @@ import handleGenerateMaze from './handleGenerateMaze';
 
 const MazeAlgoDescription = (props) => {
   const { algoName, description, store, mazeCtx, solutionCtx } = props;
-  const visualizeBtnRef = useRef();
+  const generateMazeBtnRef = useRef();
 
   const handleClick = () => {
     handleGenerateMaze(store, mazeCtx, solutionCtx);
   };
 
-  store.subscribe(toggleElementDisable(visualizeBtnRef));
+  store.subscribe(toggleElementDisable(generateMazeBtnRef));
 
   return (
     <DescriptionContent description={description}>
       <Button
-        btnRef={visualizeBtnRef}
+        btnRef={generateMazeBtnRef}
         style="primary"
         handleClick={handleClick}
       >
