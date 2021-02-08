@@ -1,14 +1,14 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
 import DescriptionContent from '../../sharedComponents/DescriptionContent';
 import Button from '../../sharedComponents/Button';
-import handleVisualize from './handleVisualize';
+import handleGenerateMaze from './handleGenerateMaze';
 
 const MazeAlgoDescription = (props) => {
   const { algoName, description, store, mazeCtx, solutionCtx } = props;
   const visualizeBtnRef = useRef();
 
   const handleClick = () => {
-    handleVisualize(store, mazeCtx, solutionCtx);
+    handleGenerateMaze(store, mazeCtx, solutionCtx);
   };
 
   store.subscribe(toggleElementDisable(visualizeBtnRef));
