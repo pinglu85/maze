@@ -16,30 +16,31 @@ function render(element) {
   }
 
   for (const attrName in attrs) {
+    let attrValue = attrs[attrName];
+    if (attrValue === undefined) {
+      continue;
+    }
+
     if (type === 'canvas' && attrName === 'ref') {
-      const refCurrent = attrs[attrName].current;
+      const refCurrent = attrValue.current;
       refCurrent.node = node;
       refCurrent.ctx = node.getContext('2d');
       continue;
     }
 
     if (attrName === 'ref') {
-      if (attrs[attrName] !== undefined) {
-        attrs[attrName].current = node;
-      }
+      attrValue.current = node;
       continue;
     }
 
     const lowerCasedAttrName = attrName.toLowerCase();
     const isValidEvent =
       attrName.startsWith('on') && lowerCasedAttrName in window;
-    if (isValidEvent && attrs[attrName]) {
+    if (isValidEvent) {
       const eventType = lowerCasedAttrName.slice(2);
-      node.addEventListener(eventType, attrs[attrName]);
+      node.addEventListener(eventType, attrValue);
       continue;
     }
-
-    let attrValue = attrs[attrName];
 
     if (attrName === 'style') {
       let styleString = '';
