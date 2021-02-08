@@ -53,7 +53,9 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   return (
     <div ref={rootRef} className={styles.Description}>
       <div className={styles.encouragement}>
-        Pick a maze algorithm and visualize it!
+        <p>
+          Pick a <b>maze algorithm</b> and visualize it!
+        </p>
       </div>
     </div>
   );
