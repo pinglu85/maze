@@ -53,18 +53,24 @@ const applyCompleteSolvingProcess = (state) => ({
 
 function appReducer(state, action) {
   switch (action.type) {
-    case actionTypes.gridSizeUpdated:
+    case actionTypes.gridSizeUpdated: {
       return applyUpdateGridSize(state, action.payload);
-    case actionTypes.algoSelected:
+    }
+    case actionTypes.algoSelected: {
       return applySelectAlgo(state, action.payload);
-    case actionTypes.mazeGenerationInitiated:
+    }
+    case actionTypes.mazeGenerationInitiated: {
       return applyInitiateMazeGeneration(state);
-    case actionTypes.mazeGenerationCompleted:
+    }
+    case actionTypes.mazeGenerationCompleted: {
       return applyCompleteMazeGeneration(state);
-    case actionTypes.solvingProcessInitiated:
+    }
+    case actionTypes.solvingProcessInitiated: {
       return applyInitiateSolvingProcess(state);
-    case actionTypes.solvingProcessCompleted:
+    }
+    case actionTypes.solvingProcessCompleted: {
       return applyCompleteSolvingProcess(state);
+    }
     default:
       throw new Error('Should not reach here!');
   }
