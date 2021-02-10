@@ -1,45 +1,37 @@
-import {
-  createElement,
-  render,
-  useRef,
-  toggleElementDisable,
-} from '../../utils';
+import { createElement, useRef, toggleElementDisable } from '../../utils';
+import { CREATE_MAZE } from '../../constants/taskNames';
+import { doChangeTask } from '../actionCreators';
 import DescriptionContent from '../../sharedComponents/DescriptionContent';
 import Button from '../../sharedComponents/Button';
-import WarningWithDismiss from '../WarningWithDismiss';
 import handleSolveMaze from './handleSolveMaze';
-import styles from './style.module.css';
 
 const PathfindingAlgoDescription = (props) => {
   const { description, store, mazeCtx, solutionCtx } = props;
+  const newMazeBtnRef = useRef();
   const solveBtnRef = useRef();
-  const popupWarningRef = useRef();
 
-  const showWarning = (message) => {
-    if (!popupWarningRef.current) {
-      return;
-    }
-
-    const root = popupWarningRef.current;
-    const node = render(
-      <WarningWithDismiss rootRef={popupWarningRef} message={message} />
-    );
-    root.appendChild(node);
-    root.classList.add('is-active');
-  };
-
-  const handleClick = () => {
-    handleSolveMaze(store, mazeCtx, solutionCtx, showWarning);
-  };
-
-  store.subscribe(toggleElementDisable(solveBtnRef));
+  store.subscribe(toggleElementDisable(solveBtnRef, newMazeBtnRef));
 
   return (
     <DescriptionContent description={description}>
-      <Button btnRef={solveBtnRef} style="primary" handleClick={handleClick}>
+      <Button
+        btnRef={newMazeBtnRef}
+        style="ghost"
+        handleClick={() => {
+          store.dispatch(doChangeTask(CREATE_MAZE));
+        }}
+      >
+        New Maze
+      </Button>
+      <Button
+        btnRef={solveBtnRef}
+        style="primary"
+        handleClick={() => {
+          handleSolveMaze(store, mazeCtx, solutionCtx);
+        }}
+      >
         Solve
       </Button>
-      <div ref={popupWarningRef} className={styles.popupWarning}></div>
     </DescriptionContent>
   );
 };

@@ -4,3 +4,4 @@ export const mazeGenerationInitiated = 'maze/generationInitiated';
 export const mazeGenerationCompleted = 'maze/generationCompleted';
 export const solvingProcessInitiated = 'maze/solvingProcessInitiated';
 export const solvingProcessCompleted = 'maze/solvingProcessCompleted';
+export const taskChanged = 'task/changed';

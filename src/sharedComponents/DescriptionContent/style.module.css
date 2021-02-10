@@ -10,7 +10,14 @@
 }
 
 .actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 1rem;
+}
+
+.actions > *:not(:first-child) {
+  margin-left: 1rem;
 }
 
 @media (max-width: 576px) {

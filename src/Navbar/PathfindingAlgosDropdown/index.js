@@ -11,7 +11,13 @@ const algoNames = [
 ];
 
 const PathfindingAlgosDropdown = ({ store }) => {
-  return <Dropdown store={store} btnLabel="Solution" items={algoNames} />;
+  return (
+    <Dropdown
+      store={store}
+      btnLabel="Pathfinding Algorithms"
+      items={algoNames}
+    />
+  );
 };
 
 export default PathfindingAlgosDropdown;

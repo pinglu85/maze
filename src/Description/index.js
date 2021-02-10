@@ -1,5 +1,10 @@
 import { createElement, render, useRef } from '../utils';
-import { algoSelected } from '../constants/actionTypes';
+import {
+  algoSelected,
+  taskChanged,
+  gridSizeUpdated,
+} from '../constants/actionTypes';
+import BlankSlate from './BlankSlate';
 import MazeAlgoDescription from './MazeAlgoDescription';
 import PathfindingAlgoDescription from './PathfindingAlgoDescription';
 import algoDescriptions from './algoDescriptions';
@@ -8,13 +13,26 @@ import styles from './style.module.css';
 const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   const rootRef = useRef();
 
+  const renderBlankSlateOnTaskChange = (_, state) => {
+    if (!rootRef.current) {
+      return;
+    }
+
+    const root = resetRootInnerHtml();
+    const node = render(<BlankSlate task={state.task} />);
+    root.appendChild(node);
+  };
+  store.subscribe({
+    actionTypes: [taskChanged, gridSizeUpdated],
+    subscriber: renderBlankSlateOnTaskChange,
+  });
+
   const renderDescriptionOnAlgoSelect = (_, state) => {
     if (!rootRef.current) {
       return;
     }
 
-    const root = rootRef.current;
-    root.innerHTML = '';
+    const root = resetRootInnerHtml();
     const mazeCtx = mazeCanvasRef.current.ctx;
     const solutionCtx = solutionCanvasRef.current.ctx;
     const algoType = state.algo.type;
@@ -30,6 +48,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
           store={store}
           mazeCtx={mazeCtx}
           solutionCtx={solutionCtx}
+          isNextStepBtnDisabled={!state.isMazeGenerated}
         />
       );
     } else {
@@ -50,13 +69,15 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
     subscriber: renderDescriptionOnAlgoSelect,
   });
 
+  const resetRootInnerHtml = () => {
+    const root = rootRef.current;
+    root.innerHTML = '';
+    return root;
+  };
+
   return (
     <div ref={rootRef} className={styles.Description}>
-      <div className={styles.encouragement}>
-        <p>
-          Pick a <b>maze algorithm</b> and visualize it!
-        </p>
-      </div>
+      <BlankSlate algoType="maze algorithm" />
     </div>
   );
 };

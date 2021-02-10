@@ -6,8 +6,11 @@
   --black: #151524;
   --link-color: #007498;
   --link-color-hover: #004e56;
+  --ghost-btn-hover: #ebeae8;
   --light-yellow: #fbeeca;
   --box-shadow: 0px 5px 24px rgba(92, 92, 92, 0.25);
+  --box-shadow-alt: 0 10px 20px 5px rgba(92, 92, 92, 0.25);
+  --triangle-box-shadow: -5px 5px 5px 0px rgba(92, 92, 92, 0.05);
 }
 
 * {
