@@ -14,8 +14,8 @@ import styles from './style.module.css';
 const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   const rootRef = useRef();
 
-  const renderBlankSlateOnTaskChange = (_, state) => {
-    if (!rootRef.current) {
+  const renderBlankSlateOnTaskChange = (prevState, state) => {
+    if (!rootRef.current || prevState.task === state.task) {
       return;
     }
 
