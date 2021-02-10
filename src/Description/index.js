@@ -4,6 +4,7 @@ import {
   taskChanged,
   gridSizeUpdated,
 } from '../constants/actionTypes';
+import { CREATE_MAZE } from '../constants/taskNames';
 import BlankSlate from './BlankSlate';
 import MazeAlgoDescription from './MazeAlgoDescription';
 import PathfindingAlgoDescription from './PathfindingAlgoDescription';
@@ -77,7 +78,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
 
   return (
     <div ref={rootRef} className={styles.Description}>
-      <BlankSlate algoType="maze algorithm" />
+      <BlankSlate task={CREATE_MAZE} />
     </div>
   );
 };
