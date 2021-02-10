@@ -5,14 +5,14 @@ import helpIcon from '../../assets/help-circle.svg';
 import styles from './style.module.css';
 
 const BlankSlate = ({ task }) => {
-  const hintRef = useRef();
+  const tooltipRef = useRef();
 
-  const handleToggleHint = () => {
-    if (!hintRef.current) {
+  const handleToggleTooltip = () => {
+    if (!tooltipRef.current) {
       return;
     }
 
-    hintRef.current.classList.toggle('is-active');
+    tooltipRef.current.classList.toggle('is-active');
   };
 
   let children;
@@ -33,11 +33,11 @@ const BlankSlate = ({ task }) => {
           <p>
             Click on the maze to <b>add weights</b>.
           </p>
-          <Button style="smallIcon helpIcon" handleClick={handleToggleHint}>
+          <Button style="smallIcon helpIcon" handleClick={handleToggleTooltip}>
             {helpIcon}
-            <span className="sr-only">Hint</span>
+            <span className="sr-only">Tooltip</span>
           </Button>
-          <Hint hintRef={hintRef} handleClick={handleToggleHint} />
+          <Tooltip tooltipRef={tooltipRef} handleClick={handleToggleTooltip} />
         </div>
       </>
     );
@@ -46,14 +46,14 @@ const BlankSlate = ({ task }) => {
   return <div className={styles.BlankSlate}>{children}</div>;
 };
 
-const Hint = ({ hintRef, handleClick }) => (
-  <div ref={hintRef} className={styles.Hint}>
+const Tooltip = ({ tooltipRef, handleClick }) => (
+  <div ref={tooltipRef} className={styles.Tooltip}>
     <p>
       A weighted cell is more costly to move through. In this application,
       moving through a weighted cell has a cost of 20. (Unweighted algorithms
       will ignore weights.)
     </p>
-    <div className={styles.HintAction}>
+    <div className={styles.TooltipAction}>
       <Button style="primary smallPadding" handleClick={handleClick}>
         Got it
       </Button>

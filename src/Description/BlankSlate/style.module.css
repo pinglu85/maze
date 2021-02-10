@@ -24,7 +24,7 @@
   margin-right: 0.25rem;
 }
 
-.Hint {
+.Tooltip {
   display: none;
   position: absolute;
   width: 290px;
@@ -39,7 +39,7 @@
   box-shadow: var(--box-shadow-alt);
 }
 
-.Hint::after {
+.Tooltip::after {
   content: '';
   position: absolute;
   width: 0;
@@ -55,7 +55,7 @@
   box-shadow: var(--triangle-box-shadow);
 }
 
-.HintAction {
+.TooltipAction {
   margin-top: 1.5rem;
 }
 
@@ -64,11 +64,11 @@
     height: 197px;
   }
 
-  .Hint {
+  .Tooltip {
     left: -10px;
   }
 
-  .Hint::after {
+  .Tooltip::after {
     left: 95%;
   }
 }
