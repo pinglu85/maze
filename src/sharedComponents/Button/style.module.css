@@ -18,25 +18,49 @@
   outline: none;
 }
 
-.primary {
+:global(.primary),
+:global(.ghost) {
   padding: 0.8rem 1rem;
-  color: #ffffff;
-  border: 0.0625rem solid var(--link-color);
   border-radius: 0.5rem;
+  border-width: 0.0625rem;
+  border-style: solid;
+}
+
+:global(.primary) {
+  color: #ffffff;
+  border-color: var(--link-color);
   background: var(--link-color);
 }
 
-.primary:hover,
-.primary:active {
+:global(.primary):hover,
+:global(.primary):active {
   color: #ffffff;
   border-color: var(--link-color-hover);
   background: var(--link-color-hover);
 }
 
-.primary:disabled {
+:global(.primary):disabled {
   color: #ffffff;
   border-color: var(--light-grey);
   background: var(--light-grey);
+}
+
+:global(.ghost) {
+  border-color: var(--black);
+  border-radius: 0.5rem;
+  background: transparent;
+}
+
+:global(.ghost):hover,
+:global(.ghost):active {
+  color: var(--black);
+  background: var(--ghost-btn-hover);
+}
+
+:global(.ghost):disabled {
+  color: var(--light-grey);
+  border-color: var(--light-grey);
+  background: transparent;
 }
 
 .dropdown {
@@ -69,6 +93,10 @@
   width: 100%;
 }
 
+.smallPadding {
+  padding: 0.5rem 0.8rem;
+}
+
 .opacityChangeOnHover {
   opacity: 0.5;
 }
@@ -77,6 +105,12 @@
 .opacityChangeOnHover:active {
   color: var(--black);
   opacity: 1;
+}
+
+.helpIcon:hover > svg > circle,
+.helpIcon:active > svg > circle {
+  fill: var(--link-color-hover);
+  stroke: var(--link-color-hover);
 }
 
 .Btn svg {

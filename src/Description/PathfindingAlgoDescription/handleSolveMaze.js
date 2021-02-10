@@ -1,19 +1,14 @@
 import {
   doInitiateSolvingProcess,
   doCompleteSolvingProcess,
-} from './actionCreators';
+} from '../actionCreators';
 import grid from '../../Grid';
 import startNode from '../../StartNode';
 import targetNode from '../../TargetNode';
 
-function handleSolveMaze(store, mazeCtx, solutionCtx, showWarning) {
+function handleSolveMaze(store, mazeCtx, solutionCtx) {
   const state = store.getState();
   if (state.isMazeGenerating || state.isSearchingForSolution) {
-    return;
-  }
-
-  if (!state.isMazeGenerated) {
-    showWarning('generate a maze');
     return;
   }
 

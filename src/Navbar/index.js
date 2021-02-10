@@ -1,4 +1,6 @@
-import { createElement, useRef } from '../utils';
+import { createElement, render, useRef } from '../utils';
+import { CREATE_MAZE } from '../constants/taskNames';
+import { taskChanged, gridSizeUpdated } from '../constants/actionTypes';
 import MazeAlgosDropdown from './MazeAlgosDropdown';
 import PathfindingAlgosDropdown from './PathfindingAlgosDropdown';
 import SettingsDrawer from '../SettingsDrawer';
@@ -13,6 +15,7 @@ const inputValues = {
 };
 
 const Navbar = ({ store }) => {
+  const dropdownWrapperRef = useRef();
   const drawerRef = useRef();
   const backdropRef = useRef();
   const inputRowsRef = useRef();
@@ -40,16 +43,35 @@ const Navbar = ({ store }) => {
     backdrop.classList.add('is-active');
   };
 
+  const changeDropdownOnTaskChange = (_, state) => {
+    if (!dropdownWrapperRef.current) {
+      return;
+    }
+
+    const dropdownWrapper = dropdownWrapperRef.current;
+    dropdownWrapper.innerHTML = '';
+    let node;
+
+    if (state.task === CREATE_MAZE) {
+      node = render(<MazeAlgosDropdown store={store} />);
+    } else {
+      node = render(<PathfindingAlgosDropdown store={store} />);
+    }
+
+    dropdownWrapper.appendChild(node);
+  };
+  store.subscribe({
+    actionTypes: [taskChanged, gridSizeUpdated],
+    subscriber: changeDropdownOnTaskChange,
+  });
+
   return (
     <nav className={styles.Navbar}>
       <a href="./" className={styles.siteLogo}>
         {logo}
       </a>
       <div className={styles.navItems}>
-        <div className={styles.dropdowns}>
-          <MazeAlgosDropdown store={store} />
-          <PathfindingAlgosDropdown store={store} />
-        </div>
+        <div ref={dropdownWrapperRef} className={styles.dropdownWrapper}></div>
         <Button style="settings" handleClick={handleSettingsDrawerOpen}>
           <span>{settingsIcon}</span>
           <span className="sr-only">Settings</span>

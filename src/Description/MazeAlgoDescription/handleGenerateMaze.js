@@ -1,7 +1,7 @@
 import {
   doInitiateMazeGeneration,
   doCompleteMazeGeneration,
-} from './actionCreators';
+} from '../actionCreators';
 import grid from '../../Grid';
 import startNode from '../../StartNode';
 import targetNode from '../../TargetNode';

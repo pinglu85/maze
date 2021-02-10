@@ -1,5 +1,6 @@
 import * as actionTypes from './constants/actionTypes';
 import { CELL_SIZE, LINE_WIDTHS } from './constants/size';
+import { CREATE_MAZE } from './constants/taskNames';
 
 const applyUpdateGridSize = (state, gridSize) => {
   const { numOfRows, numOfCols } = gridSize;
@@ -17,6 +18,7 @@ const applyUpdateGridSize = (state, gridSize) => {
     },
     isMazeGenerated: false,
     isSolutionFound: false,
+    task: CREATE_MAZE,
   };
 };
 
@@ -51,6 +53,11 @@ const applyCompleteSolvingProcess = (state) => ({
   isSolutionFound: true,
 });
 
+const applyChangeTask = (state, task) => ({
+  ...state,
+  task,
+});
+
 function appReducer(state, action) {
   switch (action.type) {
     case actionTypes.gridSizeUpdated: {
@@ -70,6 +77,9 @@ function appReducer(state, action) {
     }
     case actionTypes.solvingProcessCompleted: {
       return applyCompleteSolvingProcess(state);
+    }
+    case actionTypes.taskChanged: {
+      return applyChangeTask(state, action.payload);
     }
     default:
       throw new Error('Should not reach here!');

@@ -26,13 +26,13 @@
   width: calc(100% - 280px);
 }
 
-.dropdowns {
+.dropdownWrapper {
   display: flex;
   align-items: center;
   margin-left: 2.5rem;
 }
 
-.dropdowns > * {
+.dropdownWrapper > * {
   margin-right: 2.5rem;
 }
 
@@ -52,11 +52,11 @@
     width: 100%;
   }
 
-  .dropdowns {
+  .dropdownWrapper {
     margin-left: 0;
   }
 
-  .dropdowns > * {
+  .dropdownWrapper > * {
     margin-right: 1.5rem;
   }
 }

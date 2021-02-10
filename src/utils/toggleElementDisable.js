@@ -1,18 +1,20 @@
 import * as actionTypes from '../constants/actionTypes';
 
-function toggleElementDisable(nodeRef) {
+function toggleElementDisable(...nodeRefs) {
   const subscriber = () => {
-    if (!nodeRef.current) {
-      return;
-    }
+    for (const nodeRef of nodeRefs) {
+      if (!nodeRef.current) {
+        continue;
+      }
 
-    const node = nodeRef.current;
-    if (node.nodeName === 'BUTTON') {
-      node.disabled = !node.disabled;
-      return;
-    }
+      const node = nodeRef.current;
+      if (node.nodeName === 'BUTTON') {
+        node.disabled = !node.disabled;
+        continue;
+      }
 
-    node.classList.toggle('disabled');
+      node.classList.toggle('disabled');
+    }
   };
 
   return {
