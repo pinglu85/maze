@@ -16,10 +16,6 @@ const applyUpdateGridSize = (state, gridSize) => {
       width: canvasWidth,
       height: canvasHeight,
     },
-    algo: {
-      type: '',
-      name: '',
-    },
     isMazeGenerated: false,
     isSolutionFound: false,
     task: CREATE_MAZE,
