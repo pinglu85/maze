@@ -20,6 +20,7 @@ const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
     const solutionCanvas = solutionCanvasRef.current.node;
     const canvases = [mazeCanvas, solutionCanvas];
 
+    // Changing the canvas size erases the previous drawing.
     setCanvasesSize(canvasWrapper, canvases, state.canvasSize);
     grid.setContent(gridSize);
     grid.draw(mazeCtx);
