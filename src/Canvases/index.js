@@ -30,16 +30,13 @@ const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
     subscriber: handleCanvasSizeChange,
   });
 
-  const resetDrawingOnTaskChange = (prevState, state) => {
-    const isTaskChangedToCreateMaze =
-      prevState.task !== state.task && state.task === CREATE_MAZE;
-
+  const resetDrawingOnTaskChange = (_, state) => {
+    const isTaskChangedToCreateMaze = state.task === CREATE_MAZE;
     if (!canvasesRef.current || !isTaskChangedToCreateMaze) {
       return;
     }
 
     const { gridSize, canvasSize } = state;
-
     const { ctx: mazeCtx } = mazeCanvasRef.current;
     const { ctx: solutionCtx } = solutionCanvasRef.current;
 
