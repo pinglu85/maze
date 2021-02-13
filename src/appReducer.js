@@ -53,10 +53,14 @@ const applyCompleteSolvingProcess = (state) => ({
   isSolutionFound: true,
 });
 
-const applyChangeTask = (state, task) => ({
-  ...state,
-  task,
-});
+const applyChangeTask = (state, task) => {
+  const isTaskChangedToCreateMaze = task === CREATE_MAZE;
+  return {
+    ...state,
+    isMazeGenerated: isTaskChangedToCreateMaze ? false : state.isMazeGenerated,
+    task,
+  };
+};
 
 function appReducer(state, action) {
   switch (action.type) {
