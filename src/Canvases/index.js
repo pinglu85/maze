@@ -1,5 +1,6 @@
 import { createElement, useRef } from '../utils';
-import { gridSizeUpdated } from '../constants/actionTypes';
+import { gridSizeUpdated, taskChanged } from '../constants/actionTypes';
+import { CREATE_MAZE } from '../constants/taskNames';
 import Canvas from './Canvas';
 import grid from '../Grid';
 import setCanvasesSize from './setCanvasesSize';
@@ -27,6 +28,28 @@ const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
   subscribe({
     actionTypes: [gridSizeUpdated],
     subscriber: handleCanvasSizeChange,
+  });
+
+  const resetDrawingOnTaskChange = (prevState, state) => {
+    const isTaskChangedToCreateMaze =
+      prevState.task !== state.task && state.task === CREATE_MAZE;
+
+    if (!canvasesRef.current || !isTaskChangedToCreateMaze) {
+      return;
+    }
+
+    const { gridSize, canvasSize } = state;
+
+    const { ctx: mazeCtx } = mazeCanvasRef.current;
+    const { ctx: solutionCtx } = solutionCanvasRef.current;
+
+    solutionCtx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+    grid.setContent(gridSize);
+    grid.draw(mazeCtx);
+  };
+  subscribe({
+    actionTypes: [taskChanged],
+    subscriber: resetDrawingOnTaskChange,
   });
 
   return (
