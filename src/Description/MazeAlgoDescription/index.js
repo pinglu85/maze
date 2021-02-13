@@ -34,18 +34,26 @@ const MazeAlgoDescription = (props) => {
       return;
     }
 
-    if (nextStepBtn.disabled) {
-      nextStepBtn.disabled = false;
-      nextStepBtn.classList.remove('ghost');
-      nextStepBtn.classList.add('primary');
+    const generateMazeBtn = generateMazeBtnRef.current;
 
-      const generateMazeBtn = generateMazeBtnRef.current;
-      generateMazeBtn.classList.remove('primary');
-      generateMazeBtn.classList.add('ghost');
+    if (!state.isMazeGenerated) {
+      nextStepBtn.disabled = true;
+      nextStepBtn.classList.remove('primary');
+      nextStepBtn.classList.add('ghost');
+      generateMazeBtn.classList.remove('ghost');
+      generateMazeBtn.classList.add('primary');
+      return;
     }
+
+    nextStepBtn.disabled = false;
+    nextStepBtn.classList.remove('ghost');
+    nextStepBtn.classList.add('primary');
+    generateMazeBtn.classList.remove('primary');
+    generateMazeBtn.classList.add('ghost');
   };
   store.subscribe({
     actionTypes: [
+      actionTypes.gridSizeUpdated,
       actionTypes.mazeGenerationCompleted,
       actionTypes.mazeGenerationInitiated,
     ],
