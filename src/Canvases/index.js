@@ -9,12 +9,11 @@ const Canvases = ({ subscribe, mazeCanvasRef, solutionCanvasRef }) => {
   const canvasesRef = useRef();
 
   const handleCanvasSizeChange = (_, state) => {
-    const { gridSize } = state;
-
     if (!canvasesRef.current) {
       return;
     }
 
+    const { gridSize } = state;
     const canvasWrapper = canvasesRef.current;
     const { node: mazeCanvas, ctx: mazeCtx } = mazeCanvasRef.current;
     const solutionCanvas = solutionCanvasRef.current.node;
