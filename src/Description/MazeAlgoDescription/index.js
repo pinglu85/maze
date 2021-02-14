@@ -1,7 +1,7 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
 import * as actionTypes from '../../constants/actionTypes';
 import { doChangeTask } from '../actionCreators';
-import DescriptionContent from '../../sharedComponents/DescriptionContent';
+import DescriptionContent from '../DescriptionContent';
 import Button from '../../sharedComponents/Button';
 import handleGenerateMaze from './handleGenerateMaze';
 
