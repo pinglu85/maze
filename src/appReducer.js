@@ -12,7 +12,7 @@ const applyUpdateGridSize = (state, gridSize) => {
     ...state.algo,
   };
   if (!state.isTaskCreateMaze) {
-    algo.type = '';
+    algo.isMazeAlgo = false;
     algo.name = '';
   }
 

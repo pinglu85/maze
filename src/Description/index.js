@@ -39,12 +39,11 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
     const root = clearRootInnerHtml();
     const mazeCtx = mazeCanvasRef.current.ctx;
     const solutionCtx = solutionCanvasRef.current.ctx;
-    const algoType = state.algo.type;
-    const algoName = state.algo.name;
+    const { isMazeAlgo, name: algoName } = state.algo;
     const description = algoDescriptions.get(algoName);
     let node;
 
-    if (algoType === 'mazeAlgo') {
+    if (isMazeAlgo) {
       node = render(
         <MazeAlgoDescription
           algoName={algoName}

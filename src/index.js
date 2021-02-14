@@ -18,7 +18,7 @@ const initialAppState = {
     height: 0,
   },
   algo: {
-    type: '',
+    isMazeAlgo: false,
     name: '',
   },
   isMazeGenerating: false,
