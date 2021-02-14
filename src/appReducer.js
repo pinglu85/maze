@@ -9,6 +9,14 @@ const applyUpdateGridSize = (state, gridSize) => {
   const canvasWidth = Math.floor(numOfCols * CELL_SIZE) + offset;
   const canvasHeight = Math.floor(numOfRows * CELL_SIZE) + offset;
 
+  const algo = {
+    ...state.algo,
+  };
+  if (state.task !== CREATE_MAZE) {
+    algo.type = '';
+    algo.name = '';
+  }
+
   return {
     ...state,
     gridSize,
@@ -16,6 +24,7 @@ const applyUpdateGridSize = (state, gridSize) => {
       width: canvasWidth,
       height: canvasHeight,
     },
+    algo,
     isMazeGenerated: false,
     isSolutionFound: false,
     task: CREATE_MAZE,
