@@ -19,7 +19,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
       return;
     }
 
-    const root = resetRootInnerHtml();
+    const root = clearRootInnerHtml();
     const node = render(<BlankSlate task={state.task} />);
     root.appendChild(node);
   };
@@ -33,7 +33,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
       return;
     }
 
-    const root = resetRootInnerHtml();
+    const root = clearRootInnerHtml();
     const mazeCtx = mazeCanvasRef.current.ctx;
     const solutionCtx = solutionCanvasRef.current.ctx;
     const algoType = state.algo.type;
@@ -70,7 +70,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
     subscriber: renderDescriptionOnAlgoSelect,
   });
 
-  const resetRootInnerHtml = () => {
+  const clearRootInnerHtml = () => {
     const root = rootRef.current;
     root.innerHTML = '';
     return root;
