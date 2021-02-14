@@ -28,7 +28,7 @@ const Dropdown = ({ store, btnLabel, items }) => {
 
     store.dispatch(
       doSelectAlgo({
-        type: btnLabel === 'Maze Algorithms' ? 'mazeAlgo' : 'pathfindingAlgo',
+        isMazeAlgo: btnLabel === 'Maze Algorithms',
         name: newAlgo,
       })
     );

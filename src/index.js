@@ -6,7 +6,6 @@ import {
 } from './utils';
 import appReducer from './appReducer';
 import App from './App';
-import { CREATE_MAZE } from './constants/taskNames';
 import './index.css';
 
 const initialAppState = {
@@ -19,14 +18,14 @@ const initialAppState = {
     height: 0,
   },
   algo: {
-    type: '',
+    isMazeAlgo: false,
     name: '',
   },
   isMazeGenerating: false,
   isMazeGenerated: false,
   isSearchingForSolution: false,
   isSolutionFound: false,
-  task: CREATE_MAZE,
+  isTaskCreateMaze: true,
 };
 
 const store = createStore(appReducer, initialAppState);

@@ -1,5 +1,4 @@
 import { createElement, render, useRef } from '../utils';
-import { CREATE_MAZE } from '../constants/taskNames';
 import { taskChanged, gridSizeUpdated } from '../constants/actionTypes';
 import MazeAlgosDropdown from './MazeAlgosDropdown';
 import PathfindingAlgosDropdown from './PathfindingAlgosDropdown';
@@ -52,7 +51,7 @@ const Navbar = ({ store }) => {
     dropdownWrapper.innerHTML = '';
     let node;
 
-    if (state.task === CREATE_MAZE) {
+    if (state.isTaskCreateMaze) {
       node = render(<MazeAlgosDropdown store={store} />);
     } else {
       node = render(<PathfindingAlgosDropdown store={store} />);

@@ -1,10 +1,9 @@
 import { createElement, useRef } from '../../utils';
-import { CREATE_MAZE } from '../../constants/taskNames';
 import Button from '../../sharedComponents/Button';
 import helpIcon from '../../assets/help-circle.svg';
 import styles from './style.module.css';
 
-const BlankSlate = ({ task }) => {
+const BlankSlate = ({ isTaskCreateMaze }) => {
   const tooltipRef = useRef();
 
   const handleToggleTooltip = () => {
@@ -17,7 +16,7 @@ const BlankSlate = ({ task }) => {
 
   let children;
 
-  if (task === CREATE_MAZE) {
+  if (isTaskCreateMaze) {
     children = (
       <p>
         Pick a <b>maze algorithm</b> and generate a maze!
