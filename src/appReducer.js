@@ -1,6 +1,5 @@
 import * as actionTypes from './constants/actionTypes';
 import { CELL_SIZE, LINE_WIDTHS } from './constants/size';
-import { CREATE_MAZE } from './constants/taskNames';
 
 const applyUpdateGridSize = (state, gridSize) => {
   const { numOfRows, numOfCols } = gridSize;
@@ -12,7 +11,7 @@ const applyUpdateGridSize = (state, gridSize) => {
   const algo = {
     ...state.algo,
   };
-  if (state.task !== CREATE_MAZE) {
+  if (!state.isTaskCreateMaze) {
     algo.type = '';
     algo.name = '';
   }
@@ -27,7 +26,7 @@ const applyUpdateGridSize = (state, gridSize) => {
     algo,
     isMazeGenerated: false,
     isSolutionFound: false,
-    task: CREATE_MAZE,
+    isTaskCreateMaze: true,
   };
 };
 
@@ -62,12 +61,12 @@ const applyCompleteSolvingProcess = (state) => ({
   isSolutionFound: true,
 });
 
-const applyChangeTask = (state, task) => {
-  const isTaskChangedToCreateMaze = task === CREATE_MAZE;
+const applyChangeTask = (state) => {
+  const isNewTaskCreateMaze = !state.isTaskCreateMaze;
   return {
     ...state,
-    isMazeGenerated: isTaskChangedToCreateMaze ? false : state.isMazeGenerated,
-    task,
+    isMazeGenerated: isNewTaskCreateMaze ? false : state.isMazeGenerated,
+    isTaskCreateMaze: isNewTaskCreateMaze,
   };
 };
 

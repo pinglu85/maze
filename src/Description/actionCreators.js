@@ -16,7 +16,6 @@ export const doCompleteSolvingProcess = () => ({
   type: actionTypes.solvingProcessCompleted,
 });
 
-export const doChangeTask = (taskName) => ({
+export const doChangeTask = () => ({
   type: actionTypes.taskChanged,
-  payload: taskName,
 });

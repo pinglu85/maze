@@ -1,5 +1,4 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
-import { CREATE_MAZE } from '../../constants/taskNames';
 import { doChangeTask } from '../actionCreators';
 import DescriptionContent from '../../sharedComponents/DescriptionContent';
 import Button from '../../sharedComponents/Button';
@@ -18,7 +17,7 @@ const PathfindingAlgoDescription = (props) => {
         btnRef={newMazeBtnRef}
         style="ghost"
         handleClick={() => {
-          store.dispatch(doChangeTask(CREATE_MAZE));
+          store.dispatch(doChangeTask());
         }}
       >
         New Maze

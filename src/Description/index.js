@@ -4,7 +4,6 @@ import {
   taskChanged,
   gridSizeUpdated,
 } from '../constants/actionTypes';
-import { CREATE_MAZE } from '../constants/taskNames';
 import BlankSlate from './BlankSlate';
 import MazeAlgoDescription from './MazeAlgoDescription';
 import PathfindingAlgoDescription from './PathfindingAlgoDescription';
@@ -15,12 +14,16 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
   const rootRef = useRef();
 
   const renderBlankSlateOnTaskChange = (prevState, state) => {
-    if (!rootRef.current || prevState.task === state.task) {
+    const isTaskNotChanged =
+      prevState.isTaskCreateMaze && state.isTaskCreateMaze;
+    if (!rootRef.current || isTaskNotChanged) {
       return;
     }
 
     const root = clearRootInnerHtml();
-    const node = render(<BlankSlate task={state.task} />);
+    const node = render(
+      <BlankSlate isTaskCreateMaze={state.isTaskCreateMaze} />
+    );
     root.appendChild(node);
   };
   store.subscribe({
@@ -78,7 +81,7 @@ const Description = ({ store, mazeCanvasRef, solutionCanvasRef }) => {
 
   return (
     <div ref={rootRef} className={styles.Description}>
-      <BlankSlate task={CREATE_MAZE} />
+      <BlankSlate isTaskCreateMaze />
     </div>
   );
 };

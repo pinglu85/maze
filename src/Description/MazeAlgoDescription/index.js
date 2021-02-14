@@ -1,7 +1,6 @@
 import { createElement, useRef, toggleElementDisable } from '../../utils';
 import * as actionTypes from '../../constants/actionTypes';
 import { doChangeTask } from '../actionCreators';
-import { SOLVE_MAZE } from '../../constants/taskNames';
 import DescriptionContent from '../../sharedComponents/DescriptionContent';
 import Button from '../../sharedComponents/Button';
 import handleGenerateMaze from './handleGenerateMaze';
@@ -19,7 +18,7 @@ const MazeAlgoDescription = (props) => {
   const nextStepBtnRef = useRef();
 
   const handleNextStep = () => {
-    store.dispatch(doChangeTask(SOLVE_MAZE));
+    store.dispatch(doChangeTask());
   };
 
   const changeNextStepBtnDisableStateAndStyle = (_, state) => {
