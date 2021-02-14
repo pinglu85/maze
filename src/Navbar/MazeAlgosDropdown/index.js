@@ -1,5 +1,5 @@
 import { createElement } from '../../utils';
-import Dropdown from '../../sharedComponents/Dropdown';
+import Dropdown from '../Dropdown';
 import { MAZE_ALGO_IDS } from '../../constants/algoIds';
 
 const algoNames = [
