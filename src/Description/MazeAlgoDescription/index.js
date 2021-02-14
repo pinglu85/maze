@@ -22,7 +22,7 @@ const MazeAlgoDescription = (props) => {
     store.dispatch(doChangeTask(SOLVE_MAZE));
   };
 
-  const toggleNextStepBtnDisable = (_, state) => {
+  const changeNextStepBtnDisableStateAndStyle = (_, state) => {
     if (!nextStepBtnRef.current || !generateMazeBtnRef.current) {
       return;
     }
@@ -57,7 +57,7 @@ const MazeAlgoDescription = (props) => {
       actionTypes.mazeGenerationCompleted,
       actionTypes.mazeGenerationInitiated,
     ],
-    subscriber: toggleNextStepBtnDisable,
+    subscriber: changeNextStepBtnDisableStateAndStyle,
   });
 
   store.subscribe(toggleElementDisable(generateMazeBtnRef));
