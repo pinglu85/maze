@@ -63,8 +63,8 @@ class Cell {
     this.isInOpenList = false;
     this.isInClosedList = false;
     this.g = Infinity;
-    this.h = Infinity;
-    this.f = Infinity;
+    this.hScore = Infinity;
+    this.fScore = Infinity;
   }
 
   dropWall(dir) {
