@@ -1,5 +1,6 @@
 import startNodeSvg from '../../assets/start-node.svg';
 import targetNodeSvg from '../../assets/target-node.svg';
+import cellToBeExploredSvg from '../../assets/cellToBeExplored.svg';
 import shortestPathSvg from '../../assets/shortest-path.svg';
 import { GRID_COLORS } from '../../constants/colors';
 
@@ -50,7 +51,8 @@ export const pathfindingAlgoSharedIcons = [
   },
   {
     label: 'Cell to Be Explored',
-    bgColor: cellColors.pathfinding.toBeExplored,
+    bgColor: 'transparent',
+    svg: cellToBeExploredSvg,
     borderColor: cellColors.border,
   },
   {

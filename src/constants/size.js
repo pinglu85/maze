@@ -5,6 +5,7 @@ export const LINE_WIDTHS = {
   get halfOuterInteriorWallDiff() {
     return Math.floor((this.outerWall - this.interiorWall) / 2);
   },
+  innerStrokeWidth: 4,
 };
 export const MIN_GRID_SIZE = 3;
 export const MAX_GRID_SIZE = 40;
