@@ -55,16 +55,12 @@ class Cell {
   }
 
   resetStateForPathfinding() {
+    this.parent = null;
     this.distanceToEntrance = Infinity;
     this.isToBeExplored = false;
-    this.isExitColor = false;
-    this.opacity = 0;
-    this.parent = null;
-    this.isInOpenList = false;
-    this.isInClosedList = false;
-    this.g = Infinity;
     this.hScore = Infinity;
     this.fScore = Infinity;
+    this.isExitColor = false;
   }
 
   dropWall(dir) {
