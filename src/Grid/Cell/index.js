@@ -167,6 +167,19 @@ class Cell {
     ctx.fillStyle = this.#getCtxFillStyle(colors);
     ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
 
+    if (this.isToBeExplored) {
+      const { innerStrokeWidth } = lineWidths;
+      const halfInnerStrokeWidth = innerStrokeWidth / 2;
+      ctx.lineWidth = innerStrokeWidth;
+      ctx.strokeStyle = colors.pathfinding.toBeExplored;
+      ctx.strokeRect(
+        fillRectStartX + halfInnerStrokeWidth,
+        fillRectStartY + halfInnerStrokeWidth,
+        fillRectSize - innerStrokeWidth,
+        fillRectSize - innerStrokeWidth
+      );
+    }
+
     ctx.strokeStyle = colors.border;
 
     const startXWithLineWidthOffset = this.outerWalls.west
@@ -269,7 +282,7 @@ class Cell {
     }
 
     if (this.isToBeExplored) {
-      return colors.pathfinding.toBeExplored;
+      return colors.visited;
     }
 
     if (this.isExitColor) {
