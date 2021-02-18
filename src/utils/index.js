@@ -5,7 +5,11 @@ export { default as delay } from './delay';
 export { default as getOppositeDir } from './getOppositeDir';
 export { default as getRandomIndex } from './getRandomIndex';
 export { default as getStartOrEndIndexOfArray } from './getStartOrEndIndexOfArray';
-export { loadStartNodeSprites, loadTargetNodeSprites } from './loadSprites';
+export {
+  loadStartNodeSprites,
+  loadTargetNodeSprites,
+  loadWeightSprite,
+} from './loadSprites';
 export { default as render } from './render';
 export { default as setInitialGridSize } from './setInitialGridSize';
 export { shuffleArr, shuffleArrIndices } from './shuffleArray';

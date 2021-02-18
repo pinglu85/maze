@@ -1,5 +1,6 @@
 import startNodeSvg from '../../assets/start-node.svg';
 import targetNodeSvg from '../../assets/target-node.svg';
+import weightSvg from '../../assets/weight.svg';
 import cellToBeExploredSvg from '../../assets/cellToBeExplored.svg';
 import shortestPathSvg from '../../assets/shortest-path.svg';
 import { GRID_COLORS } from '../../constants/colors';
@@ -41,9 +42,7 @@ export const mazeAlgoSharedIcons = [
   },
 ];
 
-export const pathfindingAlgoSharedIcons = [
-  startNodeIcon,
-  targetNodeIcon,
+const pathfindingAlgoSharedIcons = [
   {
     label: 'Visited Cell',
     bgColor: cellColors.pathfinding.visited,
@@ -62,4 +61,22 @@ export const pathfindingAlgoSharedIcons = [
     svg: shortestPathSvg,
     iconSize: 'big',
   },
+];
+
+export const weightedPathfindingAlgosSharedIcons = [
+  startNodeIcon,
+  targetNodeIcon,
+  {
+    label: 'Weighted Cell',
+    bgColor: 'transparent',
+    borderColor: cellColors.border,
+    svg: weightSvg,
+  },
+  ...pathfindingAlgoSharedIcons,
+];
+
+export const unweightedPathfindingAlgosShareIcons = [
+  startNodeIcon,
+  targetNodeIcon,
+  ...pathfindingAlgoSharedIcons,
 ];

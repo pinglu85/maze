@@ -43,6 +43,7 @@ class Cell {
 
     // State for pathfinding algorithms
     this.parent = null;
+    this.weight = 1;
     this.distanceToEntrance = Infinity;
     this.isToBeExplored = false;
 
@@ -160,12 +161,19 @@ class Cell {
   draw(ctx, cellSize, colors, lineWidths) {
     const halfInteriorWallLineWidth = Math.floor(lineWidths.interiorWall / 2);
 
-    const fillRectStartX = this.startX + halfInteriorWallLineWidth;
-    const fillRectStartY = this.startY + halfInteriorWallLineWidth;
-    const fillRectSize = cellSize - lineWidths.interiorWall;
+    if (!this.fillRectStartX) {
+      this.fillRectStartX = this.startX + halfInteriorWallLineWidth;
+      this.fillRectStartY = this.startY + halfInteriorWallLineWidth;
+      this.fillRectSize = cellSize - lineWidths.interiorWall;
+    }
 
     ctx.fillStyle = this.#getCtxFillStyle(colors);
-    ctx.fillRect(fillRectStartX, fillRectStartY, fillRectSize, fillRectSize);
+    ctx.fillRect(
+      this.fillRectStartX,
+      this.fillRectStartY,
+      this.fillRectSize,
+      this.fillRectSize
+    );
 
     if (this.isToBeExplored) {
       const { innerStrokeWidth } = lineWidths;
@@ -173,10 +181,10 @@ class Cell {
       ctx.lineWidth = innerStrokeWidth;
       ctx.strokeStyle = colors.pathfinding.toBeExplored;
       ctx.strokeRect(
-        fillRectStartX + halfInnerStrokeWidth,
-        fillRectStartY + halfInnerStrokeWidth,
-        fillRectSize - innerStrokeWidth,
-        fillRectSize - innerStrokeWidth
+        this.fillRectStartX + halfInnerStrokeWidth,
+        this.fillRectStartY + halfInnerStrokeWidth,
+        this.fillRectSize - innerStrokeWidth,
+        this.fillRectSize - innerStrokeWidth
       );
     }
 
@@ -257,6 +265,17 @@ class Cell {
       ctx.moveTo(startX, startYWithLineWidthOffset);
       ctx.lineTo(startX, endYWithLineWidthOffset);
       ctx.stroke();
+    }
+  }
+
+  clearFillRect(ctx) {
+    if (this.fillRectStartX) {
+      ctx.clearRect(
+        this.fillRectStartX,
+        this.fillRectStartY,
+        this.fillRectSize,
+        this.fillRectSize
+      );
     }
   }
 

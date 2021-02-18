@@ -31,8 +31,12 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
         continue;
       }
 
-      const newDistanceToEntrance = cell.distanceToEntrance + 1;
-      const newHScore = computeManhattanDistance(neighbor, exitCell);
+      const newDistanceToEntrance = cell.distanceToEntrance + neighbor.weight;
+      const newHScore = computeManhattanDistance(
+        neighbor,
+        exitCell,
+        neighbor.weight
+      );
       const newFScore = newDistanceToEntrance + newHScore;
 
       if (newDistanceToEntrance < neighbor.distanceToEntrance) {

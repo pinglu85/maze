@@ -14,6 +14,11 @@ function loadTargetNodeSprites(...options) {
   });
 }
 
+function loadWeightSprite() {
+  const sprite = sprites.weight;
+  return loadSprite(sprite);
+}
+
 function loadSprite(src) {
   const img = new Image();
   img.src = src;
@@ -30,4 +35,4 @@ function importAll(r) {
   return sprites;
 }
 
-export { loadStartNodeSprites, loadTargetNodeSprites };
+export { loadStartNodeSprites, loadTargetNodeSprites, loadWeightSprite };

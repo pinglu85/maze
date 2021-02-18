@@ -32,7 +32,7 @@ async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
         continue;
       }
 
-      const newDistanceToEntrance = cell.distanceToEntrance + 1;
+      const newDistanceToEntrance = cell.distanceToEntrance + neighbor.weight;
       if (newDistanceToEntrance < neighbor.distanceToEntrance) {
         neighbor.parent = cell;
         neighbor.distanceToEntrance = newDistanceToEntrance;

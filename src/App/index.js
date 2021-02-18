@@ -9,6 +9,10 @@ const App = ({ store }) => {
     node: null,
     ctx: null,
   });
+  const weightNodesCanvasRef = useRef({
+    node: null,
+    ctx: null,
+  });
   const solutionCanvasRef = useRef({
     node: null,
     ctx: null,
@@ -28,8 +32,9 @@ const App = ({ store }) => {
         <div className={styles.canvasesWrapper}>
           <Canvases
             mazeCanvasRef={mazeCanvasRef}
+            weightNodesCanvasRef={weightNodesCanvasRef}
             solutionCanvasRef={solutionCanvasRef}
-            subscribe={store.subscribe}
+            store={store}
           />
         </div>
       </main>

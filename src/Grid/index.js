@@ -93,6 +93,22 @@ class Grid {
     }
   };
 
+  toggleWeightedCell(rowIndex, colIndex) {
+    const cell = this.content[rowIndex][colIndex];
+    if (cell.isEntrance || cell.isExit) {
+      return;
+    }
+
+    if (cell.weight === 1) {
+      cell.resetStateForPathfinding();
+      cell.weight = 320;
+    } else {
+      cell.weight = 1;
+    }
+
+    return cell;
+  }
+
   #generateMazeEntryAndExit() {
     const numOfRows = this.content.length;
     const numOfCols = this.content[0].length;
