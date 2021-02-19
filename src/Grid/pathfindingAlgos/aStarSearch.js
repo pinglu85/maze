@@ -3,7 +3,14 @@ import PriorityQueue from './utils/PriorityQueue';
 import { delay } from '../../utils';
 
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
-  const pq = new PriorityQueue((cellA, cellB) => cellA.fScore - cellB.fScore);
+  const pq = new PriorityQueue((cellA, cellB) => {
+    if (cellA.fScore !== cellB.fScore) {
+      return cellA.fScore - cellB.fScore;
+    }
+
+    return cellA.hScore - cellB.hScore;
+  });
+
   pq.insert(entranceCell);
   entranceCell.isToBeExplored = true;
   entranceCell.distanceToEntrance = 0;
@@ -23,7 +30,6 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
     }
 
     visitedCells.add(cell);
-
     const connectedNeighbors = cell.getConnectedNeighbors(grid);
 
     for (const neighbor of connectedNeighbors) {
@@ -32,11 +38,7 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
       }
 
       const newDistanceToEntrance = cell.distanceToEntrance + neighbor.weight;
-      const newHScore = computeManhattanDistance(
-        neighbor,
-        exitCell,
-        neighbor.weight
-      );
+      const newHScore = computeManhattanDistance(neighbor, exitCell);
       const newFScore = newDistanceToEntrance + newHScore;
 
       if (newDistanceToEntrance < neighbor.distanceToEntrance) {
@@ -57,8 +59,8 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
 
 function computeManhattanDistance(currCell, targetCell) {
   return (
-    Math.abs(currCell.centerX - targetCell.centerX) +
-    Math.abs(currCell.centerY - targetCell.centerY)
+    Math.abs(currCell.rowIndex - targetCell.rowIndex) +
+    Math.abs(currCell.colIndex - targetCell.colIndex)
   );
 }
 
