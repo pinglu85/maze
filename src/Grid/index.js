@@ -101,7 +101,7 @@ class Grid {
 
     if (cell.weight === 1) {
       cell.resetStateForPathfinding();
-      cell.weight = 320;
+      cell.weight = 20;
     } else {
       cell.weight = 1;
     }
