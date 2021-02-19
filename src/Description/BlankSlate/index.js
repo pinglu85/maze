@@ -30,7 +30,7 @@ const BlankSlate = ({ isTaskCreateMaze }) => {
         </p>
         <div className={styles.weightInfo}>
           <p>
-            Click on the maze to <b>add weights</b>.
+            Click on the maze to <b>add a weight</b>.
           </p>
           <Button style="smallIcon helpIcon" handleClick={handleToggleTooltip}>
             {helpIcon}
@@ -38,6 +38,7 @@ const BlankSlate = ({ isTaskCreateMaze }) => {
           </Button>
           <Tooltip tooltipRef={tooltipRef} handleClick={handleToggleTooltip} />
         </div>
+        <p>Click again to delete a weight.</p>
       </>
     );
   }
