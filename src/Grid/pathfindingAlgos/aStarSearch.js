@@ -11,10 +11,11 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
     return cellA.hScore - cellB.hScore;
   });
 
-  pq.insert(entranceCell);
   entranceCell.isToBeExplored = true;
   entranceCell.distanceToEntrance = 0;
-  entranceCell.fScore = 0;
+  entranceCell.hScore = computeManhattanDistance(entranceCell, exitCell);
+  entranceCell.fScore = entranceCell.distanceToEntrance + entranceCell.hScore;
+  pq.insert(entranceCell);
 
   const visitedCells = new Set();
 
@@ -27,6 +28,10 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
       cell.isExitColor = true;
       const pathCoordinates = reconstructPath(exitCell);
       return Promise.resolve(pathCoordinates);
+    }
+
+    if (visitedCells.has(cell)) {
+      continue;
     }
 
     visitedCells.add(cell);
@@ -46,10 +51,8 @@ async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
         neighbor.hScore = newHScore;
         neighbor.fScore = newFScore;
         neighbor.parent = cell;
-        if (!neighbor.isToBeExplored) {
-          pq.insert(neighbor);
-          neighbor.isToBeExplored = true;
-        }
+        neighbor.isToBeExplored = true;
+        pq.insert(neighbor);
       }
     }
   }
