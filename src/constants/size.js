@@ -17,4 +17,4 @@ export const DEFAULT_GRID_SIZE = {
 };
 
 export const SPRITE_SIZE = 28;
-export const FOOTPRINT_RADIUS = 5;
+export const FOOTPRINT_RADIUS = 6;
