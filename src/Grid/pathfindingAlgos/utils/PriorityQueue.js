@@ -2,10 +2,11 @@ import { swapItemsInArray } from '../../../utils';
 
 class PriorityQueue {
   #elements;
+  #compare;
 
   constructor(compare) {
-    this.compare = compare;
     this.#elements = [];
+    this.#compare = compare;
   }
 
   insert(element) {
@@ -46,7 +47,7 @@ class PriorityQueue {
       return;
     }
 
-    const comparison = this.compare(
+    const comparison = this.#compare(
       this.#elements[index],
       this.#elements[parentIndex]
     );
@@ -63,7 +64,7 @@ class PriorityQueue {
     const heapSize = this.size();
 
     if (leftChildIndex < heapSize) {
-      const comparisonWithLeftChild = this.compare(
+      const comparisonWithLeftChild = this.#compare(
         this.#elements[swappableIndex],
         this.#elements[leftChildIndex]
       );
@@ -74,7 +75,7 @@ class PriorityQueue {
     }
 
     if (rightChildIndex < heapSize) {
-      const comparisonWithRightChild = this.compare(
+      const comparisonWithRightChild = this.#compare(
         this.#elements[swappableIndex],
         this.#elements[rightChildIndex]
       );
