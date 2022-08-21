@@ -11,7 +11,7 @@ class PriorityQueue {
 
   insert(element) {
     this.#elements.push(element);
-    this.#heapifyUp(this.#elements.length - 1);
+    this.#siftUp(this.#elements.length - 1);
   }
 
   pull() {
@@ -29,7 +29,7 @@ class PriorityQueue {
     return this.#elements.length;
   }
 
-  #heapifyUp(idx) {
+  #siftUp(idx) {
     let parentIdx = PriorityQueue.parent(idx);
 
     while (
