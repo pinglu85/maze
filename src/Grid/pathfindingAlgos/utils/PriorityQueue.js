@@ -1,15 +1,15 @@
 import { swapItemsInArray } from '../../../utils';
 
 class PriorityQueue {
-  #heap;
+  #elements;
 
   constructor(compare) {
     this.compare = compare;
-    this.#heap = [];
+    this.#elements = [];
   }
 
   insert(element) {
-    this.#heap.push(element);
+    this.#elements.push(element);
 
     const heapSize = this.size();
     if (heapSize === 1) {
@@ -22,21 +22,21 @@ class PriorityQueue {
   pull() {
     const heapSize = this.size();
     if (heapSize <= 1) {
-      return this.#heap.pop();
+      return this.#elements.pop();
     }
 
-    swapItemsInArray(this.#heap, 0, heapSize - 1);
-    const head = this.#heap.pop();
+    swapItemsInArray(this.#elements, 0, heapSize - 1);
+    const head = this.#elements.pop();
     this.#heapifyDown(0);
     return head;
   }
 
   peek() {
-    return this.#heap[0];
+    return this.#elements[0];
   }
 
   size() {
-    return this.#heap.length;
+    return this.#elements.length;
   }
 
   #heapifyUp(index) {
@@ -46,9 +46,12 @@ class PriorityQueue {
       return;
     }
 
-    const comparison = this.compare(this.#heap[index], this.#heap[parentIndex]);
+    const comparison = this.compare(
+      this.#elements[index],
+      this.#elements[parentIndex]
+    );
     if (comparison < 0) {
-      swapItemsInArray(this.#heap, parentIndex, index);
+      swapItemsInArray(this.#elements, parentIndex, index);
       this.#heapifyUp(parentIndex);
     }
   }
@@ -61,8 +64,8 @@ class PriorityQueue {
 
     if (leftChildIndex < heapSize) {
       const comparisonWithLeftChild = this.compare(
-        this.#heap[swappableIndex],
-        this.#heap[leftChildIndex]
+        this.#elements[swappableIndex],
+        this.#elements[leftChildIndex]
       );
 
       if (comparisonWithLeftChild > 0) {
@@ -72,8 +75,8 @@ class PriorityQueue {
 
     if (rightChildIndex < heapSize) {
       const comparisonWithRightChild = this.compare(
-        this.#heap[swappableIndex],
-        this.#heap[rightChildIndex]
+        this.#elements[swappableIndex],
+        this.#elements[rightChildIndex]
       );
 
       if (comparisonWithRightChild > 0) {
@@ -82,7 +85,7 @@ class PriorityQueue {
     }
 
     if (swappableIndex !== index) {
-      swapItemsInArray(this.#heap, swappableIndex, index);
+      swapItemsInArray(this.#elements, swappableIndex, index);
       this.#heapifyDown(swappableIndex);
     }
   }
