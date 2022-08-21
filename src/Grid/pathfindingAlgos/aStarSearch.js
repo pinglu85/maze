@@ -5,10 +5,10 @@ import { delay } from '../../utils';
 async function asyncAStarSearch(grid, entranceCell, exitCell, wait = 50) {
   const pq = new PriorityQueue((cellA, cellB) => {
     if (cellA.fScore !== cellB.fScore) {
-      return cellA.fScore - cellB.fScore;
+      return cellA.fScore < cellB.fScore;
     }
 
-    return cellA.hScore - cellB.hScore;
+    return cellA.hScore < cellB.hScore;
   });
 
   entranceCell.isToBeExplored = true;

@@ -4,7 +4,7 @@ import { delay } from '../../utils';
 
 async function asyncDijkstrasAlgo(grid, entranceCell, exitCell, wait = 50) {
   const pq = new PriorityQueue(
-    (cellA, cellB) => cellA.distanceToEntrance - cellB.distanceToEntrance
+    (cellA, cellB) => cellA.distanceToEntrance < cellB.distanceToEntrance
   );
   pq.insert(entranceCell);
   entranceCell.isToBeExplored = true;
