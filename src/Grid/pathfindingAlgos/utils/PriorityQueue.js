@@ -29,60 +29,60 @@ class PriorityQueue {
     return this.#elements.length;
   }
 
-  #siftUp(idx) {
-    let parentIdx = PriorityQueue.parent(idx);
+  #siftUp(index) {
+    let parentIndex = PriorityQueue.parent(index);
 
     while (
-      parentIdx >= 0 &&
-      this.#compare(this.#elements[idx], this.#elements[parentIdx])
+      parentIndex >= 0 &&
+      this.#compare(this.#elements[index], this.#elements[parentIndex])
     ) {
-      swapItemsInArray(this.#elements, parentIdx, idx);
-      idx = parentIdx;
-      parentIdx = PriorityQueue.parent(idx);
+      swapItemsInArray(this.#elements, parentIndex, index);
+      index = parentIndex;
+      parentIndex = PriorityQueue.parent(index);
     }
   }
 
-  #siftDown(idx) {
-    const leftChildIdx = PriorityQueue.left(idx);
-    const rightChildIdx = PriorityQueue.right(idx);
-    let higherPriorityElementIdx = idx;
+  #siftDown(index) {
+    const leftChildIndex = PriorityQueue.left(index);
+    const rightChildIndex = PriorityQueue.right(index);
+    let higherPriorityElementIdx = index;
 
     if (
-      leftChildIdx < this.#elements.length &&
+      leftChildIndex < this.#elements.length &&
       this.#compare(
-        this.#elements[leftChildIdx],
+        this.#elements[leftChildIndex],
         this.#elements[higherPriorityElementIdx]
       )
     ) {
-      higherPriorityElementIdx = leftChildIdx;
+      higherPriorityElementIdx = leftChildIndex;
     }
 
     if (
-      rightChildIdx < this.#elements.length &&
+      rightChildIndex < this.#elements.length &&
       this.#compare(
-        this.#elements[rightChildIdx],
+        this.#elements[rightChildIndex],
         this.#elements[higherPriorityElementIdx]
       )
     ) {
-      higherPriorityElementIdx = rightChildIdx;
+      higherPriorityElementIdx = rightChildIndex;
     }
 
-    if (higherPriorityElementIdx !== idx) {
-      swapItemsInArray(this.#elements, higherPriorityElementIdx, idx);
+    if (higherPriorityElementIdx !== index) {
+      swapItemsInArray(this.#elements, higherPriorityElementIdx, index);
       this.#siftDown(higherPriorityElementIdx);
     }
   }
 
-  static parent(idx) {
-    return Math.floor((idx - 1) / 2);
+  static parent(index) {
+    return Math.floor((index - 1) / 2);
   }
 
-  static left(idx) {
-    return idx * 2 + 1;
+  static left(index) {
+    return index * 2 + 1;
   }
 
-  static right(idx) {
-    return idx * 2 + 2;
+  static right(index) {
+    return index * 2 + 2;
   }
 }
 
