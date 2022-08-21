@@ -22,11 +22,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Deploy
+    - name: Build
       run: |
-        git config --global user.email "luping8576@hotmail.com"
-        git config --global user.name "pinglu85"
         npm install
-        npm run deploy --if-present
+        npm run build
+        
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.4.0
+      with: 
+        folder: dist
+
         
 
