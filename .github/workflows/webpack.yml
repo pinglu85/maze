@@ -25,7 +25,7 @@ jobs:
     - name: Deploy
       run: |
         git config --global user.email "luping8576@hotmail.com"
-        git config --global user.name "Ping Lu"
+        git config --global user.name "pinglu85"
         npm install
         npm run deploy --if-present
         
