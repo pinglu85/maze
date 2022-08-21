@@ -8,7 +8,9 @@ module.exports = {
   devtool: 'eval-cheap-module-source-map',
   target: 'web',
   devServer: {
-    contentBase: './dist',
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
     host: '0.0.0.0',
   },
   plugins: [
