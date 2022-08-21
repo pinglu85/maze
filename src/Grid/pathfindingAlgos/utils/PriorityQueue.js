@@ -17,7 +17,7 @@ class PriorityQueue {
   pull() {
     swapItemsInArray(this.#elements, 0, this.#elements.length - 1);
     const removedElement = this.#elements.pop();
-    this.#heapifyDown(0);
+    this.#siftDown(0);
     return removedElement;
   }
 
@@ -42,7 +42,7 @@ class PriorityQueue {
     }
   }
 
-  #heapifyDown(idx) {
+  #siftDown(idx) {
     const leftChildIdx = PriorityQueue.left(idx);
     const rightChildIdx = PriorityQueue.right(idx);
     let higherPriorityElementIdx = idx;
@@ -69,7 +69,7 @@ class PriorityQueue {
 
     if (higherPriorityElementIdx !== idx) {
       swapItemsInArray(this.#elements, higherPriorityElementIdx, idx);
-      this.#heapifyDown(higherPriorityElementIdx);
+      this.#siftDown(higherPriorityElementIdx);
     }
   }
 
