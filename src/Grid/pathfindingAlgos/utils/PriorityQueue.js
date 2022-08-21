@@ -2,33 +2,23 @@ import { swapItemsInArray } from '../../../utils';
 
 class PriorityQueue {
   #elements;
+  #compare;
 
   constructor(compare) {
-    this.compare = compare;
     this.#elements = [];
+    this.#compare = compare;
   }
 
   insert(element) {
     this.#elements.push(element);
-
-    const heapSize = this.size();
-    if (heapSize === 1) {
-      return;
-    }
-
-    this.#heapifyUp(heapSize - 1);
+    this.#siftUp(this.#elements.length - 1);
   }
 
   pull() {
-    const heapSize = this.size();
-    if (heapSize <= 1) {
-      return this.#elements.pop();
-    }
-
-    swapItemsInArray(this.#elements, 0, heapSize - 1);
-    const head = this.#elements.pop();
-    this.#heapifyDown(0);
-    return head;
+    swapItemsInArray(this.#elements, 0, this.#elements.length - 1);
+    const removedElement = this.#elements.pop();
+    this.#siftDown(0);
+    return removedElement;
   }
 
   peek() {
@@ -39,55 +29,60 @@ class PriorityQueue {
     return this.#elements.length;
   }
 
-  #heapifyUp(index) {
-    const parentIndex = Math.floor((index - 1) / 2);
+  #siftUp(index) {
+    let parentIndex = PriorityQueue.parent(index);
 
-    if (parentIndex < 0) {
-      return;
-    }
-
-    const comparison = this.compare(
-      this.#elements[index],
-      this.#elements[parentIndex]
-    );
-    if (comparison < 0) {
+    while (
+      parentIndex >= 0 &&
+      this.#compare(this.#elements[index], this.#elements[parentIndex])
+    ) {
       swapItemsInArray(this.#elements, parentIndex, index);
-      this.#heapifyUp(parentIndex);
+      index = parentIndex;
+      parentIndex = PriorityQueue.parent(index);
     }
   }
 
-  #heapifyDown(index) {
-    const leftChildIndex = index * 2 + 1;
-    const rightChildIndex = index * 2 + 2;
-    let swappableIndex = index;
-    const heapSize = this.size();
+  #siftDown(index) {
+    const leftChildIndex = PriorityQueue.left(index);
+    const rightChildIndex = PriorityQueue.right(index);
+    let higherPriorityElementIdx = index;
 
-    if (leftChildIndex < heapSize) {
-      const comparisonWithLeftChild = this.compare(
-        this.#elements[swappableIndex],
-        this.#elements[leftChildIndex]
-      );
-
-      if (comparisonWithLeftChild > 0) {
-        swappableIndex = leftChildIndex;
-      }
+    if (
+      leftChildIndex < this.#elements.length &&
+      this.#compare(
+        this.#elements[leftChildIndex],
+        this.#elements[higherPriorityElementIdx]
+      )
+    ) {
+      higherPriorityElementIdx = leftChildIndex;
     }
 
-    if (rightChildIndex < heapSize) {
-      const comparisonWithRightChild = this.compare(
-        this.#elements[swappableIndex],
-        this.#elements[rightChildIndex]
-      );
-
-      if (comparisonWithRightChild > 0) {
-        swappableIndex = rightChildIndex;
-      }
+    if (
+      rightChildIndex < this.#elements.length &&
+      this.#compare(
+        this.#elements[rightChildIndex],
+        this.#elements[higherPriorityElementIdx]
+      )
+    ) {
+      higherPriorityElementIdx = rightChildIndex;
     }
 
-    if (swappableIndex !== index) {
-      swapItemsInArray(this.#elements, swappableIndex, index);
-      this.#heapifyDown(swappableIndex);
+    if (higherPriorityElementIdx !== index) {
+      swapItemsInArray(this.#elements, higherPriorityElementIdx, index);
+      this.#siftDown(higherPriorityElementIdx);
     }
+  }
+
+  static parent(index) {
+    return Math.floor((index - 1) / 2);
+  }
+
+  static left(index) {
+    return index * 2 + 1;
+  }
+
+  static right(index) {
+    return index * 2 + 2;
   }
 }
 
