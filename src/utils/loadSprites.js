@@ -1,22 +1,24 @@
-const sprites = importAll(require.context('../assets', false, /\.png$/));
+const spriteNameToSrc = importAllSprites(
+  require.context("../assets", false, /\.png$/),
+);
 
 function loadStartNodeSprites(numOfSprites) {
   return Array.from(new Array(numOfSprites), (_, i) => {
-    const sprite = sprites[`start-node-${i}`];
-    return loadSprite(sprite);
+    const src = spriteNameToSrc[`start-node-${i}`];
+    return loadSprite(src);
   });
 }
 
 function loadTargetNodeSprites(...options) {
   return options.map((option) => {
-    const sprite = sprites[`target-node-${option}`];
-    return loadSprite(sprite);
+    const src = spriteNameToSrc[`target-node-${option}`];
+    return loadSprite(src);
   });
 }
 
 function loadWeightSprite() {
-  const sprite = sprites.weight;
-  return loadSprite(sprite);
+  const src = spriteNameToSrc.weight;
+  return loadSprite(src);
 }
 
 function loadSprite(src) {
@@ -26,13 +28,14 @@ function loadSprite(src) {
 }
 
 // Import all images from a directory using webpack
-function importAll(r) {
-  let sprites = {};
-  r.keys().forEach((item) => {
-    const key = item.replace(/\.\/(.+)\.png/, '$1');
-    sprites[key] = r(item);
-  });
-  return sprites;
+function importAllSprites(requireContext) {
+  const spriteNameToSrc = {};
+
+  for (const key of requireContext.keys()) {
+    const spriteName = key.replace(/\.\/(.+)\.png/, "$1");
+    spriteNameToSrc[spriteName] = requireContext(key);
+  }
+  return spriteNameToSrc;
 }
 
 export { loadStartNodeSprites, loadTargetNodeSprites, loadWeightSprite };
