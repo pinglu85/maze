@@ -1,9 +1,11 @@
 function createElement(type, props, ...children) {
+  let _children = children;
+
   if (children.some((child) => Array.isArray(child))) {
-    children = children.flat();
+    _children = children.flat();
   }
 
-  if (typeof type === 'function') {
+  if (typeof type === "function") {
     return type({ children, ...props });
   }
 
@@ -11,7 +13,7 @@ function createElement(type, props, ...children) {
     type,
     props: {
       ...props,
-      children: children,
+      children: _children,
     },
   };
 }
