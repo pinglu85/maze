@@ -2,7 +2,7 @@
 
 This is a web application built with JavaScript, JSX and HTML5 Canvas API, designed to visualize maze generation and pathfinding algorithms. I built this application out of fascination with these algorithms and as an opportunity to improve my frontend development skills, deepen my understanding of frontend concepts, and experiment with custom implementations. You can access it here: https://pinglu85.github.io/maze/
 
-## Key Features
+## Implementation Details
 
 - Canvas-Based Rendering: Utilizes the HTML5 Canvas API to visualize both maze generation and pathfinding algorithms.
 
